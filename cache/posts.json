@@ -1,0 +1,74 @@
+[
+  {
+    "slug": ".DS_Store"
+  },
+  {
+    "slug": "batman",
+    "id": "81dbefe4-2653-4f91-9068-42b26449919b",
+    "type": "blog",
+    "author": "Oliver Wolfson",
+    "title": "Batman",
+    "date": "2023-12-15",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+    "categories": [
+      "Development"
+    ],
+    "tags": [
+      "blog"
+    ],
+    "image": "/images/default.jpg",
+    "path": "batman.mdx"
+  },
+  {
+    "slug": "superman",
+    "id": "3d9bcac4-49e8-4ee5-8be0-bc49e3d39b6f",
+    "type": "blog",
+    "author": "Oliver Wolfson",
+    "title": "Superman",
+    "date": "2023-12-15",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "categories": [
+      "Development"
+    ],
+    "tags": [
+      "react",
+      "javascript"
+    ],
+    "image": "/images/default.jpg",
+    "path": "superman.mdx"
+  },
+  {
+    "slug": "the-green-goblin",
+    "id": "31a3ddbf-5253-424b-ad66-f102d6cab98b",
+    "type": "blog",
+    "author": "Oliver Wolfson",
+    "title": "The Green Goblin",
+    "date": "2023-12-17",
+    "description": "A test of markdown",
+    "categories": [
+      "Development"
+    ],
+    "tags": [
+      "markdown"
+    ],
+    "image": "/images/default.jpg",
+    "path": "the-green-goblin.mdx"
+  },
+  {
+    "slug": "wonder-woman",
+    "id": "5018c2d9-98fa-441f-bf49-8d1c35a71579",
+    "type": "blog",
+    "author": "Oliver Wolfson",
+    "title": "Wonder Woman",
+    "date": "2023-12-15",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "categories": [
+      "Development"
+    ],
+    "tags": [
+      "superheroes"
+    ],
+    "image": "/images/default.jpg",
+    "path": "wonder-woman.mdx"
+  }
+]
