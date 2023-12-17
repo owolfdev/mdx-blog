@@ -35,13 +35,13 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <SiteHeader />
+            {/* <SiteHeader /> */}
             <main className="flex flex-col items-center  min-h-[calc(100vh-200px)] pt-12 pb-12 px-6 sm:px-0 sm:pt-20 sm:pb-20">
-              <div className="text-lg sm:text-base max-w-xl w-full mx-auto">
+              {/* <div className="text-lg sm:text-base max-w-xl w-full mx-auto">
                 {children}
-              </div>
+              </div> */}
             </main>
-            <Footer />
+            {/* <Footer /> */}
           </ThemeProvider>
         </body>
       </html>
