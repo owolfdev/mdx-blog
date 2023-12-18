@@ -63,7 +63,11 @@ const NavComponent: React.FC = () => {
         </nav> */}
       </div>
 
-      <button onClick={toggleMenu} className="sm:hidden">
+      <button
+        onClick={toggleMenu}
+        className="sm:hidden"
+        aria-label="Toggle Menu"
+      >
         <HamburgerMenuIcon className="w-[32px] h-[32px]" />
       </button>
 
