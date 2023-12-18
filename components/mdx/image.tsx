@@ -1,10 +1,28 @@
-import React from "react";
 import Image from "next/image";
 
-const ImageComponent = ({ imgSrc, alt }: { imgSrc: string; alt: string }) => {
+const ImageComponent = ({
+  imgSrc,
+  alt,
+  layout = "responsive",
+  width = 700,
+  height = 400,
+}: {
+  imgSrc: string;
+  alt: string;
+  layout?: "fill" | "responsive";
+  width?: number;
+  height?: number;
+}) => {
   return (
-    <div className="">
-      <Image src={imgSrc} alt={alt} width="700" height="0" />
+    <div className="relative" style={{ width: "100%", height: "auto" }}>
+      <Image
+        src={imgSrc}
+        alt={alt}
+        layout={layout}
+        width={width}
+        height={height}
+        objectFit="cover"
+      />
     </div>
   );
 };

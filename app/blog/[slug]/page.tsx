@@ -7,17 +7,9 @@ import Code from "@/components/mdx/code-component/code";
 import { getPost } from "@/lib/posts-utils.mjs";
 import Image from "next/image";
 import ImageComponent from "@/components/mdx/image";
-
 import { Button } from "@/components/ui/button";
-
 import Link from "next/link";
-
-// import { notFound } from "next/navigation";
-
 import type { Metadata, ResolvingMetadata } from "next";
-
-// import { Edit } from "lucide-react";
-// import EditInVSCode from "@/components/post/edit-in-vs-code";
 
 type Props = {
   params: { slug: string };
@@ -68,17 +60,7 @@ export default async function BlogPage({
         <div>{props.frontMatter.date}</div>
         <div>By: {props.frontMatter.author}</div>
       </div>
-      <div className="flex gap-4">
-        {/* <div>
-          <Link href={`/blog/edit/${slug}`}>
-            <Button>Edit Post</Button>
-          </Link>
-        </div> */}
-
-        {/* <div>
-          <EditInVSCode file={props.frontMatter.path as string} />
-        </div> */}
-      </div>
+      <div className="flex gap-4"></div>
       <article className="mdx">
         <MDXRemote source={props.content} components={components} />
       </article>
