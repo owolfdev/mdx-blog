@@ -1,0 +1,47 @@
+---
+id: "31a3ddbf-5253-424b-ad66-f102d6cab98b"
+type: "blog"
+author: "Oliver Wolfson"
+title: "The Green Goblin"
+date: "2023-12-17"
+description: "A test of markdown"
+categories:
+  - Development
+tags:
+  - markdown
+image: "/images/default.jpg"
+path: "the-green-goblin.mdx"
+---
+
+<ImageComponent
+  alt="the green goblin"
+  imgSrc="https://images.unsplash.com/photo-1651202197829-2ee53f810118?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+/>
+
+````javascript
+const BlogPostGrid = ({ blogs, trimDescription }: BlogPostGridProps) => {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {blogs.map((blog) => (
+        <div key={blog.slug} className="border p-3 rounded-xl cursor-pointer">
+          <Link href={`/blog/${blog.slug}`}>
+            <div className=" flex flex-col gap-4">
+              <div>
+                {" "}
+                <h3 className="text-2xl font-bold">{blog.title}</h3>
+                <div className="text-sm">{blog.formattedDate}</div>
+              </div>
+              <div className="w-full aspect-video overflow-hidden">
+                <AbstractArt />
+              </div>
+              <div title={blog.description}>
+                {trimDescription(blog.description)}
+              </div>
+            </div>
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
+};```
+````
