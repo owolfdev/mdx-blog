@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { buttonVariants, Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/theme-toggle";
-import AuthComponent from "@/components/nav/auth-component";
 import NavComponent from "./nav-component";
 
 export function SiteHeader() {
@@ -13,7 +12,6 @@ export function SiteHeader() {
         <NavComponent />
         <div className="flex items-center justify-end flex-1 space-x-4">
           <div className="flex gap-4 items-center">
-            <AuthComponent />
             <ModeToggle />
           </div>
         </div>

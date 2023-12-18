@@ -15,7 +15,7 @@ import Link from "next/link";
 // import { notFound } from "next/navigation";
 
 import type { Metadata, ResolvingMetadata } from "next";
-import EditPostButton from "./edit-post-button";
+
 // import { Edit } from "lucide-react";
 // import EditInVSCode from "@/components/post/edit-in-vs-code";
 
@@ -74,7 +74,7 @@ export default async function BlogPage({
             <Button>Edit Post</Button>
           </Link>
         </div> */}
-        <EditPostButton slug={slug} author={props.frontMatter.author} />
+
         {/* <div>
           <EditInVSCode file={props.frontMatter.path as string} />
         </div> */}
