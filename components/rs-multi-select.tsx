@@ -5,15 +5,9 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import Select from "react-select";
 
-let categories = [
-  "Programming",
-  "Development",
-  "Industry",
-  "Project",
-  "Productivity",
-  "Tools",
-  "Opinion",
-];
+import categoryData from "@/data/settings/categories.json";
+
+const categories: string[] = categoryData.categories;
 
 interface CustomStyles {
   option: (defaultStyles: any, state: any) => any;

@@ -12,6 +12,7 @@ import Link from "next/link";
 import type { Metadata, ResolvingMetadata } from "next";
 import BackButton from "./back-button";
 import { ArrowLeft } from "lucide-react";
+import EditPostButton from "./edit-post-button";
 
 type Props = {
   params: { slug: string };
@@ -62,7 +63,7 @@ export default async function BlogPage({
         <div>{props.frontMatter.date}</div>
         <div>By: {props.frontMatter.author}</div>
       </div>
-
+      <EditPostButton slug={slug} author={props.frontMatter.author} />
       <div className="flex gap-4"></div>
       <article className="mdx">
         <MDXRemote source={props.content} components={components} />
