@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Span } from "next/dist/trace";
 
+import BlogButton from "@/components/nav/blog-button";
+
 const NavComponent: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -61,6 +63,7 @@ const NavComponent: React.FC = () => {
         {/* <nav>
           <Link href="/about">About</Link>
         </nav> */}
+        <BlogButton />
       </div>
 
       <button
