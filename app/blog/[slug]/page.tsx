@@ -10,6 +10,7 @@ import ImageComponent from "@/components/mdx/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import type { Metadata, ResolvingMetadata } from "next";
+import BackButton from "./back-button";
 
 type Props = {
   params: { slug: string };
@@ -54,12 +55,13 @@ export default async function BlogPage({
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-3">
       <div>
         <h1 className="text-5xl font-bold">{props.frontMatter.title}</h1>
         <div>{props.frontMatter.date}</div>
         <div>By: {props.frontMatter.author}</div>
       </div>
+      <BackButton />
       <div className="flex gap-4"></div>
       <article className="mdx">
         <MDXRemote source={props.content} components={components} />
