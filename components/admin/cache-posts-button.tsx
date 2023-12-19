@@ -23,6 +23,9 @@ function CachePostsButton() {
     } catch (error) {
       console.error("Error parsing JSON:", error);
     }
+
+    router.push("/blog");
+    router.refresh();
   };
 
   return (
