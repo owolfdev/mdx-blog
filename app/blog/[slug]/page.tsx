@@ -13,6 +13,8 @@ import type { Metadata, ResolvingMetadata } from "next";
 import BackButton from "./back-button";
 import { ArrowLeft } from "lucide-react";
 import EditPostButton from "./edit-post-button";
+import OpenInVSCode from "./open-in-vs-code-button";
+import { isDevMode } from "@/lib/utils";
 
 type Props = {
   params: { slug: string };
@@ -63,7 +65,12 @@ export default async function BlogPage({
         <div>{props.frontMatter.date}</div>
         <div>By: {props.frontMatter.author}</div>
       </div>
-      <EditPostButton slug={slug} author={props.frontMatter.author} />
+      {isDevMode() && (
+        <div className="flex gap-2">
+          <EditPostButton slug={slug} author={props.frontMatter.author} />
+          <OpenInVSCode path={props.frontMatter.path} />
+        </div>
+      )}
       <div className="flex gap-4"></div>
       <article className="mdx">
         <MDXRemote source={props.content} components={components} />

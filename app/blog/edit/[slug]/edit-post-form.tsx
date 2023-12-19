@@ -133,12 +133,12 @@ export function EditPostForm({ postData }: { postData: any }) {
   const handleOpenInVSCode = async () => {
     fetch("/api/open-in-vs-code", {
       method: "POST",
-      body: JSON.stringify(postData),
+      body: JSON.stringify(`data/posts/${postData.frontMatter.path}`),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    router.push("/blog");
+    router.push("/settings");
   };
 
   const handleDeletePost = async () => {

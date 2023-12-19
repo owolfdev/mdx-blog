@@ -28,16 +28,17 @@ function CachePostsButton() {
   return (
     <>
       {isDevMode() && (
-        <Button
-          title="Cache posts"
-          variant="outline"
-          onClick={handleCachePosts}
-        >
-          <div className="flex gap-2 items-center">
-            {" "}
-            <FileIcon /> Cache Posts
-          </div>
-        </Button>
+        <div>
+          <Button
+            title="Cache posts to update blog roll."
+            onClick={handleCachePosts}
+          >
+            <div className="flex gap-2 items-center">
+              {" "}
+              <FileIcon /> Cache Posts
+            </div>
+          </Button>
+        </div>
       )}
     </>
   );
