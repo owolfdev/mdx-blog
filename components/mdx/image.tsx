@@ -3,12 +3,14 @@ import Image from "next/image";
 const ImageComponent = ({
   imgSrc,
   alt,
+  caption,
   layout = "responsive",
   width = 700,
   height = 400,
 }: {
   imgSrc: string;
   alt: string;
+  caption?: string;
   layout?: "fill" | "responsive";
   width?: number;
   height?: number;
@@ -23,6 +25,11 @@ const ImageComponent = ({
         height={height}
         objectFit="cover"
       />
+      {caption && (
+        <div className="text-sm text-muted-foreground mt-[-12px] mb-2">
+          {caption}
+        </div>
+      )}
     </div>
   );
 };

@@ -139,6 +139,11 @@
   margin-top: 10px !important;
 }
 
+.mdx img {
+  /* other styles */
+  margin-bottom: 16px !important; /* Adjust this value as needed */
+}
+
 .gradient-text {
   background: linear-gradient(45deg, #0090fd, #fd2060);
   -webkit-background-clip: text;
