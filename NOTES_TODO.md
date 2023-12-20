@@ -1,10 +1,8 @@
-create a tool that adds categories
+allow the user to set the date manually in the create and edit dialogs.
 
-currently this app deployment is not working on pagespeed insights. it fails.
+Find out why future posts are still publishing, even though we've attempted to filter them out.
 
-Redo the app slowly with a new app and deployment. pay attention to best practices and lighthouse.
-
-##
+add sitemap.
 
 # Add a back button that only shows if navigating from the app:
 
