@@ -46,11 +46,25 @@ export async function generateStaticParams() {
     // Parse the date and compare with the current date
     const postDate = new Date(frontMatter.date);
     const currentDate = new Date();
+    const isFuture = postDate > currentDate;
 
-    if (postDate <= currentDate) {
+    console.log(
+      "postDate:",
+      postDate,
+      "currentDate:",
+      currentDate,
+      "post is future?:",
+      isFuture
+    );
+
+    // If the post date is in the past, add it to the params
+
+    if (!isFuture) {
       params.push({ slug: filename.replace(".mdx", "") });
     }
   }
+
+  console.log("params!!!:", params);
 
   return params;
 }
