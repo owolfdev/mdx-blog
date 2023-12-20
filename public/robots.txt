@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.mdxblog.io
+
+# Sitemaps
+Sitemap: https://www.mdxblog.io/sitemap.xml

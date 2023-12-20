@@ -1,5 +1,11 @@
 module.exports = {
-  siteUrl: "https://mdx-blog-dusky.vercel.app/",
+  siteUrl: "https://www.mdxblog.io",
   generateRobotsTxt: true, // (optional)
+  exclude: [
+    "/blog/.DS_Store",
+    "/blog/README.md",
+    "/blog/create",
+    "/apple-icon.png",
+  ],
   // ...other options
 };
