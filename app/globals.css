@@ -75,23 +75,36 @@
   }
 }
 
-/* MDX styles */
 .mdx h1 {
   font-size: 3rem;
-  line-height: 2.25rem /* 36px */;
+  line-height: 1.2; /* Improved line height */
   font-weight: 700;
-  padding-bottom: 1rem;
-  line-height: 1;
-  /* Additional styles */
+  margin-bottom: 1rem; /* Consistent margin */
+  font-weight: 700;
 }
 
 .mdx h2 {
-  font-size: 2rem;
-  line-height: 1.5rem /* 32px */;
+  font-size: 2.5rem;
+  line-height: 1.1;
+  font-weight: 600; /* Slightly lighter */
+  margin-bottom: 1rem;
   font-weight: 700;
-  padding-bottom: 1rem;
+}
+
+.mdx h3 {
+  font-size: 2rem;
   line-height: 1;
-  /* Additional styles */
+  font-weight: 500; /* Slightly lighter */
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.mdx h4 {
+  font-size: 1.5rem;
+  line-height: 0.8;
+  font-weight: 400; /* Slightly lighter */
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
 .mdx {
@@ -105,32 +118,13 @@
   line-height: 1.25rem;
   font-weight: 400;
   padding-bottom: 1rem;
+
   /* Additional styles */
-}
-
-/* Media query for smaller screens */
-@media (max-width: 480px) {
-  .mdx h1 {
-    font-size: 2.5rem;
-  }
-
-  .mdx h2 {
-    font-size: 2rem;
-  }
-
-  .mdx p {
-    font-size: 1.2rem;
-    line-height: 1.5rem;
-  }
-
-  .mdx {
-    /* Any additional styles for the .mdx container on smaller screens */
-  }
 }
 
 .mdx pre {
   /* other styles */
-  margin-bottom: 30px !important; /* Adjust this value as needed */
+  margin-bottom: 1rem !important; /* Adjust this value as needed */
 }
 
 .mdx iframe {
@@ -143,6 +137,43 @@
   /* other styles */
   margin-bottom: 16px !important; /* Adjust this value as needed */
 }
+
+.mdx ul {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  padding-bottom: 1rem;
+  /* Additional styles */
+}
+
+.mdx hr {
+  border: none;
+  border-top: 1px solid hsl(217.2 32.6% 17.5%);
+  margin-bottom: 1rem;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 480px) {
+  .mdx h1 {
+    font-size: 2.5rem;
+  }
+
+  .mdx h2 {
+    font-size: 2rem;
+  }
+
+  .mdx li {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+
+  .mdx p {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+}
+
+/*  */
 
 .gradient-text {
   background: linear-gradient(45deg, #0090fd, #fd2060);

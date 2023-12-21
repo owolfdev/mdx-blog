@@ -69,7 +69,7 @@ export function CreatePostForm() {
   });
 
   // const { user } = useUser(); // Retrieve user information
-  const authorName = "Oliver Wolfson"; // Replace 'fullName' with the appropriate field
+  const authorName = "O Wolfson"; // Replace 'fullName' with the appropriate field
 
   const router = useRouter();
 

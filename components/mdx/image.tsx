@@ -26,7 +26,7 @@ const ImageComponent = ({
         objectFit="cover"
       />
       {caption && (
-        <div className="text-sm text-muted-foreground mt-[-12px] mb-2">
+        <div className="text-sm text-muted-foreground mt-[-12px] mb-4">
           {caption}
         </div>
       )}

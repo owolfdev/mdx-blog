@@ -1,89 +1,63 @@
 [
   {
-    "slug": "batman",
-    "id": "81dbefe4-2653-4f91-9068-42b26449919b",
+    "slug": "how-to-install-mdx-blog-and-deploy-on-vercel",
+    "id": "b911612d-eb8b-4973-86de-5ae360f39001",
     "type": "blog",
-    "author": "Oliver Wolfson",
-    "title": "Batman is cool",
-    "date": "2023-12-15",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-    "categories": [
-      "Development"
-    ],
-    "tags": [
-      "blog"
-    ],
-    "image": "/images/default.jpg",
-    "path": "batman.mdx"
-  },
-  {
-    "slug": "spiderman",
-    "id": "47d305f7-fed1-464a-a28e-e79277781172",
-    "type": "blog",
-    "author": "Oliver Wolfson",
-    "title": "Spiderman",
-    "date": "2023-12-19",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "author": "O Wolfson",
+    "title": "How to Install MDX Blog and Deploy on Vercel",
+    "date": "2023-12-20",
+    "description": "MDX Blog is a platform for bloggers who value the simplicity of Markdown and the power of React components. Built using MDX (Markdown + JSX) and Next.js 14, this blog template offers a unique blogging experience with easy content management.",
     "categories": [
       "Web Development"
     ],
     "tags": [
-      "superheroes"
+      "install",
+      "set-up",
+      "download",
+      "github",
+      "repo"
     ],
     "image": "/images/default.jpg",
-    "path": "spiderman.mdx"
+    "path": "how-to-install-mdx-blog-and-deploy-on-vercel.mdx"
   },
   {
-    "slug": "superman",
-    "id": "3d9bcac4-49e8-4ee5-8be0-bc49e3d39b6f",
+    "slug": "how-to-use-mdx-blog",
+    "id": "4546294e-3ee2-480e-876e-ff2aabbf5369",
     "type": "blog",
-    "author": "Oliver Wolfson",
-    "title": "Superman",
-    "date": "2023-12-15",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "author": "O Wolfson",
+    "title": "How to Use MDX Blog",
+    "date": "2023-12-20",
+    "description": "This guide will walk you through using MDX Blog, which is designed to work seamlessly with VSCode and requires local installation.",
     "categories": [
-      "Development"
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "user",
+      "guide"
+    ],
+    "image": "/images/default.jpg",
+    "path": "how-to-use-mdx-blog.mdx"
+  },
+  {
+    "slug": "static-blogs-in-markdown-and-beyond",
+    "id": "188ca097-cefc-4bed-99aa-c5cd14c1918b",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Static Blogs in Markdown and Beyond",
+    "date": "2023-12-21",
+    "description": "In the dynamic world of web development, static blogs have emerged as a standard of efficiency, simplicity, and reliability. Static blogs, unlike their dynamic counterparts, do not rely on a database or server-side processing for each page visit. Instead, they consist of pre-rendered, static HTML files served to the visitor.",
+    "categories": [
+      "Web Development"
     ],
     "tags": [
       "react",
-      "javascript"
+      "static",
+      "blog",
+      "next.js",
+      "mdx"
     ],
     "image": "/images/default.jpg",
-    "path": "superman.mdx"
-  },
-  {
-    "slug": "the-green-goblin",
-    "id": "31a3ddbf-5253-424b-ad66-f102d6cab98b",
-    "type": "blog",
-    "author": "Oliver Wolfson",
-    "title": "The Green Goblin 2004",
-    "date": "2023-12-17",
-    "description": "A test of markdown",
-    "categories": [
-      "Development"
-    ],
-    "tags": [
-      "markdown",
-      "other"
-    ],
-    "image": "/images/default.jpg",
-    "path": "the-green-goblin.mdx"
-  },
-  {
-    "slug": "wonder-woman",
-    "id": "5018c2d9-98fa-441f-bf49-8d1c35a71579",
-    "type": "blog",
-    "author": "Oliver Wolfson",
-    "title": "Wonder Woman is fine",
-    "date": "2023-12-15",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "categories": [
-      "Development"
-    ],
-    "tags": [
-      "superheroes"
-    ],
-    "image": "/images/default.jpg",
-    "path": "wonder-woman.mdx"
+    "path": "the-power-of-static-blogs-in-markdown-and-beyond.mdx"
   }
 ]

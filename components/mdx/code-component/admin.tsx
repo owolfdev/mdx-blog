@@ -13,7 +13,7 @@ function AdminBar({ code, language }: { code: string; language: string }) {
   };
 
   return (
-    <div className="bg-gray-800 h-[40px] relative top-3 rounded-t-lg flex justify-between items-center px-4">
+    <div className="bg-gray-800 h-[40px] relative top-3 mt-[-10px]  rounded-t-lg flex justify-between items-center px-4">
       <span className="text-white text-sm">{language}</span>
       <button
         onClick={copyToClipboard}

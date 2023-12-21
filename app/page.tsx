@@ -26,6 +26,8 @@ const heroContent = `
 
 **Why MDX?** MDX blends Markdown's straightforward syntax with the capability to embed dynamic JSX elements. Perfect for interactive, rich-content blogs.
 
+**Get MDX Blog:** Download the [**repo**](https://github.com/owolfdev/mdx-blog). Instructions for installation and deployment are included in the README.
+
 **Learn More About MDX**:
 - • [MDX Official Documentation](https://mdxjs.com/)
 - • [Integrating MDX with Next.js](https://nextjs.org/docs)

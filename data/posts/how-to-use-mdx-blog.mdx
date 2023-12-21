@@ -1,0 +1,106 @@
+---
+id: "4546294e-3ee2-480e-876e-ff2aabbf5369"
+type: "blog"
+author: "O Wolfson"
+title: "How to Use MDX Blog"
+date: "2023-12-20"
+description: "This guide will walk you through using MDX Blog, which is designed to work seamlessly with VSCode and requires local installation."
+categories:
+  - Web Development
+tags:
+  - mdx
+  - user
+  - guide
+image: "/images/default.jpg"
+path: "how-to-use-mdx-blog.mdx"
+---
+
+### Introduction
+
+MDX Blog is a blogging platform, tailored for those who like the simplicity of Markdown along with the robustness of React components. This guide will walk you through using MDX Blog, which is designed to work seamlessly with VSCode and requires local installation.
+
+---
+
+### Getting Started
+
+#### Installation
+
+Before diving into creating content, ensure that MDX Blog is installed on your local machine. For detailed installation instructions, refer to this comprehensive [installation guide](https://mdxblog.io/blog/how-to-install-mdx-blog-and-deploy-on-vercel).
+
+#### Running the App in Development Mode
+
+After installation, run the app in development mode.
+
+```bash
+npm run dev
+```
+
+This enables features like the '+' icon for adding new posts.
+
+### Adding Posts
+
+1. **Using the '+' Icon**:
+   - In the nav bar, tap the '+' icon. This is a straightforward way to start drafting a new post directly within the app.
+2. **Manually Adding MDX Files**:
+   - Alternatively, you can add posts by creating MDX files in the `data/posts` directory of your project.
+
+### Creating Content with Markdown and MDX
+
+MDX Blog allows you to write using standard Markdown and enrich your posts with React components. Here's how you can use some of the custom components available:
+
+#### 1. Embedding YouTube Videos
+
+To embed a YouTube video, use the `YouTube` component:
+
+```jsx
+<YouTube videoId="your_video_id" />
+```
+
+Replace `your_video_id` with the actual ID of the YouTube video you want to embed.
+
+#### 2. Adding Images
+
+The custom `Image` component, based on Next.js Image, lets you add images efficiently:
+
+```jsx
+<Image
+  imgSrc="/path/to/your/image.jpg"
+  alt="Descriptive text"
+  caption="Image caption"
+/>
+```
+
+Customize `imgSrc`, `alt`, and `caption` as needed.
+
+#### 3. Showcasing Code Snippets
+
+For displaying code, use the `Code` component:
+
+use single backticks for inline code and triple backticks for blocks of code. Style these with the appropriate language for correct highlighting.
+
+<Image
+  imgSrc="/images/posts/how-to-use-mdx-blog/javascript.png"
+  alt="triple backticks for blocks of code"
+  caption="triple backticks for blocks of code"
+/>
+
+will render as:
+
+```javascript
+const greeting = "Hello World!";
+```
+
+This component will render your code with syntax highlighting and a proper layout.
+
+### Editing Posts
+
+- **Local Editing**: You can edit your posts locally using a text editor. For the best experience, it's recommended to use VSCode.
+- **In-Browser Editing**: MDX Blog also supports editing directly in the browser for quick changes and previews.
+
+### Configuring Your Blog
+
+- **Accessing Settings**: Customize your blog's settings and configurations by tapping the gear icon in the nav bar, which takes you to the settings page.
+
+### Conclusion
+
+MDX Blog bridges the gap between simplicity and functionality, offering a flexible platform for bloggers and developers. Whether you're writing tech articles, personal stories, or embedding multimedia content, MDX Blog adapts to your needs, making content creation a smooth and enjoyable process. Remember, the heart of MDX Blog is its integration with modern web technologies and React components, unlocking endless possibilities for your blogging journey.
