@@ -1,5 +1,6 @@
 import LoaderLink from "@/components/nav/loader-link";
-import AbstractArt from "@/components/graphics/abstract-image";
+// import AbstractArt from "@/components/graphics/abstract-image";
+import ReactMarkdown from "react-markdown";
 
 export default function Home() {
   return (
@@ -13,7 +14,19 @@ export default function Home() {
       <LoaderLink isButton={true} url="/blog">
         Start Reading
       </LoaderLink>
-      <AbstractArt />
+      <ReactMarkdown className="flex flex-col gap-6">
+        {heroContent}
+      </ReactMarkdown>
     </div>
   );
 }
+
+const heroContent = `
+**MDX Blog** offers a simple, yet powerful template for creating blogs using **MDX** (Markdown + JSX) and **Next.js 14**.
+
+**Why MDX?** MDX blends Markdown's straightforward syntax with the capability to embed dynamic JSX elements. Perfect for interactive, rich-content blogs.
+
+**Learn More About MDX**:
+- • [MDX Official Documentation](https://mdxjs.com/)
+- • [Integrating MDX with Next.js](https://nextjs.org/docs)
+`;

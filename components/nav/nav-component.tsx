@@ -41,9 +41,13 @@ const NavComponent: React.FC = () => {
 
   return (
     <div className="flex items-center justify-between w-full">
-      <div className="sm:flex gap-6 items-center hidden">
+      <div className="sm:flex gap-4 items-center hidden">
         <div className="font-bold text-2xl tracking-tight">
-          <DropdownMenu>
+          <Link className="pr-2" href="/">
+            <span className="gradient-text">MDX</span>
+            <span>Blog</span>
+          </Link>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <h1 className="text-3xl">
                 <span className="gradient-text">MDX</span>
@@ -57,13 +61,23 @@ const NavComponent: React.FC = () => {
               <Link href="/blog">
                 <DropdownMenuItem>Blog</DropdownMenuItem>
               </Link>
+              <Link href="/about">
+                <DropdownMenuItem>Blog</DropdownMenuItem>
+              </Link>
             </DropdownMenuContent>
           </DropdownMenu>
+        </div> */}
         </div>
         {/* <nav>
           <Link href="/about">About</Link>
         </nav> */}
-        <BlogButton />
+        {/* <BlogButton /> */}
+        <Link className="text-sm" href="/blog">
+          /blog
+        </Link>
+        <Link className="text-sm" href="/about">
+          /about
+        </Link>
       </div>
 
       <button
@@ -85,13 +99,13 @@ const NavComponent: React.FC = () => {
           Home
         </Link>
         <Link href="/blog" onClick={closeMenu}>
-          Blog
+          /blog
         </Link>
         <Link href="/about" onClick={closeMenu}>
-          About
+          /about
         </Link>
         <Link href="/contact" onClick={closeMenu}>
-          Contact
+          /contact
         </Link>
         {/* Add other mobile navigation links here, each with onClick={closeMenu} */}
       </div>
