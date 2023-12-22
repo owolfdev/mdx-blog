@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 
 import { generatePostsCache } from "@/lib/posts-utils.mjs";
 
+import { DatePicker } from "@/components/date-picker";
+
 // import { useUser } from "@clerk/nextjs";
 
 import { v4 as uuidv4 } from "uuid";
@@ -40,6 +42,7 @@ import { MultiSelect } from "@/components/rs-multi-select";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
+  date: z.string().optional(),
   type: z.string().optional(),
   title: z.string().min(3, {
     message: "Title must be at least 2 characters.",
@@ -59,6 +62,7 @@ export function CreatePostForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      date: new Date().toISOString(),
       type: "blog",
       title: "",
       description: "",
@@ -138,6 +142,21 @@ export function CreatePostForm() {
                 </SelectContent>
               </Select>
 
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="date"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                <div className="pb-1">Date</div>
+              </FormLabel>
+              <FormControl>
+                <DatePicker />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
