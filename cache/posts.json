@@ -53,6 +53,23 @@
     "path": "asdfasdfa.mdx"
   },
   {
+    "slug": "hello",
+    "id": "4346d066-de75-4a19-8b53-98e9f0c1d138",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Hello",
+    "date": "2023-12-23",
+    "description": "fadfasdf fasdf asdfasdf",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "superheroes"
+    ],
+    "image": "/images/default.jpg",
+    "path": "hello.mdx"
+  },
+  {
     "slug": "how-to-install-mdx-blog-and-deploy-on-vercel",
     "id": "b911612d-eb8b-4973-86de-5ae360f39001",
     "type": "blog",
