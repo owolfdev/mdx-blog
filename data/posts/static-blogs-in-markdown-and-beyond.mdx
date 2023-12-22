@@ -58,32 +58,32 @@ Next.js, a popular React framework, adds another layer of power to static bloggi
 
 4. **Developer Experience**: Next.js provides a smooth development experience with features like hot reloading, which reflects changes in real-time.
 
-### Introducing MDX Blog: A Template for MDX Blogging
+### Introducing MDXBlog: A Template for MDXBlogging
 
-MDX Blog is a template project that brings together the best of MDX and Next.js, offering a ready-to-use solution for creating dynamic, static blogs.
+MDXBlog is a template project that brings together the best of MDX and Next.js, offering a ready-to-use solution for creating dynamic, static blogs.
 
-#### Key Features of MDX Blog
+#### Key Features of MDXBlog
 
-1. **Pre-configured Setup**: MDX Blog comes with a pre-configured environment, making it easy to get started without the hassle of setting up everything from scratch.
+1. **Pre-configured Setup**: MDXBlog comes with a pre-configured environment, making it easy to get started without the hassle of setting up everything from scratch.
 
 2. **Custom Components**: Leverage the power of MDX with custom components tailored for blogging needs.
 
-3. **Optimized for Performance and SEO**: Built with performance and SEO in mind, MDX Blog ensures your content reaches its audience effectively.
+3. **Optimized for Performance and SEO**: Built with performance and SEO in mind, MDXBlog ensures your content reaches its audience effectively.
 
-4. **Ease of Use**: With MDX Blog, you get a user-friendly platform, blending the simplicity of Markdown with the interactivity of React components.
+4. **Ease of Use**: With MDXBlog, you get a user-friendly platform, blending the simplicity of Markdown with the interactivity of React components.
 
-Next let&apos;s look at an actual mdx formatted blog post and how it would be rendered by MDX Blog.
+**Next** let&apos;s look at an actual mdx formatted blog post and how it would be rendered by MDXBlog.
 
-### Sample mdx Blog Post in mdx format:
+### Sample MDXBlog Post in mdx format:
 
-```mdx
+````markdown
 ---
 id: "sample-post"
 type: "blog"
 author: "Sample Author"
-title: "Exploring MDX Blog Features"
+title: "Exploring MDXBlog Features"
 date: "2023-12-22"
-description: "A brief demonstration of using Image, YouTube, and code components in an MDX Blog post."
+description: "A brief demonstration of using Image, YouTube, and code components in an MDXBlog post."
 categories:
   - Web Development
 tags:
@@ -94,9 +94,11 @@ image: "/images/sample-post.jpg"
 path: "exploring-mdx-blog-features.mdx"
 ---
 
-### Exploring MDX Blog Features
+<!-- the data above is the 'frontmatter', which can be thought of as metadata and is generally used to sort content, and render title, description, featured image, etc...  -->
 
-MDX Blog allows seamless integration of various components, enhancing the blogging experience. Let's explore a few key features.
+### Exploring MDXBlog Features
+
+MDXBlog allows seamless integration of various components, enhancing the blogging experience. Let's explore a few key features.
 
 #### Displaying an Image
 
@@ -113,15 +115,26 @@ Here's how you can display an image:
 Here's how you can display a YouTube video:
 
 <YouTube videoId="dQw4w9WgXcQ" />
+
+#### Displaying Code
+
+Here's how you can display code:
+
+```JavaScript
+const greeting = "Hello World!";
+console.log(greeting);
 ```
 
-### Sample mdx Blog Post Output rendered by MDX Blog
+...that's it for the mdx blog post output rendered by MDXBlog
+````
 
-everything below this line is rendered by MDX Blog:
+### Sample MDXBlog Post Output rendered by MDXBlog
+
+Everything below this line is the mdx code above rendered here by MDXBlog:
 
 ---
 
-MDX Blog allows seamless integration of various components, enhancing the blogging experience. Let's explore a few key features.
+MDXBlog allows seamless integration of various components, enhancing the blogging experience. Let's explore a few key features.
 
 #### Displaying an Image
 
@@ -139,10 +152,21 @@ Here's how you can display a YouTube video:
 
 ## <YouTube videoId="DsSus18EVj0" />
 
+#### Displaying Code
+
+Here's how you can display code:
+
+```JavaScript
+const greeting = "Hello World!";
+console.log(greeting);
+```
+
+...that's it for the mdx blog post output rendered by MDXBlog
+
 ---
 
-end mdx Blog Post Output rendered by MDX Blog
+End mdx Blog Post Output rendered by MDXBlog
 
 ### Conclusion
 
-The evolution from static blogs in Markdown to the dynamic capabilities of MDX, especially when coupled with a framework like Next.js, represents a significant leap in web content creation. MDX Blog stands as a testament to this progression, offering an optimized, user-friendly, and powerful platform for bloggers and developers alike. In the realm of web development, embracing these technologies means stepping into a world where content is not only king but also dynamic, interactive, and beautifully rendered.
+The evolution from static blogs in Markdown to the dynamic capabilities of MDX, especially when coupled with a framework like Next.js, represents a significant leap in web content creation. MDXBlog stands as a testament to this progression, offering an optimized, user-friendly, and powerful platform for bloggers and developers alike. In the realm of web development, embracing these technologies means stepping into a world where content is not only king but also dynamic, interactive, and beautifully rendered.

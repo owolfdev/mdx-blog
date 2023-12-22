@@ -4,9 +4,9 @@
     "id": "b911612d-eb8b-4973-86de-5ae360f39001",
     "type": "blog",
     "author": "O Wolfson",
-    "title": "How to Install MDX Blog and Deploy on Vercel",
+    "title": "How to Install MDXBlog and Deploy on Vercel",
     "date": "2023-12-20",
-    "description": "MDX Blog is a platform for bloggers who value the simplicity of Markdown and the power of React components. Built using MDX (Markdown + JSX) and Next.js 14, this blog template offers a unique blogging experience with easy content management.",
+    "description": "MDXBlog is a platform for bloggers who value the simplicity of Markdown and the power of React components. Built using MDX (Markdown + JSX) and Next.js 14, this blog template offers a unique blogging experience with easy content management.",
     "categories": [
       "Web Development"
     ],
@@ -25,9 +25,9 @@
     "id": "4546294e-3ee2-480e-876e-ff2aabbf5369",
     "type": "blog",
     "author": "O Wolfson",
-    "title": "How to Use MDX Blog",
+    "title": "How to Use MDXBlog",
     "date": "2023-12-20",
-    "description": "This guide will walk you through using MDX Blog, which is designed to work seamlessly with VSCode and requires local installation.",
+    "description": "This guide will walk you through using MDXBlog, which is designed to work seamlessly with VSCode and requires local installation.",
     "categories": [
       "Web Development"
     ],
