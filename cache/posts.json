@@ -36,6 +36,23 @@
     "path": "another-test-for-date.mdx"
   },
   {
+    "slug": "asdfasdfa",
+    "id": "082083c6-bb80-45fd-bef0-9a42b193c44a",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "asdfasdfa",
+    "date": "2023-12-23",
+    "description": "a sdfasdf asdfasdf",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "asf asda sdfasdf as"
+    ],
+    "image": "/images/default.jpg",
+    "path": "asdfasdfa.mdx"
+  },
+  {
     "slug": "how-to-install-mdx-blog-and-deploy-on-vercel",
     "id": "b911612d-eb8b-4973-86de-5ae360f39001",
     "type": "blog",
