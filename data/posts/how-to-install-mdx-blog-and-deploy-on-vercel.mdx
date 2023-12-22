@@ -84,9 +84,15 @@ git push -u origin master
 
   - Register with Supabase for database services.
   - Obtain your keys and add them to the `.env.local` file or your Vercel deployment.
+  - Note that you will need to create a table called `contact_mdx_blog` with the following columns:
+  - **id**: `uuid`
+  - **email**: `string`
+  - **name**: `string`
+  - **message**: `string`
+  - **type**: `string`
 
 - **Disabling the Contact Form**
-  - If desired, you can disable the contact form or remove the contact page by deleting the contact route from the app directory and removing links from the nav components.
+  - If desired, or to keep things simple, you can disable the contact form or remove the contact page by deleting the contact route from the app directory and removing links from the nav components.
 
 ### Creating a Post
 
