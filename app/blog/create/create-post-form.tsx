@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import { generatePostsCache } from "@/lib/posts-utils.mjs";
 
-import { DatePicker } from "@/components/date-picker";
+import DatePickerField from "@/components/date-picker";
 
 // import { useUser } from "@clerk/nextjs";
 
@@ -42,7 +42,7 @@ import { MultiSelect } from "@/components/rs-multi-select";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  date: z.string().optional(),
+  date: z.date(), // Make dob optional
   type: z.string().optional(),
   title: z.string().min(3, {
     message: "Title must be at least 2 characters.",
@@ -62,7 +62,7 @@ export function CreatePostForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      date: new Date().toISOString(),
+      date: new Date(),
       type: "blog",
       title: "",
       description: "",
@@ -84,6 +84,8 @@ export function CreatePostForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Endpoint URL where you want to send the POST request
     const endpoint = "/api/save-file-locally"; // Replace with your actual API route
+
+    console.log("values!!!!!!!!!!!!!:", values);
 
     // Add the author data to the submission values
     const submissionData = {
@@ -146,21 +148,22 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
+        {/* date */}
         <FormField
           control={form.control}
           name="date"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                <div className="pb-1">Date</div>
-              </FormLabel>
-              <FormControl>
-                <DatePicker />
-              </FormControl>
+            <FormItem className="flex flex-col">
+              <FormLabel className="font-semibold text-md">Date</FormLabel>
+              <DatePickerField field={field} />
+              {/* <FormDescription>
+                Your date of birth is used to calculate your age.
+              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
         />
+        {/* title */}
         <FormField
           control={form.control}
           name="title"

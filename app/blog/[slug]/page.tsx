@@ -48,14 +48,14 @@ export async function generateStaticParams() {
     const currentDate = new Date();
     const isFuture = postDate > currentDate;
 
-    console.log(
-      "postDate:",
-      postDate,
-      "currentDate:",
-      currentDate,
-      "post is future?:",
-      isFuture
-    );
+    // console.log(
+    //   "postDate:",
+    //   postDate,
+    //   "currentDate:",
+    //   currentDate,
+    //   "post is future?:",
+    //   isFuture
+    // );
 
     // If the post date is in the past, add it to the params
 
@@ -64,7 +64,7 @@ export async function generateStaticParams() {
     }
   }
 
-  console.log("params!!!:", params);
+  // console.log("params!!!:", params);
 
   return params;
 }
