@@ -8,6 +8,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/components/nav/site-header";
 import { Footer } from "@/components/nav/footer";
 
+import CookieConsentComponent from "@/components/cookie-consent";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -35,6 +37,7 @@ export default function RootLayout({
               {children}
             </div>
           </main>
+          <CookieConsentComponent />
           <Footer />
         </ThemeProvider>
       </body>

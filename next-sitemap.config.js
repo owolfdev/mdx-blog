@@ -6,6 +6,10 @@ module.exports = {
     "/blog/README.md",
     "/blog/create",
     "/apple-icon.png",
+    "/settings",
+    "/contact",
+    "contact/thank-you",
+    "privacy",
   ],
   // ...other options
 };
