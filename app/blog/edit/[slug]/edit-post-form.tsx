@@ -21,6 +21,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 
 import { Label } from "@/components/ui/label";
@@ -326,10 +327,13 @@ export function EditPostForm({ postData }: { postData: any }) {
           </DialogHeader>
           <div className="grid gap-4 py-4"></div>
           <DialogFooter>
-            <div className="w-full">
+            <div className="w-full flex gap-4">
               <Button variant="destructive" onClick={handleDeletePost}>
                 OK Delete Post
               </Button>
+              <DialogClose className="bg-gray-300 text-black px-4 py-2 rounded">
+                <span className="text-sm">No Cancel</span>
+              </DialogClose>
             </div>
           </DialogFooter>
         </DialogContent>
