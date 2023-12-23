@@ -2,7 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 
+import { parseISO } from "date-fns";
+
 import { useRouter } from "next/navigation";
+
+import DatePickerField from "@/components/date-picker";
+import { format } from "date-fns";
 
 // import CachePostsButton from "@/components/admin/cache-posts-button";
 
@@ -50,6 +55,7 @@ import {
 import { MultiSelect } from "@/components/rs-multi-select";
 
 const formSchema = z.object({
+  date: z.date(),
   type: z.string().optional(),
   title: z.string().min(3, {
     message: "Title must be at least 2 characters.",
@@ -72,6 +78,9 @@ export function EditPostForm({ postData }: { postData: any }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      date: postData.frontMatter.date
+        ? parseISO(postData.frontMatter.date)
+        : new Date(),
       type: postData.frontMatter.type,
       title: postData.frontMatter.title,
       description: postData.frontMatter.description,
@@ -89,13 +98,15 @@ export function EditPostForm({ postData }: { postData: any }) {
     // Endpoint URL where you want to send the POST request
     const endpoint = "/api/edit-file-locally"; // Replace with your actual API route
 
+    const formattedDate = values.date ? format(values.date, "yyyy-MM-dd") : "";
+
     // Add the author data to the submission values
     const submissionData = {
       ...values,
       author: postData.frontMatter.author,
       id: postData.frontMatter.id,
       savedFilename: postData.frontMatter.path,
-      date: postData.frontMatter.date,
+      date: formattedDate,
     };
 
     try {
@@ -189,6 +200,21 @@ export function EditPostForm({ postData }: { postData: any }) {
                   </SelectContent>
                 </Select>
 
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* date */}
+          <FormField
+            control={form.control}
+            name="date"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel className="font-semibold text-md">Date</FormLabel>
+                <DatePickerField field={field} />
+                {/* <FormDescription>
+                Your date of birth is used to calculate your age.
+              </FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}

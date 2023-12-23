@@ -1,75 +1,5 @@
 [
   {
-    "slug": "a-test-for-date",
-    "id": "0ef5c958-2133-42df-bf75-6575df4ddc75",
-    "type": "blog",
-    "author": "O Wolfson",
-    "title": "A Test for Date",
-    "date": "2023-12-23",
-    "description": "as. asfas fasdfas fasdf asdf as",
-    "categories": [
-      "Web Development"
-    ],
-    "tags": [
-      "react",
-      "javascript"
-    ],
-    "image": "/images/default.jpg",
-    "path": "a-test-for-date.mdx"
-  },
-  {
-    "slug": "another-test-for-date",
-    "id": "1befcf3a-be1b-4699-a23a-db7eaf9e1878",
-    "type": "blog",
-    "author": "O Wolfson",
-    "title": "Another Test for Date",
-    "date": "2023-12-22",
-    "description": "a a sdfas fas dfas",
-    "categories": [
-      "Web Development"
-    ],
-    "tags": [
-      "react",
-      "javascript"
-    ],
-    "image": "/images/default.jpg",
-    "path": "another-test-for-date.mdx"
-  },
-  {
-    "slug": "asdfasdfa",
-    "id": "082083c6-bb80-45fd-bef0-9a42b193c44a",
-    "type": "blog",
-    "author": "O Wolfson",
-    "title": "asdfasdfa",
-    "date": "2023-12-23",
-    "description": "a sdfasdf asdfasdf",
-    "categories": [
-      "Web Development"
-    ],
-    "tags": [
-      "asf asda sdfasdf as"
-    ],
-    "image": "/images/default.jpg",
-    "path": "asdfasdfa.mdx"
-  },
-  {
-    "slug": "hello",
-    "id": "4346d066-de75-4a19-8b53-98e9f0c1d138",
-    "type": "blog",
-    "author": "O Wolfson",
-    "title": "Hello",
-    "date": "2023-12-23",
-    "description": "fadfasdf fasdf asdfasdf",
-    "categories": [
-      "Web Development"
-    ],
-    "tags": [
-      "superheroes"
-    ],
-    "image": "/images/default.jpg",
-    "path": "hello.mdx"
-  },
-  {
     "slug": "how-to-install-mdx-blog-and-deploy-on-vercel",
     "id": "b911612d-eb8b-4973-86de-5ae360f39001",
     "type": "blog",
@@ -128,6 +58,6 @@
       "mdx"
     ],
     "image": "/images/default.jpg",
-    "path": "the-power-of-static-blogs-in-markdown-and-beyond.mdx"
+    "path": "static-blogs-in-markdown-and-beyond.mdx"
   }
 ]
