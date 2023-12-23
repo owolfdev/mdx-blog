@@ -297,7 +297,7 @@ export function EditPostForm({ postData }: { postData: any }) {
             )}
           />
           <div className="flex gap-3">
-            <Button type="submit">Edit Post</Button>
+            <Button type="submit">Save Edits</Button>
             <Button type="button" onClick={handleOpenInVSCode}>
               Open File In VS Code
             </Button>
