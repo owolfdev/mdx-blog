@@ -40,6 +40,25 @@
     "path": "how-to-use-mdx-blog.mdx"
   },
   {
+    "slug": "rendering-mdx-content-in-next.js-14",
+    "id": "539fea51-60ac-4afe-a145-c8db4ec96492",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": " Rendering MDX Content in Next.js 14",
+    "date": "2023-12-22",
+    "description": "Creating a dynamic blog with rich content, including images and videos, has become an integral part of modern web development. Next.js 14 offers a powerful way to achieve this using Markdown (MDX). ",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "rendering",
+      "next.js"
+    ],
+    "image": "/images/default.jpg",
+    "path": "rendering-mdx-content-in-next.js-14.mdx"
+  },
+  {
     "slug": "static-blogs-in-markdown-and-beyond",
     "id": "188ca097-cefc-4bed-99aa-c5cd14c1918b",
     "type": "blog",
