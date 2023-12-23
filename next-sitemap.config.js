@@ -8,8 +8,8 @@ module.exports = {
     "/apple-icon.png",
     "/settings",
     "/contact",
-    "contact/thank-you",
-    "privacy",
+    "/contact/thank-you",
+    "/privacy",
   ],
   // ...other options
 };
