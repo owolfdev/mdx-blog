@@ -30,7 +30,7 @@ const heroContent = `
 
 **Learn More About MDXBlog:**
 
-- • [MDXBlog Official Documentation. AKA the 'about' page.](/about)
+- • [Documentation. AKA the 'about' page.](/about)
 - • [MDXBlog GitHub Repo](https://github.com/owolfdev/mdx-blog)
 - • [The Blog, where you can find the latest news and tutorials.](/blog)
 
