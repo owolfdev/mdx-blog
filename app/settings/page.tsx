@@ -1,5 +1,6 @@
 import CachePostsButton from "@/components/admin/cache-posts-button";
 import OpenCategoriesInVSCode from "./open-categories-in-vs-code";
+import OpenAdmin from "./open-admin";
 
 export default function Settings() {
   const handleOpenCategoriesInVSCode = async () => {
@@ -15,6 +16,12 @@ export default function Settings() {
     <div className="flex flex-col gap-8">
       <h1 className="text-4xl sm:text-5xl font-bold text-center">Settings</h1>
       <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <OpenAdmin />
+          <p className="text-sm text-muted-foreground">
+            The Admin page is used to manage content.
+          </p>
+        </div>
         <div className="flex flex-col gap-2">
           <CachePostsButton />
           <p className="text-sm text-muted-foreground">
