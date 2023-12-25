@@ -1,20 +1,19 @@
 import CachePostsButton from "@/components/admin/cache-posts-button";
 import OpenCategoriesInVSCode from "./open-categories-in-vs-code";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Settings() {
-  const handleOpenCategoriesInVSCode = async () => {
-    fetch("/api/open-in-vs-code", {
-      method: "POST",
-      body: JSON.stringify("data/settings/category.json"),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
   return (
     <div className="flex flex-col gap-8">
       <h1 className="text-4xl sm:text-5xl font-bold text-center">Settings</h1>
       <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <Link href="/admin">
+            <Button>Administration</Button>
+          </Link>
+          <p className="text-sm text-muted-foreground">Manage posts data.</p>
+        </div>
         <div className="flex flex-col gap-2">
           <CachePostsButton />
           <p className="text-sm text-muted-foreground">
