@@ -19,6 +19,10 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+
+import { FilterFn, Row } from "@tanstack/react-table";
+
 import {
   Tooltip,
   TooltipContent,
@@ -56,6 +60,7 @@ export type Post = {
   slug: string;
   author: string;
   description: string;
+  tags: string[];
 };
 
 export const columns: ColumnDef<Post>[] = [
@@ -84,7 +89,17 @@ export const columns: ColumnDef<Post>[] = [
 
   {
     accessorKey: "date",
-    header: "Date",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Date
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       // Parse the date from the row
       const date = new Date(row.getValue("date"));
@@ -102,7 +117,17 @@ export const columns: ColumnDef<Post>[] = [
 
   {
     accessorKey: "title",
-    header: "Title",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Title
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => (
       <div>
         {" "}
@@ -110,8 +135,10 @@ export const columns: ColumnDef<Post>[] = [
           <TooltipProvider>
             <Tooltip>
               {/* <TooltipTrigger>{row.getValue("title")}</TooltipTrigger> */}
-              <TooltipTrigger>{row.getValue("title")}</TooltipTrigger>
-              <TooltipContent className=" max-w-sm px-4 py-2">
+              <TooltipTrigger>
+                <div className="text-left">{row.getValue("title")}</div>
+              </TooltipTrigger>
+              <TooltipContent className="max-w-sm px-4 py-2">
                 {row.original.description}
               </TooltipContent>
             </Tooltip>
@@ -123,7 +150,17 @@ export const columns: ColumnDef<Post>[] = [
 
   {
     accessorKey: "date", // Access the 'date' field for this column
-    header: "Status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       // Get the current date
       const currentDate = new Date();
@@ -200,6 +237,22 @@ export function DataTable() {
     fetchPosts();
   }, []);
 
+  const globalFilterFn: FilterFn<Post> = (row, columnIds, filterValue) => {
+    const lowercasedFilter = filterValue?.toLowerCase() || "";
+
+    console.log("row!!:", row);
+
+    // Return true if the row should be included in the filter
+    return (
+      row.original.title.toLowerCase().includes(lowercasedFilter) ||
+      row.original.description.toLowerCase().includes(lowercasedFilter) ||
+      (row.original.tags &&
+        row.original.tags.some((tag) =>
+          tag.toLowerCase().includes(lowercasedFilter)
+        ))
+    );
+  };
+
   const table = useReactTable({
     data,
     columns,
@@ -211,6 +264,7 @@ export function DataTable() {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    globalFilterFn: globalFilterFn,
     state: {
       sorting,
       columnFilters,
@@ -228,11 +282,13 @@ export function DataTable() {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
+          placeholder="Search posts..."
+          // Use a global filter value from the table state
+          value={table.getState().globalFilter ?? ""}
+          onChange={(event) => {
+            // Update the global filter value
+            table.setGlobalFilter(event.target.value);
+          }}
           className="max-w-sm"
         />
         <DropdownMenu>

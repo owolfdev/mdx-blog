@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-8 justify-center align-middle items-center">
+    <div className="flex flex-col gap-8 justify-center align-middle items-center max-w-xl">
       <h1 className="text-3xl sm:text-5xl font-bold text-center">
         Welcome to <span className="gradient-text">MDX</span>Blog
       </h1>

@@ -1,4 +1,5 @@
 import { DataTable } from "./data-table";
+import RootLayout from "../layout";
 export default function Settings() {
   return (
     <div className="flex flex-col gap-8">
