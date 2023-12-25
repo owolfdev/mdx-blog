@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Settings() {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 max-w-xl">
       <h1 className="text-4xl sm:text-5xl font-bold text-center">Settings</h1>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
