@@ -59,6 +59,23 @@
     "path": "rendering-mdx-content-in-next.js-14.mdx"
   },
   {
+    "slug": "some-project",
+    "id": "8dc1debe-d8e7-4e2c-9875-f1fd626370d7",
+    "type": "project",
+    "author": "O Wolfson",
+    "title": "Some Project",
+    "date": "2023-12-25",
+    "description": "Test for a project",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "project"
+    ],
+    "image": "/images/default.jpg",
+    "path": "some-project.mdx"
+  },
+  {
     "slug": "static-blogs-in-markdown-and-beyond",
     "id": "188ca097-cefc-4bed-99aa-c5cd14c1918b",
     "type": "blog",

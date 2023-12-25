@@ -55,6 +55,7 @@ import Link from "next/link";
 
 export type Post = {
   id: string;
+  type: string;
   title: string;
   date: string;
   slug: string;
@@ -113,6 +114,22 @@ export const columns: ColumnDef<Post>[] = [
 
       return <div>{formattedDate}</div>;
     },
+  },
+
+  {
+    accessorKey: "type", // Access the 'type' attribute of your data
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Type
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <span>{row.getValue("type")}</span>, // Access and display the 'type' value from each row
   },
 
   {
@@ -246,6 +263,7 @@ export function DataTable() {
     return (
       row.original.title.toLowerCase().includes(lowercasedFilter) ||
       row.original.description.toLowerCase().includes(lowercasedFilter) ||
+      row.original.type.toLowerCase().includes(lowercasedFilter) ||
       (row.original.tags &&
         row.original.tags.some((tag) =>
           tag.toLowerCase().includes(lowercasedFilter)
