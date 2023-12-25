@@ -2,7 +2,7 @@ import ReactMarkdown from "react-markdown";
 
 export default function About() {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 max-w-xl">
       <h1 className="text-4xl sm:text-5xl font-bold text-center">
         About MDX Blog
       </h1>
