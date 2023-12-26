@@ -21,9 +21,9 @@ Our project is fully accessible on **[GitHub](https://github.com/owolfdev/mdx-bl
 
 Find relevant articles on the blog, including:
 
-- • [Installation](http://localhost:3000/blog/how-to-install-mdx-blog-and-deploy-on-vercel)
-- • [A User Guide](http://localhost:3000/blog/how-to-use-mdx-blog)
-- • [Development Insights](http://localhost:3000/blog/rendering-mdx-content-in-next.js-14)
+- • [Installation](https://www.mdxblog.io//blog/how-to-install-mdx-blog-and-deploy-on-vercel)
+- • [A User Guide](https://www.mdxblog.io//blog/how-to-use-mdx-blog)
+- • [Development Insights](https://www.mdxblog.io//blog/rendering-mdx-content-in-next.js-14)
 
 **Getting Started**
 
