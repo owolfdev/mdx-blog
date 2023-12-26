@@ -84,7 +84,7 @@
 }
 
 .mdx h2 {
-  font-size: 2.5rem;
+  font-size: 2.25rem;
   line-height: 1.1;
   font-weight: 600; /* Slightly lighter */
   margin-bottom: 1rem;
@@ -92,7 +92,7 @@
 }
 
 .mdx h3 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   line-height: 1;
   font-weight: 500; /* Slightly lighter */
   margin-bottom: 1rem;
@@ -100,9 +100,9 @@
 }
 
 .mdx h4 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   line-height: 0.8;
-  font-weight: 400; /* Slightly lighter */
+  font-weight: 400;
   margin-bottom: 1rem;
   font-weight: 700;
 }
@@ -177,6 +177,16 @@
 
   .mdx h2 {
     font-size: 2rem;
+  }
+
+  .mdx h3 {
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+  }
+
+  .mdx h4 {
+    font-size: 1.2rem;
+    line-height: 1.4rem;
   }
 
   .mdx li {
