@@ -152,7 +152,7 @@
   margin-bottom: 1rem;
 }
 
-code {
+:not(pre) > code {
   background-color: #eaeaea; /* light gray background */
   color: #24292e; /* slightly dark text color for contrast */
   padding: 2px 4px;
@@ -163,7 +163,7 @@ code {
 }
 
 @media (prefers-color-scheme: dark) {
-  code {
+  :not(pre) > code {
     background-color: #31363c; /* darker background for dark mode */
     color: #ffffff; /* lighter text color for dark mode */
   }

@@ -19,6 +19,14 @@ const aboutContent = `
 
 Our project is fully accessible on **[GitHub](https://github.com/owolfdev/mdx-blog)**.
 
+Find relevant articles on the blog, including:
+
+- • [Installation](http://localhost:3000/blog/how-to-install-mdx-blog-and-deploy-on-vercel)
+- • [A User Guide](http://localhost:3000/blog/how-to-use-mdx-blog)
+- • [Development Insights](http://localhost:3000/blog/rendering-mdx-content-in-next.js-14)
+
+**Getting Started**
+
 **Installation:** 
 - • Clone the [**repo**](https://github.com/owolfdev/mdx-blog)
 - • Run 'npm install'
