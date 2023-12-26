@@ -152,6 +152,23 @@
   margin-bottom: 1rem;
 }
 
+code {
+  background-color: #eaeaea; /* light gray background */
+  color: #24292e; /* slightly dark text color for contrast */
+  padding: 2px 4px;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier,
+    monospace;
+  font-size: 90%;
+  border-radius: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  code {
+    background-color: #31363c; /* darker background for dark mode */
+    color: #ffffff; /* lighter text color for dark mode */
+  }
+}
+
 /* Media query for smaller screens */
 @media (max-width: 480px) {
   .mdx h1 {
