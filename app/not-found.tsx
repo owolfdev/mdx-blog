@@ -1,4 +1,4 @@
-import LoaderLink from "@/components/nav/loader-link";
+import LoaderLink from "@/components/nav/custom-link";
 export default function NotFound() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

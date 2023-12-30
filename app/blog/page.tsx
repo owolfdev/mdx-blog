@@ -3,10 +3,11 @@ import SelectLimitPosts from "./select-limit-posts";
 import SearchPosts from "./search-posts";
 import SortPosts from "./sort-posts";
 import { getPosts } from "@/lib/posts-utils.mjs";
-import LoaderLink from "@/components/nav/loader-link";
+import LoaderLink from "@/components/nav/custom-link";
 
 import BlogPostList from "./blog-post-list";
 import BlogPostGrid from "./blog-post-grid";
+import { set } from "lodash";
 
 interface BlogPost {
   slug: string;
@@ -20,6 +21,8 @@ interface BlogPost {
   formattedDate?: string; // Optional, as it will be added later
 }
 
+const delay = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const Blog = async ({
   searchParams,
 }: {
@@ -31,6 +34,8 @@ const Blog = async ({
     typeof searchParams.limit === "string" ? Number(searchParams.limit) : 10;
   const searchTerm = searchParams.search || "";
   const sort = searchParams.sort || "date_desc";
+
+  // await delay(3000);
 
   // const defaultButton = buttonVariants({ variant: "default", size: "default" });
 
@@ -91,27 +96,8 @@ const Blog = async ({
           </div>
         ) : (
           <BlogPostList blogs={blogs} trimDescription={trimDescription} />
-          // <ul className="flex flex-col gap-4">
-          //   {blogs.map((blog: BlogPost) => (
-          //     <li
-          //       key={blog.slug}
-          //       className=" border px-3 py-2 rounded-xl cursor-pointer"
-          //     >
-          //       <LoaderLink isButton={false} url={`/blog/${blog.slug}`}>
-          //         <div className="">
-          //           <h3 className="text-2xl font-bold">{blog.title}</h3>
-          //           <div className="text-sm">{blog.formattedDate}</div>
-          //           <div title={blog.description}>
-          //             {trimDescription(blog.description)}
-          //           </div>
-          //         </div>
-          //       </LoaderLink>
-          //     </li>
-          //   ))}
-          // </ul>
-          // )}
         )}
-        {/* pagination */}
+
         <div
           id="pagination"
           className="flex gap-2 pt-8 pb-2 items-center justify-center"

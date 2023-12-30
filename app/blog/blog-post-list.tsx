@@ -1,5 +1,5 @@
 import Link from "next/link";
-import LoaderLink from "@/components/nav/loader-link";
+import LoaderLink from "@/components/nav/custom-link";
 // import { BlogPost } from "@/interfaces.ts"; // Assuming interfaces.ts exists
 
 interface BlogPost {

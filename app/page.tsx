@@ -1,4 +1,4 @@
-import LoaderLink from "@/components/nav/loader-link";
+import LoaderLink from "@/components/nav/custom-link";
 // import AbstractArt from "@/components/graphics/abstract-image";
 import ReactMarkdown from "react-markdown";
 
