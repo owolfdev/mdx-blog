@@ -1,4 +1,4 @@
-name: Build and Update Sitemap
+name: Build and Update Sitemap2
 
 on:
   schedule:
