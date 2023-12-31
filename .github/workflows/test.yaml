@@ -1,4 +1,4 @@
-name: Build and Generate Sitemap and Push Changes
+name: Test
 
 on:
   schedule:
