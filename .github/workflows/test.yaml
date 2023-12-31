@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GH_PAT }} # Use the PAT for checkout
+      # - uses: actions/checkout@v2
+      #   with:
+      #     token: ${{ secrets.GH_PAT }} # Use the PAT for checkout
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -22,11 +22,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
-        run: npm run build
+      # - name: Build
+      #   run: npm run build
 
-      - name: Generate Sitemap
-        run: npm run postbuild
+      # - name: Generate Sitemap
+      #   run: npm run postbuild
 
       # - name: Commit and Push Changes
       #   run: |
