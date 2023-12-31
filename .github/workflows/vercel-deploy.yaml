@@ -2,7 +2,7 @@ name: Trigger Vercel Deployment
 
 on:
   schedule:
-    - cron: "*/3 * * * *" # Runs every 2 minutes
+    - cron: "0 0 * * *" # Runs at 12 AM UTC every day
   workflow_dispatch:
 
 jobs:
