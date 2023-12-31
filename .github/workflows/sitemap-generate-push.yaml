@@ -27,10 +27,10 @@ jobs:
       - name: Generate Sitemap
         run: npm run postbuild
 
-      - name: Commit and Push Changes
-        run: |
-          git config --global user.name 'owolfdev'
-          git config --global user.email 'owolfdev@gmail.com'
-          git add -A
-          git commit -m "Update sitemap"
-          git push
+      # - name: Commit and Push Changes
+      #   run: |
+      #     git config --global user.name 'owolfdev'
+      #     git config --global user.email 'owolfdev@gmail.com'
+      #     git add -A
+      #     git commit -m "Update sitemap"
+      #     git push
