@@ -1,9 +1,8 @@
-name: Generate Sitemap
+name: Build and Update Sitemap
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Run daily at midnight UTC
-  workflow_dispatch: # Manual trigger
+    - cron: "0 0 * * *" # Runs at 12 AM UTC every day
 
 jobs:
   build-and-generate-sitemap:
@@ -11,12 +10,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        with:
+          token: ${{ secrets.MDX_BLOG_ACTIONS_TOKEN }} # Use the PAT for checkout
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "14" # Specify the Node.js version
+          node-version: "16"
 
       - name: Install dependencies
         run: npm install
@@ -26,3 +26,11 @@ jobs:
 
       - name: Generate Sitemap
         run: npm run postbuild
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name 'Your Name'
+          git config --global user.email 'your-email@example.com'
+          git add -A
+          git commit -m "Update sitemap"
+          git push
