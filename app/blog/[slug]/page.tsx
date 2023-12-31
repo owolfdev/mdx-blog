@@ -27,9 +27,19 @@ export async function generateMetadata(
   const title = post.frontMatter.title;
   const description = post.frontMatter.description;
 
+  // Define your base URL (or use an environment variable)
+  const baseURL = "https://mdxblog.io/blog"; // Replace with your actual domain
+
+  // Construct the full canonical URL
+  const canonicalUrl = `${baseURL}/${params.slug}`;
+
   return {
     title: title,
     description: description,
+    // Add the canonical URL to the metadata
+    alternates: {
+      canonical: canonicalUrl,
+    },
     // add other metadata fields as needed
   };
 }
