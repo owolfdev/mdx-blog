@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          token: ${{ secrets.MDX_BLOG_ACTIONS_TOKEN }} # Use the PAT for checkout
+          token: ${{ secrets.GH_PAT }} # Use the PAT for checkout
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
