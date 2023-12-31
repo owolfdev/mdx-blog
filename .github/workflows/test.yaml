@@ -3,6 +3,7 @@ name: Test
 on:
   schedule:
     - cron: "*/3 * * * *"
+  workflow_dispatch:
 
 jobs:
   build-and-generate-sitemap:
