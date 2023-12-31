@@ -13,7 +13,7 @@ const Code = (props: any) => {
   const language = matches?.groups?.lang || "";
 
   return (
-    <div className="text-sm flex flex-col gap-0">
+    <div className="code-component text-sm flex flex-col gap-0">
       <AdminBar code={codeContent} language={language} />
       <SyntaxHighlighter
         className="rounded-lg"

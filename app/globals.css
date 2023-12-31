@@ -120,7 +120,6 @@
   line-height: 1.6rem; /* Matching line height with paragraphs */
   font-weight: 400;
   margin-bottom: 1rem; /* Consistent spacing for lists */
-  padding-left: 1.5rem; /* Adjusted for better alignment with text */
 }
 
 .mdx pre {
@@ -149,6 +148,10 @@
     monospace;
   font-size: 90%;
   border-radius: 6px;
+}
+
+.code-component {
+  margin-bottom: 1rem;
 }
 
 @media (prefers-color-scheme: dark) {
