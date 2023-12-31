@@ -166,7 +166,7 @@ export const columns: ColumnDef<Post>[] = [
   },
 
   {
-    accessorKey: "date", // Access the 'date' field for this column
+    accessorKey: "status",
     header: ({ column }) => {
       return (
         <Button
@@ -174,7 +174,6 @@ export const columns: ColumnDef<Post>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Status
-          <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
@@ -236,13 +235,21 @@ export function DataTable() {
   const [rowSelection, setRowSelection] = React.useState({});
 
   React.useEffect(() => {
-    // Function to fetch posts from the API
     async function fetchPosts() {
       try {
         const response = await fetch("/api/get-posts");
         if (response.ok) {
-          const posts = await response.json();
-          setData(posts); // Set the fetched posts into the state
+          let posts = await response.json();
+
+          // Sort the posts by date in descending order
+          posts.sort((a: any, b: any) => {
+            // Convert dates to timestamps for comparison
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return dateB - dateA; // Descending order
+          });
+
+          setData(posts); // Set the sorted posts into the state
         } else {
           console.error("Failed to fetch posts");
         }
@@ -290,8 +297,9 @@ export function DataTable() {
       rowSelection,
     },
     initialState: {
+      sorting: [{ id: "date", desc: true }], // Default sorting by 'date' in descending order
       pagination: {
-        pageSize: 6, // Set the desired number of rows per page here
+        pageSize: 15, // Existing pagination state
       },
     },
   });

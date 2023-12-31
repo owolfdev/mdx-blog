@@ -1,8 +1,12 @@
 import fs from "fs";
 import path from "path";
 import { MDXRemote } from "next-mdx-remote/rsc";
+
+//custom components
 import YouTube from "@/components/mdx/youtube";
 import Code from "@/components/mdx/code-component/code";
+import Quiz from "@/components/mdx/quiz";
+
 import { getPost } from "@/lib/posts-utils.mjs";
 import Image from "@/components/mdx/image";
 import type { Metadata, ResolvingMetadata } from "next";
@@ -71,17 +75,18 @@ export default async function BlogPage({
     pre: Code,
     YouTube,
     Image,
+    Quiz,
   };
 
   return (
     <div className="flex flex-col gap-3 sm:max-w-xl max-w-xs">
       <div>
-        <h1 className="text-5xl font-bold">{props.frontMatter.title}</h1>
+        <h1 className="text-5xl font-bold mb-2">{props.frontMatter.title}</h1>
         <div>{props.frontMatter.date}</div>
         <div>By: {props.frontMatter.author}</div>
       </div>
       {isDevMode() && (
-        <div className="flex gap-2">
+        <div className="flex gap-2 mb-4">
           <EditPostButton slug={slug} author={props.frontMatter.author} />
           <OpenInVSCode path={props.frontMatter.path} />
         </div>
