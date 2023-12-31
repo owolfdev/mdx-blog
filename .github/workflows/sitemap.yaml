@@ -2,7 +2,7 @@ name: Build and Update Sitemap2
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Runs at 12 AM UTC every day
+    - cron: "*/3 * * * *" # Runs at 12 AM UTC every day
 
 jobs:
   build-and-generate-sitemap:
