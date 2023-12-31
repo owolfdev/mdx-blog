@@ -29,7 +29,7 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          git config --global user.name 'Oliver Wolfson'
+          git config --global user.name 'owolfdev'
           git config --global user.email 'owolfdev@gmail.com'
           git add -A
           git commit -m "Update sitemap"
