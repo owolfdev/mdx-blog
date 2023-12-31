@@ -24,9 +24,8 @@ export default function Settings() {
         <div className="flex flex-col gap-2">
           <OpenCategoriesInVSCode />
           <p className="text-sm text-muted-foreground">
-            Categories, which can be set via a multi-select component in the
-            create and edit post forms, are stored in a JSON file. This button
-            will open that file in VS Code for editing.
+            Categories are stored in a JSON config file. This button will open
+            that file in VS Code for editing.
           </p>
         </div>
       </div>

@@ -70,7 +70,7 @@ const Blog = async ({
   }
 
   return (
-    <div className="flex flex-col gap-8 pb-6 max-w-xl">
+    <div className="flex flex-col gap-8 pb-6 max-w-xl sm:min-w-[580px]">
       {/* <h1 className="text-4xl sm:text-5xl font-bold text-center">Blog</h1> */}
 
       <div className="flex gap-4 justify-between items-center">
