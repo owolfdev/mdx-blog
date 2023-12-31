@@ -24,8 +24,8 @@ const QuizContainer = styled.div`
     repeating-linear-gradient(-45deg, black 0, black 25%, white 0, white 50%) 0 /
       0.6em 0.6em;
   animation: ${dancingAnts} 1s linear infinite;
-  border-radius: 0.5rem;
-  padding-top: 1rem;
+  border-radius: 0.8rem;
+  padding-top: 0;
   padding-right: 1.5rem;
   padding-bottom: 1.5rem;
   padding-left: 1.5rem;
@@ -54,7 +54,7 @@ const Quiz: React.FC<QuizProps> = ({ question, options, correctAnswer }) => {
   };
 
   return (
-    <QuizContainer className="bg-blue-100 overflow-hidden">
+    <QuizContainer className="overflow-hidden">
       {showConfetti && (
         <Confetti width={window.innerWidth} height={window.innerHeight} />
       )}
