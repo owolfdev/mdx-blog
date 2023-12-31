@@ -80,7 +80,7 @@ export default async function BlogPage({
 
   return (
     <div className="flex flex-col gap-3 sm:max-w-xl max-w-xs">
-      <div>
+      <div className="mb-2">
         <h1 className="text-5xl font-bold mb-2">{props.frontMatter.title}</h1>
         <div>{props.frontMatter.date}</div>
         <div>By: {props.frontMatter.author}</div>
