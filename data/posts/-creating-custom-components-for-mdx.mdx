@@ -31,31 +31,46 @@ Now, let's focus on creating custom React components. These components can range
 
 1. **Define Your Component**: Begin by creating a new React component. This can be as simple as a styled button or as complex as a data visualization chart.
 
-    ```jsx
-    const CustomButton = ({ children }) => (
-      <button style={{ backgroundColor: 'blue', color: 'white' }}>
-        {children}
-      </button>
-    );
-    ```
+   ```jsx
+   export const CustomButton = ({
+     children,
+     color,
+   }: {
+     children: any,
+     color?: string,
+   }) => (
+     <button
+       className="mb-4 px-2 py-1 rounded-md hover:scale-105 active:scale-95 transition-transform"
+       style={{ backgroundColor: color || "orange", color: "white" }}
+     >
+       {children}
+     </button>
+   );
+   ```
 
 2. **Integrate Component in MDX**: Once your component is ready, you can import and use it in your MDX file just like you would in a regular JSX file.
 
-    ```mdx
-    import CustomButton from './CustomButton';
+   ```mdx
+   import CustomButton from "./CustomButton";
 
-    # My Blog Post
+   # My Blog Post
 
-    Here's a custom button!
+   Here's a custom button!
 
-    <CustomButton>Click Me</CustomButton>
-    ```
+   <CustomButton>Click Me</CustomButton>
+   ```
+
+Here's a custom button!
+
+<CustomButton>Click Me</CustomButton>
 
 3. **Passing Props**: Your custom components can accept props, allowing you to customize their behavior or appearance within the MDX file.
 
-    ```mdx
-    <CustomButton color="green">Green Button</CustomButton>
-    ```
+   ```mdx
+   <CustomButton color="green">Green Button</CustomButton>
+   ```
+
+   <CustomButton color="green">Green Button</CustomButton>
 
 ## Enhancing Blog Posts with Custom Components
 

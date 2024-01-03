@@ -7,6 +7,9 @@ import YouTube from "@/components/mdx/youtube";
 import Code from "@/components/mdx/code-component/code";
 import Quiz from "@/components/mdx/quiz";
 
+//examples
+import { CustomButton } from "@/components/examples/custom-button";
+
 import { getPost } from "@/lib/posts-utils.mjs";
 import Image from "@/components/mdx/image";
 import type { Metadata, ResolvingMetadata } from "next";
@@ -86,6 +89,7 @@ export default async function BlogPage({
     YouTube,
     Image,
     Quiz,
+    CustomButton,
   };
 
   return (

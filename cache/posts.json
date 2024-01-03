@@ -1,5 +1,44 @@
 [
   {
+    "slug": "-creating-custom-components-for-mdx",
+    "id": "e356defb-746d-4715-83c1-7b8e26a359ba",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": " Creating Custom Components for MDX",
+    "date": "2024-01-03",
+    "description": "In this article, we'll explore how to create and use custom React components within MDX.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "custom",
+      "components"
+    ],
+    "image": "/images/default.jpg",
+    "path": "-creating-custom-components-for-mdx.mdx"
+  },
+  {
+    "slug": "automating-next.js-sitemap-generation-with-github-actions",
+    "id": "bdbdb331-b096-4a39-9617-85161964e705",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Automating Next.js Sitemap Generation with GitHub Actions",
+    "date": "2024-01-02",
+    "description": "Creating a sitemap for your Next.js project is essential for SEO purposes, as it helps search engines better index your site. But manually updating this sitemap can be tedious, especially for dynamic sites. This is where automating the process with GitHub Actions comes in handy.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "sitemap",
+      "automation",
+      "github",
+      "actions"
+    ],
+    "image": "/images/default.jpg",
+    "path": "automating-next.js-sitemap-generation-with-github-actions.mdx"
+  },
+  {
     "slug": "how-to-install-mdx-blog-and-deploy-on-vercel",
     "id": "b911612d-eb8b-4973-86de-5ae360f39001",
     "type": "blog",
