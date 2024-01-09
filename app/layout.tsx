@@ -13,6 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "MDX Blog",
   description: "Simple static blog built with Next.js and MDX.",
+  keywords: ["next.js", "mdx", "blog"],
 };
 
 export default function RootLayout({
