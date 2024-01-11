@@ -1,5 +1,23 @@
 [
   {
+    "slug": "a-beginner's-guide-to-mdx",
+    "id": "86db356d-c90a-4303-969a-a9213851004a",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "A Beginner's Guide to MDX: Building Interactive Blog Posts",
+    "date": "2024-01-10",
+    "description": "Welcome to the world of MDX, a powerful hybrid of Markdown and JSX that's revolutionizing the way we write and interact with content on the web. ",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "guide"
+    ],
+    "image": "/images/default.jpg",
+    "path": "a-beginner's-guide-to-mdx.mdx"
+  },
+  {
     "slug": "automating-next.js-sitemap-generation-with-github-actions",
     "id": "bdbdb331-b096-4a39-9617-85161964e705",
     "type": "blog",
