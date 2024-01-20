@@ -68,6 +68,8 @@ export async function generateStaticParams() {
     if (!isFuture) {
       params.push({ slug: filename.replace(".mdx", "") });
     }
+
+    //
   }
 
   // console.log("params!!!:", params);
@@ -80,6 +82,7 @@ export default async function BlogPage({
 }: {
   params: { slug: string };
 }) {
+  //
   const props = await getPost(params);
 
   const slug = params.slug;

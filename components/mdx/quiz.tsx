@@ -25,10 +25,7 @@ const QuizContainer = styled.div`
       0.6em 0.6em;
   animation: ${dancingAnts} 1s linear infinite;
   border-radius: 0.8rem;
-  padding-top: 0;
-  padding-right: 1.5rem;
-  padding-bottom: 1.5rem;
-  padding-left: 1.5rem;
+
   position: relative; // Needed for confetti
 `;
 
@@ -45,10 +42,10 @@ const Quiz: React.FC<QuizProps> = ({ question, options, correctAnswer }) => {
 
   const checkAnswer = () => {
     if (userAnswer === correctAnswer) {
-      setResult("Correct!");
+      setResult("Yes. Correct!");
       setShowConfetti(true); // Show confetti for correct answer
     } else {
-      setResult("Try again!");
+      setResult("Nope. Try again!");
       setShowConfetti(false);
     }
   };
@@ -58,22 +55,35 @@ const Quiz: React.FC<QuizProps> = ({ question, options, correctAnswer }) => {
       {showConfetti && (
         <Confetti width={window.innerWidth} height={window.innerHeight} />
       )}
-      <h2>{question}</h2>
-      <div className="flex flex-col gap-2 items-start mb-3">
-        {options.map((option) => (
-          <button
-            className={`py-1 px-3 ${userAnswer === option ? "font-bold" : ""}`}
-            onClick={() => handleOptionClick(option)}
-            key={option}
-          >
-            • {option}
-          </button>
-        ))}
+      <div className="bg-white p-[1.5rem] rounded-xl relative ">
+        <h2 className="text-gray-800">{question}</h2>
+        <p className="text-gray-800 text-sm">
+          Select the correct answer below, then submit.
+        </p>
+        <div className="flex flex-col gap-2 items-start mb-6 text-gray-800">
+          {options.map((option) => (
+            <button
+              className={`py-1 px-3 ${
+                userAnswer === option ? "font-bold" : ""
+              }`}
+              onClick={() => handleOptionClick(option)}
+              key={option}
+            >
+              • {option}
+            </button>
+          ))}
+        </div>
+        <div className="mb-3 ">
+          <Button className="border" onClick={checkAnswer}>
+            Submit Your Answer
+          </Button>
+        </div>
+        <div>
+          {result && (
+            <div className="text-2xl font-bold text-gray-800">{result}</div>
+          )}
+        </div>
       </div>
-      <div className="mb-3">
-        <Button onClick={checkAnswer}>Submit</Button>
-      </div>
-      <div>{result && <div className="text-2xl font-bold">{result}</div>}</div>
     </QuizContainer>
   );
 };
