@@ -17,6 +17,7 @@ import EditPostButton from "./edit-post-button";
 import OpenInVSCode from "./open-in-vs-code-button";
 import { isDevMode } from "@/lib/utils";
 import matter from "gray-matter";
+import Button from "@/components/mdx/button";
 
 type Props = {
   params: { slug: string };
@@ -93,6 +94,7 @@ export default async function BlogPage({
     Image,
     Quiz,
     CustomButton,
+    Button,
   };
 
   return (

@@ -46,12 +46,24 @@ Welcome to my first MDX post.
 
 This structure demonstrates how an MDX file blends Markdown syntax with JSX components.
 
+Since this blog article is actually MDX content, we can copy the markdown shown above, and paste it here below. It will render as:
+
+---
+
+# Hello, MDX!
+
+Welcome to my first MDX post.
+
+<Button>Click me!</Button>
+
+---
+
 - **Interactive Components:**
   Creating interactive elements such as a custom button in MDX involves defining the component, possibly in a separate file, and then embedding it within the MDX content.
 
 ```javascript
-const Button = ({ children }) => (
-  <button style={{ backgroundColor: "blue", color: "white" }}>
+const Button = ({ children }: { children: any }) => (
+  <button className="bg-blue-700 rounded-lg text-white px-4 py-2 font-semibold hover:bg-blue-600">
     {children}
   </button>
 );

@@ -134,6 +134,11 @@
   margin-bottom: 1.5rem; /* Consistent with other elements */
 }
 
+.mdx Button {
+  margin-top: 1rem;
+  margin-bottom: 1rem; /* Consistent with other elements */
+}
+
 .mdx hr {
   /* existing styles for hr */
   margin-top: 2rem; /* Added top margin for separation */
