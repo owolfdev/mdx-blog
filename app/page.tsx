@@ -22,7 +22,7 @@ export default function Home() {
 }
 
 const heroContent = `
-**MDXBlog** offers a simple, yet powerful template for creating a static blog using **MDX** (Markdown + JSX) and **Next.js 14**.
+**MDXBlog** offers a simple, yet powerful template for creating static blogs using **MDX** (Markdown + JSX) and **Next.js 14**.
 
 **Why MDX?** MDX blends Markdown's straightforward syntax with the capability to embed dynamic JSX elements. Perfect for interactive, rich-content blogs.
 
