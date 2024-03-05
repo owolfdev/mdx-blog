@@ -9,7 +9,7 @@ export default function Home() {
         Welcome to <span className="gradient-text">MDX</span>Blog
       </h1>
       <p className="text-center">
-        This is a simple blog template built with Next.js and MDX.
+        This is a simple static blog template built with Next.js and MDX.
       </p>
       <LoaderLink isButton={true} url="/blog">
         Start Reading
