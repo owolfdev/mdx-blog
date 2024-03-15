@@ -13,7 +13,9 @@ async function ContactMessages() {
     return (
       <div className="w-full px-6">
         <div className="text-xl font-bold pb-4">Contact Messages</div>
-        <div>Access denied.</div>
+        <div>
+          Access denied. Contact messages are only available in dev mode.
+        </div>
       </div>
     );
   }

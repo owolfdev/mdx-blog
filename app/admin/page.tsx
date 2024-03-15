@@ -6,7 +6,7 @@ export default function Settings() {
     return (
       <div className="w-full px-6">
         <div className="text-xl font-bold">Posts</div>
-        <div>Access denied.</div>
+        <div>Access denied. Admin panel is only available in dev mode.</div>
       </div>
     );
   }
