@@ -12,11 +12,12 @@ function Contact() {
       </div>
       {isDevMode() && (
         <div className="flex justify-center">
-          Dev mode only:{" "}
-          <Link href="/contact/contact-messages" className="underline pl-1">
-            {" "}
-            see contact messages.
-          </Link>
+          <div>
+            <Link href="/contact/contact-messages" className="underline">
+              {" "}
+              see contact messages.
+            </Link>
+          </div>
         </div>
       )}
     </div>
