@@ -1,10 +1,25 @@
 import { getAllPosts } from "@/lib/posts-utils.mjs";
+import { getContactMessages } from "@/lib/supabase-utils.mjs";
 
 export async function GET(req: Request) {
   if (req.method === "GET") {
     try {
       // Get the data
-      const data = getAllPosts();
+      const data = getContactMessages();
+      // const data = [
+      //   {
+      //     id: 1,
+      //     name: "John Doe",
+      //     email: "john.doe@example.com",
+      //     message: "Hello, this is a test message.",
+      //   },
+      //   {
+      //     id: 2,
+      //     name: "Jane Doe",
+      //     email: "jane.doe@example.com",
+      //     message: "Hi, this is another test message.",
+      //   },
+      // ];
 
       // Return the data in the response
       return new Response(
