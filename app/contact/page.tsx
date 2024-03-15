@@ -1,5 +1,7 @@
 import React from "react";
 import { ContactForm } from "./form";
+import { isDevMode } from "@/lib/utils";
+import Link from "next/link";
 
 function Contact() {
   return (
@@ -8,6 +10,15 @@ function Contact() {
       <div>
         <ContactForm />
       </div>
+      {isDevMode() && (
+        <div className="flex justify-center">
+          Dev mode only:{" "}
+          <Link href="/contact/contact-messages" className="underline pl-1">
+            {" "}
+            see contact messages.
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
