@@ -15,7 +15,7 @@ export default function Home() {
       </div>
       <div className="flex justify-center py-3">
         <Button>
-          <Link href="https://github.com/owolfdev/mdx-blog">
+          <Link target="_blank" href="https://github.com/owolfdev/mdx-blog">
             <div className="text-lg">
               Install{" "}
               <span className="font-bold">
@@ -27,13 +27,20 @@ export default function Home() {
       </div>
       <p>
         Click the button above ☝️ to go to the MDXBlog github repo. Installation
-        instructions are in the README file.
+        instructions are in the{" "}
+        <Link
+          target="_blank"
+          href="https://github.com/owolfdev/mdx-blog/blob/main/README.md"
+        >
+          README
+        </Link>{" "}
+        file.
       </p>
       <hr />
       <p>
         We regularly publish content, including articles, tutorials, and news
         covering MDX, Next.js, and other static site generation frameworks.
-        Click the button below to start reading 👇 .
+        Click the button below to start reading 👇.
       </p>
       <div className="py-3">
         <LoaderLink isButton={true} url="/blog">
@@ -43,33 +50,64 @@ export default function Home() {
       <hr />
       <div className="flex justify-center">
         <h2 className="text-2xl sm:text-3xl font-bold text-center">
-          More About <span className="gradient-text">MDX</span>Blob
+          More About <span className="gradient-text">MDX</span>Blog
         </h2>
       </div>
-      <ReactMarkdown className="flex flex-col gap-6">
-        {heroContent}
-      </ReactMarkdown>
+      <div>
+        <span className="font-bold">MDXBlog</span> offers a simple, yet powerful
+        template for creating static blogs using MDX (Markdown + JSX) and
+        Next.js 14.
+      </div>
+      <div>
+        <span className="font-bold">Why MDX?</span> MDX blends Markdown&apos;s
+        straightforward syntax with the capability to embed dynamic JSX
+        elements. Perfect for interactive, rich-content blogs.
+      </div>
+      <div>
+        <span className="font-bold">Get MDXBlog</span>: Download the{" "}
+        <Link target="_blank" href="https://github.com/owolfdev/mdx-blog">
+          <span className="font-bold">github repo</span>
+        </Link>
+        . Instructions for installation and deployment are included in the
+        README.
+      </div>
+      <div>
+        <ul>
+          <li>
+            <Link href="/about">• Documentation.</Link>
+          </li>
+          <li>
+            <Link target="_blank" href="https://github.com/owolfdev/mdx-blog">
+              • MDXBlog GitHub Repo
+            </Link>
+          </li>
+          <li>
+            <Link href="/blog">
+              • The Blog, where you can find the latest news and tutorials.
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <hr />
+      <div className="flex justify-center">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center">
+          More About <span className="">MDX</span>
+        </h2>
+      </div>
+      <div>
+        <ul>
+          <li>
+            <Link target="_blank" href="https://mdxjs.com/">
+              • MDX Official Documentation.
+            </Link>
+          </li>
+          <li>
+            <Link target="_blank" href="https://nextjs.org/docs">
+              • Integrating MDX with Next.js
+            </Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
-
-const heroContent1 = `
-**MDXBlog** offers a simple, yet powerful template for creating static blogs using **MDX** (Markdown + JSX) and **Next.js 14**.`;
-
-const heroContent = `
-**MDXBlog** offers a simple, yet powerful template for creating static blogs using **MDX** (Markdown + JSX) and **Next.js 14**.
-
-**Why MDX?** MDX blends Markdown's straightforward syntax with the capability to embed dynamic JSX elements. Perfect for interactive, rich-content blogs.
-
-**Get MDXBlog:** Download the [**repo**](https://github.com/owolfdev/mdx-blog). Instructions for installation and deployment are included in the README.
-
-**Learn More About MDXBlog:**
-
-- • [Documentation. AKA the 'about' page.](/about)
-- • [MDXBlog GitHub Repo](https://github.com/owolfdev/mdx-blog)
-- • [The Blog, where you can find the latest news and tutorials.](/blog)
-
-**Learn More About MDX format**:
-- • [MDX Official Documentation](https://mdxjs.com/)
-- • [Integrating MDX with Next.js](https://nextjs.org/docs)
-`;
