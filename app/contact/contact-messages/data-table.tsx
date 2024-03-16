@@ -64,7 +64,199 @@ export type Post = {
   tags: string[];
 };
 
-export const columns: ColumnDef<Post>[] = [
+const messageData = {
+  id: "80de44e2-e893-42ae-b777-75fad857bb4a",
+  created_at: "2023-12-23T22:45:45.556022+00:00",
+  name: "oliver",
+  email: "oliverwolfson@gmail.com",
+  phone: null,
+  company: null,
+  message: "This is simply a test",
+  read: false,
+  responded: false,
+  type: "Bug Report",
+};
+
+export type ContactMessagesData = {
+  id: string;
+  created_at: string;
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  message: string;
+  read: boolean;
+  responded: boolean;
+  type: string;
+};
+
+interface DataTableProps {
+  contactMessagesData: ContactMessagesData[];
+}
+
+//post  columns def
+// export const columns: ColumnDef<Post>[] = [
+//   {
+//     id: "select",
+//     header: ({ table }) => (
+//       <Checkbox
+//         checked={
+//           table.getIsAllPageRowsSelected() ||
+//           (table.getIsSomePageRowsSelected() && "indeterminate")
+//         }
+//         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+//         aria-label="Select all"
+//       />
+//     ),
+//     cell: ({ row }) => (
+//       <Checkbox
+//         checked={row.getIsSelected()}
+//         onCheckedChange={(value) => row.toggleSelected(!!value)}
+//         aria-label="Select row"
+//       />
+//     ),
+//     enableSorting: false,
+//     enableHiding: false,
+//   },
+
+//   {
+//     accessorKey: "date",
+//     header: ({ column }) => {
+//       return (
+//         <Button
+//           variant="ghost"
+//           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+//         >
+//           Date
+//           <ArrowUpDown className="ml-2 h-4 w-4" />
+//         </Button>
+//       );
+//     },
+//     cell: ({ row }) => {
+//       // Parse the date from the row
+//       const date = new Date(row.getValue("date"));
+
+//       // Format the date as 'DD.MM.YY'
+//       const formattedDate = date.toLocaleDateString("en-GB", {
+//         day: "2-digit",
+//         month: "2-digit",
+//         year: "2-digit",
+//       });
+
+//       return <div>{formattedDate}</div>;
+//     },
+//   },
+
+//   {
+//     accessorKey: "type", // Access the 'type' attribute of your data
+//     header: ({ column }) => {
+//       return (
+//         <Button
+//           variant="ghost"
+//           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+//         >
+//           Type
+//           <ArrowUpDown className="ml-2 h-4 w-4" />
+//         </Button>
+//       );
+//     },
+//     cell: ({ row }) => <span>{row.getValue("type")}</span>, // Access and display the 'type' value from each row
+//   },
+
+//   {
+//     accessorKey: "title",
+//     header: ({ column }) => {
+//       return (
+//         <Button
+//           variant="ghost"
+//           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+//         >
+//           Title
+//           <ArrowUpDown className="ml-2 h-4 w-4" />
+//         </Button>
+//       );
+//     },
+//     cell: ({ row }) => (
+//       <div>
+//         {" "}
+//         <Link href={`/blog/${row.original.slug}`}>
+//           <TooltipProvider>
+//             <Tooltip>
+//               {/* <TooltipTrigger>{row.getValue("title")}</TooltipTrigger> */}
+//               <TooltipTrigger>
+//                 <div className="text-left">{row.getValue("title")}</div>
+//               </TooltipTrigger>
+//               <TooltipContent className="max-w-sm px-4 py-2">
+//                 {row.original.description}
+//               </TooltipContent>
+//             </Tooltip>
+//           </TooltipProvider>
+//         </Link>
+//       </div>
+//     ),
+//   },
+
+//   {
+//     accessorKey: "status",
+//     header: ({ column }) => {
+//       return (
+//         <Button
+//           variant="ghost"
+//           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+//         >
+//           Status
+//         </Button>
+//       );
+//     },
+//     cell: ({ row }) => {
+//       // Get the current date
+//       const currentDate = new Date();
+//       currentDate.setHours(0, 0, 0, 0); // Reset time part for comparison
+
+//       // Parse the date from the row
+//       const postDate = new Date(row.getValue("date"));
+
+//       // Determine the status based on the date
+//       const status = postDate <= currentDate ? "published" : "unpublished";
+
+//       return <div className="capitalize">{status}</div>;
+//     },
+//   },
+
+//   {
+//     id: "actions",
+//     enableHiding: false,
+//     cell: ({ row }) => {
+//       const post = row.original;
+
+//       return (
+//         <DropdownMenu>
+//           <DropdownMenuTrigger asChild>
+//             <Button variant="ghost" className="h-8 w-8 p-0">
+//               <span className="sr-only">Open menu</span>
+//               <DotsHorizontalIcon className="h-4 w-4" />
+//             </Button>
+//           </DropdownMenuTrigger>
+//           <DropdownMenuContent align="end">
+//             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+//             <DropdownMenuItem
+//               onClick={() => navigator.clipboard.writeText(post.id)}
+//             >
+//               Copy post ID
+//             </DropdownMenuItem>
+//             <DropdownMenuSeparator />
+//             <DropdownMenuItem asChild>
+//               <Link href={`/blog/edit/${post.slug}`}>Edit</Link>
+//             </DropdownMenuItem>
+//           </DropdownMenuContent>
+//         </DropdownMenu>
+//       );
+//     },
+//   },
+// ];
+
+//contract messages colums def
+export const columns: ColumnDef<ContactMessagesData>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -89,7 +281,7 @@ export const columns: ColumnDef<Post>[] = [
   },
 
   {
-    accessorKey: "date",
+    accessorKey: "created_at",
     header: ({ column }) => {
       return (
         <Button
@@ -103,7 +295,7 @@ export const columns: ColumnDef<Post>[] = [
     },
     cell: ({ row }) => {
       // Parse the date from the row
-      const date = new Date(row.getValue("date"));
+      const date = new Date(row.getValue("created_at"));
 
       // Format the date as 'DD.MM.YY'
       const formattedDate = date.toLocaleDateString("en-GB", {
@@ -117,7 +309,7 @@ export const columns: ColumnDef<Post>[] = [
   },
 
   {
-    accessorKey: "type", // Access the 'type' attribute of your data
+    accessorKey: "type",
     header: ({ column }) => {
       return (
         <Button
@@ -129,40 +321,23 @@ export const columns: ColumnDef<Post>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <span>{row.getValue("type")}</span>, // Access and display the 'type' value from each row
+    cell: ({ row }) => <span>{row.getValue("type")}</span>,
   },
 
   {
-    accessorKey: "title",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Title
+          Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
-    cell: ({ row }) => (
-      <div>
-        {" "}
-        <Link href={`/blog/${row.original.slug}`}>
-          <TooltipProvider>
-            <Tooltip>
-              {/* <TooltipTrigger>{row.getValue("title")}</TooltipTrigger> */}
-              <TooltipTrigger>
-                <div className="text-left">{row.getValue("title")}</div>
-              </TooltipTrigger>
-              <TooltipContent className="max-w-sm px-4 py-2">
-                {row.original.description}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </Link>
-      </div>
-    ),
+    cell: ({ row }) => <span>{row.getValue("name")}</span>,
   },
 
   {
@@ -183,7 +358,7 @@ export const columns: ColumnDef<Post>[] = [
       currentDate.setHours(0, 0, 0, 0); // Reset time part for comparison
 
       // Parse the date from the row
-      const postDate = new Date(row.getValue("date"));
+      const postDate = new Date(row.getValue("created_at"));
 
       // Determine the status based on the date
       const status = postDate <= currentDate ? "published" : "unpublished";
@@ -196,7 +371,7 @@ export const columns: ColumnDef<Post>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const post = row.original;
+      const message = row.original;
 
       return (
         <DropdownMenu>
@@ -207,15 +382,13 @@ export const columns: ColumnDef<Post>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(post.id)}
+              onClick={() => console.log("Copy message ID:", message.id)}
             >
-              Copy post ID
+              Copy Message ID
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href={`/blog/edit/${post.slug}`}>Edit</Link>
+              {/* <Link to={`/edit/${message.id}`}>Edit</Link> */}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -224,8 +397,8 @@ export const columns: ColumnDef<Post>[] = [
   },
 ];
 
-export function DataTable() {
-  const [data, setData] = React.useState<Post[]>([]);
+export function DataTable({ contactMessagesData }: DataTableProps) {
+  const [data, setData] = React.useState<ContactMessagesData[]>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -235,30 +408,31 @@ export function DataTable() {
   const [rowSelection, setRowSelection] = React.useState({});
 
   React.useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await fetch("/api/fetch-contact-messages");
-        if (response.ok) {
-          let posts = await response.json();
+    setData(contactMessagesData);
+    // async function fetchPosts() {
+    //   try {
+    //     const response = await fetch("/api/fetch-contact-messages");
+    //     if (response.ok) {
+    //       let posts = await response.json();
 
-          // Sort the posts by date in descending order
-          posts.sort((a: any, b: any) => {
-            // Convert dates to timestamps for comparison
-            const dateA = new Date(a.date).getTime();
-            const dateB = new Date(b.date).getTime();
-            return dateB - dateA; // Descending order
-          });
+    //       // Sort the posts by date in descending order
+    //       posts.sort((a: any, b: any) => {
+    //         // Convert dates to timestamps for comparison
+    //         const dateA = new Date(a.date).getTime();
+    //         const dateB = new Date(b.date).getTime();
+    //         return dateB - dateA; // Descending order
+    //       });
 
-          setData(posts); // Set the sorted posts into the state
-        } else {
-          console.error("Failed to fetch posts");
-        }
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    }
+    //       setData(posts); // Set the sorted posts into the state
+    //     } else {
+    //       console.error("Failed to fetch posts");
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching posts:", error);
+    //   }
+    // }
 
-    fetchPosts();
+    // fetchPosts();
   }, []);
 
   const globalFilterFn: FilterFn<Post> = (row, columnIds, filterValue) => {
@@ -289,7 +463,7 @@ export function DataTable() {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    globalFilterFn: globalFilterFn,
+    // globalFilterFn: globalFilterFn,
     state: {
       sorting,
       columnFilters,
@@ -306,6 +480,20 @@ export function DataTable() {
 
   return (
     <div className="w-full">
+      {/* <div>
+        <div>
+          <div className="flex flex-col gap-2">
+            {contactMessagesData.map((message) => (
+              <div key={message.id}>
+                <div>From: {message.name}</div>
+                <div>Email: {message.email}</div>
+                <div>Date: {new Date(message.created_at).toLocaleString()}</div>
+                <div>Message: {message.message}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div> */}
       <div className="flex items-center py-4">
         <Input
           placeholder="Search posts..."

@@ -17,14 +17,23 @@ export default function Home() {
         <Button>
           <Link href="https://github.com/owolfdev/mdx-blog">
             <div className="text-lg">
-              Install <span className="gradient-text">MDX</span>Blog
+              Install{" "}
+              <span className="font-bold">
+                <span className="gradient-text">MDX</span>Blog
+              </span>
             </div>
           </Link>
         </Button>
       </div>
       <p>
+        Click the button above ☝️ to go to the MDXBlog github repo. Installation
+        instructions are in the README.md file.
+      </p>
+      <hr />
+      <p>
         We regularly publish content, including articles, tutorials, and news
         covering MDX, Next.js, and other static site generation frameworks.
+        Click the button below to start reading 👇 .
       </p>
       <div className="py-3">
         <LoaderLink isButton={true} url="/blog">
