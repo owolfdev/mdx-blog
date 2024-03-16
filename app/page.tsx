@@ -27,7 +27,7 @@ export default function Home() {
       </div>
       <p>
         Click the button above ☝️ to go to the MDXBlog github repo. Installation
-        instructions are in the README.md file.
+        instructions are in the README file.
       </p>
       <hr />
       <p>
@@ -40,6 +40,7 @@ export default function Home() {
           Start Reading
         </LoaderLink>
       </div>
+      <hr />
       <div className="flex justify-center">
         <h2 className="text-2xl sm:text-3xl font-bold text-center">
           More About <span className="gradient-text">MDX</span>Blob
