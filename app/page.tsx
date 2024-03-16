@@ -51,7 +51,7 @@ export default function Home() {
       <hr />
       <div className="flex justify-center">
         <h2 className="text-2xl sm:text-3xl font-bold text-center">
-          What is <span className="">MDX</span>
+          What is <span className="">MDX?</span>
         </h2>
       </div>
       <div className="flex justify-center">
