@@ -3,6 +3,7 @@ import LoaderLink from "@/components/nav/custom-link";
 import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -50,6 +51,43 @@ export default function Home() {
       <hr />
       <div className="flex justify-center">
         <h2 className="text-2xl sm:text-3xl font-bold text-center">
+          What is <span className="">MDX</span>
+        </h2>
+      </div>
+      <div className="flex justify-center">
+        <Image
+          src="/logos/mdx-logo.png"
+          alt="MDX Logo"
+          width={150} // Halve the width to 150px
+          height={62}
+        />
+      </div>
+      <div>
+        MDX is a file format that combines Markdown with JSX, allowing
+        developers to seamlessly embed React components within Markdown
+        documents, enabling dynamic and interactive content creation. It
+        facilitates the creation of rich, interactive documentation and blog
+        posts in web development projects. MDX blends Markdown&apos;s
+        straightforward syntax with the capability to embed dynamic JSX
+        elements. Perfect for interactive, rich-content blogs.
+      </div>
+      <div>
+        <ul>
+          <li>
+            <Link target="_blank" href="https://mdxjs.com/">
+              • MDX Official Documentation.
+            </Link>
+          </li>
+          <li>
+            <Link target="_blank" href="https://nextjs.org/docs">
+              • Integrating MDX with Next.js
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <hr />
+      <div className="flex justify-center">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center">
           More About <span className="gradient-text">MDX</span>Blog
         </h2>
       </div>
@@ -58,11 +96,7 @@ export default function Home() {
         template for creating static blogs using MDX (Markdown + JSX) and
         Next.js 14.
       </div>
-      <div>
-        <span className="font-bold">Why MDX?</span> MDX blends Markdown&apos;s
-        straightforward syntax with the capability to embed dynamic JSX
-        elements. Perfect for interactive, rich-content blogs.
-      </div>
+
       <div>
         <span className="font-bold">Get MDXBlog</span>: Download the{" "}
         <Link target="_blank" href="https://github.com/owolfdev/mdx-blog">
@@ -84,26 +118,6 @@ export default function Home() {
           <li>
             <Link href="/blog">
               • The Blog, where you can find the latest news and tutorials.
-            </Link>
-          </li>
-        </ul>
-      </div>
-      <hr />
-      <div className="flex justify-center">
-        <h2 className="text-2xl sm:text-3xl font-bold text-center">
-          More About <span className="">MDX</span>
-        </h2>
-      </div>
-      <div>
-        <ul>
-          <li>
-            <Link target="_blank" href="https://mdxjs.com/">
-              • MDX Official Documentation.
-            </Link>
-          </li>
-          <li>
-            <Link target="_blank" href="https://nextjs.org/docs">
-              • Integrating MDX with Next.js
             </Link>
           </li>
         </ul>
