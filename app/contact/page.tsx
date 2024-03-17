@@ -14,7 +14,6 @@ function Contact() {
         <div className="flex justify-center">
           <div>
             <Link href="/contact/messages" className="underline">
-              {" "}
               see contact messages.
             </Link>
           </div>

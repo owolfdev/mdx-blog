@@ -22,7 +22,7 @@ async function ContactMessages() {
   let data;
   try {
     data = await getContactMessages();
-    console.log("data from getContactMessages", data);
+    // console.log("data from getContactMessages", data);
   } catch (error) {
     console.error("Error fetching contact messages:", error);
   }
