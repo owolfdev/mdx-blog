@@ -52,6 +52,7 @@ import {
 } from "@/components/ui/table";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export type Post = {
   id: string;
@@ -337,7 +338,23 @@ export const columns: ColumnDef<ContactMessagesData>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <span>{row.getValue("name")}</span>,
+    cell: ({ row }) => (
+      <span className="capitalize">{row.getValue("name")}</span>
+    ),
+  },
+
+  {
+    accessorKey: "message",
+    header: ({ column }) => {
+      return <div>Message</div>;
+    },
+    cell: ({ row }) => {
+      const message: string = row.getValue("message") as string; // Assuming 'message' is a string
+      const truncatedMessage =
+        message.length > 30 ? message.slice(0, 25) + "..." : message;
+
+      return <span className="capitalize">{truncatedMessage}</span>;
+    },
   },
 
   {
@@ -346,30 +363,44 @@ export const columns: ColumnDef<ContactMessagesData>[] = [
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === "asc");
+            console.log("column:", column);
+          }}
         >
           Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
+    sortingFn: (a, b, desc) => {
+      // Custom sorting function for boolean values
+      // If 'desc' is true, descending order; otherwise, ascending order
+      if (a.original.read === b.original.read) {
+        return 0;
+      } else if (desc) {
+        return a.original.read ? -1 : 1;
+      } else {
+        return a.original.read ? 1 : -1;
+      }
+    },
     cell: ({ row }) => {
-      // Get the current date
-      const currentDate = new Date();
-      currentDate.setHours(0, 0, 0, 0); // Reset time part for comparison
+      // Get the value of the 'read' property from the row
+      const isRead = row.original.read;
 
-      // Parse the date from the row
-      const postDate = new Date(row.getValue("created_at"));
+      // Determine the status text based on the boolean value
+      const status = isRead ? "Read" : "Unread";
 
-      // Determine the status based on the date
-      const status = postDate <= currentDate ? "published" : "unpublished";
-
-      return <div className="capitalize">{status}</div>;
+      return <div className="">{status}</div>;
     },
   },
 
   {
     id: "actions",
     enableHiding: false,
+    header: ({ column }) => {
+      return <div>Actions</div>;
+    },
     cell: ({ row }) => {
       const message = row.original;
 
@@ -385,7 +416,23 @@ export const columns: ColumnDef<ContactMessagesData>[] = [
             <DropdownMenuItem
               onClick={() => console.log("Copy message ID:", message.id)}
             >
-              Copy Message ID
+              <Link href={`/contact/messages/${message.id}`}>Open Message</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              {/* <Link to={`/edit/${message.id}`}>Edit</Link> */}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => console.log("Copy message ID:", message.id)}
+            >
+              Mark as Read
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              {/* <Link to={`/edit/${message.id}`}>Edit</Link> */}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => console.log("Copy message ID:", message.id)}
+            >
+              Delete Message
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               {/* <Link to={`/edit/${message.id}`}>Edit</Link> */}
@@ -406,6 +453,8 @@ export function DataTable({ contactMessagesData }: DataTableProps) {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const router = useRouter();
 
   React.useEffect(() => {
     setData(contactMessagesData);
@@ -489,6 +538,7 @@ export function DataTable({ contactMessagesData }: DataTableProps) {
                 <div>Email: {message.email}</div>
                 <div>Date: {new Date(message.created_at).toLocaleString()}</div>
                 <div>Message: {message.message}</div>
+                <div>Read: {JSON.stringify(message.read)}</div>
               </div>
             ))}
           </div>
@@ -496,7 +546,7 @@ export function DataTable({ contactMessagesData }: DataTableProps) {
       </div> */}
       <div className="flex items-center py-4">
         <Input
-          placeholder="Search posts..."
+          placeholder="Search messages..."
           // Use a global filter value from the table state
           value={table.getState().globalFilter ?? ""}
           onChange={(event) => {

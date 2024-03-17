@@ -13,7 +13,7 @@ function Contact() {
       {isDevMode() && (
         <div className="flex justify-center">
           <div>
-            <Link href="/contact/contact-messages" className="underline">
+            <Link href="/contact/messages" className="underline">
               {" "}
               see contact messages.
             </Link>
