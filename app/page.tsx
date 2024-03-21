@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-4  max-w-xl">
       <h1 className="text-5xl sm:text-7xl font-bold text-center">
-        Welcome to <span className="gradient-text">MDX</span>Blog
+        Welcome to <span className="primary-color">MDX</span>Blog
       </h1>
       <div className="flex justify-center">
         <p>A simple static blog template built with Next.js and MDX.</p>
@@ -20,7 +20,7 @@ export default function Home() {
             <div className="text-lg">
               Install{" "}
               <span className="font-bold">
-                <span className="gradient-text">MDX</span>Blog
+                <span className="">MDX</span>Blog
               </span>
             </div>
           </Link>
@@ -43,10 +43,12 @@ export default function Home() {
         covering MDX, Next.js, and other static site generation frameworks.
         Click the button below to start reading 👇.
       </p>
-      <div className="py-3">
-        <LoaderLink isButton={true} url="/blog">
-          Start Reading
-        </LoaderLink>
+      <div className="flex justify-center py-3">
+        <Button>
+          <Link className="text-lg" href="/blog">
+            Start Reading
+          </Link>
+        </Button>
       </div>
       <hr />
       <div className="flex justify-center">
@@ -88,7 +90,7 @@ export default function Home() {
       <hr />
       <div className="flex justify-center">
         <h2 className="text-2xl sm:text-3xl font-bold text-center">
-          More About <span className="gradient-text">MDX</span>Blog
+          More About <span className="primary-color">MDX</span>Blog
         </h2>
       </div>
       <div>

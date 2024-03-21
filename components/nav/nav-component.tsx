@@ -44,7 +44,7 @@ const NavComponent: React.FC = () => {
       <div className="sm:flex gap-4 items-center hidden">
         <div className="font-bold text-2xl tracking-tight">
           <Link className="pr-2" href="/">
-            <span className="gradient-text">MDX</span>
+            <span className="primary-color">MDX</span>
             <span>Blog</span>
           </Link>
           {/* <DropdownMenu>

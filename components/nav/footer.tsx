@@ -7,7 +7,7 @@ export function Footer() {
         <div className="flex gap-6 items-center">
           <div className="">
             &copy; {new Date().getFullYear()}{" "}
-            <span className="font-bold">MDX Blog</span> created by{" "}
+            <span className="font-bold">MDXBlog</span> created by{" "}
             <Link target="_blank" href="https://owolf.com">
               OWolf
             </Link>
