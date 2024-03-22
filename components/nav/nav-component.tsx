@@ -47,37 +47,15 @@ const NavComponent: React.FC = () => {
             <span className="primary-color">MDX</span>
             <span>Blog</span>
           </Link>
-          {/* <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <h1 className="text-3xl">
-                <span className="gradient-text">MDX</span>
-                <span>Blog</span>
-              </h1>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <Link href="/">
-                <DropdownMenuItem>Home</DropdownMenuItem>
-              </Link>
-              <Link href="/blog">
-                <DropdownMenuItem>Blog</DropdownMenuItem>
-              </Link>
-              <Link href="/about">
-                <DropdownMenuItem>Blog</DropdownMenuItem>
-              </Link>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div> */}
         </div>
-        {/* <nav>
-          <Link href="/about">About</Link>
-        </nav> */}
-        {/* <BlogButton /> */}
-        <Link className="text-sm" href="/blog">
-          /blog
-        </Link>
-        <Link className="text-sm" href="/about">
-          /about
-        </Link>
+        <div className="flex gap-4 font-semibold">
+          <Link className="text-sm" href="/blog">
+            /blog
+          </Link>
+          <Link className="text-sm" href="/about">
+            /about
+          </Link>
+        </div>
       </div>
 
       <button
