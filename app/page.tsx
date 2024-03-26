@@ -93,16 +93,28 @@ export default function Home() {
           More About <span className="primary-color">MDX</span>Blog
         </h2>
       </div>
-      <div>
-        <span className="font-bold">MDXBlog</span> is an independently created
-        blog app template built with the latest web technologies, offering a
-        unique blogging experience. MDXBlog is a simple template for creating
-        blogs using MDX (Markdown + JSX) and Next.js 14. We have no official
-        affiliation with the MDX team or Next.js, we are simply fans of the
-        technology and wanted to create a simple, free, easy-to-use blog
-        template for the community. <span className="font-bold">MDXBlog</span>{" "}
-        offers a simple, yet powerful template for creating static blogs using
-        MDX (Markdown + JSX) and Next.js 14.
+      <div className="flex flex-col gap-4">
+        <p>
+          <span className="font-bold">MDXBlog</span> is an independently created
+          app built with the latest web technologies, offering a unique blogging
+          experience. <span className="font-bold">MDXBlog</span> offers a
+          simple, yet powerful template for creating static blogs using MDX
+          (Markdown + JSX) and Next.js 14.
+        </p>
+
+        <p>
+          We have no official affiliation with the MDX team or Next.js, we are
+          simply fans of the technology and wanted to create a simple, free,
+          easy-to-use blog template for the community.
+        </p>
+
+        <p>
+          MDXBlog is a free, open-source project that is easy to install and
+          deploy. It generates static pages that are fast, secure, and
+          SEO-friendly. The app is designed to be easy to use and customize,
+          with a clean, modern design that is fully responsive and
+          mobile-friendly.
+        </p>
       </div>
 
       <div>
