@@ -175,7 +175,7 @@
     "type": "blog",
     "author": "O Wolfson",
     "title": "MDX and Content Management with Headless CMS",
-    "date": "2024-03-30",
+    "date": "2024-03-28",
     "description": "Headless CMS platforms like Contentful, Sanity, and Strapi are redefining how content is managed and delivered. This article explores the integration of MDX with these headless CMS platforms to enhance the content management experience",
     "categories": [
       "Web Development"
