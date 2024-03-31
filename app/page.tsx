@@ -15,16 +15,16 @@ export default function Home() {
         <p>A simple static blog template built with Next.js and MDX.</p>
       </div>
       <div className="flex justify-center py-3">
-        <Button>
-          <Link target="_blank" href="https://github.com/owolfdev/mdx-blog">
+        <Link target="_blank" href="https://github.com/owolfdev/mdx-blog">
+          <Button>
             <div className="text-lg">
               Install{" "}
               <span className="font-bold">
                 <span className="">MDX</span>Blog
               </span>
             </div>
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </div>
       <p>
         Click the button above ☝️ to go to the MDXBlog github repo. Installation
@@ -44,11 +44,10 @@ export default function Home() {
         Click the button below to start reading 👇.
       </p>
       <div className="flex justify-center py-3">
-        <Button>
-          <Link className="text-lg" href="/blog">
-            Start Reading
-          </Link>
-        </Button>
+        {" "}
+        <Link className="text-lg" href="/blog">
+          <Button>Start Reading</Button>
+        </Link>
       </div>
       <hr />
       <div className="flex justify-center">
