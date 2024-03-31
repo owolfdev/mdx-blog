@@ -1,0 +1,81 @@
+---
+id: "aedef2ba-23c0-419d-8a09-332d8e70de13"
+type: "blog"
+author: "O Wolfson"
+title: "Simple Markdown Rendering in Next.js"
+date: "2024-03-30"
+description: "A Brief tutorial on how to create a Markdown page using a server component in Next.js "
+categories:
+  - Web Development
+tags:
+  - markdown
+image: "/images/default.jpg"
+path: "simple-markdown-rendering-in-next.mdx"
+---
+
+We'll also need `react-markdown` for parsing Markdown content.
+
+```bash
+npm install react-markdown
+```
+
+**Create a React Server Component:**
+
+Inside the `app` directory, create a new page.tsx
+
+```jsx
+import ReactMarkdown from "react-markdown";
+
+// Define CSS styles as a constant
+const styles = `
+  /* Add your CSS styles here */
+  h1 {
+    font-size: 32px;
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  p {
+    font-size: 18px;
+  }
+  ul {
+    list-style-type: square;
+    margin-left: 20px;
+  }
+  li:hover {
+    color: orange; /* Change color on hover */
+    cursor: pointer; /* Optional: Change cursor to pointer on hover */
+  }
+`;
+
+const content = `## My Markdown Content
+
+This is some **bold** text.
+
+- List item 1
+- List item 2
+- List item 3
+`;
+
+export default function MarkdownPage() {
+  return (
+    <div>
+      {/* Use the styles constant */}
+      <style>{styles}</style>
+      <h1>My Markdown Blog</h1>
+      <ReactMarkdown>{content}</ReactMarkdown>
+    </div>
+  );
+}
+```
+
+**Start the Development Server:**
+Run the following command in your terminal to start the Next.js development server:
+
+```bash
+npm run dev
+```
+
+That's it! You've created a Markdown page using a React server component in Next.js 14. You can modify the `content` variable with your Markdown content and customize the CSS styles as needed.

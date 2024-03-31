@@ -3,11 +3,7 @@ import SelectLimitPosts from "./select-limit-posts";
 import SearchPosts from "./search-posts";
 import SortPosts from "./sort-posts";
 import { getPosts } from "@/lib/posts-utils.mjs";
-import LoaderLink from "@/components/nav/custom-link";
-
 import BlogPostList from "./blog-post-list";
-import BlogPostGrid from "./blog-post-grid";
-import { set } from "lodash";
 
 interface BlogPost {
   slug: string;

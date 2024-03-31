@@ -1,23 +1,26 @@
 import fs from "fs";
 import path from "path";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import matter from "gray-matter";
+import Button from "@/components/mdx/button";
 
 //custom components
 import YouTube from "@/components/mdx/youtube";
 import Code from "@/components/mdx/code-component/code";
 import Quiz from "@/components/mdx/quiz";
+import Image from "@/components/mdx/image";
+
+import EditPostButton from "./edit-post-button";
+import OpenInVSCode from "./open-in-vs-code-button";
 
 //examples
 import { CustomButton } from "@/components/examples/custom-button";
 
+//functions
 import { getPost } from "@/lib/posts-utils.mjs";
-import Image from "@/components/mdx/image";
-import type { Metadata, ResolvingMetadata } from "next";
-import EditPostButton from "./edit-post-button";
-import OpenInVSCode from "./open-in-vs-code-button";
 import { isDevMode } from "@/lib/utils";
-import matter from "gray-matter";
-import Button from "@/components/mdx/button";
+
+import type { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
   params: { slug: string };
