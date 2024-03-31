@@ -267,8 +267,8 @@
     "id": "aedef2ba-23c0-419d-8a09-332d8e70de13",
     "type": "blog",
     "author": "O Wolfson",
-    "title": "Simple Markdown Rendering in Next",
-    "date": "2024-03-31",
+    "title": "Simple Markdown Rendering in Next.js",
+    "date": "2024-03-30",
     "description": "A Brief tutorial on how to create a Markdown page using a server component in Next.js ",
     "categories": [
       "Web Development"
