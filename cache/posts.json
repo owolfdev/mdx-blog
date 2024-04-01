@@ -263,11 +263,11 @@
     "path": "rendering-mdx-content-in-next.js-14.mdx"
   },
   {
-    "slug": "simple-markdown-rendering-in-next",
+    "slug": "simple-markdown-rendering-react",
     "id": "aedef2ba-23c0-419d-8a09-332d8e70de13",
     "type": "blog",
     "author": "O Wolfson",
-    "title": "Simple Markdown Rendering in Next.js",
+    "title": "Simple Markdown Rendering React",
     "date": "2024-03-30",
     "description": "A Brief tutorial on how to create a Markdown page using a server component in Next.js ",
     "categories": [
@@ -277,7 +277,7 @@
       "markdown"
     ],
     "image": "/images/default.jpg",
-    "path": "simple-markdown-rendering-in-next.mdx"
+    "path": "simple-markdown-rendering-react"
   },
   {
     "slug": "some-project",
@@ -335,5 +335,23 @@
     ],
     "image": "/images/default.jpg",
     "path": "styling-mdx-content.mdx"
+  },
+  {
+    "slug": "using-mdx-for-e-learning-content-and-tutorials",
+    "id": "19482835-c1ef-49ff-8500-9248399eb896",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Using MDX for E Learning Content and Tutorials",
+    "date": "2024-04-02",
+    "description": "This post explores how MDX can revolutionize e-learning content and tutorials.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "e-learning",
+      "mdx"
+    ],
+    "image": "/images/default.jpg",
+    "path": "using-mdx-for-e-learning-content-and-tutorials.mdx"
   }
 ]
