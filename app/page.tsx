@@ -1,6 +1,6 @@
-import LoaderLink from "@/components/nav/custom-link";
+// import LoaderLink from "@/components/nav/custom-link";
 // import AbstractArt from "@/components/graphics/abstract-image";
-import ReactMarkdown from "react-markdown";
+// import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";

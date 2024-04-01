@@ -42,7 +42,7 @@ Our dynamic page rendering system is the backbone of MDX Blog, carefully extract
 **Development Insights:**
 
 - Utilizing gray-matter for front matter parsing, we extract crucial metadata for SEO and rendering purposes.
-- Our generateStaticParams function ensures that only relevant posts are displayed, based on their publication date.
+- Only relevant posts are displayed, based on their publication date.
 - In development mode, additional tools like EditPostButton and OpenInVSCode are available, enhancing the ease of content management and editing.
 
 **MDX Blog** represents a blend of technological innovation and user-centric design, providing a platform that's not only a pleasure to use but also powerful in its capabilities. Whether you're a developer, a content creator, or someone passionate about blogging, MDX Blog offers you the tools to share your stories and ideas with the world effortlessly.
