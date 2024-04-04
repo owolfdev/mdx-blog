@@ -52,7 +52,7 @@ export default function Home() {
         </Link>
       </div>
       <hr />
-      <div className="flex justify-center">
+      <div className="flex justify-center pt-2">
         <h2 className="text-2xl sm:text-3xl font-bold text-center">
           What is <span className="">MDX?</span>
         </h2>
