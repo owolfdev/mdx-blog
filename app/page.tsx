@@ -43,10 +43,12 @@ export default function Home() {
         covering MDX, Next.js, and other static site generation frameworks.
         Click the button below to start reading 👇.
       </p>
-      <div className="flex justify-center py-3">
+      <div className="flex justify-center py-3 pb-6">
         {" "}
         <Link className="text-lg" href="/blog">
-          <Button>Start Reading</Button>
+          <Button>
+            <span className="text-lg">Start Reading</span>
+          </Button>
         </Link>
       </div>
       <hr />
