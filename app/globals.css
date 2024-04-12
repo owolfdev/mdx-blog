@@ -91,7 +91,7 @@
 }
 
 .mdx p {
-  font-size: 1rem;
+  font-size: 18px;
   line-height: 1.6rem; /* Improved line height for paragraph readability */
   font-weight: 400;
   margin-bottom: 1rem; /* Consistent bottom margin for paragraphs */
@@ -169,7 +169,7 @@
   .mdx p,
   .mdx ul,
   .mdx ol {
-    font-size: 1rem; /* Adjusted for smaller screens */
+    font-size: 18px; /* Adjusted for smaller screens */
   }
 }
 
