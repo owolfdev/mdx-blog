@@ -22,29 +22,26 @@ Lazy loading is a technique that delays the loading of non-critical resources at
 ### Implementing Lazy Loading in MDX:
 
 - **For React Components**: Utilize React's `React.lazy()` and `Suspense` to dynamically import components only when they are required. This is particularly useful for heavy components like charts or complex widgets.
-  
-    ```jsx
-    const LazyComponent = React.lazy(() => import('./HeavyComponent'));
 
-    const MyComponent = () => (
-      <Suspense fallback={<div>Loading...</div>}>
-        <LazyComponent />
-      </Suspense>
-    );
-    ```
+  ```jsx
+  const LazyComponent = React.lazy(() => import("./HeavyComponent"));
+
+  const MyComponent = () => (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LazyComponent />
+    </Suspense>
+  );
+  ```
 
 - **For Images**: Use libraries like `react-lazy-load-image-component` to lazy load images. This ensures that images are only loaded when they enter the viewport.
 
-    ```jsx
-    import { LazyLoadImage } from 'react-lazy-load-image-component';
+  ```jsx
+  import { LazyLoadImage } from "react-lazy-load-image-component";
 
-    const MyImageComponent = () => (
-      <LazyLoadImage
-        src="example.jpg"
-        effect="blur"
-      />
-    );
-    ```
+  const MyImageComponent = () => (
+    <LazyLoadImage src="example.jpg" effect="blur" />
+  );
+  ```
 
 ## 2. Image Optimization
 

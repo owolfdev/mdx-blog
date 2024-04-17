@@ -23,29 +23,29 @@ Dynamic content in MDX refers to content that changes based on user interaction,
 ### 1. Using React Hooks
 
 - **React's useState and useEffect Hooks**: These can be used within MDX to fetch, display, and update content. For example, fetching user data from an API and displaying it within the MDX file.
-  
+
   ```jsx
-  import React, { useState, useEffect } from 'react';
+  import React, { useState, useEffect } from "react";
 
   const UserProfile = ({ userId }) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
       fetch(`https://api.example.com/users/${userId}`)
-        .then(response => response.json())
+        .then((response) => response.json())
         .then(setUser);
     }, [userId]);
 
-    return <div>{user ? `Name: ${user.name}` : 'Loading...'}</div>;
+    return <div>{user ? `Name: ${user.name}` : "Loading..."}</div>;
   };
   ```
 
 ### 2. Client-Side Data Fetching
 
 - **Dynamic Imports**: Use dynamic imports to fetch and display content when needed, reducing initial load time and improving performance.
-  
+
   ```jsx
-  const DynamicComponent = React.lazy(() => import('./SomeComponent'));
+  const DynamicComponent = React.lazy(() => import("./SomeComponent"));
 
   const MyPage = () => (
     <React.Suspense fallback={<div>Loading...</div>}>
@@ -63,18 +63,24 @@ Connecting to external APIs expands the capabilities of MDX, allowing you to inc
 - **Use Fetch API or Axios**: Fetch data from external APIs and display it within your MDX content. You can use native fetch or libraries like Axios for this purpose.
 
   ```jsx
-  import { useEffect, useState } from 'react';
-  import axios from 'axios';
+  import { useEffect, useState } from "react";
+  import axios from "axios";
 
   const WeatherComponent = () => {
     const [weather, setWeather] = useState(null);
 
     useEffect(() => {
-      axios.get('https://api.weatherapi.com/v1/current.json?key=YOUR_KEY&q=London')
-        .then(response => setWeather(response.data));
+      axios
+        .get("https://api.weatherapi.com/v1/current.json?key=YOUR_KEY&q=London")
+        .then((response) => setWeather(response.data));
     }, []);
 
-    return <div>Current weather: {weather ? weather.current.condition.text : 'Loading...'}</div>;
+    return (
+      <div>
+        Current weather:{" "}
+        {weather ? weather.current.condition.text : "Loading..."}
+      </div>
+    );
   };
   ```
 

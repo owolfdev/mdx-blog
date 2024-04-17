@@ -66,12 +66,12 @@ MDX, an extension of Markdown that allows for the embedding of JSX, offers a pow
 - **Update `next.config.js`**: Enhance your Next.js configuration to process MDX files:
 
   ```javascript
-  const withMDX = require('@next/mdx')({
+  const withMDX = require("@next/mdx")({
     extension: /\.mdx?$/,
   });
 
   module.exports = withMDX({
-    pageExtensions: ['js', 'jsx', 'md', 'mdx'],
+    pageExtensions: ["js", "jsx", "md", "mdx"],
   });
   ```
 

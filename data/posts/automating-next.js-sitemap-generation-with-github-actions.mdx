@@ -30,7 +30,7 @@ After installation, create a `next-sitemap.js` or `next-sitemap.config.js` file 
 
 ```javascript
 module.exports = {
-  siteUrl: 'https://www.yoursite.com',
+  siteUrl: "https://www.yoursite.com",
   generateRobotsTxt: true, // (optional)
   // ...other options
 };
@@ -65,28 +65,28 @@ name: Build and Update Sitemap
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs at 12 AM UTC every day
+    - cron: "0 0 * * *" # Runs at 12 AM UTC every day
 
 jobs:
   build-and-generate-sitemap:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14' # Ensure this matches your project's Node.js version
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14" # Ensure this matches your project's Node.js version
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Build
-      run: npm run build
+      - name: Build
+        run: npm run build
 
-    - name: Generate Sitemap
-      run: npm run postbuild
+      - name: Generate Sitemap
+        run: npm run postbuild
 ```
 
 This workflow is configured to run every day at 12 AM UTC. It sets up a Node.js environment, installs dependencies, builds your Next.js project, and then runs the `postbuild` script to generate the sitemap.

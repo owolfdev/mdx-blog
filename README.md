@@ -1,10 +1,10 @@
 [**MDX Blog** (mdxblog.io)](https://mdxblog.io) is a platform built with the latest web technologies, offering a unique blogging experience. MDX Blog is a simple template for creating blogs using MDX (Markdown + JSX) and Next.js 14. Unlike traditional blogging solutions that rely on a database to store content, content management in MDXBlog is handled by easily editable Markdown (mdx) files in a folder on your local machine! It's a good solution for those who appreciate the ease of Markdown and the power of React components.
 
-Our project is fully accessible on **[GitHub](https://github.com/owolfdev/mdx-blog)**.
+Our project is fully accessible on **[GitHub](https://github.com/owolfdev/mdx-blog-basic)**.
 
 **Installation:**
 
-- Clone the [**repo**](https://github.com/owolfdev/mdx-blog)
+- Clone the [**repo**](https://github.com/owolfdev/mdx-blog-basic)
 - Run `npm install`
 - Run `npm run dev`
 - Open `http://localhost:3000` in your browser
@@ -20,7 +20,7 @@ Our project is fully accessible on **[GitHub](https://github.com/owolfdev/mdx-bl
 **Key Features of MDX Blog:**
 
 - **Next.js 14 & App Router**: Utilizing the cutting-edge features of Next.js 14, MDX Blog offers a seamless and efficient user experience, underpinned by the powerful app router for smooth navigation.
-- [**Deployed on Vercel**](https://github.com/owolfdev/mdx-blog): Experience the reliability and speed of Vercel, ensuring that our static blog site is always available and performs exceptionally.
+- [**Deployed on Vercel**](https://vercel.com): Experience the reliability and speed of Vercel, ensuring that our static blog site is always available and performs exceptionally.
 - **SEO Optimized**: With automatic sitemap generation at build time through 'next sitemap', our platform is finely tuned for search engine optimization, enhancing the visibility and reach of your content.
 - **Dynamic Publishing**: Our platform smartly handles future-dated posts, ensuring they are published only on or after their set date, thanks to a meticulous filtering system.
 - **Development Mode Features**: In development mode, users can swiftly create new posts using the '+' icon, streamlining the content creation process.
