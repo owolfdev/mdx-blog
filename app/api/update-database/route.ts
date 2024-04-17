@@ -4,8 +4,8 @@ export async function POST(req: Request) {
   if (req.method === "POST") {
     try {
       // Get the data
-      const data = updateDatabase();
-
+      const data = await updateDatabase();
+      console.log("Data:", data);
       // Return the data in the response
       return new Response(
         JSON.stringify({
