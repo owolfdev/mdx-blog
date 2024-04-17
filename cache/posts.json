@@ -188,6 +188,25 @@
     "path": "mdx-and-content-management-with-headless-cms.mdx"
   },
   {
+    "slug": "mdx-best-practices-and-common-pitfalls",
+    "id": "335c0443-70d5-4321-a771-39dc026d579b",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "MDX Best Practices and Common Pitfalls",
+    "date": "2024-04-10",
+    "description": "MDX, which blends Markdown and JSX, has become increasingly popular for creating rich, interactive documentation and content. While its power and flexibility are undeniable, there are best practices to follow and pitfalls to avoid for effective use. This article provides insights into how to maximize the potential of MDX.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "pitfalls",
+      "problems",
+      "best practices"
+    ],
+    "image": "/images/default.jpg",
+    "path": "mdx-best-practices-and-common-pitfalls.mdx"
+  },
+  {
     "slug": "mdx-performance-optimization",
     "id": "f00f620e-dec0-494d-be88-09c2633b62f3",
     "type": "blog",
@@ -277,7 +296,7 @@
       "markdown"
     ],
     "image": "/images/default.jpg",
-    "path": "simple-markdown-rendering-react"
+    "path": "simple-markdown-rendering-react.mdx"
   },
   {
     "slug": "some-project",

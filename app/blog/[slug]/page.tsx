@@ -31,6 +31,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const post = await getPost(params);
+  // console.log("post:", post);
   const title = post.frontMatter.title;
   const description = post.frontMatter.description;
 

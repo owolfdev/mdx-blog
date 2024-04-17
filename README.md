@@ -12,9 +12,6 @@ Our project is fully accessible on **[GitHub](https://github.com/owolfdev/mdx-bl
 - Push your local repo to GitHub
 - Deploy on Vercel
 
-**A note on credentials:**
-We use captcha and database services for the contact form. We are using Google reCAPTCHA v3 for spam protection on the contact form. You can get your own keys **[here](https://www.google.com/recaptcha/admin/create)**. Supabase for saving contact form submissions. You can get your own keys **[here](https://supabase.io/)**. Add credentials to `.env.local` file for dev mode and/or your Vercel deployment in production. Alternatively, to simplify things, feel free to disable contact, or remove the contact page altogether by removing the contact route (app/contact) from the app directory. Note that you will need to remove links from the nav components as well.
-
 **Create a post:**
 
 - Use the '+' icon in the nav bar, in development mode only, to create a new post - or simply create a new MDX file in the `data/posts` directory, manually.
