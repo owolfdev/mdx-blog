@@ -92,6 +92,26 @@
     "path": "creating-custom-components-for-mdx.mdx"
   },
   {
+    "slug": "future-of-mdx-trends-and-upcoming-features",
+    "id": "f7223bb8-77d0-4abe-8736-68fc58a1f6c8",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Future of MDX: Trends and Upcoming Features",
+    "date": "2024-04-20",
+    "description": "Looking ahead, we can anticipate trends and potential new features that may shape the future of MDX.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "react",
+      "javascript",
+      "mdx",
+      "html"
+    ],
+    "image": "/images/default.jpg",
+    "path": "future-of-mdx:-trends-and-upcoming-features.mdx"
+  },
+  {
     "slug": "how-to-install-mdx-blog-and-deploy-on-vercel",
     "id": "b911612d-eb8b-4973-86de-5ae360f39001",
     "type": "blog",
