@@ -16,7 +16,7 @@ export default function Home() {
           A simple static blog template built with{" "}
           <Link href="https://nextjs.org/docs/app/building-your-application/configuring/mdx">
             Next.js
-          </Link>
+          </Link>{" "}
           and <Link href="https://mdxjs.com">MDX</Link>.
         </p>
       </div>
