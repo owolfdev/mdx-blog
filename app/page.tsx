@@ -14,10 +14,17 @@ export default function Home() {
       <div className="flex justify-center">
         <p>
           A simple static blog template built with{" "}
-          <Link href="https://nextjs.org/docs/app/building-your-application/configuring/mdx">
+          <Link
+            className="font-bold"
+            href="https://nextjs.org/docs/app/building-your-application/configuring/mdx"
+          >
             Next.js
           </Link>{" "}
-          and <Link href="https://mdxjs.com">MDX</Link>.
+          and{" "}
+          <Link className="font-bold" href="https://mdxjs.com">
+            MDX
+          </Link>
+          .
         </p>
       </div>
       <div className="flex justify-center py-3">
@@ -38,6 +45,7 @@ export default function Home() {
         <Link
           target="_blank"
           href="https://github.com/owolfdev/mdx-blog/blob/main/README.md"
+          className="font-bold"
         >
           README
         </Link>{" "}
@@ -84,7 +92,8 @@ export default function Home() {
         <ul>
           <li>
             <Link target="_blank" href="https://mdxjs.com/">
-              • MDX Official Documentation.
+              • 
+              <span className="underline">MDX Official Documentation</span>
             </Link>
           </li>
           <li>
@@ -92,7 +101,7 @@ export default function Home() {
               target="_blank"
               href="https://nextjs.org/docs/app/building-your-application/configuring/mdx"
             >
-              • Integrating MDX with Next.js
+              • <span className="underline">Integrating MDX with Next.js</span>
             </Link>
           </li>
           <li>
@@ -100,7 +109,11 @@ export default function Home() {
               target="_blank"
               href="https://vercel.com/templates/next.js/portfolio-starter-kit"
             >
-              • Check out the Next.js portfolio starter template  
+              •{" "}
+              <span className="underline">
+                Check out the Next.js portfolio starter template
+              </span>{" "}
+               
             </Link>
           </li>
         </ul>
@@ -141,24 +154,30 @@ export default function Home() {
           <span className="font-bold">github repo</span>
         </Link>
         . Instructions for installation and deployment are included in the
-        README.
+        README .
       </div>
       <div>
         <ul>
           <li>
-            <Link href="/about">• Documentation.</Link>
+            <Link href="/about">
+              • <span className="underline">Documentation</span>
+            </Link>
           </li>
           <li>
             <Link
               target="_blank"
               href="https://github.com/owolfdev/mdx-blog-basic"
             >
-              • MDXBlog GitHub Repo
+              • <span className="underline">MDXBlog GitHub Repo</span>
             </Link>
           </li>
           <li>
             <Link href="/blog">
-              • The Blog, where you can find the latest news and tutorials.
+              • 
+              <span className="underline">
+                The Blog, where you can find the latest news and tutorials
+              </span>
+              .
             </Link>
           </li>
         </ul>
