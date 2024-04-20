@@ -13,9 +13,11 @@ export default function Home() {
       </h1>
       <div className="flex justify-center">
         <p>
-          A simple static blog template built with
-          [Next.js](https://nextjs.org/docs/app/building-your-application/configuring/mdx)
-          and [MDX](https://mdxjs.com).
+          A simple static blog template built with{" "}
+          <Link href="https://nextjs.org/docs/app/building-your-application/configuring/mdx">
+            Next.js
+          </Link>
+          and <Link href="https://mdxjs.com">MDX</Link>.
         </p>
       </div>
       <div className="flex justify-center py-3">
