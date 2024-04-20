@@ -12,7 +12,11 @@ export default function Home() {
         Welcome to <span className="primary-color">MDX</span>Blog
       </h1>
       <div className="flex justify-center">
-        <p>A simple static blog template built with Next.js and MDX.</p>
+        <p>
+          A simple static blog template built with
+          [Next.js](https://nextjs.org/docs/app/building-your-application/configuring/mdx#deep-dive-how-do-you-transform-markdown-into-html)
+          and [MDX](https://mdxjs.com).
+        </p>
       </div>
       <div className="flex justify-center py-3">
         <Link target="_blank" href="https://github.com/owolfdev/mdx-blog-basic">
