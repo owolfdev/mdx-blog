@@ -82,7 +82,10 @@ export default function Home() {
             </Link>
           </li>
           <li>
-            <Link target="_blank" href="https://nextjs.org/docs">
+            <Link
+              target="_blank"
+              href="https://nextjs.org/docs/app/building-your-application/configuring/mdx#deep-dive-how-do-you-transform-markdown-into-html"
+            >
               • Integrating MDX with Next.js
             </Link>
           </li>
