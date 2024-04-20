@@ -14,7 +14,7 @@ export default function Home() {
       <div className="flex justify-center">
         <p>
           A simple static blog template built with
-          [Next.js](https://nextjs.org/docs/app/building-your-application/configuring/mdx#deep-dive-how-do-you-transform-markdown-into-html)
+          [Next.js](https://nextjs.org/docs/app/building-your-application/configuring/mdx)
           and [MDX](https://mdxjs.com).
         </p>
       </div>
@@ -88,7 +88,7 @@ export default function Home() {
           <li>
             <Link
               target="_blank"
-              href="https://nextjs.org/docs/app/building-your-application/configuring/mdx#deep-dive-how-do-you-transform-markdown-into-html"
+              href="https://nextjs.org/docs/app/building-your-application/configuring/mdx"
             >
               • Integrating MDX with Next.js
             </Link>
