@@ -128,6 +128,11 @@
   margin-bottom: 2rem; /* Added bottom margin for clear section breaks */
 }
 
+.mdx a {
+  text-decoration: underline; /* Remove underline from links */
+  font-weight: 700; /* Slightly bold for emphasis */
+}
+
 :not(pre) > code {
   background-color: #eaeaea; /* light gray background */
   color: #24292e; /* slightly dark text color for contrast */

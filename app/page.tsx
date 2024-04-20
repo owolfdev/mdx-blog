@@ -86,6 +86,14 @@ export default function Home() {
               • Integrating MDX with Next.js
             </Link>
           </li>
+          <li>
+            <Link
+              target="_blank"
+              href="https://vercel.com/templates/next.js/portfolio-starter-kit"
+            >
+              • Check out the Next.js portfolio starter template  
+            </Link>
+          </li>
         </ul>
       </div>
       <hr />

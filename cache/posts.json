@@ -319,6 +319,26 @@
     "path": "simple-markdown-rendering-react.mdx"
   },
   {
+    "slug": "simple-static-mdx-blog",
+    "id": "affa6f1d-9801-4610-bb0d-e857f8ed2db6",
+    "type": "blog",
+    "author": "O. Wolfson",
+    "title": "Simple Static MDX Blog",
+    "date": "2024-04-21",
+    "description": "Creating a static MDX blog in Next.js 14 involves several steps, including setting up your Next.js environment, creating MDX files, and configuring your pages to render these files.",
+    "categories": [
+      "web",
+      "development",
+      "javascript"
+    ],
+    "tags": [
+      "webdev",
+      "mac"
+    ],
+    "image": "/images/default.jpg",
+    "path": "simple-static-mdx-blog.mdx"
+  },
+  {
     "slug": "some-project",
     "id": "8dc1debe-d8e7-4e2c-9875-f1fd626370d7",
     "type": "project",
@@ -374,6 +394,27 @@
     ],
     "image": "/images/default.jpg",
     "path": "styling-mdx-content.mdx"
+  },
+  {
+    "slug": "the-next.js-portfolio-blog-starter-kit",
+    "id": "e3750466-3bfc-4107-877b-6932b2819bdf",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "The Next.js Portfolio Blog Starter Kit",
+    "date": "2024-04-21",
+    "description": "This template provides MDX support while simplifying the creation of a professional online presence. ",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "next.js",
+      "react",
+      "static",
+      "blog"
+    ],
+    "image": "/images/default.jpg",
+    "path": "the-next.js-portfolio-blog-starter-kit.mdx"
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",
