@@ -55,7 +55,7 @@ const Blog = async ({
 
   // Utility function to trim description
   function trimDescription(description: string) {
-    const wordLimit = 10;
+    const wordLimit = 20;
     const words = description.split(" ");
 
     if (words.length > wordLimit) {
@@ -66,7 +66,7 @@ const Blog = async ({
   }
 
   return (
-    <div className="flex flex-col gap-8 pb-6 sm:w-xl max-w-xl sm:max-w-2xl">
+    <div className="flex flex-col gap-8 pb-6 w-full sm:w-2xl max-w-xl sm:max-w-2xl">
       {/* <h1 className="text-4xl sm:text-5xl font-bold text-center">Blog</h1> */}
 
       <div className="flex gap-4 justify-between items-center">
