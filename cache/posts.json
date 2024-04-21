@@ -261,6 +261,28 @@
     "path": "migrating-from-markdown-to-mdx-a-step-by-step-guide.mdx"
   },
   {
+    "slug": "next.js-documentation---configuring-mdx-in-next.js",
+    "id": "3964ac90-e21a-4475-a26c-c3dc68c7bf29",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Next.js Documentation - Configuring MDX in Next.js",
+    "date": "2024-04-22",
+    "description": "MDX is a superset of markdown that lets you write JSX directly in your markdown files. It is a powerful way to add dynamic interactivity and embed React components within your content.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "markdown",
+      "next.js",
+      "react",
+      "static",
+      "blog"
+    ],
+    "image": "/images/default.jpg",
+    "path": "next.js-documentation---configuring-mdx-in-next.js.mdx"
+  },
+  {
     "slug": "optimizing-mdx-for-seo",
     "id": "1729b5df-7f61-4840-a552-837d42093777",
     "type": "blog",
