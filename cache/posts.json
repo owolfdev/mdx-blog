@@ -73,6 +73,28 @@
     "path": "building-interactive-blog-posts-with-mdx.mdx"
   },
   {
+    "slug": "configuring-mdx-in-next.js",
+    "id": "3964ac90-e21a-4475-a26c-c3dc68c7bf29",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Configuring MDX in Next.js",
+    "date": "2024-04-22",
+    "description": "MDX is a superset of markdown that lets you write JSX directly in your markdown files. It is a powerful way to add dynamic interactivity and embed React components within your content.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "markdown",
+      "next.js",
+      "react",
+      "static",
+      "blog"
+    ],
+    "image": "/images/default.jpg",
+    "path": "configuring-mdx-in-next.js.mdx"
+  },
+  {
     "slug": "creating-custom-components-for-mdx",
     "id": "e356defb-746d-4715-83c1-7b8e26a359ba",
     "type": "blog",
@@ -261,28 +283,6 @@
     "path": "migrating-from-markdown-to-mdx-a-step-by-step-guide.mdx"
   },
   {
-    "slug": "next.js-documentation---configuring-mdx-in-next.js",
-    "id": "3964ac90-e21a-4475-a26c-c3dc68c7bf29",
-    "type": "blog",
-    "author": "O Wolfson",
-    "title": "Next.js Documentation - Configuring MDX in Next.js",
-    "date": "2024-04-22",
-    "description": "MDX is a superset of markdown that lets you write JSX directly in your markdown files. It is a powerful way to add dynamic interactivity and embed React components within your content.",
-    "categories": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "markdown",
-      "next.js",
-      "react",
-      "static",
-      "blog"
-    ],
-    "image": "/images/default.jpg",
-    "path": "next.js-documentation---configuring-mdx-in-next.js.mdx"
-  },
-  {
     "slug": "optimizing-mdx-for-seo",
     "id": "1729b5df-7f61-4840-a552-837d42093777",
     "type": "blog",
@@ -416,6 +416,27 @@
     ],
     "image": "/images/default.jpg",
     "path": "styling-mdx-content.mdx"
+  },
+  {
+    "slug": "the-next.js-portfolio-blog-starter-kit",
+    "id": "e3750466-3bfc-4107-877b-6932b2819bdf",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "The Next.js Portfolio Blog Starter Kit",
+    "date": "2024-04-23",
+    "description": "This template provides MDX support while simplifying the creation of a professional online presence. ",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "next.js",
+      "react",
+      "static",
+      "blog"
+    ],
+    "image": "/images/default.jpg",
+    "path": "the-next.js-portfolio-blog-starter-kit.mdx"
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",
