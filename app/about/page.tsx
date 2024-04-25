@@ -46,7 +46,7 @@ Find relevant articles on the blog, including:
 
 - • **Next.js 14 & App Router**: Utilizing the cutting-edge features of Next.js 14, MDX Blog offers a seamless and efficient user experience, underpinned by the powerful app router for smooth navigation.
 
-- • [**Deployed on Vercel**:](https://github.com/owolfdev/mdx-blog-basic) Experience the reliability and speed of Vercel, ensuring that our static blog site is always available and performs exceptionally.
+- • [**Deployed on Vercel**:](https://vercel.com) Experience the reliability and speed of Vercel, ensuring that our static blog site is always available and performs exceptionally.
 
 - • **SEO Optimized**: With automatic sitemap generation at build time through 'next sitemap', our platform is finely tuned for search engine optimization, enhancing the visibility and reach of your content.
 

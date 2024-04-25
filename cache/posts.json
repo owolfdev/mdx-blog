@@ -79,7 +79,7 @@
     "author": "O Wolfson",
     "title": "Configuring MDX in Next.js",
     "date": "2024-04-22",
-    "description": "MDX is a superset of markdown that lets you write JSX directly in your markdown files. It is a powerful way to add dynamic interactivity and embed React components within your content.",
+    "description": "The MDX integration guide provided by Next.js offers a robust solution for if you're looking to enhance your Next.js application with rich text and interactive components",
     "categories": [
       "Web Development"
     ],
