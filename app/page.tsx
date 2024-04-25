@@ -28,7 +28,7 @@ export default function Home() {
         </p>
       </div>
       <div className="flex justify-center py-3">
-        <Link target="_blank" href="https://github.com/owolfdev/mdx-blog-basic">
+        <Link href="/download">
           <Button>
             <div className="text-lg">
               Install{" "}
