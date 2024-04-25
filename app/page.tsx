@@ -40,16 +40,8 @@ export default function Home() {
         </Link>
       </div>
       <p>
-        Click the button above ☝️ to go to the MDXBlog github repo. Installation
-        instructions are in the{" "}
-        <Link
-          target="_blank"
-          href="https://github.com/owolfdev/mdx-blog/blob/main/README.md"
-          className="font-bold"
-        >
-          README
-        </Link>{" "}
-        file.
+        Click the button above ☝️ to see the installation options for MDX Blog
+        or a <em>lite</em> version of the app.
       </p>
       <hr />
       <p>

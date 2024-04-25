@@ -9,8 +9,8 @@ export default function About() {
         Download <span className="primary-color">MDX</span>Blog
       </h1>
       <p>
-        Download MDX Blog Lite, which is a good starting point for a simple
-        blog.
+        Download MDX Blog Lite, which is a good starting point for a simple blog
+        or to learn how to build a blog with MDX and Next.js.
       </p>
       <Link
         className="text-lg"
@@ -23,9 +23,20 @@ export default function About() {
           </span>
         </Button>
       </Link>
+      <hr />
       <p>
-        Download MDX Blog, a full-feature version which features several helpful
-        tools such as admin panel, and create / edit functions.
+        Download MDX Blog, a more full-featured version, which offers several
+        helpful tools such as admin panel, create / edit functions, and more.
+        This version is a good starting point for a production app. Installation
+        instructions are in the{" "}
+        <Link
+          target="_blank"
+          href="https://github.com/owolfdev/mdx-blog/blob/main/README.md"
+          className="font-bold"
+        >
+          README
+        </Link>{" "}
+        file.
       </p>
       <Link
         className="text-lg"
