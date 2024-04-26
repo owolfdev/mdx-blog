@@ -28,7 +28,7 @@ export default function Home() {
         </p>
       </div>
       <div className="flex justify-center py-3">
-        <Link href="/download">
+        <Link href="/install">
           <Button>
             <div className="text-lg">
               Install{" "}

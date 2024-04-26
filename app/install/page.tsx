@@ -6,10 +6,10 @@ export default function About() {
   return (
     <div className="flex flex-col gap-8 max-w-xl">
       <h1 className="text-4xl sm:text-5xl font-bold text-center">
-        Download <span className="primary-color">MDX</span>Blog
+        Install <span className="primary-color">MDX</span>Blog
       </h1>
       <p>
-        Download MDX Blog Lite, which is a good starting point for a simple blog
+        Install MDX Blog Lite, which is a good starting point for a simple blog
         or to learn how to build a blog with MDX and Next.js.
       </p>
       <Link
@@ -19,13 +19,13 @@ export default function About() {
       >
         <Button>
           <span className="text-lg">
-            Download <span className="font-bold">MDX Blog</span> Lite
+            Install <span className="font-bold">MDX Blog</span> Lite
           </span>
         </Button>
       </Link>
       <hr />
       <p>
-        Download MDX Blog, a more full-featured version, which offers several
+        Install MDX Blog, a more full-featured version, which offers several
         helpful tools such as admin panel, create / edit functions, and more.
         This version is a good starting point for a production app. Installation
         instructions are in the{" "}
@@ -45,7 +45,7 @@ export default function About() {
       >
         <Button>
           <span className="text-lg">
-            Download <span className="font-bold">MDX Blog</span>
+            Install <span className="font-bold">MDX Blog</span>
           </span>
         </Button>
       </Link>
