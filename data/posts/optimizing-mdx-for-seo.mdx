@@ -55,9 +55,12 @@ How you structure your MDX content can significantly impact its SEO friendliness
 4. **Image Optimization**: Use descriptive alt tags for images. Since MDX allows you to import images as components, ensure that each image component has an appropriate alt attribute.
 
    ```mdx
-   import Image from "../components/image";
+   import CustomImage from "../components/image";
 
-   <Image src="path/to/image.jpg" alt="Descriptive text about the image" />
+   <CustomImage
+     src="path/to/image.jpg"
+     alt="Descriptive text about the image"
+   />
    ```
 
 5. **Mobile Responsiveness**: Given MDX's ability to integrate interactive components, make sure these components are responsive and function well on mobile devices.

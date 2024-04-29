@@ -8,7 +8,7 @@ import Button from "@/components/mdx/button";
 import YouTube from "@/components/mdx/youtube";
 import Code from "@/components/mdx/code-component/code";
 import Quiz from "@/components/mdx/quiz";
-import Image from "@/components/mdx/image";
+import CustomImage from "@/components/mdx/image";
 
 import EditPostButton from "./edit-post-button";
 import OpenInVSCode from "./open-in-vs-code-button";
@@ -95,7 +95,7 @@ export default async function BlogPage({
   const components = {
     pre: Code,
     YouTube,
-    Image,
+    CustomImage,
     Quiz,
     CustomButton,
     Button,
