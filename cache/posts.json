@@ -418,6 +418,23 @@
     "path": "styling-mdx-content.mdx"
   },
   {
+    "slug": "syntax-highlighting-in-react-applications-using-sugar-high",
+    "id": "4803923f-e304-4f98-ad80-4165856d5ff4",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Syntax Highlighting in React Applications Using Sugar High",
+    "date": "2024-05-01",
+    "description": "A powerful tool for achieving syntax highlighting in React applications is `sugar-high`, a lightweight syntax highlighter. In this article, we'll explore how `sugar-high` can be integrated into a React and Next.js environment using MDX to render markdown content dynamically.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "syntax-highlighting"
+    ],
+    "image": "/images/default.jpg",
+    "path": "syntax-highlighting-in-react-applications-using-sugar-high.mdx"
+  },
+  {
     "slug": "the-next.js-portfolio-blog-starter-kit",
     "id": "e3750466-3bfc-4107-877b-6932b2819bdf",
     "type": "blog",

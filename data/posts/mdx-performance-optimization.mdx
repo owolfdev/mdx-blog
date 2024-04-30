@@ -13,7 +13,7 @@ image: "/images/default.jpg"
 path: "mdx-performance-optimization.mdx"
 ---
 
-In the evolving landscape of web development, MDX (Markdown + JSX) stands out for its ability to enrich markdown files with React components, offering a more dynamic experience in blog writing and documentation. However, with great power comes the responsibility of optimization. Ensuring that your MDX-based blogs perform well is crucial for maintaining a fast, efficient, and user-friendly website. In this article, we will delve into strategies for optimizing the performance of MDX-based blogs, focusing on lazy loading, image optimization, and bundle size reduction.
+MDX (Markdown + JSX) stands out for its ability to enrich markdown files with React components, offering a more dynamic experience in blog writing and documentation. However, with great power comes the responsibility of optimization. Ensuring that your MDX-based blogs perform well is crucial for maintaining a fast, efficient, and user-friendly website. In this article, we will delve into strategies for optimizing the performance of MDX-based blogs, focusing on lazy loading, image optimization, and bundle size reduction.
 
 ## 1. Lazy Loading Components and Images
 
@@ -43,6 +43,8 @@ Lazy loading is a technique that delays the loading of non-critical resources at
   );
   ```
 
+Note that Next.js' `Image` component implement lazy loading. If you're using Next.js, you can simply use the `Image` component for optimized image loading.
+
 ## 2. Image Optimization
 
 Large, unoptimized images can be one of the biggest culprits in slowing down your website. Optimizing these images is essential for improving loading times and performance.
@@ -52,6 +54,8 @@ Large, unoptimized images can be one of the biggest culprits in slowing down you
 - **Compression**: Use tools to compress images without losing quality. Tools like TinyPNG or ImageOptim are great for this.
 - **Appropriate Format**: Choose the right image format. For instance, use WebP for high-quality results at smaller file sizes.
 - **Responsive Images**: Serve different image sizes for different devices. This can be done using HTML's `srcset` and `sizes` attributes.
+
+Note that Next.js has built-in image optimization capabilities. By using the `Image` component, Next.js automatically optimizes images and serves them in modern formats like WebP.
 
 ## 3. Reducing Bundle Size
 
