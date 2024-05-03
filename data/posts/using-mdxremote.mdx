@@ -1,0 +1,83 @@
+---
+id: "860c0043-ded3-4c27-9fe3-63fbea09fb73"
+type: "blog"
+author: "O Wolfson"
+title: "Content Management in Next.js with SSR and SSG using MDXRemote"
+date: "2024-05-04"
+description: "This article explores the capabilities, use cases, and technical workings of MDXRemote in Next.js environments."
+categories:
+  - Web Development
+tags:
+  - MDXRemote
+  - Next.js
+image: "/images/default.jpg"
+path: "using-mdxremote.mdx"
+---
+
+Here's your refined article with some clarifications and corrections, ensuring accuracy and enhancing the explanation of how `{ MDXRemote }` is used effectively in Next.js projects:
+
+---
+
+`{ MDXRemote }` from the `next-mdx-remote` package is an excellent tool for managing MDX content within Next.js applications, supporting both Server-Side Rendering (SSR) and Static Site Generation (SSG). Despite what the name might suggest, MDXRemote adeptly handles MDX content regardless of its storage location—whether locally stored or fetched externally. This article delves into the capabilities, use cases, and technical workings of MDXRemote in Next.js environments.
+
+We're using MDXRemote from next-mdx-remote/rsc (React server component) in this Next.js 14 server component code below.
+
+```javascript
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { MDXRemote } from "next-mdx-remote/rsc";
+
+type Props = {
+  params: { slug: string },
+};
+
+async function getPost(slug: string) {
+  const filePath = path.join("blogs", `${slug}.mdx`);
+  const markdownWithMetadata = fs.readFileSync(filePath, "utf-8");
+  const { data: frontMatter, content } = matter(markdownWithMetadata);
+  return { frontMatter, content };
+}
+
+const Page = async ({ params }: Props) => {
+  const { slug } = params;
+  const { frontMatter, content } = await getPost(slug);
+
+  return (
+    <article className="prose">
+      <h1>{frontMatter.title}</h1>
+      <MDXRemote source={content} />
+    </article>
+  );
+};
+
+export default Page;
+```
+
+#### Why MDXRemote?
+
+The term "remote" in MDXRemote refers not to the physical storage location of the content but rather to the methodology of handling it—processing outside the client-side environment, typically on a server. This setup allows for dynamic content handling and enhanced performance by leveraging server resources for computationally intensive tasks like parsing and rendering MDX content, which includes both Markdown and embedded JSX.
+
+#### Use Cases in SSR and SSG
+
+1. **Server-Side Rendering (SSR)**:
+
+   - MDXRemote excels in SSR contexts where content needs to be dynamically fetched and rendered based on user requests. By processing content on the server, MDXRemote ensures fast initial page loads and reduces the client's workload, leading to an enhanced user experience and better SEO due to server-rendered content being fully indexable upon delivery.
+
+2. **Static Site Generation (SSG)**:
+   - In SSG scenarios, MDXRemote processes and serializes MDX content at build time, creating static HTML that can be served instantly to users. This approach is ideal for content that does not change frequently and benefits from the speed and security of static sites, while still allowing for rich, interactive elements through embedded React components.
+
+#### How MDXRemote Works
+
+1. **Parsing and Serialization**:
+
+   - MDX content is first parsed to separate Markdown from JSX, converting it into an abstract syntax tree (AST). This AST is then serialized into a JSON format, which can be transmitted to the client as part of the server-rendered HTML or included in the static build files.
+
+2. **Hydration**:
+
+   - On the client side, the serialized data is "hydrated" into fully interactive React components. This process ensures that the final rendered content matches what was processed on the server, maintaining functionality and interactivity.
+
+3. **Component Mapping**:
+   - Developers can define custom React components, such as interactive charts or custom video players, which are mapped in MDXRemote through a `components` prop. This mapping allows MDX content to dynamically integrate these components into the content flow, enhancing interactivity and user engagement.
+
+MDXRemote addresses a critical need in modern web development by efficiently managing and rendering MDX content in Next.js applications, whether using SSR for dynamic applications or SSG for static sites. Its ability to process content on the server optimizes performance and user experience, while the use of server-side rendering enhances SEO. The flexibility of MDXRemote in handling both locally stored and externally fetched content makes it a valuable tool for developers looking to integrate rich, interactive markdown content seamlessly into their Next.js projects.
