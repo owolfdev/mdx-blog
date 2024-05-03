@@ -472,5 +472,23 @@
     ],
     "image": "/images/default.jpg",
     "path": "using-mdx-for-e-learning-content-and-tutorials.mdx"
+  },
+  {
+    "slug": "using-mdxremote",
+    "id": "860c0043-ded3-4c27-9fe3-63fbea09fb73",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Content Management in Next.js with SSR and SSG using MDXRemote",
+    "date": "2024-05-04",
+    "description": "This article explores the capabilities, use cases, and technical workings of MDXRemote in Next.js environments.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "MDXRemote",
+      "Next.js"
+    ],
+    "image": "/images/default.jpg",
+    "path": "using-mdxremote.mdx"
   }
 ]
