@@ -31,21 +31,27 @@ While `next-mdx-remote` offers a robust solution for integrating MDX content in 
 For developers seeking more stability and functionality, leveraging the `@next/mdx` package with Next.js’s App Router provides a more integrated and flexible approach. This method allows the use of import and export statements directly within MDX files, enhancing the developer experience and content management capabilities. Here’s how you can set it up:
 
 1. **Initial Setup**:
+
    - Install MDX and necessary loaders: `npm install @next/mdx @mdx-js/loader @mdx-js/react`
    - Configure MDX in your `next.config.js` to recognize `.mdx` files.
 
 2. **Creating and Managing Content**:
+
    - Organize your MDX blog posts in a dedicated directory, enabling Route Groups in Next.js for better structure and scalability.
    - Use export statements in your MDX files to include metadata like title and publish date, which Next.js automatically processes.
 
 3. **Enhancing MDX with Custom Components**:
+
    - Define and use custom MDX components to replace default HTML tags, allowing for a more personalized styling and functionality.
 
 4. **Dynamic Content and Metadata Handling**:
+
    - Implement dynamic imports in your MDX files to include custom components, making your posts more interactive and visually appealing.
 
 5. **Server-side Processing**:
    - Utilize server components for rendering MDX content, ensuring that all data handling and component rendering are done at build time, which improves performance and security.
+
+Check out this tutorial by **Alex Chan** for a detailed guide on setting up a blog with Next.js App Router and MDX: [Building a blog with Next.js App Router and MDX](https://www.alexchantastic.com/building-a-blog-with-next-and-mdx).
 
 #### Conclusion
 
