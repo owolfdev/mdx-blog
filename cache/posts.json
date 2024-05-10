@@ -435,6 +435,25 @@
     "path": "syntax-highlighting-in-react-applications-using-sugar-high.mdx"
   },
   {
+    "slug": "the-jamstack-and-web-development-with-mdx",
+    "id": "bf9026b3-7f40-4283-8e7f-793429c81ec6",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "The Jamstack and Web Development with MDX",
+    "date": "2024-05-10",
+    "description": "The Jamstack represents a modern approach to building websites and applications that deliver better performance, higher security, and easier scalability.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "jamstack",
+      "mdx",
+      "static"
+    ],
+    "image": "/images/default.jpg",
+    "path": "the-jamstack-and-web-development-with-mdx.mdx"
+  },
+  {
     "slug": "the-next.js-portfolio-blog-starter-kit",
     "id": "e3750466-3bfc-4107-877b-6932b2819bdf",
     "type": "blog",
