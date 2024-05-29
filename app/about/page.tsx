@@ -14,10 +14,9 @@ export default function About() {
 }
 
 const aboutContent = `
+Unlike traditional blogging solutions that rely on a database to store content, content management in MDXBlog is handled by easily editable Markdown **(mdx) files in a folder on your local machine**! It's a good solution for those who appreciate the ease of Markdown and the power of React components. 
 
-[**MDXBlog** (mdxblog.io)](https://mdxblog.io) is an independently created blog app template built with the latest web technologies, offering a unique blogging experience. MDXBlog is a simple template for creating blogs using MDX (Markdown + JSX) and Next.js 14. We have no official affiliation with the MDX team or Next.js, we are simply fans of the technology and wanted to create a simple, free, easy-to-use blog template for the community.
-
-Unlike traditional blogging solutions that rely on a database to store content, content management in MDXBlog is handled by easily editable Markdown (mdx) files in a folder on your local machine! It's a good solution for those who appreciate the ease of Markdown and the power of React components. 
+[MDXBlog (mdxblog.io)](https://mdxblog.io) is an independently created blog app template built with the latest web technologies, offering a unique blogging experience. MDXBlog is a simple template for creating blogs using MDX (Markdown + JSX) and Next.js 14. We have no official affiliation with the MDX team or Next.js, we are simply fans of the technology and wanted to create a simple, free, easy-to-use blog template for the community.
 
 Our project is fully accessible on **[GitHub](https://github.com/owolfdev/mdx-blog-basic)**.
 

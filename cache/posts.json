@@ -120,9 +120,9 @@
     "id": "8f34e87f-9c7a-4d98-8baa-eab26e1067c3",
     "type": "blog",
     "author": "O Wolfson",
-    "title": "Creating a Static MDX Blog with Next.js",
+    "title": "Create a Static MDX Blog with Next.js",
     "date": "2024-05-26",
-    "description": "Create a Next.js 14 app that generates static MDX pages from documents stored in a specific directory.",
+    "description": "Create a Next.js 14 app that generates static MDX pages from documents stored in a specific directory using the next/mdx package.",
     "categories": [
       "Web Development"
     ],
