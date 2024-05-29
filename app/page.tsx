@@ -80,6 +80,22 @@ export default function Home() {
           </Link>
           <Link
             className=""
+            href="https://www.mdxblog.io/blog/integrating-mdx-with-static-site-generators"
+          >
+            <div className="font-semibold text-2xl">
+              Integrating MDX with Static Site Generators
+            </div>
+
+            <p>
+              MDX, an extension of Markdown that allows for the embedding of
+              JSX, offers a powerful way to create rich, interactive content.
+              Its compatibility with React components makes it an ideal choice
+              for modern web development, particularly when combined with static
+              site generators (SSGs) like Gatsby, Next.js, or Hugo.
+            </p>
+          </Link>
+          <Link
+            className=""
             href="https://www.mdxblog.io/blog/automating-next.js-sitemap-generation-with-github-actions"
           >
             <div className="font-semibold text-2xl">
@@ -102,22 +118,6 @@ export default function Home() {
             <p>
               Build a static MDX blog in Next.js 14 using the next-mdx-remote
               package. Add content locally.
-            </p>
-          </Link>
-          <Link
-            className=""
-            href="https://www.mdxblog.io/blog/integrating-mdx-with-static-site-generators"
-          >
-            <div className="font-semibold text-2xl">
-              Integrating MDX with Static Site Generators
-            </div>
-
-            <p>
-              MDX, an extension of Markdown that allows for the embedding of
-              JSX, offers a powerful way to create rich, interactive content.
-              Its compatibility with React components makes it an ideal choice
-              for modern web development, particularly when combined with static
-              site generators (SSGs) like Gatsby, Next.js, or Hugo.
             </p>
           </Link>
         </div>
