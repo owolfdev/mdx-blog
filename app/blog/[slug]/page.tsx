@@ -9,6 +9,7 @@ import YouTube from "@/components/mdx/youtube";
 import Code from "@/components/mdx/code-component/code";
 import Quiz from "@/components/mdx/quiz";
 import CustomImage from "@/components/mdx/image";
+import { CreatePostForm } from "@/components/mdx/custom-components/create-post-form";
 
 import EditPostButton from "./edit-post-button";
 import OpenInVSCode from "./open-in-vs-code-button";
@@ -99,6 +100,7 @@ export default async function BlogPage({
     Quiz,
     CustomButton,
     Button,
+    CreatePostForm,
   };
 
   return (
