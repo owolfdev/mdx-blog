@@ -122,7 +122,7 @@
     "author": "O Wolfson",
     "title": "Create a Static MDX Blog with Next.js",
     "date": "2024-05-26",
-    "description": "Create a Next.js 14 app that generates static MDX pages from documents stored in a specific directory using the next/mdx package.",
+    "description": "Create a Next.js 14 app that generates static MDX pages from documents stored in a local directory using the next/mdx package.",
     "categories": [
       "Web Development"
     ],
@@ -251,6 +251,26 @@
     ],
     "image": "/images/default.jpg",
     "path": "leveraging-mdx-for-documentation-websites.mdx"
+  },
+  {
+    "slug": "limitations-of-next-mdx-remote-and-an-alternative-approach",
+    "id": "a7ddd102-db39-418e-aa57-996049dee15a",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Limitations of next-mdx-remote and an Alternative Approach",
+    "date": "2024-06-01",
+    "description": "While `next-mdx-remote` offers a robust solution for integrating MDX content in Next.js applications, it presents some limitations that can be crucial depending on the project's requirements.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "remote",
+      "blog",
+      "static"
+    ],
+    "image": "/images/default.jpg",
+    "path": "limitations-of-next-mdx-remote-and-an-alternative-approach.mdx"
   },
   {
     "slug": "mdx-and-content-management-with-headless-cms",

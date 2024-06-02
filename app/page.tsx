@@ -87,9 +87,7 @@ export default function Home() {
             </div>
 
             <p>
-              MDX, an extension of Markdown that allows for the embedding of
-              JSX, offers a powerful way to create rich, interactive content.
-              Its compatibility with React components makes it an ideal choice
+              MDXs compatibility with React components makes it an ideal choice
               for modern web development, particularly when combined with static
               site generators (SSGs) like Gatsby, Next.js, or Hugo.
             </p>
@@ -99,12 +97,14 @@ export default function Home() {
             href="https://www.mdxblog.io/blog/automating-next.js-sitemap-generation-with-github-actions"
           >
             <div className="font-semibold text-2xl">
-              Automating Next.js Sitemaps with GitHub Actions
+              Next.js Sitemaps with GitHub Actions
             </div>
 
             <p>
-              Creating a sitemap for your Next.js project is essential for SEO
-              purposes, as it helps search engines better index your site.
+              Sitemaps are essential for SEO purposes, as it helps search
+              engines better index your site. Automate sitemap generation for
+              your Next.js static blog project using GitHub Actions and the
+              next-sitemap package.
             </p>
           </Link>
           <Link
@@ -117,7 +117,7 @@ export default function Home() {
 
             <p>
               Build a static MDX blog in Next.js 14 using the next-mdx-remote
-              package. Add content locally.
+              package.
             </p>
           </Link>
         </div>
