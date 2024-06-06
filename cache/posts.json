@@ -77,6 +77,26 @@
     "path": "automating-next.js-sitemap-generation-with-github-actions.mdx"
   },
   {
+    "slug": "building-a-content-management-system-for-static-mdx-files",
+    "id": "35492681-6782-4bc4-af63-ab66ef284728",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Building a Content Management System for Static MDX Files",
+    "date": "2024-06-04",
+    "description": "In this article, we'll walk you through creating a content management system (CMS) for our MDX Blog, where blog posts are stored as local static files. We'll cover saving posts, generating a cache for efficient data retrieval, and handling form submissions for new blog entries.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "cache",
+      "mdx",
+      "blog",
+      "cms"
+    ],
+    "image": "/images/default.jpg",
+    "path": "building-a-content-management-system-for-static-mdx-files.mdx"
+  },
+  {
     "slug": "building-interactive-blog-posts-with-mdx",
     "id": "65814fb4-4ef8-4194-9c06-5fe42ac2fae5",
     "type": "blog",
