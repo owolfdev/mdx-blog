@@ -347,6 +347,27 @@
     "path": "mdx-performance-optimization.mdx"
   },
   {
+    "slug": "metadata-object-components-in-next-js-mdx-blogs",
+    "id": "186d870c-1a36-4b65-bc43-d55dadb10d55",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Metadata Object Components in Next js MDX Blogs",
+    "date": "2024-06-23",
+    "description": "In this post, we want to share why we chose to use Metadata Objects/Components over traditional frontmatter for handling metadata in our MDX files.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "metadata",
+      "meta",
+      "data",
+      "mdx",
+      "next"
+    ],
+    "image": "/images/default.jpg",
+    "path": "metadata-object-components-in-next-js-mdx-blogs.mdx"
+  },
+  {
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",
     "id": "c3571dbe-05c3-40ce-9e2f-1de907bae781",
     "type": "blog",

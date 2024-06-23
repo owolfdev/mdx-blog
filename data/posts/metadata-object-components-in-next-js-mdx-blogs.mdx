@@ -1,0 +1,105 @@
+---
+id: "186d870c-1a36-4b65-bc43-d55dadb10d55"
+type: "blog"
+author: "O Wolfson"
+title: "Metadata Object Components in Next js MDX Blogs"
+date: "2024-06-23"
+description: "In this post, we want to share why we chose to use Metadata Objects/Components over frontmatter for handling MDX metadata in our latest experiments."
+categories:
+  - Web Development
+tags:
+  - metadata
+  - meta
+  - data
+  - mdx
+  - next
+image: "/images/default.jpg"
+path: "metadata-object-components-in-next-js-mdx-blogs.mdx"
+---
+
+We've been exploring the best practices for managing metadata in MDX files within a Next.js environment. Recently, we built an example app using Next.js and `@next/mdx`, which you can learn about in detail in our article [here](https://www.mdxblog.io/blog/create-a-static-mdx-blog-with-next).
+
+In this post, we want to share why we chose to use Metadata Objects/Components over traditional frontmatter for handling metadata in our MDX files.
+
+### Why Metadata Objects/Components?
+
+#### 1. **Dynamic Data Handling**
+
+One of the primary reasons we opted for Metadata Objects/Components is the flexibility they offer in handling dynamic data. Unlike static frontmatter, metadata objects can include dynamic expressions and functions, making them ideal for scenarios where metadata values need to be computed at runtime.
+
+For example, setting a dynamic title based on the current year:
+
+```jsx
+export const metadata = {
+  title: `Post Title - ${new Date().getFullYear()}`,
+  date: new Date().toISOString(),
+};
+```
+
+#### 2. **Integration with TypeScript**
+
+With Metadata Objects/Components, we can leverage TypeScript to enforce type safety, reducing the risk of runtime errors. This aligns well with the TypeScript-first approach that many modern Next.js projects are adopting.
+
+```tsx
+interface Metadata {
+  title: string;
+  date: string;
+}
+
+export const metadata: Metadata = {
+  title: "My Post",
+  date: "2024-03-01",
+};
+```
+
+#### 3. **Component-Based Architecture**
+
+Next.js thrives on its component-based architecture. Using metadata as components or objects keeps everything within the same paradigm, making the codebase more cohesive and easier to manage.
+
+```jsx
+export const metadata = {
+  title: "My Post",
+  description: "This is a post about Next.js",
+};
+
+const Post = () => {
+  return (
+    <article>
+      <h1>{metadata.title}</h1>
+      <p>{metadata.description}</p>
+    </article>
+  );
+};
+
+export default Post;
+```
+
+#### 4. **Enhanced Flexibility**
+
+Metadata objects can include complex data structures and functions, providing a level of flexibility that static frontmatter cannot match.
+
+```jsx
+export const metadata = {
+  title: "Dynamic Title",
+  generateDescription: () => `Generated at ${new Date().toLocaleString()}`,
+};
+
+const Post = () => {
+  return (
+    <article>
+      <h1>{metadata.title}</h1>
+      <p>{metadata.generateDescription()}</p>
+    </article>
+  );
+};
+
+export default Post;
+```
+
+### Considerations
+
+#### **Tooling and Ecosystem**
+
+While the Next.js ecosystem is well-suited to handle metadata objects, some third-party tools might still expect traditional frontmatter. We ensure our tools support or can be adapted to our metadata structure.
+
+For more details on how we built our example app using Next.js and `@next/mdx`, check out our detailed article [here](https://www.mdxblog.io/blog/create-a-static-mdx-blog-with-next).
