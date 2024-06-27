@@ -1,0 +1,369 @@
+---
+id: "bbf14dfd-add1-4c4a-8f17-eb2626363676"
+type: "blog"
+author: "O Wolfson"
+title: "Implementing a Like Button in an MDX App with Next.js and Vercel PostgreSQL"
+date: "2024-06-27"
+description: "Our goal is to support both authenticated and anonymous users by leveraging local storage and a PostgreSQL database hosted on Vercel. This ensures a seamless user experience while maintaining data persistence."
+categories:
+  - Web Development
+tags:
+  - likes
+  - vercel
+  - postgres
+image: "/images/default.jpg"
+path: "implementing-a-like-button-in-an-mdx-app-with-next.js-and-vercel-postgresql.mdx"
+---
+
+In this tutorial, we will walk you through the process of creating a like button for an MDX-based Next.js application. Our goal is to support both authenticated and anonymous users by leveraging local storage and a PostgreSQL database hosted on Vercel. This ensures a seamless user experience while maintaining data persistence.
+
+See an example [here](https://mdx-next-static-app.vercel.app/mdx/like-button).
+
+Find the code for this project on [GitHub](https://github.com/owolfdev/mdx-next-static-app)
+
+## Prerequisites
+
+Before we start, ensure you have the following:
+
+- A Next.js project setup
+- Vercel PostgreSQL database credentials
+- Necessary npm packages installed (`react-icons` and `uuid`)
+
+## Step 1: Set Up Environment Variables
+
+Create a `.env.local` file in the root of your project and add your Vercel PostgreSQL database credentials:
+
+```bash
+POSTGRES_URL="************"
+POSTGRES_PRISMA_URL="************"
+POSTGRES_URL_NO_SSL="************"
+POSTGRES_URL_NON_POOLING="************"
+POSTGRES_USER="************"
+POSTGRES_HOST="************"
+POSTGRES_PASSWORD="************"
+POSTGRES_DATABASE="************"
+```
+
+## Step 2: Create the LikeButton Component
+
+Create a new file `components/like-button.tsx` and add the following code:
+
+```typescript
+"use client";
+import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { AiOutlineLike, AiFillLike } from "react-icons/ai";
+import {
+  createTable,
+  removeTable,
+  addLike,
+  removeLike,
+  removeAllLikes,
+  countLikes,
+} from "@/app/actions/like-actions";
+
+interface LikeButtonProps {
+  postId: number;
+}
+
+function LikeButton({ postId }: LikeButtonProps) {
+  const [liked, setLiked] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [totalLikes, setTotalLikes] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Check for an existing user ID in local storage or create a new one
+    let storedUserId = localStorage.getItem("userId");
+    if (!storedUserId) {
+      storedUserId = uuidv4();
+      localStorage.setItem("userId", storedUserId);
+    }
+    setUserId(storedUserId);
+
+    // Check if the post is already liked
+    const likedPosts = JSON.parse(localStorage.getItem("likedPosts") || "{}");
+    if (likedPosts[postId]) {
+      setLiked(true);
+    }
+
+    // Fetch total likes
+    fetchTotalLikes();
+
+    // Set loading to false after data is loaded
+    setLoading(false);
+  }, [postId]);
+
+  async function fetchTotalLikes() {
+    console.log("Fetching total likes for post", postId);
+    const response = await countLikes(postId);
+    if (response.success && typeof response.count === "number") {
+      setTotalLikes(response.count);
+      console.log("Total likes fetched successfully:", response.count);
+    } else {
+      console.error("Failed to fetch total likes:", response.error);
+      setTotalLikes(0); // default to 0 if there's an error or count is not a number
+    }
+  }
+
+  async function handleLikeAction() {
+    if (userId) {
+      console.log("Liking post", postId, "with user ID", userId);
+      const response = await addLike(postId, userId);
+      if (response.success) {
+        const likedPosts = JSON.parse(
+          localStorage.getItem("likedPosts") || "{}"
+        );
+        likedPosts[postId] = true;
+        localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
+        setLiked(true);
+        setTotalLikes((prev) => prev + 1);
+        console.log("Like added successfully");
+      } else {
+        console.error("Failed to add like:", response.error);
+      }
+    }
+  }
+
+  async function handleUnlikeAction() {
+    if (userId) {
+      console.log("Unliking post", postId, "with user ID", userId);
+      const response = await removeLike(postId, userId);
+      if (response.success) {
+        const likedPosts = JSON.parse(
+          localStorage.getItem("likedPosts") || "{}"
+        );
+        delete likedPosts[postId];
+        localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
+        setLiked(false);
+        setTotalLikes((prev) => prev - 1);
+        console.log("Like removed successfully");
+      } else {
+        console.error("Failed to remove like:", response.error);
+      }
+    }
+  }
+
+  async function handleRemoveAllLikes() {
+    console.log("Removing all likes");
+    const response = await removeAllLikes();
+    if (response.success) {
+      localStorage.setItem("likedPosts", "{}");
+      setLiked(false);
+      setTotalLikes(0);
+      console.log("All likes removed successfully");
+    } else {
+      console.error("Failed to remove all likes:", response.error);
+    }
+  }
+
+  async function handleCreateTable() {
+    console.log("Creating table");
+    const response = await createTable();
+    if (response.success) {
+      console.log("Table created successfully");
+    } else {
+      console.error("Failed to create table:", response.error);
+    }
+  }
+
+  async function handleRemoveTable() {
+    console.log("Removing table");
+    const response = await removeTable();
+    if (response.success) {
+      console.log("Table removed successfully");
+    } else {
+      console.error("Failed to remove table:", response.error);
+    }
+  }
+
+  if (loading) {
+    return null; // or you can return a loading spinner
+  }
+
+  return (
+    <div className="py-8">
+      <div>Total Likes: {totalLikes}</div>
+      <button
+        type="button"
+        onClick={() => {
+          liked ? handleUnlikeAction() : handleLikeAction();
+        }}
+        className={
+          "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+        }
+      >
+        {liked ? (
+          <AiFillLike className="text-xl mr-2" />
+        ) : (
+          <AiOutlineLike className="text-xl mr-2" />
+        )}
+        {liked ? "Liked" : "Like"}
+      </button>
+      <div className="hidden">
+        <button
+          type="button"
+          onClick={handleCreateTable}
+          className={
+            "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-2"
+          }
+        >
+          Create Table
+        </button>
+        <button
+          type="button"
+          onClick={handleRemoveTable}
+          className={
+            "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2"
+          }
+        >
+          Remove Table
+        </button>
+        <button
+          type="button"
+          onClick={handleRemoveAllLikes}
+          className={
+            "bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mt-2"
+          }
+        >
+          Remove All Likes
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default LikeButton;
+```
+
+## Step 3: Create Server Actions for Database Interaction
+
+Create a new file `app/actions/like-actions.ts` and add the following code:
+
+```typescript
+"use server";
+import { sql } from "@vercel/postgres";
+
+export async function countLikes(postId: number) {
+  console.log("countLikes", postId);
+  try {
+    const result = await sql`
+      SELECT COUNT(*) as count FROM likes_for_test
+      WHERE postid = ${postId};
+    `;
+    console.log("countLikes result:", result);
+    if (result.rows && result.rows.length > 0) {
+      return { success: true, count: Number.parseInt(result.rows[0].count, 10) };
+    } else {
+      return { success: false, error: "No results found" };
+    }
+  } catch (error) {
+    console.error("Error in countLikes:", (error as Error).message);
+    return { success: false, error: (error as Error).message };
+  }
+}
+
+export async function createTable() {
+  console.log("createTable");
+  try {
+    const result = await sql`
+      CREATE TABLE IF NOT EXISTS likes_for_test (
+        postid INT,
+        userid VARCHAR(255)
+      );
+    `;
+    return { success: true, result };
+  } catch (error) {
+    console.error("Error in createTable:", (error as Error).message);
+    return { success: false, error: (error as Error).message };
+  }
+}
+
+export async function removeTable() {
+  console.log("removeTable");
+  try {
+    const result = await sql`
+      DROP TABLE IF EXISTS likes_for_test;
+    `;
+    return { success: true, result };
+  } catch (error) {
+    console.error("Error in removeTable:", (error as Error).message);
+    return { success: false, error: (error as Error).message };
+  }
+}
+
+export async function addLike(postId: number, userId: string) {
+  console.log("addLike", postId, userId);
+  try {
+    if (!postId || !userId) {
+      throw new Error("Missing postId or user
+
+Id");
+    }
+
+    const result = await sql`
+      INSERT INTO likes_for_test (postid, userid)
+      VALUES (${postId}, ${userId});
+    `;
+
+    return { success: true, result };
+  } catch (error) {
+    console.error("Error in addLike:", (error as Error).message);
+    return { success: false, error: (error as Error).message };
+  }
+}
+
+export async function removeLike(postId: number, userId: string) {
+  console.log("removeLike", postId, userId);
+  try {
+    if (!postId || !userId) {
+      throw new Error("Missing postId or userId");
+    }
+
+    const result = await sql`
+      DELETE FROM likes_for_test
+      WHERE postid = ${postId} AND userid = ${userId};
+    `;
+
+    return { success: true, result };
+  } catch (error) {
+    console.error("Error in removeLike:", (error as Error).message);
+    return { success: false, error: (error as Error).message };
+  }
+}
+
+export async function removeAllLikes() {
+  console.log("removeAllLikes");
+  try {
+    const result = await sql`
+      DELETE FROM likes_for_test;
+    `;
+    return { success: true, result };
+  } catch (error) {
+    console.error("Error in removeAllLikes:", (error as Error).message);
+    return { success: false, error: (error as Error).message };
+  }
+}
+```
+
+## Step 4: Embed the LikeButton in Your MDX File
+
+To embed the `LikeButton` component in your MDX content, use the following code:
+
+```mdx
+import LikeButton from "../components/like-button";
+
+export const metadata = {
+  title: "Like Button Article",
+  publishDate: "2024-03-01T00:00:00Z",
+  id: 1,
+};
+
+Content
+
+<LikeButton postId={metadata.id} />
+```
+
+## Conclusion
+
+By following these steps, you have successfully implemented a like button system that supports both anonymous and authenticated users in your Next.js MDX app. This approach leverages local storage for anonymous users and a PostgreSQL database for persistent storage, ensuring a seamless user experience across sessions and devices.

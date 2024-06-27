@@ -235,6 +235,25 @@
     "path": "how-to-use-mdx-blog.mdx"
   },
   {
+    "slug": "implementing-a-like-button-in-an-mdx-app-with-next.js-and-vercel-postgresql",
+    "id": "bbf14dfd-add1-4c4a-8f17-eb2626363676",
+    "type": "blog",
+    "author": "O Wolfson",
+    "title": "Implementing a Like Button in an MDX App with Next.js and Vercel PostgreSQL",
+    "date": "2024-06-27",
+    "description": "Our goal is to support both authenticated and anonymous users by leveraging local storage and a PostgreSQL database hosted on Vercel. This ensures a seamless user experience while maintaining data persistence.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "likes",
+      "vercel",
+      "postgres"
+    ],
+    "image": "/images/default.jpg",
+    "path": "implementing-a-like-button-in-an-mdx-app-with-next.js-and-vercel-postgresql.mdx"
+  },
+  {
     "slug": "integrating-mdx-with-static-site-generators",
     "id": "34b060ff-19f4-4488-af16-607847464a42",
     "type": "blog",
@@ -353,7 +372,7 @@
     "author": "O Wolfson",
     "title": "Metadata Object Components in Next js MDX Blogs",
     "date": "2024-06-23",
-    "description": "In this post, we want to share why we chose to use Metadata Objects/Components over traditional frontmatter for handling metadata in our MDX files.",
+    "description": "In this post, we want to share why we chose to use Metadata Objects/Components over frontmatter for handling MDX metadata in our latest experiments.",
     "categories": [
       "Web Development"
     ],
