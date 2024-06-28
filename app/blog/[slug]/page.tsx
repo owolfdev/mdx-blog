@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import matter from "gray-matter";
 import Button from "@/components/mdx/button";
@@ -10,6 +10,7 @@ import Code from "@/components/mdx/code-component/code";
 import Quiz from "@/components/mdx/quiz";
 import CustomImage from "@/components/mdx/image";
 import { CreatePostForm } from "@/components/mdx/custom-components/create-post-form";
+import LikeButton from "@/components/like-button";
 
 import EditPostButton from "./edit-post-button";
 import OpenInVSCode from "./open-in-vs-code-button";
@@ -101,6 +102,7 @@ export default async function BlogPage({
     CustomButton,
     Button,
     CreatePostForm,
+    LikeButton,
   };
 
   return (
@@ -116,10 +118,11 @@ export default async function BlogPage({
           <OpenInVSCode path={props.frontMatter.path} />
         </div>
       )}
-      <div className="flex gap-4"></div>
+      {/* <div className="flex gap-4"></div> */}
       <article className="mdx">
         <MDXRemote source={props.content} components={components} />
       </article>
+      <LikeButton postId={props.frontMatter.id} /> {/* Add LikeButton here */}
     </div>
   );
 }
