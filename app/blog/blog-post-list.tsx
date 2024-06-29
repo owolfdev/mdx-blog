@@ -33,7 +33,7 @@ const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
                 <h3 className="text-2xl font-bold">{blog.title}</h3>
                 <div className="text-sm">{blog.formattedDate}</div>
               </div>
-              <div title={blog.description}>
+              <div title={blog.description} className="text-muted-foreground">
                 {trimDescription(blog.description)}
               </div>
             </div>

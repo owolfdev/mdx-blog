@@ -15,7 +15,8 @@
       "guide"
     ],
     "image": "/images/default.jpg",
-    "path": "a-beginner's-guide-to-mdx.mdx"
+    "path": "a-beginner's-guide-to-mdx.mdx",
+    "likes": 0
   },
   {
     "slug": "adding-mdx-support-to-your-next.js-project",
@@ -36,7 +37,8 @@
       "next"
     ],
     "image": "/images/default.jpg",
-    "path": "adding-mdx-support-to-your-next.js-project.mdx"
+    "path": "adding-mdx-support-to-your-next.js-project.mdx",
+    "likes": 0
   },
   {
     "slug": "advanced-mdx-dynamic-content-and-apis",
@@ -54,7 +56,8 @@
       "guide"
     ],
     "image": "/images/default.jpg",
-    "path": "advanced-mdx-dynamic-content-and-apis.mdx"
+    "path": "advanced-mdx-dynamic-content-and-apis.mdx",
+    "likes": 0
   },
   {
     "slug": "automating-next.js-sitemap-generation-with-github-actions",
@@ -74,7 +77,8 @@
       "actions"
     ],
     "image": "/images/default.jpg",
-    "path": "automating-next.js-sitemap-generation-with-github-actions.mdx"
+    "path": "automating-next.js-sitemap-generation-with-github-actions.mdx",
+    "likes": 0
   },
   {
     "slug": "building-a-content-management-system-for-static-mdx-files",
@@ -94,7 +98,8 @@
       "cms"
     ],
     "image": "/images/default.jpg",
-    "path": "building-a-content-management-system-for-static-mdx-files.mdx"
+    "path": "building-a-content-management-system-for-static-mdx-files.mdx",
+    "likes": 1
   },
   {
     "slug": "building-interactive-blog-posts-with-mdx",
@@ -111,7 +116,8 @@
       "interactivity"
     ],
     "image": "/images/default.jpg",
-    "path": "building-interactive-blog-posts-with-mdx.mdx"
+    "path": "building-interactive-blog-posts-with-mdx.mdx",
+    "likes": 0
   },
   {
     "slug": "configuring-mdx-in-next.js",
@@ -133,7 +139,8 @@
       "blog"
     ],
     "image": "/images/default.jpg",
-    "path": "configuring-mdx-in-next.js.mdx"
+    "path": "configuring-mdx-in-next.js.mdx",
+    "likes": 0
   },
   {
     "slug": "create-a-static-mdx-blog-with-next",
@@ -153,7 +160,8 @@
       "blog"
     ],
     "image": "/images/default.jpg",
-    "path": "create-a-static-mdx-blog-with-next.mdx"
+    "path": "create-a-static-mdx-blog-with-next.mdx",
+    "likes": 2
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -172,7 +180,8 @@
       "components"
     ],
     "image": "/images/default.jpg",
-    "path": "creating-custom-components-for-mdx.mdx"
+    "path": "creating-custom-components-for-mdx.mdx",
+    "likes": 0
   },
   {
     "slug": "future-of-mdx-trends-and-upcoming-features",
@@ -192,7 +201,8 @@
       "html"
     ],
     "image": "/images/default.jpg",
-    "path": "future-of-mdx:-trends-and-upcoming-features.mdx"
+    "path": "future-of-mdx:-trends-and-upcoming-features.mdx",
+    "likes": 0
   },
   {
     "slug": "how-to-install-mdx-blog-and-deploy-on-vercel",
@@ -213,7 +223,8 @@
       "repo"
     ],
     "image": "/images/default.jpg",
-    "path": "how-to-install-mdx-blog-and-deploy-on-vercel.mdx"
+    "path": "how-to-install-mdx-blog-and-deploy-on-vercel.mdx",
+    "likes": 0
   },
   {
     "slug": "how-to-use-mdx-blog",
@@ -232,7 +243,8 @@
       "guide"
     ],
     "image": "/images/default.jpg",
-    "path": "how-to-use-mdx-blog.mdx"
+    "path": "how-to-use-mdx-blog.mdx",
+    "likes": 0
   },
   {
     "slug": "implementing-a-like-button-in-an-mdx-app-with-next.js-and-vercel-postgresql",
@@ -251,7 +263,8 @@
       "postgres"
     ],
     "image": "/images/default.jpg",
-    "path": "implementing-a-like-button-in-an-mdx-app-with-next.js-and-vercel-postgresql.mdx"
+    "path": "implementing-a-like-button-in-an-mdx-app-with-next.js-and-vercel-postgresql.mdx",
+    "likes": 3
   },
   {
     "slug": "integrating-mdx-with-static-site-generators",
@@ -272,7 +285,8 @@
       "generators"
     ],
     "image": "/images/default.jpg",
-    "path": "integrating-mdx-with-static-site-generators.mdx"
+    "path": "integrating-mdx-with-static-site-generators.mdx",
+    "likes": 0
   },
   {
     "slug": "leveraging-mdx-for-documentation-websites",
@@ -289,7 +303,8 @@
       "documentation"
     ],
     "image": "/images/default.jpg",
-    "path": "leveraging-mdx-for-documentation-websites.mdx"
+    "path": "leveraging-mdx-for-documentation-websites.mdx",
+    "likes": 0
   },
   {
     "slug": "limitations-of-next-mdx-remote-and-an-alternative-approach",
@@ -309,7 +324,8 @@
       "static"
     ],
     "image": "/images/default.jpg",
-    "path": "limitations-of-next-mdx-remote-and-an-alternative-approach.mdx"
+    "path": "limitations-of-next-mdx-remote-and-an-alternative-approach.mdx",
+    "likes": 0
   },
   {
     "slug": "mdx-and-content-management-with-headless-cms",
@@ -327,7 +343,8 @@
       "CMS"
     ],
     "image": "/images/default.jpg",
-    "path": "mdx-and-content-management-with-headless-cms.mdx"
+    "path": "mdx-and-content-management-with-headless-cms.mdx",
+    "likes": 0
   },
   {
     "slug": "mdx-best-practices-and-common-pitfalls",
@@ -346,7 +363,8 @@
       "best practices"
     ],
     "image": "/images/default.jpg",
-    "path": "mdx-best-practices-and-common-pitfalls.mdx"
+    "path": "mdx-best-practices-and-common-pitfalls.mdx",
+    "likes": 0
   },
   {
     "slug": "mdx-performance-optimization",
@@ -363,7 +381,8 @@
       "optimization"
     ],
     "image": "/images/default.jpg",
-    "path": "mdx-performance-optimization.mdx"
+    "path": "mdx-performance-optimization.mdx",
+    "likes": 0
   },
   {
     "slug": "metadata-object-components-in-next-js-mdx-blogs",
@@ -384,7 +403,8 @@
       "next"
     ],
     "image": "/images/default.jpg",
-    "path": "metadata-object-components-in-next-js-mdx-blogs.mdx"
+    "path": "metadata-object-components-in-next-js-mdx-blogs.mdx",
+    "likes": 1
   },
   {
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",
@@ -401,7 +421,8 @@
       "migration"
     ],
     "image": "/images/default.jpg",
-    "path": "migrating-from-markdown-to-mdx-a-step-by-step-guide.mdx"
+    "path": "migrating-from-markdown-to-mdx-a-step-by-step-guide.mdx",
+    "likes": 0
   },
   {
     "slug": "optimizing-mdx-for-seo",
@@ -422,7 +443,8 @@
       "ranking"
     ],
     "image": "/images/default.jpg",
-    "path": "optimizing-mdx-for-seo.mdx"
+    "path": "optimizing-mdx-for-seo.mdx",
+    "likes": 0
   },
   {
     "slug": "rendering-mdx-content-in-next.js-14",
@@ -442,7 +464,8 @@
       "next.js"
     ],
     "image": "/images/default.jpg",
-    "path": "rendering-mdx-content-in-next.js-14.mdx"
+    "path": "rendering-mdx-content-in-next.js-14.mdx",
+    "likes": 0
   },
   {
     "slug": "simple-markdown-rendering-react",
@@ -459,7 +482,8 @@
       "markdown"
     ],
     "image": "/images/default.jpg",
-    "path": "simple-markdown-rendering-react.mdx"
+    "path": "simple-markdown-rendering-react.mdx",
+    "likes": 0
   },
   {
     "slug": "simple-static-mdx-blog",
@@ -479,7 +503,8 @@
       "mac"
     ],
     "image": "/images/default.jpg",
-    "path": "simple-static-mdx-blog.mdx"
+    "path": "simple-static-mdx-blog.mdx",
+    "likes": 0
   },
   {
     "slug": "some-project",
@@ -496,7 +521,8 @@
       "project"
     ],
     "image": "/images/default.jpg",
-    "path": "some-project.mdx"
+    "path": "some-project.mdx",
+    "likes": 0
   },
   {
     "slug": "static-blogs-in-markdown-and-beyond",
@@ -517,7 +543,8 @@
       "mdx"
     ],
     "image": "/images/default.jpg",
-    "path": "static-blogs-in-markdown-and-beyond.mdx"
+    "path": "static-blogs-in-markdown-and-beyond.mdx",
+    "likes": 0
   },
   {
     "slug": "styling-mdx-content",
@@ -536,7 +563,8 @@
       "theme"
     ],
     "image": "/images/default.jpg",
-    "path": "styling-mdx-content.mdx"
+    "path": "styling-mdx-content.mdx",
+    "likes": 0
   },
   {
     "slug": "syntax-highlighting-in-react-applications-using-sugar-high",
@@ -553,7 +581,8 @@
       "syntax-highlighting"
     ],
     "image": "/images/default.jpg",
-    "path": "syntax-highlighting-in-react-applications-using-sugar-high.mdx"
+    "path": "syntax-highlighting-in-react-applications-using-sugar-high.mdx",
+    "likes": 0
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",
@@ -572,7 +601,8 @@
       "static"
     ],
     "image": "/images/default.jpg",
-    "path": "the-jamstack-and-web-development-with-mdx.mdx"
+    "path": "the-jamstack-and-web-development-with-mdx.mdx",
+    "likes": 0
   },
   {
     "slug": "the-next.js-portfolio-blog-starter-kit",
@@ -593,7 +623,8 @@
       "blog"
     ],
     "image": "/images/default.jpg",
-    "path": "the-next.js-portfolio-blog-starter-kit.mdx"
+    "path": "the-next.js-portfolio-blog-starter-kit.mdx",
+    "likes": 0
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",
@@ -611,7 +642,8 @@
       "mdx"
     ],
     "image": "/images/default.jpg",
-    "path": "using-mdx-for-e-learning-content-and-tutorials.mdx"
+    "path": "using-mdx-for-e-learning-content-and-tutorials.mdx",
+    "likes": 0
   },
   {
     "slug": "using-mdxremote",
@@ -629,6 +661,7 @@
       "Next.js"
     ],
     "image": "/images/default.jpg",
-    "path": "using-mdxremote.mdx"
+    "path": "using-mdxremote.mdx",
+    "likes": 1
   }
 ]

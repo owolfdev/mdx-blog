@@ -1,11 +1,13 @@
-// import LoaderLink from "@/components/nav/custom-link";
-// import AbstractArt from "@/components/graphics/abstract-image";
-// import ReactMarkdown from "react-markdown";
+// pages/index.jsx
+
+import { getPopularPosts } from "@/lib/posts-utils.mjs"; // Adjust import path as necessary
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Home() {
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export default async function Home() {
+  const popularPosts = await getPopularPosts();
   return (
     <div className="flex flex-col gap-4  max-w-xl">
       <h1 className="text-5xl sm:text-7xl font-bold text-center">
@@ -58,71 +60,34 @@ export default function Home() {
         </Link>
       </div>
       <hr />
-      {/* popular article -- make dynamic */}
+      {/* Dynamic Popular Articles */}
       <div className="flex flex-col gap-4">
         <h2 className="text-2xl sm:text-3xl font-bold text-center">
           Popular Articles
         </h2>
         <div className="pb-2 flex flex-col gap-4">
-          <Link
-            className=""
-            href="https://www.mdxblog.io/blog/create-a-static-mdx-blog-with-next"
-          >
-            <div className="font-semibold text-2xl">
-              Static MDX Blog with Next.js (next/mdx)
-            </div>
+          {/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
+          {popularPosts?.map((post: any) => (
+            <Link
+              key={post.id}
+              href={`/blog/${post.slug.replace(/\.mdx$/, "")}`}
+            >
+              <div className="">
+                <div className="font-semibold text-2xl">{post.title}</div>
+                <p className="text-muted-foreground">
+                  {post.description.length > 100
+                    ? `${post.description.slice(0, 100)}...`
+                    : post.description}
+                </p>
 
-            <p>
-              Create a Next.js 14 app that generates static MDX pages from
-              documents stored in a local folder using the next/mdx package and
-              the app router.
-            </p>
-          </Link>
-          <Link
-            className=""
-            href="https://www.mdxblog.io/blog/integrating-mdx-with-static-site-generators"
-          >
-            <div className="font-semibold text-2xl">
-              Integrating MDX with Static Site Generators
-            </div>
-
-            <p>
-              MDXs compatibility with React components makes it an ideal choice
-              for modern web development, particularly when combined with static
-              site generators (SSGs) like Gatsby, Next.js, or Hugo.
-            </p>
-          </Link>
-          <Link
-            className=""
-            href="https://www.mdxblog.io/blog/automating-next.js-sitemap-generation-with-github-actions"
-          >
-            <div className="font-semibold text-2xl">
-              Next.js Sitemaps with GitHub Actions
-            </div>
-
-            <p>
-              Sitemaps are essential for SEO purposes, as it helps search
-              engines better index your site. Automate sitemap generation for
-              your Next.js static blog project using GitHub Actions and the
-              next-sitemap package.
-            </p>
-          </Link>
-          <Link
-            className=""
-            href="https://www.mdxblog.io/blog/simple-static-mdx-blog"
-          >
-            <div className="font-semibold text-2xl">
-              Simple Static MDX Blog (next-mdx-remote){" "}
-            </div>
-
-            <p>
-              Build a static MDX blog in Next.js 14 using the next-mdx-remote
-              package.
-            </p>
-          </Link>
+                <p>Likes: {post.likes}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
-      {/* popular article -- make dynamic */}
+      {/* End Dynamic Popular Articles */}
+
       <hr />
       <div className="flex justify-center pt-2">
         <h2 className="text-2xl sm:text-3xl font-bold text-center">
