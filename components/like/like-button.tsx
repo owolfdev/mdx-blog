@@ -117,19 +117,7 @@ function LikeButton({ postId }: LikeButtonProps) {
           100% {
             transform: scale(1) rotate(0deg);
           }
-          90% {
-            transform: scale(1.2) rotate(0deg);
-          }
-          10%,
-          30%,
-          50%,
-          70% {
-            transform: scale(1.2) translateX(-2px) rotate(-5deg);
-          }
-          20%,
-          40%,
-          60%,
-          80% {
+          20% {
             transform: scale(1.2) translateX(2px) rotate(5deg);
           }
         }
@@ -142,7 +130,7 @@ function LikeButton({ postId }: LikeButtonProps) {
         }
 
         .like-icon {
-          animation-duration: 0.5s;
+          animation-duration: 0.25s;
         }
 
         .liked .like-icon {
