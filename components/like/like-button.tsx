@@ -20,7 +20,6 @@ function LikeButton({ postId }: LikeButtonProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for an existing user ID in local storage or create a new one
     let storedUserId = localStorage.getItem("userId");
     if (!storedUserId) {
       storedUserId = uuidv4();
@@ -28,34 +27,26 @@ function LikeButton({ postId }: LikeButtonProps) {
     }
     setUserId(storedUserId);
 
-    // Check if the post is already liked
     const likedPosts = JSON.parse(localStorage.getItem("likedPosts") || "{}");
     if (likedPosts[postId]) {
       setLiked(true);
     }
 
-    // Fetch total likes
     fetchTotalLikes();
-
-    // Set loading to false after data is loaded
     setLoading(false);
   }, [postId]);
 
   async function fetchTotalLikes() {
-    console.log("Fetching total likes for post", postId);
     const response = await countLikes(postId);
     if (response.success && typeof response.count === "number") {
       setTotalLikes(response.count);
-      console.log("Total likes fetched successfully:", response.count);
     } else {
-      console.error("Failed to fetch total likes:", response.error);
-      setTotalLikes(0); // default to 0 if there's an error or count is not a number
+      setTotalLikes(0);
     }
   }
 
   async function handleLikeAction() {
     if (userId) {
-      console.log("Liking post", postId, "with user ID", userId);
       const response = await addLike(postId, userId);
       if (response.success) {
         const likedPosts = JSON.parse(
@@ -65,16 +56,12 @@ function LikeButton({ postId }: LikeButtonProps) {
         localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
         setLiked(true);
         setTotalLikes((prev) => prev + 1);
-        console.log("Like added successfully");
-      } else {
-        console.error("Failed to add like:", response.error);
       }
     }
   }
 
   async function handleUnlikeAction() {
     if (userId) {
-      console.log("Unliking post", postId, "with user ID", userId);
       const response = await removeLike(postId, userId);
       if (response.success) {
         const likedPosts = JSON.parse(
@@ -84,49 +71,88 @@ function LikeButton({ postId }: LikeButtonProps) {
         localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
         setLiked(false);
         setTotalLikes((prev) => prev - 1);
-        console.log("Like removed successfully");
-      } else {
-        console.error("Failed to remove like:", response.error);
       }
     }
   }
 
   async function handleRemoveAllLikes() {
-    console.log("Removing all likes");
     const response = await removeAllLikes();
     if (response.success) {
       localStorage.setItem("likedPosts", "{}");
       setLiked(false);
       setTotalLikes(0);
-      console.log("All likes removed successfully");
-    } else {
-      console.error("Failed to remove all likes:", response.error);
     }
   }
 
   if (loading) {
-    return null; // or you can return a loading spinner
+    return null;
   }
 
   return (
-    <div className="py-8">
+    <div className="py-8 relative">
       <div>Total Likes: {totalLikes}</div>
       <button
         type="button"
         onClick={() => {
           liked ? handleUnlikeAction() : handleLikeAction();
         }}
-        className={
-          "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
-        }
+        className={`like-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center relative overflow-hidden ${
+          liked ? "liked" : "unliked"
+        }`}
       >
-        {liked ? (
-          <AiFillLike className="text-xl mr-2" />
-        ) : (
-          <AiOutlineLike className="text-xl mr-2" />
-        )}
+        <div
+          className={`like-icon ${liked ? "animate-like" : "animate-unlike"}`}
+        >
+          {liked ? (
+            <AiFillLike className="text-xl mr-2" />
+          ) : (
+            <AiOutlineLike className="text-xl mr-2" />
+          )}
+        </div>
         {liked ? "Liked" : "Like"}
       </button>
+      <style jsx>{`
+        @keyframes like-animation {
+          0%,
+          100% {
+            transform: scale(1) rotate(0deg);
+          }
+          90% {
+            transform: scale(1.2) rotate(0deg);
+          }
+          10%,
+          30%,
+          50%,
+          70% {
+            transform: scale(1.2) translateX(-2px) rotate(-5deg);
+          }
+          20%,
+          40%,
+          60%,
+          80% {
+            transform: scale(1.2) translateX(2px) rotate(5deg);
+          }
+        }
+
+        @keyframes unlike-animation {
+          0%,
+          50% {
+            transform: scale(1) rotate(0deg);
+          }
+        }
+
+        .like-icon {
+          animation-duration: 0.5s;
+        }
+
+        .liked .like-icon {
+          animation-name: like-animation;
+        }
+
+        .unliked .like-icon {
+          animation-name: unlike-animation;
+        }
+      `}</style>
       <div className="hidden">
         <button
           type="button"

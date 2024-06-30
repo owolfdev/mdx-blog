@@ -10,7 +10,7 @@ import Code from "@/components/mdx/code-component/code";
 import Quiz from "@/components/mdx/quiz";
 import CustomImage from "@/components/mdx/image";
 import { CreatePostForm } from "@/components/mdx/custom-components/create-post-form";
-import LikeButton from "@/components/like-button";
+import LikeButton from "@/components/like/like-button";
 
 import EditPostButton from "./edit-post-button";
 import OpenInVSCode from "./open-in-vs-code-button";
