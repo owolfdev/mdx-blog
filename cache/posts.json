@@ -78,7 +78,7 @@
     ],
     "image": "/images/default.jpg",
     "path": "automating-next.js-sitemap-generation-with-github-actions.mdx",
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "building-a-content-management-system-for-static-mdx-files",
@@ -99,7 +99,7 @@
     ],
     "image": "/images/default.jpg",
     "path": "building-a-content-management-system-for-static-mdx-files.mdx",
-    "likes": 1
+    "likes": 3
   },
   {
     "slug": "building-interactive-blog-posts-with-mdx",
@@ -161,7 +161,7 @@
     ],
     "image": "/images/default.jpg",
     "path": "create-a-static-mdx-blog-with-next.mdx",
-    "likes": 3
+    "likes": 7
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -264,7 +264,7 @@
     ],
     "image": "/images/default.jpg",
     "path": "implementing-a-like-button-in-an-mdx-app-with-next.js-and-vercel-postgresql.mdx",
-    "likes": 4
+    "likes": 7
   },
   {
     "slug": "integrating-mdx-with-static-site-generators",
@@ -325,7 +325,7 @@
     ],
     "image": "/images/default.jpg",
     "path": "limitations-of-next-mdx-remote-and-an-alternative-approach.mdx",
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "mdx-and-content-management-with-headless-cms",
@@ -404,7 +404,7 @@
     ],
     "image": "/images/default.jpg",
     "path": "metadata-object-components-in-next-js-mdx-blogs.mdx",
-    "likes": 2
+    "likes": 4
   },
   {
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",
@@ -602,7 +602,7 @@
     ],
     "image": "/images/default.jpg",
     "path": "the-jamstack-and-web-development-with-mdx.mdx",
-    "likes": 0
+    "likes": 2
   },
   {
     "slug": "the-next.js-portfolio-blog-starter-kit",
@@ -624,7 +624,7 @@
     ],
     "image": "/images/default.jpg",
     "path": "the-next.js-portfolio-blog-starter-kit.mdx",
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",

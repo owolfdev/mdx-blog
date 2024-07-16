@@ -9,6 +9,23 @@ export default function About() {
         Install <span className="primary-color">MDX</span>Blog
       </h1>
       <p>
+        Install MDX Blog Latest Update, which is a good starting point for a
+        simple blog or to learn how to build a blog with MDX and Next.js. This
+        version uses @next/mdx package, the app router, and more.
+      </p>
+      <Link
+        className="text-lg"
+        href="https://github.com/owolfdev/nextjs-template"
+        target="_blank"
+      >
+        <Button>
+          <span className="text-lg">
+            Install <span className="font-bold">MDX Blog</span> Latest
+          </span>
+        </Button>
+      </Link>
+      <hr />
+      {/* <p>
         Install MDX Blog Lite, which is a good starting point for a simple blog
         or to learn how to build a blog with MDX and Next.js.
       </p>
@@ -23,12 +40,12 @@ export default function About() {
           </span>
         </Button>
       </Link>
-      <hr />
+      <hr /> */}
       <p>
-        Install MDX Blog, a more full-featured version, which offers several
-        helpful tools such as admin panel, create / edit functions, and more.
-        This version is a good starting point for a production app. Installation
-        instructions are in the{" "}
+        Install MDX Blog Legacy, a more full-featured version, which offers
+        several helpful tools such as admin panel, create / edit functions, and
+        more. This version is a good starting point for a production app.
+        Installation instructions are in the{" "}
         <Link
           target="_blank"
           href="https://github.com/owolfdev/mdx-blog/blob/main/README.md"
@@ -36,7 +53,8 @@ export default function About() {
         >
           README
         </Link>{" "}
-        file.
+        file. This version uses the next-mdx-remote package, the app router, and
+        more.
       </p>
       <Link
         className="text-lg"
@@ -45,7 +63,7 @@ export default function About() {
       >
         <Button>
           <span className="text-lg">
-            Install <span className="font-bold">MDX Blog</span>
+            Install <span className="font-bold">MDX Blog</span> Legacy
           </span>
         </Button>
       </Link>
