@@ -15,7 +15,7 @@ export default function About() {
       </p>
       <Link
         className="text-lg"
-        href="https://github.com/owolfdev/nextjs-template"
+        href="https://github.com/owolfdev/next-template-mdx-shad"
         target="_blank"
       >
         <Button>
