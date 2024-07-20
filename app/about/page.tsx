@@ -37,6 +37,14 @@ Find relevant articles on the blog, including:
 - • Push your local repo to GitHub
 - • Deploy on Vercel
 
+**How to Use MDX Blog:**
+
+In the latest updated code base, which is a simple blog template, you'll find a directory called content/blogs where you can create your blog posts.
+
+## MDX Blog Legacy
+
+The legacy version of MDX Blog is still available on GitHub. It is a more complex version of the blog template, with additional features and functionality. The legacy version is not actively maintained, but it is still available for use. Here are some key features of the legacy version:
+
 **Create a post:**
 - • Use the '+' icon in the nav bar, in development mode only, to create a new post - or simply create a new MDX file in the 'data/posts' directory, manually. 
 - • Edit posts in the browser or manually using VS Code (recommended), or any other text editor.
