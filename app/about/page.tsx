@@ -18,13 +18,15 @@ Unlike traditional blogging solutions that rely on a database to store content, 
 
 [MDXBlog (mdxblog.io)](https://mdxblog.io) is an independently created blog app template built with the latest web technologies, offering a unique blogging experience. MDXBlog is a simple template for creating blogs using MDX (Markdown + JSX) and Next.js 14. We have no official affiliation with the MDX team or Next.js, we are simply fans of the technology and wanted to create a simple, free, easy-to-use blog template for the community.
 
-Our project is fully accessible on **[GitHub](https://github.com/owolfdev/mdx-blog-basic)**.
+Our project is fully accessible on **[GitHub. Here is the latest code.](https://github.com/owolfdev/next-template-mdx-shad)**.
+
+Here is the **[legacy version of MDXBlog](https://github.com/owolfdev/mdx-blog-basic) on GitHub**, which is a more complex version of the blog template, with additional features and functionality. The legacy version is not actively maintained, but it is still available for use.
 
 Find relevant articles on the blog, including:
 
-- • [Installation](https://www.mdxblog.io//blog/how-to-install-mdx-blog-and-deploy-on-vercel)
-- • [A User Guide](https://www.mdxblog.io//blog/how-to-use-mdx-blog)
-- • [Development Insights](https://www.mdxblog.io//blog/rendering-mdx-content-in-next.js-14)
+- • [Installation](https://www.mdxblog.io/blog/how-to-install-mdx-blog-and-deploy-on-vercel)
+- • [A User Guide](https://www.mdxblog.io/blog/how-to-use-mdx-blog)
+- • [Development Insights](https://www.mdxblog.io/blog/rendering-mdx-content-in-next.js-14)
 
 **Getting Started**
 
