@@ -43,7 +43,7 @@ Find relevant articles on the blog, including:
 
 In the latest updated code base, which is a simple blog template, you'll find a directory called content/blogs where you can create your blog posts.
 
-**MDX Blog Legacy**
+**MDX Blog Legacy:**
 
 The legacy version of MDX Blog is still available on GitHub. It is a more complex version of the blog template, with additional features and functionality. The legacy version is not actively maintained, but it is still available for use. Here are some key features of the legacy version:
 

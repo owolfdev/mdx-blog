@@ -15,7 +15,7 @@ export default function Loading() {
   if (isLoading) {
     return (
       <main className="text-center">
-        <div className="fixed top-0 left-0 bg-white dark:bg-[#010816] flex justify-center items-center w-full h-screen z-10">
+        <div className="fixed top-0 left-0 bg-white flex justify-center items-center w-full h-screen z-10">
           <span className="animated-text text-4xl font-bold letter-spacing-0">
             <span className="letter">M</span>
             <span className="letter">D</span>
