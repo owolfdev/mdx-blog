@@ -99,7 +99,7 @@
     ],
     "image": "/images/default.jpg",
     "path": "building-a-content-management-system-for-static-mdx-files.mdx",
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "building-interactive-blog-posts-with-mdx",
@@ -161,7 +161,7 @@
     ],
     "image": "/images/default.jpg",
     "path": "create-a-static-mdx-blog-with-next.mdx",
-    "likes": 7
+    "likes": 8
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -264,7 +264,7 @@
     ],
     "image": "/images/default.jpg",
     "path": "implementing-a-like-button-in-an-mdx-app-with-next.js-and-vercel-postgresql.mdx",
-    "likes": 7
+    "likes": 8
   },
   {
     "slug": "integrating-mdx-with-static-site-generators",
@@ -404,7 +404,7 @@
     ],
     "image": "/images/default.jpg",
     "path": "metadata-object-components-in-next-js-mdx-blogs.mdx",
-    "likes": 4
+    "likes": 5
   },
   {
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",
