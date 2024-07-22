@@ -7,10 +7,10 @@ import {
   DotsHorizontalIcon,
 } from "@radix-ui/react-icons";
 import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type SortingState,
+  type VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -21,7 +21,7 @@ import {
 
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
-import { FilterFn, Row } from "@tanstack/react-table";
+import { type FilterFn, Row } from "@tanstack/react-table";
 
 import {
   Tooltip,
@@ -239,9 +239,11 @@ export function DataTable() {
       try {
         const response = await fetch("/api/get-posts");
         if (response.ok) {
+          // biome-ignore lint/style/useConst: <explanation>
           let posts = await response.json();
 
           // Sort the posts by date in descending order
+          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
           posts.sort((a: any, b: any) => {
             // Convert dates to timestamps for comparison
             const dateA = new Date(a.date).getTime();
@@ -271,6 +273,7 @@ export function DataTable() {
       row.original.title.toLowerCase().includes(lowercasedFilter) ||
       row.original.description.toLowerCase().includes(lowercasedFilter) ||
       row.original.type.toLowerCase().includes(lowercasedFilter) ||
+      // biome-ignore lint/complexity/useOptionalChain: <explanation>
       (row.original.tags &&
         row.original.tags.some((tag) =>
           tag.toLowerCase().includes(lowercasedFilter)
