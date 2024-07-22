@@ -22,34 +22,6 @@ export async function countLikes(postId: string) {
   }
 }
 
-// export async function createTable() {
-//   console.log("createTable");
-//   try {
-//     const { error } = await supabase.rpc("create_likes_for_mdx_blog");
-
-//     if (error) throw error;
-
-//     return { success: true };
-//   } catch (error) {
-//     console.error("Error in createTable:", (error as Error).message);
-//     return { success: false, error: (error as Error).message };
-//   }
-// }
-
-// export async function removeTable() {
-//   console.log("removeTable");
-//   try {
-//     const { error } = await supabase.rpc("drop_likes_for_mdx_blog");
-
-//     if (error) throw error;
-
-//     return { success: true };
-//   } catch (error) {
-//     console.error("Error in removeTable:", (error as Error).message);
-//     return { success: false, error: (error as Error).message };
-//   }
-// }
-
 export async function addLike(postId: string, userId: string) {
   console.log("addLike", postId, userId);
   try {

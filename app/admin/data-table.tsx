@@ -53,6 +53,8 @@ import {
 
 import Link from "next/link";
 
+import { countLikes } from "@/app/actions/like-actions";
+
 export type Post = {
   id: string;
   type: string;
@@ -62,6 +64,7 @@ export type Post = {
   author: string;
   description: string;
   tags: string[];
+  likes: number; // Add likes property
 };
 
 export const columns: ColumnDef<Post>[] = [
@@ -87,71 +90,56 @@ export const columns: ColumnDef<Post>[] = [
     enableSorting: false,
     enableHiding: false,
   },
-
   {
     accessorKey: "date",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Date
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Date
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => {
-      // Parse the date from the row
       const date = new Date(row.getValue("date"));
-
-      // Format the date as 'DD.MM.YY'
       const formattedDate = date.toLocaleDateString("en-GB", {
         day: "2-digit",
         month: "2-digit",
         year: "2-digit",
       });
-
       return <div>{formattedDate}</div>;
     },
   },
-
   {
-    accessorKey: "type", // Access the 'type' attribute of your data
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Type
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => <span>{row.getValue("type")}</span>, // Access and display the 'type' value from each row
+    accessorKey: "type",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Type
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => <span>{row.getValue("type")}</span>,
   },
-
   {
     accessorKey: "title",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Title
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Title
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => (
       <div>
-        {" "}
         <Link href={`/blog/${row.original.slug}`}>
           <TooltipProvider>
             <Tooltip>
-              {/* <TooltipTrigger>{row.getValue("title")}</TooltipTrigger> */}
               <TooltipTrigger>
                 <div className="text-left">{row.getValue("title")}</div>
               </TooltipTrigger>
@@ -164,40 +152,44 @@ export const columns: ColumnDef<Post>[] = [
       </div>
     ),
   },
-
   {
     accessorKey: "status",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Status
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Status
+      </Button>
+    ),
     cell: ({ row }) => {
-      // Get the current date
       const currentDate = new Date();
-      currentDate.setHours(0, 0, 0, 0); // Reset time part for comparison
-
-      // Parse the date from the row
+      currentDate.setHours(0, 0, 0, 0);
       const postDate = new Date(row.getValue("date"));
-
-      // Determine the status based on the date
       const status = postDate <= currentDate ? "published" : "unpublished";
-
       return <div className="capitalize">{status}</div>;
     },
+    enableSorting: true,
   },
-
+  {
+    accessorKey: "likes",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Likes
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => <div>{row.getValue("likes")}</div>,
+    enableSorting: true,
+  },
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
       const post = row.original;
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -242,16 +234,22 @@ export function DataTable() {
           // biome-ignore lint/style/useConst: <explanation>
           let posts = await response.json();
 
+          // Fetch likes count for each post
+          const postsWithLikes = await Promise.all(
+            posts.map(async (post: Post) => {
+              const { count } = await countLikes(post.id);
+              return { ...post, likes: count };
+            })
+          );
+
           // Sort the posts by date in descending order
-          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-          posts.sort((a: any, b: any) => {
-            // Convert dates to timestamps for comparison
+          postsWithLikes.sort((a, b) => {
             const dateA = new Date(a.date).getTime();
             const dateB = new Date(b.date).getTime();
-            return dateB - dateA; // Descending order
+            return dateB - dateA;
           });
 
-          setData(posts); // Set the sorted posts into the state
+          setData(postsWithLikes); // Set the sorted posts with likes into the state
         } else {
           console.error("Failed to fetch posts");
         }
