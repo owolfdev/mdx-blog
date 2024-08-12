@@ -25,10 +25,10 @@ const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
       {blogs.map((blog) => (
         <li
           key={blog.slug}
-          className="border px-3 py-2 rounded-xl cursor-pointer"
+          className="border px-3 py-2 rounded-xl cursor-pointer hover:shadow-md transition-shadow"
         >
           <LoaderLink isButton={false} url={`/blog/${blog.slug}`}>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 ">
               <div>
                 <h3 className="text-2xl font-bold">{blog.title}</h3>
                 <div className="text-sm">{blog.formattedDate}</div>

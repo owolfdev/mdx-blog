@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import the Dracula theme for Highlight.js */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/dracula.min.css");
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -58,175 +61,18 @@
   }
 }
 
-.mdx h1 {
-  font-size: 3rem;
-  line-height: 1.3; /* Adjusted for better readability */
-  font-weight: 700;
-  margin-top: 2rem; /* Increased top margin for clear section separation */
-  margin-bottom: 1.5rem; /* Increased bottom margin for spacing below headings */
+/* Add this to your global CSS file */
+.code-block pre {
+  max-width: 100%;
+  overflow-x: auto;
+  word-break: break-word;
 }
 
-.mdx h2 {
-  font-size: 2.25rem;
-  line-height: 1.3; /* Consistent line height with h1 */
-  font-weight: 700; /* Keeping it lighter than h1 */
-  margin-top: 1.8rem; /* Slightly less than h1 for hierarchical spacing */
-  margin-bottom: 1.2rem; /* Slightly less than h1 */
-}
-
-.mdx h3 {
-  font-size: 1.8rem;
-  line-height: 1.3; /* Matching line height for consistency */
-  font-weight: 700; /* Lighter as we go down the hierarchy */
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.mdx h4 {
-  font-size: 1.25rem;
-  line-height: 1.3; /* Keeping line height consistent across headings */
-  font-weight: 700; /* Lightest weight for smallest heading */
-  margin-top: 1.2rem;
-  margin-bottom: 0.8rem;
-}
-
-.mdx p {
-  font-size: 18px;
-  line-height: 1.6rem; /* Improved line height for paragraph readability */
-  font-weight: 400;
-  margin-bottom: 1rem; /* Consistent bottom margin for paragraphs */
-}
-
-.mdx ul,
-.mdx ol {
-  font-size: 1rem;
-  line-height: 1.6rem; /* Matching line height with paragraphs */
-  font-weight: 400;
-  margin-bottom: 1rem; /* Consistent spacing for lists */
-}
-
-.mdx pre {
-  /* existing styles */
-  margin-bottom: 1.5rem; /* Consistent bottom margin with h1 */
-}
-
-.mdx iframe,
-.mdx img {
-  /* existing styles */
-  margin-top: 1rem; /* Top margin for separation from preceding text */
-  margin-bottom: 1.5rem; /* Consistent with other elements */
-}
-
-.mdx Button {
-  margin-top: 1rem;
-  margin-bottom: 1rem; /* Consistent with other elements */
-}
-
-.mdx hr {
-  /* existing styles for hr */
-  margin-top: 2rem; /* Added top margin for separation */
-  margin-bottom: 2rem; /* Added bottom margin for clear section breaks */
-}
-
-.mdx a {
-  text-decoration: underline; /* Remove underline from links */
-  font-weight: 700; /* Slightly bold for emphasis */
-}
-
-:not(pre) > code {
-  background-color: #eaeaea; /* light gray background */
-  color: #24292e; /* slightly dark text color for contrast */
-  padding: 2px 4px;
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier,
-    monospace;
-  font-size: 90%;
-  border-radius: 6px;
-}
-
-.code-component {
-  margin-bottom: 1rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  :not(pre) > code {
-    background-color: #31363c; /* darker background for dark mode */
-    color: #ffffff; /* lighter text color for dark mode */
-  }
-}
-
-@media (max-width: 480px) {
-  .mdx h1 {
-    font-size: 3rem;
-  }
-
-  .mdx h2 {
-    font-size: 2.5rem;
-  }
-
-  .mdx h3 {
-    font-size: 2rem;
-  }
-
-  .mdx h4 {
-    font-size: 1.5rem;
-  }
-
-  .mdx p,
-  .mdx ul,
-  .mdx ol {
-    font-size: 22px; /* Adjusted for smaller screens */
-  }
-}
-
-/*  */
-
-.gradient-text {
-  background: linear-gradient(45deg, #0090fd, #fd2060);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline;
+.code-block code {
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .primary-color {
   color: hsl(var(--primary));
-}
-
-.animated-text .letter {
-  /* background: linear-gradient(45deg, #0090fd, #fd2060); */
-  /* -webkit-background-clip: text; */
-  /* -webkit-text-fill-color: transparent; */
-  display: inline-block; /* Ensure this is inline-block */
-}
-
-.animated-text .letter {
-  display: inline-block;
-  animation-name: spin;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-.animated-text .letter:nth-child(1) {
-  animation-delay: 0s;
-}
-.animated-text .letter:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.animated-text .letter:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes spin {
-  0% {
-    transform: scaleX(1);
-  }
-  20% {
-    transform: scaleX(1);
-  }
-  70% {
-    transform: scaleX(0);
-  }
-  95% {
-    transform: scaleX(0);
-  }
 }

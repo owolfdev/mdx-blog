@@ -72,7 +72,7 @@ function SortPosts({
       ) : (
         <ChevronDown className="cursor-pointer" onClick={toggleSortOrder} />
       )}
-      <div className="text-slate-400 w-full">
+      <div className=" w-full">
         <Select value={sortBy} onValueChange={handleChangeSort}>
           <SelectTrigger className="">
             <SelectValue placeholder="Sort By" />

@@ -9,7 +9,7 @@ export async function countLikes(postId: string) {
   console.log("countLikes", postId);
   try {
     const { error, count } = await supabase
-      .from("likes_for_mdx_blog")
+      .from("likes_for_mdx_blog_2")
       .select("id", { count: "exact" })
       .eq("post_id", postId);
 
@@ -30,7 +30,7 @@ export async function addLike(postId: string, userId: string) {
     }
 
     const { data, error } = await supabase
-      .from("likes_for_mdx_blog")
+      .from("likes_for_mdx_blog_2")
       .insert([{ post_id: postId, user_id: userId }]);
 
     if (error) throw error;
@@ -50,7 +50,7 @@ export async function removeLike(postId: string, userId: string) {
     }
 
     const { data, error } = await supabase
-      .from("likes_for_mdx_blog")
+      .from("likes_for_mdx_blog_2")
       .delete()
       .eq("post_id", postId)
       .eq("user_id", userId);
@@ -67,7 +67,9 @@ export async function removeLike(postId: string, userId: string) {
 export async function removeAllLikes() {
   console.log("removeAllLikes");
   try {
-    const { data, error } = await supabase.from("likes_for_mdx_blog").delete();
+    const { data, error } = await supabase
+      .from("likes_for_mdx_blog_2")
+      .delete();
 
     if (error) throw error;
 

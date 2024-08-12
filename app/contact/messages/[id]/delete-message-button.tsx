@@ -16,10 +16,11 @@ import {
 
 import { useRouter } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { deleteContactMessage } from "../actions";
 
 function DeleteMessageButton({ messageId }: { messageId: string }) {
   const router = useRouter();
-  const handleDeleteMessage = async () => {
+  const handleDeleteMessage2 = async () => {
     // console.log(`Delete message ${messageId}`);
     const response = await fetch("/api/delete-contact-message", {
       method: "POST",
@@ -32,11 +33,23 @@ function DeleteMessageButton({ messageId }: { messageId: string }) {
     router.push("/contact/messages");
     router.refresh();
   };
+
+  const handleDeleteMessage = async () => {
+    deleteContactMessage(messageId);
+    // console.log(`Delete message ${messageId}`);
+    router.push("/contact/messages");
+    router.refresh();
+  };
+
   return (
     <div className="flex gap-2">
       <Dialog>
         <DialogTrigger>
-          <Button variant="destructive">Delete Message</Button>
+          <div
+            className={buttonVariants({ variant: "destructive", size: "lg" })}
+          >
+            Delete Message
+          </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -46,9 +59,18 @@ function DeleteMessageButton({ messageId }: { messageId: string }) {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button onClick={handleDeleteMessage} variant="destructive">
-              Yes, Delete Message
-            </Button>
+            <DialogClose>
+              <button
+                type="button"
+                onClick={handleDeleteMessage}
+                className={buttonVariants({
+                  variant: "destructive",
+                  size: "lg",
+                })}
+              >
+                Yes, Delete Message
+              </button>
+            </DialogClose>
             <DialogClose>
               <Button onClick={handleDeleteMessage}>Cancel</Button>
             </DialogClose>

@@ -7,10 +7,10 @@ import {
   DotsHorizontalIcon,
 } from "@radix-ui/react-icons";
 import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type SortingState,
+  type VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -19,16 +19,11 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import { deleteContactMessage } from "./actions";
+
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
-import { FilterFn, Row } from "@tanstack/react-table";
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { type FilterFn, Row } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -95,166 +90,14 @@ interface DataTableProps {
   contactMessagesData: ContactMessagesData[];
 }
 
-//post  columns def
-// export const columns: ColumnDef<Post>[] = [
-//   {
-//     id: "select",
-//     header: ({ table }) => (
-//       <Checkbox
-//         checked={
-//           table.getIsAllPageRowsSelected() ||
-//           (table.getIsSomePageRowsSelected() && "indeterminate")
-//         }
-//         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-//         aria-label="Select all"
-//       />
-//     ),
-//     cell: ({ row }) => (
-//       <Checkbox
-//         checked={row.getIsSelected()}
-//         onCheckedChange={(value) => row.toggleSelected(!!value)}
-//         aria-label="Select row"
-//       />
-//     ),
-//     enableSorting: false,
-//     enableHiding: false,
-//   },
-
-//   {
-//     accessorKey: "date",
-//     header: ({ column }) => {
-//       return (
-//         <Button
-//           variant="ghost"
-//           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-//         >
-//           Date
-//           <ArrowUpDown className="ml-2 h-4 w-4" />
-//         </Button>
-//       );
-//     },
-//     cell: ({ row }) => {
-//       // Parse the date from the row
-//       const date = new Date(row.getValue("date"));
-
-//       // Format the date as 'DD.MM.YY'
-//       const formattedDate = date.toLocaleDateString("en-GB", {
-//         day: "2-digit",
-//         month: "2-digit",
-//         year: "2-digit",
-//       });
-
-//       return <div>{formattedDate}</div>;
-//     },
-//   },
-
-//   {
-//     accessorKey: "type", // Access the 'type' attribute of your data
-//     header: ({ column }) => {
-//       return (
-//         <Button
-//           variant="ghost"
-//           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-//         >
-//           Type
-//           <ArrowUpDown className="ml-2 h-4 w-4" />
-//         </Button>
-//       );
-//     },
-//     cell: ({ row }) => <span>{row.getValue("type")}</span>, // Access and display the 'type' value from each row
-//   },
-
-//   {
-//     accessorKey: "title",
-//     header: ({ column }) => {
-//       return (
-//         <Button
-//           variant="ghost"
-//           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-//         >
-//           Title
-//           <ArrowUpDown className="ml-2 h-4 w-4" />
-//         </Button>
-//       );
-//     },
-//     cell: ({ row }) => (
-//       <div>
-//         {" "}
-//         <Link href={`/blog/${row.original.slug}`}>
-//           <TooltipProvider>
-//             <Tooltip>
-//               {/* <TooltipTrigger>{row.getValue("title")}</TooltipTrigger> */}
-//               <TooltipTrigger>
-//                 <div className="text-left">{row.getValue("title")}</div>
-//               </TooltipTrigger>
-//               <TooltipContent className="max-w-sm px-4 py-2">
-//                 {row.original.description}
-//               </TooltipContent>
-//             </Tooltip>
-//           </TooltipProvider>
-//         </Link>
-//       </div>
-//     ),
-//   },
-
-//   {
-//     accessorKey: "status",
-//     header: ({ column }) => {
-//       return (
-//         <Button
-//           variant="ghost"
-//           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-//         >
-//           Status
-//         </Button>
-//       );
-//     },
-//     cell: ({ row }) => {
-//       // Get the current date
-//       const currentDate = new Date();
-//       currentDate.setHours(0, 0, 0, 0); // Reset time part for comparison
-
-//       // Parse the date from the row
-//       const postDate = new Date(row.getValue("date"));
-
-//       // Determine the status based on the date
-//       const status = postDate <= currentDate ? "published" : "unpublished";
-
-//       return <div className="capitalize">{status}</div>;
-//     },
-//   },
-
-//   {
-//     id: "actions",
-//     enableHiding: false,
-//     cell: ({ row }) => {
-//       const post = row.original;
-
-//       return (
-//         <DropdownMenu>
-//           <DropdownMenuTrigger asChild>
-//             <Button variant="ghost" className="h-8 w-8 p-0">
-//               <span className="sr-only">Open menu</span>
-//               <DotsHorizontalIcon className="h-4 w-4" />
-//             </Button>
-//           </DropdownMenuTrigger>
-//           <DropdownMenuContent align="end">
-//             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-//             <DropdownMenuItem
-//               onClick={() => navigator.clipboard.writeText(post.id)}
-//             >
-//               Copy post ID
-//             </DropdownMenuItem>
-//             <DropdownMenuSeparator />
-//             <DropdownMenuItem asChild>
-//               <Link href={`/blog/edit/${post.slug}`}>Edit</Link>
-//             </DropdownMenuItem>
-//           </DropdownMenuContent>
-//         </DropdownMenu>
-//       );
-//     },
-//   },
-// ];
+const handleDeleteMessage = async (messageId: string) => {
+  try {
+    await deleteContactMessage(messageId);
+    // You can also add any logic to update the state or UI after deletion, e.g., removing the deleted message from the state.
+  } catch (error) {
+    console.error("Error deleting message:", error);
+  }
+};
 
 //contract messages colums def
 export const columns: ColumnDef<ContactMessagesData>[] = [
@@ -351,7 +194,7 @@ export const columns: ColumnDef<ContactMessagesData>[] = [
     cell: ({ row }) => {
       const message: string = row.getValue("message") as string; // Assuming 'message' is a string
       const truncatedMessage =
-        message.length > 30 ? message.slice(0, 25) + "..." : message;
+        message.length > 30 ? `${message.slice(0, 25)}...` : message;
 
       return <span className="capitalize">{truncatedMessage}</span>;
     },
@@ -378,11 +221,11 @@ export const columns: ColumnDef<ContactMessagesData>[] = [
       // If 'desc' is true, descending order; otherwise, ascending order
       if (a.original.read === b.original.read) {
         return 0;
-      } else if (desc) {
-        return a.original.read ? -1 : 1;
-      } else {
-        return a.original.read ? 1 : -1;
       }
+      if (desc) {
+        return a.original.read ? -1 : 1;
+      }
+      return a.original.read ? 1 : -1;
     },
     cell: ({ row }) => {
       // Get the value of the 'read' property from the row
@@ -429,9 +272,7 @@ export const columns: ColumnDef<ContactMessagesData>[] = [
             <DropdownMenuItem asChild>
               {/* <Link to={`/edit/${message.id}`}>Edit</Link> */}
             </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => console.log("Copy message ID:", message.id)}
-            >
+            <DropdownMenuItem onClick={() => handleDeleteMessage(message.id)}>
               Delete Message
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
@@ -456,32 +297,9 @@ export function DataTable({ contactMessagesData }: DataTableProps) {
 
   const router = useRouter();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   React.useEffect(() => {
     setData(contactMessagesData);
-    // async function fetchPosts() {
-    //   try {
-    //     const response = await fetch("/api/fetch-contact-messages");
-    //     if (response.ok) {
-    //       let posts = await response.json();
-
-    //       // Sort the posts by date in descending order
-    //       posts.sort((a: any, b: any) => {
-    //         // Convert dates to timestamps for comparison
-    //         const dateA = new Date(a.date).getTime();
-    //         const dateB = new Date(b.date).getTime();
-    //         return dateB - dateA; // Descending order
-    //       });
-
-    //       setData(posts); // Set the sorted posts into the state
-    //     } else {
-    //       console.error("Failed to fetch posts");
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching posts:", error);
-    //   }
-    // }
-
-    // fetchPosts();
   }, []);
 
   const globalFilterFn: FilterFn<Post> = (row, columnIds, filterValue) => {
@@ -494,10 +312,9 @@ export function DataTable({ contactMessagesData }: DataTableProps) {
       row.original.title.toLowerCase().includes(lowercasedFilter) ||
       row.original.description.toLowerCase().includes(lowercasedFilter) ||
       row.original.type.toLowerCase().includes(lowercasedFilter) ||
-      (row.original.tags &&
-        row.original.tags.some((tag) =>
-          tag.toLowerCase().includes(lowercasedFilter)
-        ))
+      row.original.tags?.some((tag) =>
+        tag.toLowerCase().includes(lowercasedFilter)
+      )
     );
   };
 

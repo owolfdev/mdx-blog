@@ -1,4 +1,6 @@
 import { CreatePostForm } from "./create-post-form";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function Admin() {
   return (
@@ -8,6 +10,14 @@ export default function Admin() {
           Create a Post
         </h1>
         <CreatePostForm />
+      </div>
+      <div className="pt-6">
+        <Link
+          className={buttonVariants({ variant: "outline", size: "lg" })}
+          href="/blog"
+        >
+          Cancel
+        </Link>
       </div>
     </div>
   );

@@ -17,7 +17,18 @@ interface BlogPost {
   formattedDate?: string; // Optional, as it will be added later
 }
 
-const delay = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms));
+// Utility function to parse and format the date
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    return "Invalid Date"; // Handle invalid date
+  }
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
 
 const Blog = async ({
   searchParams,
@@ -29,13 +40,8 @@ const Blog = async ({
   const postsPerPage =
     typeof searchParams.limit === "string" ? Number(searchParams.limit) : 10;
   const searchTerm = searchParams.search || "";
-  const sort = searchParams.sort || "date_desc";
+  const sort = searchParams.sort || "date_desc"; // Ensure this defaults to date sorting
 
-  // await delay(3000);
-
-  // const defaultButton = buttonVariants({ variant: "default", size: "default" });
-
-  //filter by type, page, limit
   const { posts: blogs, totalPosts } = getPosts(
     "blog",
     postsPerPage,
@@ -44,16 +50,19 @@ const Blog = async ({
     sort as string
   );
 
+  const formattedBlogs = blogs.map((blog) => ({
+    ...blog,
+    formattedDate: formatDate(blog.publishDate),
+  }));
+
   const totalPages = Math.ceil(totalPosts / postsPerPage);
 
-  //button disabled styles
   const isPreviousDisabled = currentPage <= 1;
   const isNextDisabled = currentPage >= totalPages;
   const disabledLinkStyle = "opacity-50 cursor-not-allowed";
 
   const isDateDesc = sort === "date_desc";
 
-  // Utility function to trim description
   function trimDescription(description: string) {
     const wordLimit = 20;
     const words = description.split(" ");
@@ -66,9 +75,7 @@ const Blog = async ({
   }
 
   return (
-    <div className="flex flex-col gap-8 pb-6 w-full sm:w-2xl max-w-xl sm:max-w-2xl">
-      {/* <h1 className="text-4xl sm:text-5xl font-bold text-center">Blog</h1> */}
-
+    <div className="flex flex-col gap-8 pb-6 w-full max-w-3xl sm:max-w-3xl">
       <div className="flex gap-4 justify-between items-center">
         <SearchPosts
           currentPage={currentPage}
@@ -91,7 +98,10 @@ const Blog = async ({
             </span>
           </div>
         ) : (
-          <BlogPostList blogs={blogs} trimDescription={trimDescription} />
+          <BlogPostList
+            blogs={formattedBlogs}
+            trimDescription={trimDescription}
+          />
         )}
 
         <div
@@ -148,7 +158,6 @@ const Blog = async ({
             </span>
           )}
         </div>
-        {/* New component for selecting posts per page */}
         <SelectLimitPosts
           postsPerPage={postsPerPage}
           currentPage={currentPage}
@@ -156,11 +165,7 @@ const Blog = async ({
           numBlogs={blogs.length}
           sort={sort as string}
         />
-        {/* pagination end */}
       </div>
-      {/* <div>
-        <PushNavigator blogs={blogs} />
-      </div> */}
     </div>
   );
 };

@@ -1,28 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import matter from "gray-matter";
-import Button from "@/components/mdx/button";
+import React from "react";
+import dynamic from "next/dynamic";
+import type { Metadata, ResolvingMetadata } from "next";
+import { format } from "date-fns";
 
-//custom components
-import YouTube from "@/components/mdx/youtube";
-import Code from "@/components/mdx/code-component/code";
-import Quiz from "@/components/mdx/quiz";
-import CustomImage from "@/components/mdx/image";
-import { CreatePostForm } from "@/components/mdx/custom-components/create-post-form";
-import LikeButton from "@/components/like/like-button";
-
+import { isDevMode } from "@/lib/utils";
 import EditPostButton from "./edit-post-button";
 import OpenInVSCode from "./open-in-vs-code-button";
 
-//examples
-import { CustomButton } from "@/components/examples/custom-button";
-
-//functions
-import { getPost } from "@/lib/posts-utils.mjs";
-import { isDevMode } from "@/lib/utils";
-
-import type { Metadata, ResolvingMetadata } from "next";
+import LikeButton from "@/components/like/like-button";
 
 type Props = {
   params: { slug: string };
@@ -33,96 +20,81 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const post = await getPost(params);
-  // console.log("post:", post);
-  const title = post.frontMatter.title;
-  const description = post.frontMatter.description;
-
-  // Define your base URL (or use an environment variable)
-  const baseURL = "https://mdxblog.io/blog"; // Replace with your actual domain
-
-  // Construct the full canonical URL
-  const canonicalUrl = `${baseURL}/${params.slug}`;
-
   return {
-    title: title,
-    description: description,
-    // Add the canonical URL to the metadata
-    alternates: {
-      canonical: canonicalUrl,
-    },
-    // add other metadata fields as needed
+    title: post.metadata.title,
+    description: post.metadata.description,
   };
 }
 
-export async function generateStaticParams() {
-  const files = fs.readdirSync(path.join("data/posts"));
-  const params = [];
-
-  for (const filename of files) {
-    // Read the content of the file
-    const fullPath = path.join("data/posts", filename);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-
-    // Extract the front matter to get the date
-    // Assuming you use gray-matter or a similar library to parse front matter
-    const { data: frontMatter } = matter(fileContents);
-
-    // Parse the date and compare with the current date
-    const postDate = new Date(frontMatter.date);
-    const currentDate = new Date();
-    const isFuture = postDate > currentDate;
-
-    if (!isFuture) {
-      params.push({ slug: filename.replace(".mdx", "") });
+async function getPost({ slug }: { slug: string }) {
+  try {
+    const mdxPath = path.join("content", "posts", `${slug}.mdx`);
+    if (!fs.existsSync(mdxPath)) {
+      throw new Error(`MDX file for slug ${slug} does not exist`);
     }
 
-    //
-  }
+    const { metadata } = await import(`@/content/posts/${slug}.mdx`);
 
-  // console.log("params!!!:", params);
+    return {
+      slug,
+      metadata,
+    };
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    throw new Error(`Unable to fetch the post for slug: ${slug}`);
+  }
+}
+
+export async function generateStaticParams() {
+  const files = fs.readdirSync(path.join("content", "posts"));
+  const params = files.map((filename) => ({
+    slug: filename.replace(".mdx", ""),
+  }));
 
   return params;
 }
 
-export default async function BlogPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  //
-  const props = await getPost(params);
+export default async function Page({ params }: { params: { slug: string } }) {
+  const { slug } = params;
 
-  const slug = params.slug;
+  const post = await getPost(params);
+  // Dynamically import the MDX file based on the slug
+  const MDXContent = dynamic(() => import(`@/content/posts/${slug}.mdx`));
 
-  const components = {
-    pre: Code,
-    YouTube,
-    CustomImage,
-    Quiz,
-    CustomButton,
-    Button,
-    CreatePostForm,
-    LikeButton,
-  };
+  const formattedDate = format(
+    new Date(post.metadata.publishDate),
+    "MMMM dd, yyyy"
+  );
 
   return (
-    <div className="flex flex-col gap-3 sm:max-w-2xl max-w-xs">
-      <div className="mb-2">
-        <h1 className="text-5xl font-bold mb-2">{props.frontMatter.title}</h1>
-        <div>{props.frontMatter.date}</div>
-        <div>By: {props.frontMatter.author}</div>
+    <div className="max-w-3xl z-10 w-full items-center justify-between">
+      <div className="w-full flex justify-center items-center flex-col gap-6">
+        <article className="prose prose-lg md:prose-lg lg:prose-lg mx-auto min-w-full">
+          <div className="pb-6">
+            <p className="font-semibold text-lg">
+              <span className="text-primary pr-1">
+                {post.metadata.publishDate}
+              </span>{" "}
+              {post.metadata.category}
+            </p>
+          </div>
+          <div className="pb-6">
+            <h1 className="text-5xl sm:text-6xl font-black capitalize leading-12">
+              {post.metadata.title}
+            </h1>
+            <p className="pt-6">By {post.metadata.author}</p>
+          </div>
+          {isDevMode() && (
+            <div className="flex gap-2 mb-4">
+              <EditPostButton slug={slug} author={post.metadata.author} />
+              <OpenInVSCode path={slug} />
+            </div>
+          )}
+          <MDXContent />
+        </article>
       </div>
-      {isDevMode() && (
-        <div className="flex gap-2 mb-4">
-          <EditPostButton slug={slug} author={props.frontMatter.author} />
-          <OpenInVSCode path={props.frontMatter.path} />
-        </div>
-      )}
-      {/* <div className="flex gap-4"></div> */}
-      <article className="mdx">
-        <MDXRemote source={props.content} components={components} />
-      </article>
-      <LikeButton postId={props.frontMatter.id} /> {/* Add LikeButton here */}
+
+      <LikeButton postId={post.metadata.id} />
     </div>
   );
 }

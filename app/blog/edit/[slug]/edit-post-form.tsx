@@ -1,18 +1,25 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-
-import { parseISO } from "date-fns";
-
+import React, { useState } from "react";
+import { parseISO, format } from "date-fns";
 import { useRouter } from "next/navigation";
-
 import DatePickerField from "@/components/date-picker";
-import { format } from "date-fns";
-
-// import CachePostsButton from "@/components/admin/cache-posts-button";
-
-import { generatePostsCache } from "@/lib/posts-utils.mjs";
-
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Button, buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { MultiSelect } from "@/components/rs-multi-select";
 import {
   Dialog,
   DialogContent,
@@ -24,8 +31,6 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 
-import { Label } from "@/components/ui/label";
-
 import {
   Select,
   SelectContent,
@@ -34,36 +39,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-
-import { Textarea } from "@/components/ui/textarea";
-
-import { Input } from "@/components/ui/input";
-
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-
-import { MultiSelect } from "@/components/rs-multi-select";
-
 const formSchema = z.object({
   date: z.date(),
   type: z.string().optional(),
-  title: z.string().min(3, {
-    message: "Title must be at least 2 characters.",
-  }),
-  description: z.string().min(15, {
-    message: "Description must be at least 15 characters.",
-  }),
+  title: z
+    .string()
+    .min(3, {
+      message: "Title must be at least 3 characters.",
+    })
+    .refine((value) => !/"/.test(value), {
+      message: "Title cannot contain double quotes.",
+    }),
+  description: z
+    .string()
+    .min(15, {
+      message: "Description must be at least 15 characters.",
+    })
+    .refine((value) => !/"/.test(value), {
+      message: "Description cannot contain double quotes.",
+    }),
   content: z.string().min(2, {
     message: "Content must be at least 2 characters.",
   }),
@@ -72,43 +66,39 @@ const formSchema = z.object({
 });
 
 export function EditPostForm({ postData }: { postData: any }) {
-  const [selectedValue, setSelectedValue] = useState("blog");
-
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      date: postData.frontMatter.date
-        ? parseISO(postData.frontMatter.date)
+      date: postData.metadata?.publishDate
+        ? parseISO(postData.metadata.publishDate)
         : new Date(),
-      type: postData.frontMatter.type,
-      title: postData.frontMatter.title,
-      description: postData.frontMatter.description,
-      content: postData.content.trim(),
-      categories: postData.frontMatter.categories,
-      tags: postData.frontMatter.tags
-        ? postData.frontMatter.tags.join(", ")
-        : "",
+      type: postData.metadata?.type || "",
+      title: postData.metadata?.title || "",
+      description: postData.metadata?.description || "",
+      content: postData.content?.trim() || "",
+      categories: Array.isArray(postData.metadata?.category)
+        ? postData.metadata.category
+        : [],
+      tags: postData.metadata?.tags ? postData.metadata.tags.join(", ") : "",
     },
   });
 
-  // Retrieve user information
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Endpoint URL where you want to send the POST request
-    const endpoint = "/api/edit-file-locally"; // Replace with your actual API route
-
+    const endpoint = "/api/edit-file-locally";
     const formattedDate = values.date ? format(values.date, "yyyy-MM-dd") : "";
 
-    // Add the author data to the submission values
     const submissionData = {
       ...values,
-      author: postData.frontMatter.author,
-      id: postData.frontMatter.id,
-      savedFilename: postData.frontMatter.path,
+      author: postData.metadata?.author || "",
+      id: postData.metadata?.id || "",
+      filename: postData.filename,
+      slug: postData.slug,
       date: formattedDate,
     };
+
+    console.log("submissionData!!!", submissionData);
 
     try {
       const response = await fetch(endpoint, {
@@ -116,7 +106,7 @@ export function EditPostForm({ postData }: { postData: any }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(submissionData),
+        body: JSON.stringify({ ...submissionData, openInVSCode: false }),
       });
 
       if (!response.ok) {
@@ -126,32 +116,17 @@ export function EditPostForm({ postData }: { postData: any }) {
       const result = await response.json();
       console.log("Success:", result);
 
-      // Reset the form here
-      form.reset();
+      // form.reset();
 
-      const slug = postData.frontMatter.path.replace(/\.mdx$/, "");
+      const slug = postData.filename.replace(/\.mdx$/, "");
 
-      //redirect to the post page
+      // Navigate to the edited blog post
       router.push(`/blog/${slug}`);
       router.refresh();
-
-      // Handle success scenario (e.g., show a success message, redirect, etc.)
     } catch (error) {
       console.error("Error:", error);
-      // Handle error scenario (e.g., show an error message)
     }
   }
-
-  const handleOpenInVSCode = async () => {
-    fetch("/api/open-in-vs-code", {
-      method: "POST",
-      body: JSON.stringify(`data/posts/${postData.frontMatter.path}`),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    router.push("/settings");
-  };
 
   const handleDeletePost = async () => {
     await fetch("/api/delete-post", {
@@ -185,7 +160,6 @@ export function EditPostForm({ postData }: { postData: any }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Post Type</FormLabel>
-
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
@@ -200,12 +174,10 @@ export function EditPostForm({ postData }: { postData: any }) {
                     <SelectItem value="project">Project</SelectItem>
                   </SelectContent>
                 </Select>
-
                 <FormMessage />
               </FormItem>
             )}
           />
-          {/* date */}
           <FormField
             control={form.control}
             name="date"
@@ -213,9 +185,6 @@ export function EditPostForm({ postData }: { postData: any }) {
               <FormItem className="flex flex-col">
                 <FormLabel className="font-semibold text-md">Date</FormLabel>
                 <DatePickerField field={field} />
-                {/* <FormDescription>
-                Your date of birth is used to calculate your age.
-              </FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
@@ -264,13 +233,12 @@ export function EditPostForm({ postData }: { postData: any }) {
               </FormItem>
             )}
           />
-          {/* categories - multi-select */}
           <FormField
             control={form.control}
             name="categories"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>categories</FormLabel>
+                <FormLabel>Categories</FormLabel>
                 <FormControl>
                   <MultiSelect
                     selectedCategories={field.value}
@@ -297,23 +265,22 @@ export function EditPostForm({ postData }: { postData: any }) {
               </FormItem>
             )}
           />
-          <div className="flex gap-3">
+          <div className="flex items-center gap-3 pt-4">
             <Button type="submit">Save Edits</Button>
-            <Button type="button" onClick={handleOpenInVSCode}>
-              Open File In VS Code
-            </Button>
+            <Link
+              className={buttonVariants({ variant: "outline", size: "lg" })}
+              href={`/blog/${postData.slug}`}
+            >
+              Cancel
+            </Link>
+            {/* <div>{JSON.stringify(postData)}</div> */}
           </div>
         </form>
       </Form>
-      {/* <CachePostsButton /> */}
       <Dialog>
         <DialogTrigger asChild>
           <div>
-            <Button
-              variant="destructive"
-              type="button"
-              // onClick={handleDeletePost}
-            >
+            <Button variant="destructive" type="button">
               Delete Post
             </Button>
           </div>
@@ -325,7 +292,6 @@ export function EditPostForm({ postData }: { postData: any }) {
               Are you sure you want to delete the current post?
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4"></div>
           <DialogFooter>
             <div className="w-full flex gap-4">
               <Button variant="destructive" onClick={handleDeletePost}>
@@ -338,8 +304,6 @@ export function EditPostForm({ postData }: { postData: any }) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-      {/* <div>{JSON.stringify(postData.frontMatter)}</div> */}
     </>
   );
 }

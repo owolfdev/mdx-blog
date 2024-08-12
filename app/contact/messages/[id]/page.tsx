@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 
 async function Message({ params }: { params: { id: string } }) {
   const data = await getContactMessage(params.id);
-  const message = data && data[0];
+  const message = data?.[0];
 
   revalidatePath("/contact/messages");
 
@@ -35,7 +35,6 @@ async function Message({ params }: { params: { id: string } }) {
           Responded: {message.responded ? "responded" : "not responded"}
           {/* {JSON.stringify(message.responded)} */}
         </div>
-        <div></div>
       </div>
       <DeleteMessageButton messageId={params.id} />
       <div>

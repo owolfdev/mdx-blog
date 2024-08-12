@@ -8,12 +8,12 @@ function OpenInVSCode({ path }: { path: string }) {
   const handleOpenInVSCode = async () => {
     fetch("/api/open-in-vs-code", {
       method: "POST",
-      body: JSON.stringify(`data/posts/${path}`),
+      body: JSON.stringify(`content/posts/${path}.mdx`),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    router.push("/settings");
+    // router.push("/settings");
   };
 
   return (

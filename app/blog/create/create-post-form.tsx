@@ -1,15 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-
 import { generatePostsCache } from "@/lib/posts-utils.mjs";
-
 import DatePickerField from "@/components/date-picker";
-
-// import { useUser } from "@clerk/nextjs";
-
 import { v4 as uuidv4 } from "uuid";
-
 import {
   Select,
   SelectContent,
@@ -17,15 +11,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-
 import { Textarea } from "@/components/ui/textarea";
-
 import { Input } from "@/components/ui/input";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -36,20 +26,28 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
 import { MultiSelect } from "@/components/rs-multi-select";
-
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  date: z.date(), // Make dob optional
+  date: z.date(),
   type: z.string().optional(),
-  title: z.string().min(3, {
-    message: "Title must be at least 2 characters.",
-  }),
-  description: z.string().min(15, {
-    message: "Description must be at least 15 characters.",
-  }),
+  title: z
+    .string()
+    .min(3, {
+      message: "Title must be at least 3 characters.",
+    })
+    .refine((value) => !/"/.test(value), {
+      message: "Title cannot contain double quotes.",
+    }),
+  description: z
+    .string()
+    .min(15, {
+      message: "Description must be at least 15 characters.",
+    })
+    .refine((value) => !/"/.test(value), {
+      message: "Description cannot contain double quotes.",
+    }),
   content: z.string().min(2, {
     message: "Content must be at least 2 characters.",
   }),
@@ -72,22 +70,12 @@ export function CreatePostForm() {
     },
   });
 
-  // const { user } = useUser(); // Retrieve user information
   const authorName = "O Wolfson"; // Replace 'fullName' with the appropriate field
-
   const router = useRouter();
 
-  // useEffect(() => {
-  //   console.log("user:", user);
-  // }, [user]);
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Endpoint URL where you want to send the POST request
-    const endpoint = "/api/save-file-locally"; // Replace with your actual API route
+    const endpoint = "/api/save-file-locally";
 
-    console.log("values!!!!!!!!!!!!!:", values);
-
-    // Add the author data to the submission values
     const submissionData = {
       ...values,
       author: authorName,
@@ -110,15 +98,11 @@ export function CreatePostForm() {
       const result = await response.json();
       console.log("Success:", result);
 
-      // Reset the form here
       form.reset();
-
-      router.push(`/blog/${result}`); // Redirect to the blog page
-
-      // Handle success scenario (e.g., show a success message, redirect, etc.)
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for a short period to ensure the file is saved and cache is regenerated
+      router.push(`/blog/${result.slug}`); // Redirect to the blog page with the correct slug
     } catch (error) {
       console.error("Error:", error);
-      // Handle error scenario (e.g., show an error message)
     }
   }
 
@@ -131,7 +115,6 @@ export function CreatePostForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Post Type</FormLabel>
-
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger className="w-[180px]">
@@ -143,12 +126,10 @@ export function CreatePostForm() {
                   <SelectItem value="project">Project</SelectItem>
                 </SelectContent>
               </Select>
-
               <FormMessage />
             </FormItem>
           )}
         />
-        {/* date */}
         <FormField
           control={form.control}
           name="date"
@@ -156,14 +137,10 @@ export function CreatePostForm() {
             <FormItem className="flex flex-col">
               <FormLabel className="font-semibold text-md">Date</FormLabel>
               <DatePickerField field={field} />
-              {/* <FormDescription>
-                Your date of birth is used to calculate your age.
-              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
         />
-        {/* title */}
         <FormField
           control={form.control}
           name="title"
@@ -208,7 +185,6 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
-        {/* categories - multi-select */}
         <FormField
           control={form.control}
           name="categories"
@@ -238,7 +214,11 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Create</Button>
+        <div className="pt-4">
+          <Button type="submit" className="text-lg">
+            Create
+          </Button>
+        </div>
       </form>
     </Form>
   );

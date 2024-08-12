@@ -89,28 +89,30 @@ function LikeButton({ postId }: LikeButtonProps) {
   }
 
   return (
-    <div className="py-8 relative">
+    <div className="py-8 relative flex flex-col gap-2">
       <div>Total Likes: {totalLikes}</div>
-      <button
-        type="button"
-        onClick={() => {
-          liked ? handleUnlikeAction() : handleLikeAction();
-        }}
-        className={`like-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center relative overflow-hidden ${
-          liked ? "liked" : "unliked"
-        }`}
-      >
-        <div
-          className={`like-icon ${liked ? "animate-like" : "animate-unlike"}`}
+      <div>
+        <button
+          type="button"
+          onClick={() => {
+            liked ? handleUnlikeAction() : handleLikeAction();
+          }}
+          className={`like-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center relative overflow-hidden ${
+            liked ? "liked" : "unliked"
+          }`}
         >
-          {liked ? (
-            <AiFillLike className="text-xl mr-2" />
-          ) : (
-            <AiOutlineLike className="text-xl mr-2" />
-          )}
-        </div>
-        {liked ? "Liked" : "Like"}
-      </button>
+          <div
+            className={`like-icon ${liked ? "animate-like" : "animate-unlike"}`}
+          >
+            {liked ? (
+              <AiFillLike className="text-xl mr-2" />
+            ) : (
+              <AiOutlineLike className="text-xl mr-2" />
+            )}
+          </div>
+          {liked ? "Liked" : "Like"}
+        </button>
+      </div>
       <style jsx>{`
         @keyframes like-animation {
           0%,

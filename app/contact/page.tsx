@@ -1,25 +1,38 @@
-import React from "react";
+import ReactMarkdown from "react-markdown";
+import Image from "next/image";
+import type { Metadata } from "next";
 import { ContactForm } from "./form";
 import { isDevMode } from "@/lib/utils";
 import Link from "next/link";
 
-function Contact() {
+// Define the metadata generation function
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Next Template | Contact",
+  };
+}
+
+export default function Blog() {
   return (
-    <div className="flex flex-col gap-8 w-full max-w-xl">
-      <h1 className="text-4xl sm:text-5xl font-bold text-center">Contact</h1>
-      <div>
-        <ContactForm />
-      </div>
-      {isDevMode() && (
-        <div className="flex justify-center">
-          <div>
-            <Link href="/contact/messages" className="underline">
-              see contact messages.
-            </Link>
-          </div>
+    <div className="max-w-3xl z-10 w-full items-center justify-between">
+      <div className="w-full flex justify-center items-center flex-col gap-6">
+        <h1 className="text-4xl sm:text-5xl font-bold text-center">Contact</h1>
+        <p>
+          This is a sample page. The contact form is currently non-functional.
+        </p>
+        <div className="w-full">
+          <ContactForm />
         </div>
-      )}
+        {isDevMode() && (
+          <div className="flex justify-center">
+            <div>
+              <Link href="/contact/messages" className="underline">
+                see contact messages.
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
-export default Contact;

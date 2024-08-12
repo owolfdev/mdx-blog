@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import { useTheme } from "next-themes";
 import Select from "react-select";
-
 import categoryData from "@/data/settings/categories.json";
 
 const categories: string[] = categoryData.categories;
@@ -18,20 +16,18 @@ interface CustomStyles {
 }
 
 interface MultiSelectProps {
-  selectedCategories: string[]; // Update the type definition
+  selectedCategories: string[]; // Ensure this is always an array
   setSelectedCategories: (categories: string[]) => void;
 }
 
 export function MultiSelect({
-  selectedCategories,
+  selectedCategories = [], // Default to an empty array if undefined
   setSelectedCategories,
 }: MultiSelectProps) {
-  //   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-
   const { setTheme, theme } = useTheme();
 
   useEffect(() => {
-    selectedCategories.length > 0 &&
+    selectedCategories?.length > 0 &&
       console.log("selectedCategories", selectedCategories);
   }, [selectedCategories]);
 
@@ -142,7 +138,7 @@ export function MultiSelect({
         <Select
           styles={customStyles}
           className=""
-          value={selectedCategories.map((category: any) => ({
+          value={selectedCategories?.map((category: any) => ({
             value: category,
             label: category,
           }))}

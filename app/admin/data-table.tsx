@@ -1,6 +1,7 @@
 "use client";
-
 import * as React from "react";
+import postsData from "@/cache/posts.json"; // Import the JSON data directly
+
 import {
   CaretSortIcon,
   ChevronDownIcon,
@@ -20,8 +21,6 @@ import {
 } from "@tanstack/react-table";
 
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-
-import { type FilterFn, Row } from "@tanstack/react-table";
 
 import {
   Tooltip,
@@ -53,23 +52,21 @@ import {
 
 import Link from "next/link";
 
-import { countLikes } from "@/app/actions/like-actions";
-
 export type Post = {
   id: string;
   type: string;
   title: string;
-  date: string;
+  publishDate: string;
   slug: string;
   author: string;
   description: string;
   tags: string[];
-  likes: number; // Add likes property
+  likes: number;
 };
 
 export const columns: ColumnDef<Post>[] = [
   {
-    id: "select",
+    accessorKey: "select",
     header: ({ table }) => (
       <Checkbox
         checked={
@@ -91,7 +88,7 @@ export const columns: ColumnDef<Post>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "date",
+    accessorKey: "publishDate",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -102,7 +99,7 @@ export const columns: ColumnDef<Post>[] = [
       </Button>
     ),
     cell: ({ row }) => {
-      const date = new Date(row.getValue("date"));
+      const date = new Date(row.getValue("publishDate"));
       const formattedDate = date.toLocaleDateString("en-GB", {
         day: "2-digit",
         month: "2-digit",
@@ -165,7 +162,7 @@ export const columns: ColumnDef<Post>[] = [
     cell: ({ row }) => {
       const currentDate = new Date();
       currentDate.setHours(0, 0, 0, 0);
-      const postDate = new Date(row.getValue("date"));
+      const postDate = new Date(row.getValue("publishDate"));
       const status = postDate <= currentDate ? "published" : "unpublished";
       return <div className="capitalize">{status}</div>;
     },
@@ -186,7 +183,7 @@ export const columns: ColumnDef<Post>[] = [
     enableSorting: true,
   },
   {
-    id: "actions",
+    accessorKey: "actions",
     enableHiding: false,
     cell: ({ row }) => {
       const post = row.original;
@@ -227,51 +224,28 @@ export function DataTable() {
   const [rowSelection, setRowSelection] = React.useState({});
 
   React.useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await fetch("/api/get-posts");
-        if (response.ok) {
-          // biome-ignore lint/style/useConst: <explanation>
-          let posts = await response.json();
+    let posts = postsData;
 
-          // Fetch likes count for each post
-          const postsWithLikes = await Promise.all(
-            posts.map(async (post: Post) => {
-              const { count } = await countLikes(post.id);
-              return { ...post, likes: count };
-            })
-          );
+    // Debugging: Ensure data is properly set
+    console.log("Imported Posts Data:", posts);
 
-          // Sort the posts by date in descending order
-          postsWithLikes.sort((a, b) => {
-            const dateA = new Date(a.date).getTime();
-            const dateB = new Date(b.date).getTime();
-            return dateB - dateA;
-          });
+    // Sort the posts by date in descending order
+    posts.sort((a, b) => {
+      const dateA = new Date(a.publishDate).getTime();
+      const dateB = new Date(b.publishDate).getTime();
+      return dateB - dateA;
+    });
 
-          setData(postsWithLikes); // Set the sorted posts with likes into the state
-        } else {
-          console.error("Failed to fetch posts");
-        }
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    }
-
-    fetchPosts();
+    setData(posts); // Set the sorted posts into the state
   }, []);
 
   const globalFilterFn: FilterFn<Post> = (row, columnIds, filterValue) => {
     const lowercasedFilter = filterValue?.toLowerCase() || "";
 
-    console.log("row!!:", row);
-
-    // Return true if the row should be included in the filter
     return (
       row.original.title.toLowerCase().includes(lowercasedFilter) ||
       row.original.description.toLowerCase().includes(lowercasedFilter) ||
       row.original.type.toLowerCase().includes(lowercasedFilter) ||
-      // biome-ignore lint/complexity/useOptionalChain: <explanation>
       (row.original.tags &&
         row.original.tags.some((tag) =>
           tag.toLowerCase().includes(lowercasedFilter)
@@ -298,9 +272,9 @@ export function DataTable() {
       rowSelection,
     },
     initialState: {
-      sorting: [{ id: "date", desc: true }], // Default sorting by 'date' in descending order
+      sorting: [{ id: "publishDate", desc: true }], // Default sorting by 'publishDate' in descending order
       pagination: {
-        pageSize: 15, // Existing pagination state
+        pageSize: 15,
       },
     },
   });
@@ -310,10 +284,8 @@ export function DataTable() {
       <div className="flex items-center py-4">
         <Input
           placeholder="Search posts..."
-          // Use a global filter value from the table state
           value={table.getState().globalFilter ?? ""}
           onChange={(event) => {
-            // Update the global filter value
             table.setGlobalFilter(event.target.value);
           }}
           className="max-w-sm"
@@ -350,18 +322,16 @@ export function DataTable() {
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>

@@ -5,7 +5,20 @@ export async function POST(req: Request) {
     try {
       const data = await req.json();
 
+      // console.log("data from route", data);
+
       deleteLocalFile(data);
+
+      return new Response(
+        JSON.stringify({
+          message: "Post deleted successfully",
+        }),
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
     } catch (error) {
       console.error("Error:", error);
       return new Response(

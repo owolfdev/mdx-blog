@@ -6,6 +6,10 @@ export async function POST(req: Request) {
     try {
       const data = await req.json();
 
+      if (!data.filename && !data.slug) {
+        throw new Error("Either 'filename' or 'slug' field is required.");
+      }
+
       editFileLocally(data);
 
       return new Response(JSON.stringify("File saved successfully"), {
@@ -14,10 +18,10 @@ export async function POST(req: Request) {
         },
       });
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error:", error.message);
       return new Response(
         JSON.stringify({
-          message: "Error in processing your request",
+          message: error.message || "Error in processing your request",
         }),
         {
           status: 500,
