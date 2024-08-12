@@ -4,6 +4,15 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { getPopularPosts } from "@/lib/posts-utils.mjs";
 
+interface Post {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  publishDate: string;
+  likes: number;
+}
+
 // Utility function to parse and format the date
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -36,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const popularPosts = await getPopularPosts();
+  const popularPosts: Post[] = await getPopularPosts();
 
   return (
     <div className="max-w-3xl z-10 w-full items-center justify-between">
@@ -103,7 +112,7 @@ export default async function Home() {
             Popular Articles
           </h2>
           <div className="pb-2 flex flex-col gap-4">
-            {popularPosts?.map((post) => (
+            {popularPosts?.map((post: Post) => (
               <Link
                 key={post.id}
                 href={`/blog/${post.slug.replace(/\.mdx$/, "")}`}

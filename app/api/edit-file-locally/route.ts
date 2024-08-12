@@ -12,36 +12,24 @@ export async function POST(req: Request) {
 
       editFileLocally(data);
 
-      return new Response(JSON.stringify("File saved successfully"), {
-        headers: {
-          "content-type": "application/json",
-        },
-      });
+      return NextResponse.json("File saved successfully");
     } catch (error) {
-      console.error("Error:", error.message);
-      return new Response(
-        JSON.stringify({
-          message: error.message || "Error in processing your request",
-        }),
-        {
-          status: 500,
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      );
+      let errorMessage = "Error in processing your request";
+
+      if (error instanceof Error) {
+        console.error("Error:", error.message);
+        errorMessage = error.message;
+      } else {
+        console.error("Unknown error:", error);
+      }
+
+      return NextResponse.json({ message: errorMessage }, { status: 500 });
     }
   } else {
     // Handle any non-POST requests
-    return new Response(
-      JSON.stringify({
-        message: "This endpoint only accepts POST requests",
-      }),
-      {
-        headers: {
-          "content-type": "application/json",
-        },
-      }
+    return NextResponse.json(
+      { message: "This endpoint only accepts POST requests" },
+      { status: 405 } // 405 Method Not Allowed
     );
   }
 }

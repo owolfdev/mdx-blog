@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import Confetti from "react-confetti";
+// import Confetti from "react-confetti";
 import { Button } from "@/components/ui/button";
 
 interface QuizProps {
@@ -52,9 +52,9 @@ const Quiz: React.FC<QuizProps> = ({ question, options, correctAnswer }) => {
 
   return (
     <QuizContainer className="overflow-hidden">
-      {showConfetti && (
+      {/* {showConfetti && (
         <Confetti width={window.innerWidth} height={window.innerHeight} />
-      )}
+      )} */}
       <div className="bg-white p-[1.5rem] rounded-xl relative ">
         <h2 className="text-gray-800">{question}</h2>
         <p className="text-gray-800 text-sm">

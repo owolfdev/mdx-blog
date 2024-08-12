@@ -8,7 +8,7 @@ import BlogPostList from "./blog-post-list";
 interface BlogPost {
   slug: string;
   type: string;
-  date: string;
+  publishDate: string; // Update this to publishDate if that's the correct field
   title: string;
   description: string;
   image: string;
@@ -50,7 +50,7 @@ const Blog = async ({
     sort as string
   );
 
-  const formattedBlogs = blogs.map((blog) => ({
+  const formattedBlogs = blogs.map((blog: BlogPost) => ({
     ...blog,
     formattedDate: formatDate(blog.publishDate),
   }));
