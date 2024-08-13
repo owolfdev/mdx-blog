@@ -11,6 +11,8 @@ import OpenInVSCode from "./open-in-vs-code-button";
 
 import LikeButton from "@/components/like/like-button";
 
+import MdxContent from "@/components/mdx/mdx-content";
+
 type Props = {
   params: { slug: string };
 };
@@ -54,12 +56,12 @@ export async function generateStaticParams() {
   return params;
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
+async function Blog({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
   const post = await getPost(params);
   // Dynamically import the MDX file based on the slug
-  const MDXContent = dynamic(() => import(`@/content/posts/${slug}.mdx`));
+  // const MDXContent = dynamic(() => import(`@/content/posts/${slug}.mdx`));
 
   const formattedDate = format(
     new Date(post.metadata.publishDate),
@@ -90,7 +92,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <OpenInVSCode path={slug} />
             </div>
           )}
-          <MDXContent />
+          <MdxContent slug={slug} />
         </article>
       </div>
 
@@ -98,3 +100,5 @@ export default async function Page({ params }: { params: { slug: string } }) {
     </div>
   );
 }
+
+export default Blog;

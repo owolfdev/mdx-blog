@@ -1,5 +1,7 @@
 ## Migrate likes again before deploying new code!
 
+fix the build and deploy. not working at all. start with a basic app deploy it and build it up from there.
+
 1. Fix search so that you paginate to page 1 when a search is implemented else the user is stranded on an empty page with no content if a search is initiated on a page beyond the the search results.
 
 2. Fix the styles across pages.
