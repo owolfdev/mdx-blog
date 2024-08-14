@@ -18,15 +18,12 @@ function SiteHeader() {
   const pathname = usePathname();
   const slug = pathname?.split("/")[1]; // Get the slug from the pathname
 
-  const blogSlug = "using-mdxremote";
-
   const navItems = [
     // { href: "/", label: "Home" },
     // { href: "/install", label: "Install" },
     { href: "/blog", label: "Blog" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
-    { href: `/test-two/${blogSlug}`, label: "Page Two" },
   ];
 
   const navItemsMobile = [
