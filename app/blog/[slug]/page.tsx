@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import React from "react";
-import dynamic from "next/dynamic";
 import type { Metadata, ResolvingMetadata } from "next";
 import { format } from "date-fns";
 
@@ -56,7 +55,7 @@ export async function generateStaticParams() {
   return params;
 }
 
-async function Blog({ params }: { params: { slug: string } }) {
+export default async function Blog({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
   const post = await getPost(params);
@@ -100,5 +99,3 @@ async function Blog({ params }: { params: { slug: string } }) {
     </div>
   );
 }
-
-export default Blog;

@@ -20,6 +20,7 @@ interface BlogPost {
 // Utility function to parse and format the date
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
+  // biome-ignore lint/suspicious/noGlobalIsNan: <explanation>
   if (isNaN(date.getTime())) {
     return "Invalid Date"; // Handle invalid date
   }
@@ -68,10 +69,9 @@ const Blog = async ({
     const words = description.split(" ");
 
     if (words.length > wordLimit) {
-      return words.slice(0, wordLimit).join(" ") + "...";
-    } else {
-      return description;
+      return `${words.slice(0, wordLimit).join(" ")}...`;
     }
+    return description;
   }
 
   return (
@@ -109,21 +109,23 @@ const Blog = async ({
           className="flex gap-2 pt-8 pb-2 items-center justify-center"
         >
           {currentPage === 1 ? (
-            <span className={`${disabledLinkStyle}`}>{`<<`}</span>
+            <span className={`${disabledLinkStyle}`}>{"<<"}</span>
           ) : (
             <span>
               <Link
                 href={`/blog?limit=${postsPerPage}&page=${1}${
                   searchTerm ? `&search=${searchTerm}` : ""
                 }${!isDateDesc ? `&sort=${sort}` : ""}`}
-              >{`<<`}</Link>
+              >
+                {"<<"}
+              </Link>
             </span>
           )}
           {isPreviousDisabled ? (
             <span className={`${disabledLinkStyle}`}>Previous</span>
           ) : (
             <Link
-              className={``}
+              className={""}
               href={`/blog?limit=${postsPerPage}&page=${currentPage - 1}${
                 searchTerm ? `&search=${searchTerm}` : ""
               }${!isDateDesc ? `&sort=${sort}` : ""}`}
@@ -138,7 +140,7 @@ const Blog = async ({
             <span className={`${disabledLinkStyle}`}>Next</span>
           ) : (
             <Link
-              className={``}
+              className={""}
               href={`/blog?limit=${postsPerPage}&page=${currentPage + 1}${
                 searchTerm ? `&search=${searchTerm}` : ""
               }${!isDateDesc ? `&sort=${sort}` : ""}`}
@@ -147,14 +149,16 @@ const Blog = async ({
             </Link>
           )}
           {currentPage === totalPages ? (
-            <span className={`${disabledLinkStyle}`}>{`>>`}</span>
+            <span className={`${disabledLinkStyle}`}>{">>"}</span>
           ) : (
             <span>
               <Link
                 href={`/blog?limit=${postsPerPage}&page=${totalPages}${
                   searchTerm ? `&search=${searchTerm}` : ""
                 }${!isDateDesc ? `&sort=${sort}` : ""}`}
-              >{`>>`}</Link>
+              >
+                {">>"}
+              </Link>
             </span>
           )}
         </div>
@@ -165,6 +169,9 @@ const Blog = async ({
           numBlogs={blogs.length}
           sort={sort as string}
         />
+      </div>
+      <div>
+        <Link href="/test-one">Test Page</Link>
       </div>
     </div>
   );
