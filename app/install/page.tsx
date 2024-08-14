@@ -5,7 +5,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 // Define the metadata generation function
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Next Template | About",
+    title: "MDX Blog | Install",
   };
 }
 

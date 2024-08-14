@@ -20,7 +20,7 @@ function SiteHeader() {
 
   const navItems = [
     // { href: "/", label: "Home" },
-    { href: "/install", label: "Install" },
+    // { href: "/install", label: "Install" },
     { href: "/blog", label: "Blog" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
@@ -28,7 +28,7 @@ function SiteHeader() {
 
   const navItemsMobile = [
     { href: "/", label: "Home" },
-    { href: "/install", label: "Install" },
+    // { href: "/install", label: "Install" },
     { href: "/blog", label: "Blog" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },

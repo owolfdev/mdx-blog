@@ -8,7 +8,7 @@ import Link from "next/link";
 // Define the metadata generation function
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Next Template | Contact",
+    title: "MDX Blog  | Contact",
   };
 }
 
@@ -16,10 +16,10 @@ export default function Blog() {
   return (
     <div className="max-w-3xl z-10 w-full items-center justify-between">
       <div className="w-full flex justify-center items-center flex-col gap-6">
-        <h1 className="text-4xl sm:text-5xl font-bold text-center">Contact</h1>
-        <p>
-          This is a sample page. The contact form is currently non-functional.
-        </p>
+        <h1 className="text-4xl sm:text-5xl font-bold text-center pb-8">
+          Contact
+        </h1>
+
         <div className="w-full">
           <ContactForm />
         </div>
