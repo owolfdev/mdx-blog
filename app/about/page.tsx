@@ -27,7 +27,9 @@ Unlike traditional blogging solutions that rely on a database to store content, 
 
 [MDXBlog (mdxblog.io)](https://mdxblog.io) is an independently created blog app template built with the latest web technologies, offering a unique blogging experience. MDXBlog is a simple template for creating blogs using MDX (Markdown + JSX) and Next.js 14. We have no official affiliation with the MDX team or Next.js, we are simply fans of the technology and wanted to create a simple, free, easy-to-use blog template for the community.
 
-Our project is fully accessible on **[GitHub. Here is the latest code.](https://github.com/owolfdev/next-template-mdx-shad)**.
+Our project is fully accessible on **[GitHub. Here is the latest code.](https://github.com/owolfdev/mdx-blog)** Note that this is a codebase in development. 
+
+A pared-down, clean and stable version of the code can be found on **[GitHub. Here is the latest code.](https://github.com/owolfdev/next-template-mdx-shad)**
 
 Here is the **[legacy version of MDXBlog](https://github.com/owolfdev/mdx-blog-basic) on GitHub**, which is a more complex version of the blog template, with additional features and functionality. The legacy version is not actively maintained, but it is still available for use.
 
@@ -50,13 +52,11 @@ Find relevant articles on the blog, including:
 
 **How to Use MDX Blog:**
 
-In the latest updated code base, which is a simple blog template, you'll find a directory called content/blogs where you can create your blog posts.
+You'll find a directory called content/blogs where you can create your blog posts. Follow the template and you will be fine. 
 
-**MDX Blog Legacy:**
+**Detailed Instructions:**
 
-The legacy version of MDX Blog is still available on GitHub. It is a more complex version of the blog template, with additional features and functionality. The legacy version is not actively maintained, but it is still available for use. Here are some key features of the legacy version:
-
-**Create a post:**
+**Create a post**
 - • Use the '+' icon in the nav bar, in development mode only, to create a new post - or simply create a new MDX file in the 'data/posts' directory, manually. 
 - • Edit posts in the browser or manually using VS Code (recommended), or any other text editor.
 
