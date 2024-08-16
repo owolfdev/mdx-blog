@@ -498,7 +498,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
 Create a directory `mdx` at the root of your project and add some example `.mdx` files, e.g., `example.mdx`:
 
-```mdx
+````mdx
 export const metadata = {
   title: "Example Page",
   publishDate: "2024-05-05",
@@ -507,7 +507,17 @@ export const metadata = {
 # Example Post
 
 This is an example MDX post.
+
+## Code Example
+
+Here is an example of `inline code` delineated by backticks.
+
+Note that a code block is delineated by triple backticks and language specification.
+
+```javascript
+console.log("Hello World");
 ```
+````
 
 ### 10. Configure Global Styles
 
@@ -587,7 +597,6 @@ Add the following to your `globals.css`:
   }
 }
 
-/* Add this to your global CSS file */
 .code-block pre {
   max-width: 100%;
   overflow-x: auto;
@@ -598,6 +607,10 @@ Add the following to your `globals.css`:
   white-space: pre-wrap;
   word-break: break-word;
 }
+```
+
+```
+
 ```
 
 ### 11. Run Your Project

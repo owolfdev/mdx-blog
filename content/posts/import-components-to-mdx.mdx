@@ -9,7 +9,7 @@ export const metadata = {
   tags: ["mdx"],
 };
 
-In a Next.js project using MDX, you can import custom components directly into your MDX files to enhance the rendering of Markdown content. This allows you to use React components within your Markdown documents, providing dynamic and interactive elements.
+In a Next.js project using MDX and the `@next/mdx` package, you can import custom components directly into your MDX files to enhance the rendering of Markdown content. This allows you to use React components within your Markdown documents, providing dynamic and interactive elements.
 
 import { Button } from "@/components/ui/button";
 
@@ -29,9 +29,9 @@ import { Button } from "@/components/ui/button";
 
 ---
 
-Other components can be imported and used within MDX files by customizing the rendering behavior. The `useMDXComponents` function is a custom hook designed to provide custom React components for rendering MDX (Markdown with JSX) content. This function allows you to override the default MDX components with your own, providing custom styling and behavior.
+Other components can be imported and used within MDX files by customizing the rendering behavior. The `useMDXComponents` function is a custom hook designed to provide custom React components for rendering MDX content. This function allows you to override the default MDX components with your own, providing custom styling and behavior.
 
-The `mdx-components.tsx` file is created to define and provide custom React components for rendering MDX content. This file ensures that when MDX``files are processed, the elements within those files are rendered using the specified custom components rather than the default ones. For example, you can create a custom`h1` component that adds a specific style to all level 1 headings in your MDX files. You can also define custom components for code blocks, inline code, and other Markdown elements. These elements can be styled using Tailwind CSS or other styling frameworks to match your website's design.
+The `mdx-components.tsx` file is created to define and provide custom React components for rendering MDX content. This file ensures that when MDX files are processed, the elements within those files are rendered using the specified custom components rather than the default ones. For example, you can create a custom `h1` component that adds a specific style to all level 1 headings in your MDX files. You can also define custom components for code blocks, inline code, and other Markdown elements. These elements can be styled using Tailwind CSS or other styling frameworks to match your website's design. Further you can include other componetents and / or custom components to this document and those components will be imported by default for convenient use in your mdx documents, for example the `<YouTube>` component included below.
 
 ```tsx
 // Path: /mdx-components.tsx
