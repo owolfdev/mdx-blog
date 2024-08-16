@@ -1,7 +1,7 @@
 export const metadata = {
   id: "tm7TXBB9VBk7STJagXLbcr",
   type: "blog",
-  title: "Metadata Object Components in Next js MDX Blogs",
+  title: "Metadata Objects in Next js MDX Blogs",
   author: "O Wolfson",
   publishDate: "2024-06-23",
   description:
@@ -12,13 +12,13 @@ export const metadata = {
 
 We've been exploring the best practices for managing metadata in MDX files within a Next.js environment. Recently, we built an example app using Next.js and `@next/mdx`, which you can learn about in detail in our article [here](https://www.mdxblog.io/blog/create-a-static-mdx-blog-with-next).
 
-In this post, we want to share why we chose to use Metadata Objects/Components over frontmatter for handling metadata in our MDX files.
+In this post, we want to share why we chose to use Metadata Objects over frontmatter for handling metadata in our MDX files.
 
-### Why Metadata Objects/Components?
+### Why Metadata Objects?
 
 #### 1. **Dynamic Data Handling**
 
-One of the primary reasons we opted for Metadata Objects/Components is the flexibility they offer in handling dynamic data. Unlike static frontmatter, metadata objects can include dynamic expressions and functions, making them ideal for scenarios where metadata values need to be computed at runtime.
+One of the primary reasons we opted for Metadata Objects is the flexibility they offer in handling dynamic data. Unlike static frontmatter, metadata objects can include dynamic expressions and functions, making them ideal for scenarios where metadata values need to be computed at runtime.
 
 For example, setting a dynamic title based on the current year:
 
@@ -35,7 +35,7 @@ Published on: {metadata.date}
 
 #### 2. **Integration with TypeScript**
 
-With Metadata Objects/Components, we can leverage TypeScript to enforce type safety, reducing the risk of runtime errors. This aligns well with the TypeScript-first approach that many modern Next.js projects are adopting.
+With Metadata Objects, we can leverage TypeScript to enforce type safety, reducing the risk of runtime errors. This aligns well with the TypeScript-first approach that many modern Next.js projects are adopting.
 
 ```mdx
 import { Metadata } from "some-type-definitions";
@@ -96,6 +96,6 @@ While the Next.js ecosystem is well-suited to handle metadata objects, some thir
 
 ### Conclusion
 
-We believe that using Metadata Objects/Components is a modern, flexible approach that aligns perfectly with the dynamic nature of Next.js applications. This method offers enhanced flexibility, better integration with TypeScript, and maintains a consistent component-based architecture.
+We believe that using Metadata Objects is a modern, flexible approach that aligns perfectly with the dynamic nature of Next.js applications. This method offers enhanced flexibility, better integration with TypeScript, and maintains a consistent component-based architecture.
 
 For more details on how we built our example app using Next.js and `@next/mdx`, check out our detailed article [here](https://www.mdxblog.io/blog/create-a-static-mdx-blog-with-next).
