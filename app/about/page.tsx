@@ -60,7 +60,7 @@ You'll find a directory called content/blogs where you can create your blog post
 - • Use the '+' icon in the nav bar, in development mode only, to create a new post - or simply create a new MDX file in the 'data/posts' directory, manually. 
 - • Edit posts in the browser or manually using VS Code (recommended), or any other text editor.
 
-**Key Features of MDX Blog:**
+**Key Features of MDX Blog**
 
 - • **Next.js 14 & App Router**: Utilizing the cutting-edge features of Next.js 14, MDX Blog offers a seamless and efficient user experience, underpinned by the powerful app router for smooth navigation.
 
