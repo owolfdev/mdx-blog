@@ -1,4 +1,5 @@
 "use client";
+//this utility ensures that the page scrolls to the top when the user navigates to a new page
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";

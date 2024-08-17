@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ScrollToTop from "@/components/nav/scroll-to-top";
-
 import SiteHeader from "@/components/nav/site-header";
 import Footer from "@/components/nav/footer";
-
 import { ThemeProvider } from "@/components/theme-provider";
-import { Scroll } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
