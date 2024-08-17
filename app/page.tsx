@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { getPopularPosts } from "@/lib/posts-utils.mjs";
+import { getPopularPosts } from "@/lib/posts/get-popular-posts";
 
 interface Post {
   id: string;
@@ -16,7 +16,7 @@ interface Post {
 // Utility function to parse and format the date
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  if (isNaN(date.getTime())) {
+  if (Number.isNaN(date.getTime())) {
     return "Invalid Date"; // Handle invalid date
   }
   return date.toLocaleDateString("en-US", {
@@ -31,10 +31,9 @@ function trimDescription(description: string) {
   const words = description.split(" ");
 
   if (words.length > wordLimit) {
-    return words.slice(0, wordLimit).join(" ") + "...";
-  } else {
-    return description;
+    return `${words.slice(0, wordLimit).join(" ")}...`;
   }
+  return description;
 }
 
 // Define the metadata generation function
@@ -183,7 +182,6 @@ export default async function Home() {
                 <span className="underline">
                   Check out the Next.js portfolio starter template
                 </span>{" "}
-                 
               </Link>
             </li>
           </ul>
