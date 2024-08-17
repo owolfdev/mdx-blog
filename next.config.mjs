@@ -2,6 +2,7 @@ import createMDX from "@next/mdx";
 import remarkGfm from "remark-gfm";
 import remarkFrontmatter from "remark-frontmatter";
 import rehypeHighlight from "rehype-highlight";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -13,7 +14,15 @@ const nextConfig = {
 const withMDX = createMDX({
   options: {
     remarkPlugins: [remarkGfm, remarkFrontmatter],
-    rehypePlugins: [rehypeHighlight],
+    rehypePlugins: [
+      rehypeHighlight,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "wrap", // Wraps the heading text in an <a> tag
+        },
+      ],
+    ],
     format: "mdx",
   },
 });

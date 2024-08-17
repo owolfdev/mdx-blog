@@ -8,7 +8,7 @@ type MdxContentProps = {
 
 const MdxContent = ({ slug }: MdxContentProps) => {
   try {
-    const MDXContent = dynamic(() => import(`@/content/posts/${slug}.mdx`));
+    const MDXContent = dynamic(() => import(`@/content/pages/${slug}.mdx`));
     return <MDXContent />;
   } catch (error) {
     console.error("Failed to load MDX content:", error);

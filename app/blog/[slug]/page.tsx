@@ -3,14 +3,11 @@ import path from "node:path";
 import React from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 import { format } from "date-fns";
-
 import { isDevMode } from "@/lib/utils";
 import EditPostButton from "./edit-post-button";
 import OpenInVSCode from "./open-in-vs-code-button";
-
 import LikeButton from "@/components/like/like-button";
-
-import MdxContent from "@/components/mdx/mdx-content";
+import MdxContent from "./mdx-content";
 
 type Props = {
   params: { slug: string };

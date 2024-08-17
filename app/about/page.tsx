@@ -2,7 +2,7 @@ import ReactMarkdown from "react-markdown";
 import type { Metadata } from "next";
 // import aboutContent from "./about.mdx";
 import { aboutContent } from "./about-content";
-import MdxContent from "@/components/mdx/mdx-content";
+import MdxContent from "./mdx-content";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -17,9 +17,10 @@ export default function About() {
         <h1 className="text-4xl sm:text-5xl font-bold text-center pb-8">
           About <span className="primary-color">MDX</span>Blog
         </h1>
-        <ReactMarkdown className="flex flex-col gap-6">
+        {/* <ReactMarkdown className="flex flex-col gap-6">
           {aboutContent}
-        </ReactMarkdown>
+        </ReactMarkdown> */}
+        <MdxContent slug="about" />
       </div>
     </div>
   );
