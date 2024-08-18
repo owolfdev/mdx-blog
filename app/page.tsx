@@ -81,8 +81,8 @@ export default async function Home() {
           </Link>
         </div>
         <p>
-          Click the button above ☝️ to see the installation options for MDX Blog
-          or a <em>lite</em> version of the app.
+          Click the button above ☝️ to see the installation options for MDX
+          Blog.
         </p>
         <div className="w-full py-6">
           <hr />
