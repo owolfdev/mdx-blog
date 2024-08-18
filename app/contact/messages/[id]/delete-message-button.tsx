@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button, buttonVariants } from "@/components/ui/button";
-
 import {
   Dialog,
   DialogContent,
@@ -13,32 +12,22 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-
-import { useRouter } from "next/navigation";
-import { revalidatePath } from "next/cache";
-import { deleteContactMessage } from "../actions";
+import { deleteContactMessageAction } from "@/app/actions/delete-contact-message-action";
 
 function DeleteMessageButton({ messageId }: { messageId: string }) {
   const router = useRouter();
-  const handleDeleteMessage2 = async () => {
-    // console.log(`Delete message ${messageId}`);
-    const response = await fetch("/api/delete-contact-message", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: messageId }),
-    });
-
-    router.push("/contact/messages");
-    router.refresh();
-  };
 
   const handleDeleteMessage = async () => {
-    deleteContactMessage(messageId);
-    // console.log(`Delete message ${messageId}`);
-    router.push("/contact/messages");
-    router.refresh();
+    try {
+      const result = await deleteContactMessageAction(messageId);
+      if (!result.ok) {
+        throw new Error("Failed to delete message");
+      }
+      router.push("/contact/messages");
+      router.refresh();
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (

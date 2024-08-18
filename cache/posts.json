@@ -192,7 +192,7 @@
     "slug": "how-to-use-images-in-an-mdx-or-markdown-file",
     "id": "q6enmqgx2wH3aWV7F87XQq",
     "type": "blog",
-    "title": "How to Use Images in an MDX or Markdown Files",
+    "title": "How to Use Images in MDX or Markdown Files",
     "author": "O Wolfson",
     "publishDate": "2024-08-13",
     "description": "Images are essential in enriching the content of your markdown or MDX files, helping to convey information visually and make your articles more engaging. ",
@@ -502,7 +502,7 @@
     "tags": [
       "syntax-highlighting"
     ],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",
@@ -595,5 +595,25 @@
       "Next.js"
     ],
     "likes": 1
+  },
+  {
+    "slug": "why-we-switched-from-api-routes-to-server-actions-in-our-latest-nextjs-codebase",
+    "id": "9EjmCG3zi7bWGH2P9fChGB",
+    "type": "blog",
+    "title": "Why We Switched from API Routes to Server Actions in Our Latest Next.js Codebase",
+    "author": "O Wolfson",
+    "publishDate": "2024-08-19",
+    "description": "This article may help developers understand why making the switch to server actions can be a valuable move for their Next.js projects.",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "server actions",
+      "serverside",
+      "actions",
+      "api",
+      "routes"
+    ],
+    "likes": 0
   }
 ]

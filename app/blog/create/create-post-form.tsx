@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/form";
 import { MultiSelect } from "@/components/rs-multi-select";
 import { useRouter } from "next/navigation";
+import { createNewPostAction } from "@/app/actions/create-new-post-action";
 
 const formSchema = z.object({
   date: z.date(),
@@ -74,8 +75,6 @@ export function CreatePostForm() {
   const router = useRouter();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const endpoint = "/api/save-file-locally";
-
     const submissionData = {
       ...values,
       author: authorName,
@@ -83,24 +82,11 @@ export function CreatePostForm() {
     };
 
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(submissionData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const result = await response.json();
-      console.log("Success:", result);
+      const slug = await createNewPostAction(submissionData);
 
       form.reset();
       await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for a short period to ensure the file is saved and cache is regenerated
-      router.push(`/blog/${result.slug}`); // Redirect to the blog page with the correct slug
+      router.push(`/blog/${slug}`); // Redirect to the blog page with the correct slug
     } catch (error) {
       console.error("Error:", error);
     }

@@ -12,8 +12,8 @@ module.exports = {
     "/contact",
     "/contact/thank-you",
     "/privacy",
-    "/api/get-contact-messages", // Exclude API page
-    "/api/get-posts", // Exclude API page
+    // "/api/get-contact-messages", // Exclude API page
+    // "/api/get-posts", // Exclude API page
     "/contact/messages", // Exclude specific route
     "/profile", // Exclude specific route
   ],

@@ -1,17 +1,22 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { openInVSCodeAction } from "@/app/actions/open-actions";
 
 function OpenCategoriesInVSCode() {
   const handleOpenCategoriesInVSCode = async () => {
-    fetch("/api/open-in-vs-code", {
-      method: "POST",
-      body: JSON.stringify("data/settings/categories.json"),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      const result = await openInVSCodeAction("data/settings/categories.json");
+      if (result.ok) {
+        console.log(result.data);
+      } else {
+        console.error(result.error);
+      }
+    } catch (error) {
+      console.error("Failed to open file:", error);
+    }
   };
+
   return (
     <div>
       <Button

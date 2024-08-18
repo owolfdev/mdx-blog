@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { parseISO, format } from "date-fns";
 import { useRouter } from "next/navigation";
 import DatePickerField from "@/components/date-picker";
@@ -39,6 +39,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { cachePostsAction } from "@/app/actions/cache-actions";
+import { deletePostAction } from "@/app/actions/delete-post-action";
+import { editPostAction } from "@/app/actions/edit-post-action";
+
 const formSchema = z.object({
   date: z.date(),
   type: z.string().optional(),
@@ -65,6 +69,7 @@ const formSchema = z.object({
   tags: z.string().optional(),
 });
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function EditPostForm({ postData }: { postData: any }) {
   const router = useRouter();
 
@@ -86,7 +91,6 @@ export function EditPostForm({ postData }: { postData: any }) {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const endpoint = "/api/edit-file-locally";
     const formattedDate = values.date ? format(values.date, "yyyy-MM-dd") : "";
 
     const submissionData = {
@@ -101,26 +105,14 @@ export function EditPostForm({ postData }: { postData: any }) {
     console.log("submissionData!!!", submissionData);
 
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...submissionData, openInVSCode: false }),
-      });
+      const result = await editPostAction(submissionData, false);
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+      if (!result.ok) {
+        throw new Error("Failed to save post");
       }
 
-      const result = await response.json();
-      console.log("Success:", result);
-
-      // form.reset();
-
-      const slug = postData.filename.replace(/\.mdx$/, "");
-
       // Navigate to the edited blog post
+      const slug = postData.filename.replace(/\.mdx$/, "");
       router.push(`/blog/${slug}`);
       router.refresh();
     } catch (error) {
@@ -129,25 +121,22 @@ export function EditPostForm({ postData }: { postData: any }) {
   }
 
   const handleDeletePost = async () => {
-    await fetch("/api/delete-post", {
-      method: "POST",
-      body: JSON.stringify(postData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      const result = await deletePostAction(postData);
 
-    await fetch("/api/cache-posts", {
-      method: "POST",
-      body: JSON.stringify(postData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+      if (!result.ok) {
+        throw new Error("Failed to delete post");
+      }
 
-    router.push("/blog");
-    router.refresh();
-    console.log("delete post");
+      // Optionally refresh the cache after deletion
+      await cachePostsAction();
+
+      router.push("/blog");
+      router.refresh();
+      console.log("delete post");
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
