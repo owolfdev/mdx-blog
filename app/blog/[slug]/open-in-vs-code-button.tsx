@@ -2,18 +2,18 @@
 import React, { use } from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { openInVSCodeAction } from "@/app/actions/open-actions";
 
 function OpenInVSCode({ path }: { path: string }) {
   const router = useRouter();
   const handleOpenInVSCode = async () => {
-    fetch("/api/open-in-vs-code", {
-      method: "POST",
-      body: JSON.stringify(`content/posts/${path}.mdx`),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    // router.push("/settings");
+    const filePath = `content/posts/${path}.mdx`;
+    const response = await openInVSCodeAction(filePath);
+    if (response.ok) {
+      // router.push("/settings");
+    } else {
+      console.error("Failed to open in VS Code:", response.error);
+    }
   };
 
   return (

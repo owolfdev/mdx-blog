@@ -2,14 +2,16 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { isDevMode } from "@/lib/utils";
+import { isDevMode } from "@/lib/utils/is-dev-mode";
 
 import { FileIcon } from "@radix-ui/react-icons";
+import { cachePostsAction } from "@/app/actions/cache-actions";
 
 function CachePostsButton() {
   const router = useRouter();
+
   const handleCachePosts = async () => {
-    const response = await fetch("/api/cache-posts", { method: "POST" });
+    const response = await cachePostsAction();
 
     if (!response.ok) {
       console.error("Server responded with an error:", response.status);
@@ -17,11 +19,11 @@ function CachePostsButton() {
     }
 
     try {
-      const data = await response.json();
-      console.log(data); // Or handle this message as needed
+      const data = response.data;
+      console.log(data); // Handle this data as needed
       router.refresh();
     } catch (error) {
-      console.error("Error parsing JSON:", error);
+      console.error("Error processing data:", error);
     }
 
     router.push("/blog");

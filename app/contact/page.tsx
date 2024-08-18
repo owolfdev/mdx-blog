@@ -2,7 +2,7 @@ import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { ContactForm } from "./form";
-import { isDevMode } from "@/lib/utils";
+import { isDevMode } from "@/lib/utils/is-dev-mode";
 import Link from "next/link";
 
 // Define the metadata generation function

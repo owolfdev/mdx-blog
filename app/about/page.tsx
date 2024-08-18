@@ -1,7 +1,5 @@
 import ReactMarkdown from "react-markdown";
 import type { Metadata } from "next";
-// import aboutContent from "./about.mdx";
-import { aboutContent } from "./about-content";
 import MdxContent from "./mdx-content";
 
 export async function generateMetadata(): Promise<Metadata> {

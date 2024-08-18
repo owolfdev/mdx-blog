@@ -3,7 +3,7 @@ import { DataTable } from "./data-table";
 import { getContactMessages } from "@/lib/supabase-utils.mjs";
 import { divide } from "lodash";
 import { is } from "date-fns/locale";
-import { isDevMode } from "@/lib/utils";
+import { isDevMode } from "@/lib/utils/is-dev-mode";
 
 interface ContactMessagesData {
   id: string;

@@ -225,7 +225,7 @@ export function DataTable() {
   const [rowSelection, setRowSelection] = React.useState({});
 
   React.useEffect(() => {
-    let posts = postsData;
+    const posts = postsData;
 
     // Debugging: Ensure data is properly set
     console.log("Imported Posts Data:", posts);
@@ -247,10 +247,9 @@ export function DataTable() {
       row.original.title.toLowerCase().includes(lowercasedFilter) ||
       row.original.description.toLowerCase().includes(lowercasedFilter) ||
       row.original.type.toLowerCase().includes(lowercasedFilter) ||
-      (row.original.tags &&
-        row.original.tags.some((tag) =>
-          tag.toLowerCase().includes(lowercasedFilter)
-        ))
+      row.original.tags?.some((tag) =>
+        tag.toLowerCase().includes(lowercasedFilter)
+      )
     );
   };
 

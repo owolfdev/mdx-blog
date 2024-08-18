@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/sheet";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
-import { isDevMode } from "@/lib/utils";
+import { isDevMode } from "@/lib/utils/is-dev-mode";
 import { GearIcon, PlusIcon } from "@radix-ui/react-icons";
 
 function SiteHeader() {
@@ -104,7 +104,7 @@ function SiteHeader() {
                       </Button>
                     </Link>
                     {/* <CachePostsButton /> */}
-                    <Link title="Setting" href="/settings">
+                    <Link title="Administration" href="/admin">
                       <Button variant="outline" size="icon">
                         <GearIcon className="w-[18px] h-[18px]" />
                       </Button>

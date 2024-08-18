@@ -1,5 +1,9 @@
 import { DataTable } from "./data-table";
-import { isDevMode } from "@/lib/utils";
+import { isDevMode } from "@/lib/utils/is-dev-mode";
+import CachePostsButton from "@/components/admin/cache-posts-button";
+import OpenCategoriesInVSCode from "./open-categories-in-vs-code";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Settings() {
   if (!isDevMode()) {
@@ -13,6 +17,14 @@ export default function Settings() {
 
   return (
     <div className="w-full px-6">
+      <div className="flex gap-4 pb-4 flex-col sm:flex-row">
+        <div className="flex flex-col gap-2">
+          <CachePostsButton />
+        </div>
+        <div className="flex flex-col gap-2">
+          <OpenCategoriesInVSCode />
+        </div>
+      </div>
       <div className="text-xl font-bold">Posts</div>
       <DataTable />
     </div>
