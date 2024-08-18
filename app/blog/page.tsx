@@ -170,9 +170,6 @@ const Blog = async ({
           sort={sort as string}
         />
       </div>
-      <div>
-        <Link href="/test-one">Test Page</Link>
-      </div>
     </div>
   );
 };
