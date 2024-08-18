@@ -147,7 +147,7 @@
       "custom",
       "components"
     ],
-    "likes": 10
+    "likes": 11
   },
   {
     "slug": "future-of-mdx-trends-and-upcoming-features",
@@ -192,7 +192,7 @@
     "slug": "how-to-use-images-in-an-mdx-or-markdown-file",
     "id": "q6enmqgx2wH3aWV7F87XQq",
     "type": "blog",
-    "title": "How to Use Images in an MDX or Markdown File",
+    "title": "How to Use Images in an MDX or Markdown Files",
     "author": "O Wolfson",
     "publishDate": "2024-08-13",
     "description": "Images are essential in enriching the content of your markdown or MDX files, helping to convey information visually and make your articles more engaging. ",
@@ -291,7 +291,7 @@
     "tags": [
       "documentation"
     ],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "limitations-of-next-mdx-remote-and-an-alternative-approach",
@@ -381,7 +381,7 @@
       "mdx",
       "next"
     ],
-    "likes": 7
+    "likes": 8
   },
   {
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",
@@ -502,7 +502,7 @@
     "tags": [
       "syntax-highlighting"
     ],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",
