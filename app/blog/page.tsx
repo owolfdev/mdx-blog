@@ -2,7 +2,7 @@ import Link from "next/link";
 import SelectLimitPosts from "./select-limit-posts";
 import SearchPosts from "./search-posts";
 import SortPosts from "./sort-posts";
-import { getPosts } from "@/lib/posts-utils.mjs";
+import { getPosts } from "@/lib/posts/get-posts.mjs";
 import BlogPostList from "./blog-post-list";
 
 interface BlogPost {

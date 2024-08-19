@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { generatePostsCache } from "@/lib/posts-utils.mjs";
 import DatePickerField from "@/components/date-picker";
 import { v4 as uuidv4 } from "uuid";
 import {

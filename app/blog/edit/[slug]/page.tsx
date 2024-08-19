@@ -1,6 +1,6 @@
 import React from "react";
 import { EditPostForm } from "./edit-post-form";
-import { getPost } from "@/lib/posts-utils.mjs";
+import { getPost } from "@/lib/posts/get-post.mjs";
 
 async function EditBlog({ params }: { params: { slug: string } }) {
   const postData = await getPost(params);
