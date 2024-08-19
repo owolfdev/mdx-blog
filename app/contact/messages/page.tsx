@@ -19,6 +19,7 @@ interface ContactMessagesData {
 }
 
 async function ContactMessages() {
+  // biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>
   let data;
   try {
     data = await getContactMessages();

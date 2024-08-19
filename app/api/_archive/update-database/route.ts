@@ -1,4 +1,4 @@
-import { updateDatabase } from "@/lib/update-database.mjs";
+import { updateDatabase } from "@/lib/scripts/update-database.mjs";
 
 export async function POST(req: Request) {
   if (req.method === "POST") {

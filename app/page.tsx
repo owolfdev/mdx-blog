@@ -80,16 +80,18 @@ export default async function Home() {
             </Button>
           </Link>
         </div>
-        <p>
-          Click the button above ☝️ to see the installation options for MDX
-          Blog.
-        </p>
-        <div className="w-full py-3">{/* <hr /> */}</div>
-        <p>
-          We regularly publish content, including articles, tutorials, and news
-          covering MDX, Next.js, and other static site generation frameworks.
-          Click the button below to start reading 👇.
-        </p>
+        <div className="flex flex-col gap-8 text-center">
+          <p>
+            Click the button above ☝️ to see the installation options for MDX
+            Blog.
+          </p>
+
+          <p>
+            We regularly publish content, including articles, tutorials, and
+            news covering MDX, Next.js, and other static site generation
+            frameworks. Click the button below to start reading 👇.
+          </p>
+        </div>
         <div className="flex justify-center py-6">
           {" "}
           <Link className="text-lg" href="/blog">

@@ -17,8 +17,6 @@ export async function POST(req: Request) {
         },
       }
     );
-  } else {
-    // Handle any other HTTP method
   }
 }
 
