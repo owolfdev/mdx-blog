@@ -45,9 +45,11 @@ async function getPost({ slug }: { slug: string }) {
 
 export async function generateStaticParams() {
   const files = fs.readdirSync(path.join("content", "posts"));
-  const params = files.map((filename) => ({
-    slug: filename.replace(".mdx", ""),
-  }));
+  const params = files
+    .filter((filename) => filename.endsWith(".mdx")) // Only process MDX files
+    .map((filename) => ({
+      slug: filename.replace(".mdx", ""),
+    }));
 
   return params;
 }
