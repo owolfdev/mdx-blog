@@ -4,9 +4,10 @@ export const metadata = {
   title: "How to Use Images in MDX or Markdown Files",
   author: "O Wolfson",
   publishDate: "2024-08-13",
-  description: "Images are essential in enriching the content of your markdown or MDX files, helping to convey information visually and make your articles more engaging. ",
+  description:
+    "Images are essential in enriching the content of your markdown or MDX files, helping to convey information visually and make your articles more engaging. ",
   category: ["Web Development"],
-  tags: ["image", "images"]
+  tags: ["image", "images"],
 };
 
 Whether you’re writing a blog post, documentation, or any other content, knowing how to properly include and manage images is crucial. In this article, we'll explore how to use images in MDX and Markdown files effectively.
@@ -25,6 +26,20 @@ In Markdown, the most straightforward way to include an image is by using the fo
 ![Grass, Tree, Sky](/images/posts/how-to-use-images/grass-tree-sky.jpg "Grass, Tree, Sky")
 
 The image above happens to exist in the local public folder in this Next.js project. In Next.js, the public folder is a special folder that is not processed by webpack. Files inside the public folder can be referenced from the root of the application similar to how you would reference files in a static site. `/images/posts/how-to-use-images/grass-tree-sky.jpg`
+
+<Image
+  src="/images/posts/how-to-use-images/grass-tree-sky.jpg"
+  caption="trees, grass, and sky"
+/>
+
+Above is our [custom image component](https://github.com/owolfdev/mdx-blog/blob/main/components/mdx/image.tsx). It's a simple component, based on Next's Image component, that takes an image source and a caption as props and renders the image with the caption below it.
+
+```jsx
+<Image
+  src="/images/posts/how-to-use-images/grass-tree-sky.jpg"
+  caption="trees, grass, and sky"
+/>
+```
 
 ### Example:
 

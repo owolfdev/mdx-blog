@@ -4,12 +4,13 @@ import YouTube from "@/components/mdx/youtube";
 import Code from "@/components/mdx/code";
 import InlineCode from "@/components/mdx/inline-code";
 import Pre from "@/components/mdx/pre"; // Adjust the import path as needed
-import { Button } from "@/components/ui/button";
+import Image from "@/components/mdx/image"; // Adjust the import path as needed
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
     YouTube,
+    Image, // Use the custom Image component
     pre: Pre, // Use the custom Pre component
     code: (props) => {
       const { className, children } = props;
