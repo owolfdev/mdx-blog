@@ -1,0 +1,200 @@
+export const metadata = {
+  id: "aUzaTwfnodBcquiQuF9JvE",
+  type: "blog",
+  title: "Using, and Styling, Custom Components in MDX",
+  author: "O Wolfson",
+  publishDate: "2024-08-21",
+  description:
+    "In this article, we'll explore how to import and use custom components in MDX files and then dive into how these components and other elements can be styled to fit seamlessly within your design system.",
+  category: ["Web Development"],
+  tags: ["mdx", "custom component", "style"],
+};
+
+MDX is a powerful tool that allows you to integrate React components directly into your markdown files. This capability not only enhances the interactivity of your content but also provides a flexible way to create rich, dynamic documents. In this article, we'll explore how to import and use custom components in MDX files, in the context of a modern Next.js app useing the `@next/mdx` package. We dive into how these components and other elements can be styled to fit seamlessly within your design system as well.
+
+### 1. **Importing and Using Custom Components in MDX Documents**
+
+One of the standout features of MDX is its ability to allow custom React components to be used directly within markdown content. This means you can enrich your documentation, blogs, or any other MDX-based content with components that bring additional functionality or interactivity.
+
+#### **Step 1: Create Your Custom Components**
+
+Begin by creating the custom components you want to use in your MDX content. For instance, you might want to include a YouTube embed component or a custom-styled image component:
+
+```tsx
+import React from "react";
+
+interface YouTubeProps {
+  id: string;
+}
+
+const YouTube: React.FC<YouTubeProps> = ({ id }) => {
+  return (
+    <div className="pb-4">
+      <div
+        style={{
+          position: "relative",
+          paddingBottom: "56.25%", // 16:9 aspect ratio
+          height: 0,
+          overflow: "hidden",
+          maxWidth: "100%",
+          background: "#000",
+        }}
+      >
+        <iframe
+          title="YouTube video"
+          src={`https://www.youtube.com/embed/${id}`}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+          }}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    </div>
+  );
+};
+
+export default YouTube;
+```
+
+This `YouTube` component can now be used to embed videos directly within your MDX content.
+
+#### **Step 2: Set Up Default Imports in `mdx-components.tsx`**
+
+To make these custom components available across all your MDX files without needing to import them manually each time, you can use the `useMDXComponents` function. This function allows you to define default components that are automatically available in your MDX documents:
+
+```tsx
+import React from "react";
+import YouTube from "@/components/mdx/youtube";
+import Code from "@/components/mdx/code";
+import InlineCode from "@/components/mdx/inline-code";
+import Pre from "@/components/mdx/pre";
+import Image from "@/components/mdx/image";
+
+export function useMDXComponents(components) {
+  return {
+    ...components,
+    YouTube,
+    Image,
+    pre: Pre,
+    code: (props) => {
+      const { className, children } = props;
+      if (className) {
+        return <Code {...props} />;
+      }
+      return <InlineCode>{children}</InlineCode>;
+    },
+    // Add other component mappings as needed
+  };
+}
+```
+
+With this setup, any MDX document can use the `YouTube` component (or any other component you include) without additional imports. This approach significantly reduces the boilerplate code in your MDX files and keeps them clean and focused on content.
+
+```md
+Check out this video:
+
+<YouTube id="dQw4w9WgXcQ" />
+```
+
+Check out this video:
+
+<YouTube id="dQw4w9WgXcQ" />
+
+And here’s a code block that uses standard markdown syntax of triple backticks to deliniate the code block. Our custom `Code` component will be used to render this block:
+
+```js
+console.log("Hello, world!");
+```
+
+### 2. **Styling MDX Components and Elements**
+
+Once you’ve integrated custom components, the next step is ensuring they blend well with the rest of your content. Consistent styling is key to maintaining a cohesive user experience across your site.
+
+#### **Styling HTML Elements Rendered from MDX**
+
+MDX content often includes standard HTML elements like headers, paragraphs, lists, and images. To apply consistent styling to these elements, you can define custom styles in the same `useMDXComponents` function:
+
+```tsx
+import React from "react";
+import type { MDXComponents } from "mdx/types";
+
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    ...components,
+    h1: (props) => (
+      <h1 className="text-4xl font-black pb-4 w-full" {...props} />
+    ),
+    p: (props) => <p className="text-lg mb-4 w-full" {...props} />,
+    ul: (props) => <ul className="list-disc pl-6 pb-4 w-full" {...props} />,
+    ol: (props) => <ol className="list-decimal pl-6 pb-4 w-full" {...props} />,
+    hr: (props) => <hr className="my-4" {...props} />,
+    blockquote: (props) => (
+      <blockquote
+        style={{ paddingBottom: 0 }}
+        className="border-l-4 pl-4 my-4"
+        {...props}
+      />
+    ),
+    a: (props) => <a className="hover:underline font-semibold" {...props} />,
+    // Add any other custom styles as needed
+  };
+}
+```
+
+This configuration ensures that every instance of a header, paragraph, or other elements rendered from MDX content is styled consistently across your application.
+
+#### **Custom Component Styling**
+
+Your custom components, like the `Code` or `YouTube` components, can also have styles directly applied to them to ensure they fit into your site's design:
+
+```tsx
+import React, { useRef, useState } from "react";
+
+const Code = (props) => {
+  const [copied, setCopied] = useState(false);
+  const codeRef = useRef<HTMLElement>(null);
+
+  const handleCopy = () => {
+    if (codeRef.current) {
+      const codeText = codeRef.current.innerText;
+      navigator.clipboard.writeText(codeText).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+    }
+  };
+
+  return (
+    <div className="code-block gap-0 rounded-lg text-white pb-6">
+      <div className="flex justify-between items-center bg-gray-900 py-2 px-4 rounded-t-lg">
+        <span className="text-gray-300">Code</span>
+        <button
+          type="button"
+          className="text-gray-300 hover:text-white"
+          onClick={handleCopy}
+        >
+          {copied ? "Copied!" : "Copy"}
+        </button>
+      </div>
+      <pre className="bg-gray-800 p-4 rounded-b-lg overflow-auto">
+        <code ref={codeRef} className="bg-gray-800">
+          {props.children}
+        </code>
+      </pre>
+    </div>
+  );
+};
+
+export default Code;
+```
+
+This `Code` component is styled using Tailwind CSS to match the visual language of the rest of your application, providing a cohesive look and feel.
+
+### Conclusion
+
+Whether you’re writing technical documentation, blog posts, or interactive tutorials, Next.js with MDX gives you the ability to easily integrate React components while maintaining a cohesive design.

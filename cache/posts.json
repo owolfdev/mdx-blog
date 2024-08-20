@@ -563,6 +563,24 @@
     "likes": 2
   },
   {
+    "slug": "using-and-styling-custom-components-in-mdx-content",
+    "id": "aUzaTwfnodBcquiQuF9JvE",
+    "type": "blog",
+    "title": "Using, and Styling, Custom Components in MDX Content",
+    "author": "O Wolfson",
+    "publishDate": "2024-08-21",
+    "description": "In this article, we'll explore how to import and use custom components in MDX files and then dive into how these components and other elements can be styled to fit seamlessly within your design system.",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "custom component",
+      "style"
+    ],
+    "likes": 0
+  },
+  {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",
     "id": "6xPCTYZo5TvSfVCqQMbLFX",
     "type": "blog",
