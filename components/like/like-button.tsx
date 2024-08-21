@@ -33,15 +33,22 @@ function LikeButton({ postId }: LikeButtonProps) {
     }
 
     fetchTotalLikes();
-    setLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId]);
 
   async function fetchTotalLikes() {
-    const response = await countLikes(postId);
-    if (response.success && typeof response.count === "number") {
-      setTotalLikes(response.count);
-    } else {
+    try {
+      const response = await countLikes(postId);
+      if (response.success && typeof response.count === "number") {
+        setTotalLikes(response.count);
+      } else {
+        setTotalLikes(0);
+      }
+    } catch (error) {
+      console.error("Failed to fetch likes:", error);
       setTotalLikes(0);
+    } finally {
+      setLoading(false); // Data has been loaded, even if there was an error
     }
   }
 
@@ -85,7 +92,7 @@ function LikeButton({ postId }: LikeButtonProps) {
   }
 
   if (loading) {
-    return null;
+    return null; // Hide component while loading
   }
 
   return (
