@@ -4,7 +4,7 @@ import MdxContent from "./mdx-content";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "MDXBlog | About",
+    title: "MDXBlog | Privacy",
   };
 }
 
@@ -13,9 +13,9 @@ export default function About() {
     <div className="max-w-3xl z-10 w-full items-center justify-between">
       <div className="w-full flex justify-center items-center flex-col gap-6">
         <h1 className="text-4xl sm:text-5xl font-bold text-center pb-8">
-          About <span className="primary-color">MDX</span>Blog
+          Privacy
         </h1>
-        <MdxContent slug="about" />
+        <MdxContent slug="privacy" />
       </div>
     </div>
   );

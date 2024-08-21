@@ -8,7 +8,7 @@ import Link from "next/link";
 // Define the metadata generation function
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "MDX Blog  | Contact",
+    title: "MDXBlog  | Contact",
   };
 }
 

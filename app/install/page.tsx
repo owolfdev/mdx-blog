@@ -5,7 +5,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 // Define the metadata generation function
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "MDX Blog | Install",
+    title: "MDXBlog | Install",
   };
 }
 
@@ -17,7 +17,7 @@ export default function Install() {
           Install <span className="primary-color">MDX</span>Blog
         </h1>
         <p>
-          Install MDX Blog Basic, a more spare and stable version of the
+          Install MDXBlog Basic, a more spare and stable version of the
           codebase, which is a good starting point for a simple blog or to learn
           how to build a blog with MDX and Next.js. This version uses the
           @next/mdx package, the app router, and more.{" "}
@@ -30,16 +30,16 @@ export default function Install() {
         >
           <Button>
             <span className="text-lg">
-              Install <span className="font-bold">MDX Blog</span> Basic
+              Install <span className="font-bold">MDXBlog</span> Basic
             </span>
           </Button>
         </Link>
         <hr className="w-full" />
         <p>
-          Install MDX Blog, this site&apos;s codebase, including all the
-          content, all the bells & whistles and tools we use daily, as well as
-          any defects that we are working to overcome. This is the evolving
-          template, the latest version of the MDX Blog. This version currently
+          Install MDXBlog, this site&apos;s codebase, including all the content,
+          all the bells & whistles and tools we use daily, as well as any
+          defects that we are working to overcome. This is the evolving
+          template, the latest version of the MDXBlog. This version currently
           uses the @next/mdx package, the app router, and more.
         </p>
         <Link
@@ -49,13 +49,13 @@ export default function Install() {
         >
           <Button>
             <span className="text-lg">
-              Install <span className="font-bold">MDX Blog</span> Latest
+              Install <span className="font-bold">MDXBlog</span> Latest
             </span>
           </Button>
         </Link>
         <hr className="w-full" />
         <p>
-          Install MDX Blog Legacy, a full-featured version, which offers several
+          Install MDXBlog Legacy, a full-featured version, which offers several
           helpful tools such as admin panel, create / edit functions, and more.
           This is a good starting point for a production app. This version uses
           the next-mdx-remote package, the app router, and more.
@@ -67,7 +67,7 @@ export default function Install() {
         >
           <Button>
             <span className="text-lg">
-              Install <span className="font-bold">MDX Blog</span> Legacy
+              Install <span className="font-bold">MDXBlog</span> Legacy
             </span>
           </Button>
         </Link>

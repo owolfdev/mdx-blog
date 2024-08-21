@@ -58,13 +58,6 @@ export default async function Blog({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
   const post = await getPost(params);
-  // Dynamically import the MDX file based on the slug
-  // const MDXContent = dynamic(() => import(`@/content/posts/${slug}.mdx`));
-
-  const formattedDate = format(
-    new Date(post.metadata.publishDate),
-    "MMMM dd, yyyy"
-  );
 
   return (
     <div className="max-w-3xl z-10 w-full items-center justify-between">

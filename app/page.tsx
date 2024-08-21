@@ -82,8 +82,8 @@ export default async function Home() {
         </div>
         <div className="flex flex-col gap-8 text-center">
           <p>
-            Click the button above ☝️ to see the installation options for MDX
-            Blog.
+            Click the button above ☝️ to see the installation options for
+            MDXBlog.
           </p>
 
           <p>

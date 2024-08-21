@@ -7,13 +7,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-01-10",
     "description": "Welcome to the world of MDX, a powerful hybrid of Markdown and JSX that's revolutionizing the way we write and interact with content on the web. ",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "guide"
-    ],
+    "category": ["Web Development"],
+    "tags": ["mdx", "guide"],
     "likes": 0
   },
   {
@@ -24,16 +19,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-05-18",
     "description": "If you're looking to integrate Markdown with JSX (MDX) into your Next.js project, you're in the right place. ",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "react",
-      "javascript",
-      "mdx",
-      "html",
-      "next"
-    ],
+    "category": ["Web Development"],
+    "tags": ["react", "javascript", "mdx", "html", "next"],
     "likes": 1
   },
   {
@@ -44,13 +31,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-03-10",
     "description": "One of its most powerful features is the ability to integrate dynamic content and connect with external APIs, pushing the boundaries of what's possible in documentation, blogs, and other content-driven websites. This article explores advanced topics in MDX, focusing on loading dynamic content and integrating external APIs.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "guide"
-    ],
+    "category": ["Web Development"],
+    "tags": ["mdx", "guide"],
     "likes": 0
   },
   {
@@ -61,15 +43,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-01-02",
     "description": "Creating a sitemap for your Next.js project is essential for SEO purposes, as it helps search engines better index your site. But manually updating this sitemap can be tedious, especially for dynamic sites. This is where automating the process with GitHub Actions comes in handy.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "sitemap",
-      "automation",
-      "github",
-      "actions"
-    ],
+    "category": ["Web Development"],
+    "tags": ["sitemap", "automation", "github", "actions"],
     "likes": 3
   },
   {
@@ -79,16 +54,9 @@
     "title": "Building a Content Management System for Static MDX Files",
     "author": "O Wolfson",
     "publishDate": "2024-06-04",
-    "description": "In this article, we'll walk you through creating a content management system (CMS) for our MDX Blog, where blog posts are stored as local static files. We'll cover saving posts, generating a cache for efficient data retrieval, and handling form submissions for new blog entries.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "cache",
-      "mdx",
-      "blog",
-      "cms"
-    ],
+    "description": "In this article, we'll walk you through creating a content management system (CMS) for our MDXBlog, where blog posts are stored as local static files. We'll cover saving posts, generating a cache for efficient data retrieval, and handling form submissions for new blog entries.",
+    "category": ["Web Development"],
+    "tags": ["cache", "mdx", "blog", "cms"],
     "likes": 6
   },
   {
@@ -99,36 +67,20 @@
     "author": "O Wolfson",
     "publishDate": "2024-04-22",
     "description": "The MDX integration guide provided by Next.js offers a robust solution for if you're looking to enhance your Next.js application with rich text and interactive components",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "markdown",
-      "next.js",
-      "react",
-      "static",
-      "blog"
-    ],
+    "category": ["Web Development"],
+    "tags": ["mdx", "markdown", "next.js", "react", "static", "blog"],
     "likes": 0
   },
   {
     "slug": "create-a-static-mdx-blog-with-next",
     "id": "vHrq37hwTYSotVkYi9CBP7",
     "type": "blog",
-    "title": "Create a Static MDX Blog with Next.js",
+    "title": "Create a Static MDXBlog with Next.js",
     "author": "O Wolfson",
     "publishDate": "2024-05-26",
     "description": "Create a Next.js 14 app that generates static MDX pages from documents stored in a local directory using the next/mdx package.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "next",
-      "static",
-      "blog"
-    ],
+    "category": ["Web Development"],
+    "tags": ["mdx", "next", "static", "blog"],
     "likes": 0
   },
   {
@@ -139,14 +91,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-01-03",
     "description": "In this article, we'll explore how to create and use custom React components within MDX.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "custom",
-      "components"
-    ],
+    "category": ["Web Development"],
+    "tags": ["mdx", "custom", "components"],
     "likes": 11
   },
   {
@@ -157,15 +103,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-04-20",
     "description": "Looking ahead, we can anticipate trends and potential new features that may shape the future of MDX.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "react",
-      "javascript",
-      "mdx",
-      "html"
-    ],
+    "category": ["Web Development"],
+    "tags": ["react", "javascript", "mdx", "html"],
     "likes": 0
   },
   {
@@ -176,16 +115,8 @@
     "author": "O Wolfson",
     "publishDate": "2023-12-20",
     "description": "MDXBlog is a platform for bloggers who value the simplicity of Markdown and the power of React components. Built using MDX (Markdown + JSX) and Next.js 14, this blog template offers a unique blogging experience with easy content management.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "install",
-      "set-up",
-      "download",
-      "github",
-      "repo"
-    ],
+    "category": ["Web Development"],
+    "tags": ["install", "set-up", "download", "github", "repo"],
     "likes": 0
   },
   {
@@ -196,13 +127,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-08-13",
     "description": "Images are essential in enriching the content of your markdown or MDX files, helping to convey information visually and make your articles more engaging. ",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "image",
-      "images"
-    ],
+    "category": ["Web Development"],
+    "tags": ["image", "images"],
     "likes": 2
   },
   {
@@ -213,14 +139,8 @@
     "author": "O Wolfson",
     "publishDate": "2023-12-11",
     "description": "This guide will walk you through using MDXBlog, which is designed to work seamlessly with VSCode and requires local installation.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "user",
-      "guide"
-    ],
+    "category": ["Web Development"],
+    "tags": ["mdx", "user", "guide"],
     "likes": 0
   },
   {
@@ -231,14 +151,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-06-27",
     "description": "Our goal is to support both authenticated and anonymous users by leveraging local storage and a PostgreSQL database hosted on Vercel. This ensures a seamless user experience while maintaining data persistence.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "likes",
-      "vercel",
-      "postgres"
-    ],
+    "category": ["Web Development"],
+    "tags": ["likes", "vercel", "postgres"],
     "likes": 16
   },
   {
@@ -249,12 +163,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-07-18",
     "description": "Importing components directly into MDX is possible.",
-    "category": [
-      "Programming"
-    ],
-    "tags": [
-      "mdx"
-    ],
+    "category": ["Programming"],
+    "tags": ["mdx"],
     "likes": 1
   },
   {
@@ -265,16 +175,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-02-20",
     "description": "This article explores how to integrate MDX with these popular SSGs, providing examples and use cases to illustrate the process.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "Gatsby",
-      "Next.js",
-      "Hugo",
-      "static",
-      "generators"
-    ],
+    "category": ["Web Development"],
+    "tags": ["Gatsby", "Next.js", "Hugo", "static", "generators"],
     "likes": 0
   },
   {
@@ -285,12 +187,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-03-01",
     "description": "This article explores how MDX can be effectively utilized to build documentation websites, focusing on features like table of contents, code highlighting, and more.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "documentation"
-    ],
+    "category": ["Web Development"],
+    "tags": ["documentation"],
     "likes": 1
   },
   {
@@ -301,15 +199,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-06-01",
     "description": "While `next-mdx-remote` offers a robust solution for integrating MDX content in Next.js applications, it presents some limitations that can be crucial depending on the project's requirements.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "remote",
-      "blog",
-      "static"
-    ],
+    "category": ["Web Development"],
+    "tags": ["mdx", "remote", "blog", "static"],
     "likes": 6
   },
   {
@@ -320,13 +211,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-03-28",
     "description": "Headless CMS platforms like Contentful, Sanity, and Strapi are redefining how content is managed and delivered. This article explores the integration of MDX with these headless CMS platforms to enhance the content management experience",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "headless",
-      "CMS"
-    ],
+    "category": ["Web Development"],
+    "tags": ["headless", "CMS"],
     "likes": 0
   },
   {
@@ -337,14 +223,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-04-10",
     "description": "MDX, which blends Markdown and JSX, has become increasingly popular for creating rich, interactive documentation and content. While its power and flexibility are undeniable, there are best practices to follow and pitfalls to avoid for effective use. This article provides insights into how to maximize the potential of MDX.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "pitfalls",
-      "problems",
-      "best practices"
-    ],
+    "category": ["Web Development"],
+    "tags": ["pitfalls", "problems", "best practices"],
     "likes": 0
   },
   {
@@ -355,32 +235,20 @@
     "author": "O Wolfson",
     "publishDate": "2024-01-04",
     "description": " Ensuring that your MDX-based blogs perform well is crucial for maintaining a fast, efficient, and user-friendly website. In this article, we will delve into strategies for optimizing the performance of MDX-based blogs, focusing on lazy loading, image optimization, and bundle size reduction.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "optimization"
-    ],
+    "category": ["Web Development"],
+    "tags": ["optimization"],
     "likes": 0
   },
   {
     "slug": "metadata-object-components-in-next-js-mdx-blogs",
     "id": "tm7TXBB9VBk7STJagXLbcr",
     "type": "blog",
-    "title": "Metadata Objects in Next js MDX Blogs",
+    "title": "Metadata Objects in Next js MDXBlogs",
     "author": "O Wolfson",
     "publishDate": "2024-06-23",
     "description": "In this post, we want to share why we chose to use Metadata Objects over frontmatter for handling MDX metadata in our latest experiments.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "metadata",
-      "meta",
-      "data",
-      "mdx",
-      "next"
-    ],
+    "category": ["Web Development"],
+    "tags": ["metadata", "meta", "data", "mdx", "next"],
     "likes": 8
   },
   {
@@ -391,12 +259,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-01-30",
     "description": "This guide will walk you through the process of migrating your existing Markdown blog to MDX, showcasing the benefits and steps involved.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "migration"
-    ],
+    "category": ["Web Development"],
+    "tags": ["migration"],
     "likes": 0
   },
   {
@@ -406,17 +270,9 @@
     "title": "Optimizing MDX for SEO",
     "author": "O Wolfson",
     "publishDate": "2024-02-10",
-    "description": "This post discusses strategies for enhancing the SEO of your MDX blog posts, focusing on metadata management and content structuring.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "seo",
-      "google",
-      "search",
-      "indexing",
-      "ranking"
-    ],
+    "description": "This post discusses strategies for enhancing the SEO of your MDXblog posts, focusing on metadata management and content structuring.",
+    "category": ["Web Development"],
+    "tags": ["seo", "google", "search", "indexing", "ranking"],
     "likes": 1
   },
   {
@@ -427,14 +283,8 @@
     "author": "O Wolfson",
     "publishDate": "2023-12-22",
     "description": "Creating a dynamic blog with rich content, including images and videos, has become an integral part of modern web development. Next.js 14 offers a powerful way to achieve this using Markdown (MDX). ",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "rendering",
-      "next.js"
-    ],
+    "category": ["Web Development"],
+    "tags": ["mdx", "rendering", "next.js"],
     "likes": 0
   },
   {
@@ -445,29 +295,20 @@
     "author": "O Wolfson",
     "publishDate": "2024-03-30",
     "description": "A Brief article on how to create a Markdown page using a server component in Next.js ",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "markdown"
-    ],
+    "category": ["Web Development"],
+    "tags": ["markdown"],
     "likes": 0
   },
   {
     "slug": "simple-static-mdx-blog",
     "id": "6hHB7wm4hmwzy37nWMoJfU",
     "type": "blog",
-    "title": "Simple Static MDX Blog",
+    "title": "Simple Static MDXBlog",
     "author": "O. Wolfson",
     "publishDate": "2024-04-21",
-    "description": "Creating a static MDX blog in Next.js 14 involves several steps, including setting up your Next.js environment, creating MDX files, and configuring your pages to render these files.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "webdev",
-      "mac"
-    ],
+    "description": "Creating a static MDXblog in Next.js 14 involves several steps, including setting up your Next.js environment, creating MDX files, and configuring your pages to render these files.",
+    "category": ["Web Development"],
+    "tags": ["webdev", "mac"],
     "likes": 1
   },
   {
@@ -478,14 +319,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-03-20",
     "description": "MDX, a blend of Markdown and JSX, provides a powerful way to write rich content and embed dynamic components. Styling this content effectively can enhance readability, maintain consistency, and ensure your content looks as good as it reads.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "style",
-      "css",
-      "theme"
-    ],
+    "category": ["Web Development"],
+    "tags": ["style", "css", "theme"],
     "likes": 0
   },
   {
@@ -496,12 +331,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-05-01",
     "description": "A powerful tool for achieving syntax highlighting in React applications is `sugar-high`, a lightweight syntax highlighter. In this article, we'll explore how `sugar-high` can be integrated into a React and Next.js environment using MDX to render markdown content dynamically.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "syntax-highlighting"
-    ],
+    "category": ["Web Development"],
+    "tags": ["syntax-highlighting"],
     "likes": 2
   },
   {
@@ -512,14 +343,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-05-10",
     "description": "The Jamstack represents a modern approach to building websites and applications that deliver better performance, higher security, and easier scalability.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "jamstack",
-      "mdx",
-      "static"
-    ],
+    "category": ["Web Development"],
+    "tags": ["jamstack", "mdx", "static"],
     "likes": 2
   },
   {
@@ -530,36 +355,20 @@
     "author": "O Wolfson",
     "publishDate": "2024-04-23",
     "description": "This template provides MDX support while simplifying the creation of a professional online presence. ",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "next.js",
-      "react",
-      "static",
-      "blog"
-    ],
+    "category": ["Web Development"],
+    "tags": ["mdx", "next.js", "react", "static", "blog"],
     "likes": 1
   },
   {
     "slug": "updates-to-mdx-blog-enhanced-and-streamlined",
     "id": "idnBj1xefhwuBdnFtFV8ZB",
     "type": "blog",
-    "title": "Updates to MDX Blog: Enhanced and Streamlined",
+    "title": "Updates to MDXBlog: Enhanced and Streamlined",
     "author": "O Wolfson",
     "publishDate": "2024-08-14",
-    "description": "Major updates to MDX Blog that brings new features and improvements, aimd at making our development experience even better.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "update",
-      "version",
-      "blog",
-      "app"
-    ],
+    "description": "Major updates to MDXBlog that brings new features and improvements, aimd at making our development experience even better.",
+    "category": ["Web Development"],
+    "tags": ["mdx", "update", "version", "blog", "app"],
     "likes": 2
   },
   {
@@ -570,14 +379,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-08-21",
     "description": "In this article, we'll explore how to import and use custom components in MDX files and then dive into how these components and other elements can be styled to fit seamlessly within your design system.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "custom component",
-      "style"
-    ],
+    "category": ["Web Development"],
+    "tags": ["mdx", "custom component", "style"],
     "likes": 0
   },
   {
@@ -588,13 +391,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-04-02",
     "description": "This post explores how MDX can revolutionize educational content and tutorials.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "e-learning",
-      "mdx"
-    ],
+    "category": ["Web Development"],
+    "tags": ["e-learning", "mdx"],
     "likes": 0
   },
   {
@@ -605,13 +403,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-05-04",
     "description": "This article explores the capabilities, use cases, and technical workings of MDXRemote in Next.js environments.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "MDXRemote",
-      "Next.js"
-    ],
+    "category": ["Web Development"],
+    "tags": ["MDXRemote", "Next.js"],
     "likes": 1
   },
   {
@@ -622,16 +415,8 @@
     "author": "O Wolfson",
     "publishDate": "2024-08-17",
     "description": "This article may help developers understand why making the switch to server actions can be a valuable move for their Next.js projects.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "server actions",
-      "serverside",
-      "actions",
-      "api",
-      "routes"
-    ],
+    "category": ["Web Development"],
+    "tags": ["server actions", "serverside", "actions", "api", "routes"],
     "likes": 0
   }
 ]
