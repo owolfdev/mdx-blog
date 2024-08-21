@@ -7,13 +7,12 @@ type MdxContentProps = {
 };
 
 const MdxContent = ({ slug }: MdxContentProps) => {
-  try {
-    const MDXContent = dynamic(() => import(`@/content/posts/${slug}.mdx`));
-    return <MDXContent />;
-  } catch (error) {
-    console.error("Failed to load MDX content:", error);
-    return <p>Content not found.</p>;
-  }
+  const MDXContent = dynamic(() => import(`@/content/posts/${slug}.mdx`), {
+    loading: () => <p>Loading content...</p>,
+    ssr: false, // Optional: Disable server-side rendering if you want purely client-side loading.
+  });
+
+  return <MDXContent />;
 };
 
 export default MdxContent;

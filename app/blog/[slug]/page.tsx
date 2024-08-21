@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 import { format } from "date-fns";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
@@ -54,6 +54,12 @@ export async function generateStaticParams() {
   return params;
 }
 
+const Loading = () => (
+  <div className="flex justify-center items-center h-full">
+    <p>Loading...</p>
+  </div>
+);
+
 export default async function Blog({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
@@ -86,7 +92,6 @@ export default async function Blog({ params }: { params: { slug: string } }) {
           <MdxContent slug={slug} />
         </article>
       </div>
-
       <LikeButton postId={post.metadata.id} />
     </div>
   );
