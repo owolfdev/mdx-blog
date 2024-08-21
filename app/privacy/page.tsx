@@ -13,7 +13,7 @@ export default function About() {
     <div className="max-w-3xl z-10 w-full items-center justify-between">
       <div className="w-full flex justify-center items-center flex-col gap-6">
         <h1 className="text-4xl sm:text-5xl font-bold text-center pb-8">
-          Privacy
+          Privacy Policy
         </h1>
         <MdxContent slug="privacy" />
       </div>
