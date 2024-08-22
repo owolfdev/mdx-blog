@@ -31,7 +31,7 @@ const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
             <div className="flex flex-col gap-0">
               <h3 className="font-semibold text-2xl">{blog.title}</h3>
               <div className="flex justify-between items-center">
-                <p className="text-sm">{blog.formattedDate}</p>
+                <p className="">{blog.formattedDate}</p>
                 <p className="text-sm border-2 rounded-lg px-2 py-1 bg-muted m-2">
                   Likes: {blog.likes}
                 </p>

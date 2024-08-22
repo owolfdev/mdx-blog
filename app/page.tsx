@@ -119,7 +119,7 @@ export default async function Home() {
                 <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
                   <h3 className="font-semibold text-2xl">{post.title}</h3>
                   <div className="flex justify-between items-center">
-                    <p className="text-sm">{formatDate(post.publishDate)}</p>
+                    <p className="">{formatDate(post.publishDate)}</p>
                     <p className="text-sm border-2 rounded-lg px-2 py-1 bg-muted m-2">
                       Likes: {post.likes}
                     </p>
