@@ -14,7 +14,7 @@
       "mdx",
       "guide"
     ],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "adding-mdx-support-to-your-next.js-project",
@@ -73,25 +73,6 @@
     "likes": 3
   },
   {
-    "slug": "building-a-content-management-system-for-static-mdx-files",
-    "id": "4VUVUwCWAmE4RxANNBGEd4",
-    "type": "blog",
-    "title": "Building a Content Management System for Static MDX Files",
-    "author": "O Wolfson",
-    "publishDate": "2024-06-04",
-    "description": "In this article, we'll walk you through creating a content management system (CMS) for our MDXBlog, where blog posts are stored as local static files. We'll cover saving posts, generating a cache for efficient data retrieval, and handling form submissions for new blog entries.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "cache",
-      "mdx",
-      "blog",
-      "cms"
-    ],
-    "likes": 6
-  },
-  {
     "slug": "configuring-mdx-in-next.js",
     "id": "9k7D3H6jZ8DJE33u9fDRoD",
     "type": "blog",
@@ -129,7 +110,7 @@
       "static",
       "blog"
     ],
-    "likes": 0
+    "likes": 2
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -224,24 +205,6 @@
     "likes": 0
   },
   {
-    "slug": "implementing-a-like-button-in-an-mdx-app-with-next.js-and-vercel-postgresql",
-    "id": "kAWnT358vCDiVnmLkBt9Ds",
-    "type": "blog",
-    "title": "Implementing a Like Button in an MDX App with Next.js and Vercel PostgreSQL",
-    "author": "O Wolfson",
-    "publishDate": "2024-06-27",
-    "description": "Our goal is to support both authenticated and anonymous users by leveraging local storage and a PostgreSQL database hosted on Vercel. This ensures a seamless user experience while maintaining data persistence.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "likes",
-      "vercel",
-      "postgres"
-    ],
-    "likes": 16
-  },
-  {
     "slug": "import-components-to-mdx",
     "id": "b5scMmLfBehoq62DDMo4kq",
     "type": "blog",
@@ -294,25 +257,6 @@
     "likes": 1
   },
   {
-    "slug": "limitations-of-next-mdx-remote-and-an-alternative-approach",
-    "id": "dPDqxCSkAVKK2uoCawEW7A",
-    "type": "blog",
-    "title": "Limitations of next-mdx-remote and an Alternative Approach",
-    "author": "O Wolfson",
-    "publishDate": "2024-06-01",
-    "description": "While `next-mdx-remote` offers a robust solution for integrating MDX content in Next.js applications, it presents some limitations that can be crucial depending on the project's requirements.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "mdx",
-      "remote",
-      "blog",
-      "static"
-    ],
-    "likes": 6
-  },
-  {
     "slug": "mdx-and-content-management-with-headless-cms",
     "id": "whXehCU6vpB81A87APfnAi",
     "type": "blog",
@@ -345,7 +289,25 @@
       "problems",
       "best practices"
     ],
-    "likes": 0
+    "likes": 1
+  },
+  {
+    "slug": "mdx-like-button-nextjs-vercel-postgresql",
+    "id": "kAWnT358vCDiVnmLkBt9Ds",
+    "type": "blog",
+    "title": "Implementing a Like Button in an MDX App with Next.js and Vercel PostgreSQL",
+    "author": "O Wolfson",
+    "publishDate": "2024-06-27",
+    "description": "Our goal is to support both authenticated and anonymous users by leveraging local storage and a PostgreSQL database hosted on Vercel. This ensures a seamless user experience while maintaining data persistence.",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "likes",
+      "vercel",
+      "postgres"
+    ],
+    "likes": 16
   },
   {
     "slug": "mdx-performance-optimization",
@@ -381,7 +343,7 @@
       "mdx",
       "next"
     ],
-    "likes": 8
+    "likes": 9
   },
   {
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",
@@ -398,6 +360,45 @@
       "migration"
     ],
     "likes": 0
+  },
+  {
+    "slug": "next-mdx-remote-limitations",
+    "id": "dPDqxCSkAVKK2uoCawEW7A",
+    "type": "blog",
+    "title": "Limitations of next-mdx-remote and an Alternative Approach",
+    "author": "O Wolfson",
+    "publishDate": "2024-06-01",
+    "description": "While `next-mdx-remote` offers a robust solution for integrating MDX content in Next.js applications, it presents some limitations that can be crucial depending on the project's requirements.",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "remote",
+      "blog",
+      "static"
+    ],
+    "likes": 6
+  },
+  {
+    "slug": "nextjs-switch-api-to-server-actions",
+    "id": "9EjmCG3zi7bWGH2P9fChGB",
+    "type": "blog",
+    "title": "Why We Switched from API Routes to Server Actions in Our Latest Next.js Codebase",
+    "author": "O Wolfson",
+    "publishDate": "2024-08-17",
+    "description": "This article may help developers understand why making the switch to server actions can be a valuable move for their Next.js projects.",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "server actions",
+      "serverside",
+      "actions",
+      "api",
+      "routes"
+    ],
+    "likes": 1
   },
   {
     "slug": "optimizing-mdx-for-seo",
@@ -469,6 +470,25 @@
       "mac"
     ],
     "likes": 1
+  },
+  {
+    "slug": "static-mdx-cms",
+    "id": "4VUVUwCWAmE4RxANNBGEd4",
+    "type": "blog",
+    "title": "Building a Content Management System for Static MDX Files",
+    "author": "O Wolfson",
+    "publishDate": "2024-06-04",
+    "description": "In this article, we'll walk you through creating a content management system (CMS) for our MDXBlog, where blog posts are stored as local static files. We'll cover saving posts, generating a cache for efficient data retrieval, and handling form submissions for new blog entries.",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "cache",
+      "mdx",
+      "blog",
+      "cms"
+    ],
+    "likes": 7
   },
   {
     "slug": "styling-mdx-content",
@@ -560,7 +580,7 @@
       "blog",
       "app"
     ],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "using-and-styling-custom-components-in-mdx-content",
@@ -578,7 +598,7 @@
       "custom component",
       "style"
     ],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",
@@ -613,25 +633,5 @@
       "Next.js"
     ],
     "likes": 1
-  },
-  {
-    "slug": "why-we-switched-from-api-routes-to-server-actions-in-our-latest-nextjs-codebase",
-    "id": "9EjmCG3zi7bWGH2P9fChGB",
-    "type": "blog",
-    "title": "Why We Switched from API Routes to Server Actions in Our Latest Next.js Codebase",
-    "author": "O Wolfson",
-    "publishDate": "2024-08-17",
-    "description": "This article may help developers understand why making the switch to server actions can be a valuable move for their Next.js projects.",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "server actions",
-      "serverside",
-      "actions",
-      "api",
-      "routes"
-    ],
-    "likes": 0
   }
 ]

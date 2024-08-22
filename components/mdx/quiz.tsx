@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 // import Confetti from "react-confetti";
 import { Button } from "@/components/ui/button";
@@ -63,6 +64,7 @@ const Quiz: React.FC<QuizProps> = ({ question, options, correctAnswer }) => {
         <div className="flex flex-col gap-2 items-start mb-6 text-gray-800">
           {options.map((option) => (
             <button
+              type="button"
               className={`py-1 px-3 ${
                 userAnswer === option ? "font-bold" : ""
               }`}
