@@ -1,6 +1,5 @@
 import Link from "next/link";
 import LoaderLink from "@/components/nav/custom-link";
-// import { BlogPost } from "@/interfaces.ts"; // Assuming interfaces.ts exists
 
 interface BlogPost {
   slug: string;
@@ -11,7 +10,8 @@ interface BlogPost {
   image: string;
   author: string;
   tags: string[];
-  formattedDate?: string; // Optional, as it will be added later
+  formattedDate?: string;
+  likes: number;
 }
 
 interface BlogPostListProps {
@@ -25,17 +25,20 @@ const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
       {blogs.map((blog) => (
         <li
           key={blog.slug}
-          className="border px-3 py-2 rounded-xl cursor-pointer hover:shadow-md transition-shadow"
+          className="border rounded-lg p-4 hover:shadow-md transition-shadow"
         >
           <Link href={`/blog/${blog.slug}`}>
-            <div className="flex flex-col gap-3 ">
-              <div>
-                <h3 className="text-2xl font-bold">{blog.title}</h3>
-                <div className="text-sm">{blog.formattedDate}</div>
+            <div className="flex flex-col gap-0">
+              <h3 className="font-semibold text-2xl">{blog.title}</h3>
+              <div className="flex justify-between items-center">
+                <p className="text-sm">{blog.formattedDate}</p>
+                <p className="text-sm border-2 rounded-lg px-2 py-1 bg-muted m-2">
+                  Likes: {blog.likes}
+                </p>
               </div>
-              <div title={blog.description} className="text-muted-foreground">
+              <p className="text-muted-foreground">
                 {trimDescription(blog.description)}
-              </div>
+              </p>
             </div>
           </Link>
         </li>

@@ -8,12 +8,13 @@ import BlogPostList from "./blog-post-list";
 interface BlogPost {
   slug: string;
   type: string;
-  publishDate: string; // Update this to publishDate if that's the correct field
+  publishDate: string; // Ensure this is the correct field
   title: string;
   description: string;
   image: string;
   author: string;
   tags: string[];
+  likes: number; // Add likes to the BlogPost interface
   formattedDate?: string; // Optional, as it will be added later
 }
 
@@ -43,6 +44,7 @@ const Blog = async ({
   const searchTerm = searchParams.search || "";
   const sort = searchParams.sort || "date_desc"; // Ensure this defaults to date sorting
 
+  // Fetch posts with the specified parameters
   const { posts: blogs, totalPosts } = getPosts(
     "blog",
     postsPerPage,
@@ -51,6 +53,7 @@ const Blog = async ({
     sort as string
   );
 
+  // Format the publishDate for each blog post
   const formattedBlogs = blogs.map((blog: BlogPost) => ({
     ...blog,
     formattedDate: formatDate(blog.publishDate),
@@ -64,6 +67,7 @@ const Blog = async ({
 
   const isDateDesc = sort === "date_desc";
 
+  // Utility function to trim the description to a word limit
   function trimDescription(description: string) {
     const wordLimit = 20;
     const words = description.split(" ");

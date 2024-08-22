@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -21,16 +21,13 @@ function SortPosts({
   limit: number;
   searchTerm: string;
 }) {
-  // State to track sort order
   const [sortOrder, setSortOrder] = useState(sort.split("_")[1]);
-  const [sortBy, setSortBy] = useState(sort.split("_")[0]); // date | title
-  // date | title
+  const [sortBy, setSortBy] = useState(sort.split("_")[0]);
   const [hasMounted, setHasMounted] = useState(false);
 
   const router = useRouter();
 
   const changeSort = () => {
-    // console.log("changeSort");
     const theSort = `${sortBy}_${sortOrder}`;
     const isDateDesc = theSort === "date_desc";
     router.push(
@@ -59,12 +56,10 @@ function SortPosts({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort]);
 
-  // Handler to change sort
   const handleChangeSort = (newSort: string) => {
     setSortBy(newSort);
   };
 
-  // Handler to toggle sort order
   const toggleSortOrder = () => {
     setSortOrder((prevSortOrder) => (prevSortOrder === "asc" ? "desc" : "asc"));
   };
@@ -94,6 +89,9 @@ function SortPosts({
             </SelectItem>
             <SelectItem value="title">
               <span className="sm:text-sm text-lg">Title</span>
+            </SelectItem>
+            <SelectItem value="likes">
+              <span className="sm:text-sm text-lg">Likes</span>
             </SelectItem>
           </SelectContent>
         </Select>
