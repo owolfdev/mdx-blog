@@ -40,19 +40,23 @@ function SortPosts({
     );
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (hasMounted) {
       changeSort();
     } else {
       setHasMounted(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortBy, sortOrder]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (sort !== `${sortBy}_${sortOrder}`) {
       setSortBy(sort.split("_")[0]);
       setSortOrder(sort.split("_")[1]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort]);
 
   // Handler to change sort
