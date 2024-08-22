@@ -10,7 +10,7 @@ export const metadata = {
   tags: ["mdx", "guide"],
 };
 
-import { Button } from "@/components/ui/button";
+import Button from "@/components/mdx/custom-button";
 
 Welcome to the transformative world of MDX, a hybrid of Markdown and JSX, poised to change how we interact with content on the web. This conceptual overview aims to shed light on MDX's nature and its application in creating interactive blog posts.
 
@@ -60,13 +60,18 @@ Welcome to my first MDX post.
   Creating interactive elements such as a custom button in MDX involves defining the component, possibly in a separate file, and then embedding it within the MDX content.
 
 ```javascript
-const Button = ({ children }: { children: any }) => (
-  <button className="bg-blue-700 rounded-lg text-white px-4 py-2 font-semibold hover:bg-blue-600">
-    {children}
-  </button>
-);
+import React from "react";
+import { Button } from "@/components/ui/button";
 
-export default Button;
+function CustomButton({ children }: { children: string }) {
+  return (
+    <Button className="bg-blue-700 rounded-lg text-white text-lg px-4 py-2 font-semibold hover:bg-blue-600 active:scale-110">
+      {children}
+    </Button>
+  );
+}
+
+export default CustomButton;
 ```
 
 This code represents a JSX component that can be dynamically integrated into MDX content. MDX shines when incorporating elements like buttons, live code editors or interactive quizzes directly into blog posts.
