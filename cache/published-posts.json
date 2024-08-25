@@ -172,7 +172,7 @@
     "tags": [
       "blogging"
     ],
-    "modifiedDate": "2024-08-25T06:11:26.010Z",
+    "modifiedDate": "2024-08-25T21:48:29.798Z",
     "image": "https://www.catschool.co/wp-content/uploads/2023/06/orange-tabby-kitten.png",
     "draft": false,
     "relatedPosts": [
@@ -662,50 +662,6 @@
     "draft": false,
     "relatedPosts": [],
     "likes": 2
-  },
-  {
-    "slug": "test-1",
-    "id": "vv7FT3CtfReskiszD8RS9P",
-    "type": "blog",
-    "title": "Test",
-    "author": "O Wolfson",
-    "publishDate": "2024-08-26",
-    "description": "test test test test test test ",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "test"
-    ],
-    "modifiedDate": "2024-08-25T21:07:43.389Z",
-    "image": null,
-    "draft": false,
-    "relatedPosts": [
-      ""
-    ],
-    "likes": 0
-  },
-  {
-    "slug": "test",
-    "id": "41jhJxc9ATgDSAod5m99jH",
-    "type": "blog",
-    "title": "Test",
-    "author": "O Wolfson",
-    "publishDate": "2024-08-26",
-    "description": "test test test test test test ",
-    "category": [
-      "Web Development"
-    ],
-    "tags": [
-      "test"
-    ],
-    "modifiedDate": "2024-08-25T21:07:14.458Z",
-    "image": null,
-    "draft": false,
-    "relatedPosts": [
-      ""
-    ],
-    "likes": 0
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",

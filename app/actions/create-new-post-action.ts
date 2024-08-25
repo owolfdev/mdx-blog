@@ -6,6 +6,31 @@ import { exec } from "node:child_process";
 import shortUUID from "short-uuid";
 import { generatePostsCache } from "@/lib/cache/generate-posts-cache.mjs";
 
+const POLLING_INTERVAL = 100; // Check every 100ms
+const MAX_POLLING_TIME = 5000; // Timeout after 5 seconds
+
+function waitForFile(
+  filePath: fs.PathLike,
+  interval = POLLING_INTERVAL,
+  maxTime = MAX_POLLING_TIME
+) {
+  return new Promise((resolve, reject) => {
+    const startTime = Date.now();
+
+    function checkFile() {
+      if (fs.existsSync(filePath)) {
+        resolve(true);
+      } else if (Date.now() - startTime > maxTime) {
+        reject(new Error("File was not saved in time."));
+      } else {
+        setTimeout(checkFile, interval);
+      }
+    }
+
+    checkFile();
+  });
+}
+
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export async function createNewPostAction(data: any) {
   return new Promise<string>((resolve, reject) => {
@@ -32,8 +57,10 @@ export async function createNewPostAction(data: any) {
 
     // Check if the file already exists and create a unique filename
     let counter = 1;
+    let finalSlug = slug; // To keep track of the final slug for redirection
     while (fs.existsSync(filePath)) {
-      filename = `${slug}-${counter}.mdx`;
+      finalSlug = `${slug}-${counter}`;
+      filename = `${finalSlug}.mdx`;
       filePath = path.join(projectRoot, "content/posts", filename); // Update filePath
       counter++;
     }
@@ -84,7 +111,7 @@ export async function createNewPostAction(data: any) {
     ].join("\n");
 
     // Write the file
-    fs.writeFile(filePath, fileContent, (err) => {
+    fs.writeFile(filePath, fileContent, async (err) => {
       if (err) {
         console.error("Error writing file:", err);
         reject(err);
@@ -94,17 +121,25 @@ export async function createNewPostAction(data: any) {
         // Regenerate posts cache
         generatePostsCache();
 
-        // Open the file in VS Code
-        exec(`code "${filePath}"`, (error, stdout, stderr) => {
-          if (error) {
-            console.error(`exec error: ${error}`);
-            return;
-          }
-          console.log(`stdout: ${stdout}`);
-          console.error(`stderr: ${stderr}`);
-        });
+        try {
+          // Wait for the file to be fully accessible
+          await waitForFile(filePath);
 
-        resolve(slug); // Return the slug for redirection
+          // Open the file in VS Code
+          exec(`code "${filePath}"`, (error, stdout, stderr) => {
+            if (error) {
+              console.error(`exec error: ${error}`);
+              return;
+            }
+            console.log(`stdout: ${stdout}`);
+            console.error(`stderr: ${stderr}`);
+          });
+
+          resolve(finalSlug); // Return the finalSlug for redirection
+        } catch (waitError) {
+          console.error("Error waiting for file:", waitError);
+          reject(waitError);
+        }
       }
     });
   });
