@@ -29,7 +29,7 @@ const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
         >
           <Link href={`/blog/${blog.slug}`}>
             <div className="flex flex-col gap-0">
-              <h3 className="font-semibold text-2xl">{blog.title}</h3>
+              <h3 className="font-bold text-2xl">{blog.title}</h3>
               <div className="flex justify-between items-center">
                 <p className="">{blog.formattedDate}</p>
                 <p className="text-sm border-2 rounded-lg px-2 py-1 bg-muted m-2">
