@@ -22,6 +22,7 @@ function SelectLimitPosts({
   const searchParams = useSearchParams();
   let limit = searchParams.get("limit");
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (limit === null) {
       if (postsPerPage !== 10) {
@@ -32,12 +33,13 @@ function SelectLimitPosts({
     }
     // console.log("searchParams", searchParams);
     // console.log("limit", limit);
-    const limitFromUrl = parseInt(limit as string);
-    if (!isNaN(limitFromUrl) && limitFromUrl !== localPostsPerPage) {
+    const limitFromUrl = Number.parseInt(limit as string);
+    if (!Number.isNaN(limitFromUrl) && limitFromUrl !== localPostsPerPage) {
       setLocalPostsPerPage(limitFromUrl);
     }
   }, [searchParams, postsPerPage]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     // console.log("numBlogs", numBlogs, "sort", sort);
     if (numBlogs && numBlogs === 0) {

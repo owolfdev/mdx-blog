@@ -31,6 +31,7 @@ const SearchPosts = ({
     if (inputRef.current && search) {
       inputRef.current.focus();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -66,6 +67,7 @@ const SearchPosts = ({
         );
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [limit, currentPage, sort, router]
   );
 
