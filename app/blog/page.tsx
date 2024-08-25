@@ -4,6 +4,13 @@ import SearchPosts from "./search-posts";
 import SortPosts from "./sort-posts";
 import { getPosts } from "@/lib/posts/get-posts.mjs";
 import BlogPostList from "./blog-post-list";
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "MDXBlog | Blog",
+  };
+}
 
 interface BlogPost {
   slug: string;

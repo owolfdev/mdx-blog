@@ -39,7 +39,9 @@ function trimDescription(description: string) {
 // Define the metadata generation function
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Next Template",
+    title: "MDXBlog",
+    description:
+      "A simple static blog template built with Next.js and MDX. Easily create and deploy a blog with MDXBlog.",
   };
 }
 
