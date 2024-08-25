@@ -15,6 +15,9 @@ async function EditBlog({ params }: { params: { slug: string } }) {
         <h1 className="text-4xl sm:text-5xl font-bold text-center">
           Edit Post
         </h1>
+        <p className="w-full text-center text-3xl font-bold">
+          {postData.metadata.title}
+        </p>
         <EditPostForm postData={postData} />
       </div>
     </div>

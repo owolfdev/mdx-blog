@@ -7,18 +7,45 @@ import { generatePostsCache } from "@/lib/cache/generate-posts-cache.mjs";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export async function editPostAction(data: any, openInVSCode = false) {
-  const { date, title, categories, tags, filename, slug, ...rest } = data;
-  const projectRoot = process.cwd();
-  const targetFile = filename || `${slug}.mdx`; // Use filename or slug to determine the target file
-  const filePath = path.join(projectRoot, "content/posts", targetFile);
+  const {
+    slug,
+    date,
+    title,
+    categories,
+    tags,
+    originalFilename,
+    filename,
+    image,
+    draft,
+    relatedPosts,
+    ...rest
+  } = data;
 
-  if (!fs.existsSync(filePath)) {
-    console.error("File does not exist:", filePath);
-    throw new Error(`File does not exist: ${filePath}`);
+  const projectRoot = process.cwd();
+  const originalFilePath = path.join(
+    projectRoot,
+    "content/posts",
+    originalFilename
+  );
+  const newFilePath = path.join(projectRoot, "content/posts", filename);
+
+  if (!fs.existsSync(originalFilePath)) {
+    console.error("Original file does not exist:", originalFilePath);
+    throw new Error(`Original file does not exist: ${originalFilePath}`);
+  }
+
+  // Check if the new filename already exists and is not the same as the original file
+  if (originalFilename !== filename && fs.existsSync(newFilePath)) {
+    return {
+      ok: false,
+      status: 409, // Conflict status code
+      error:
+        "A post with this slug already exists. Please choose a different slug.",
+    };
   }
 
   // Read the existing file content
-  const existingContent = fs.readFileSync(filePath, "utf8");
+  const existingContent = fs.readFileSync(originalFilePath, "utf8");
 
   // Extract existing content (excluding metadata)
   const contentMatch = existingContent.match(
@@ -34,16 +61,23 @@ export async function editPostAction(data: any, openInVSCode = false) {
   const formattedTags = tags
     .split(", ")
     .map((tag: string) => `"${tag.trim()}"`)
-    .join(", ");
+    .join(", ")
+    .replace(/,\s*$/, ""); // Remove trailing comma
 
   // Format categories for metadata
   const formattedCategories = categories
     .map((category: string) => `"${category}"`)
+    .join(", ")
+    .replace(/,\s*$/, ""); // Remove trailing comma
+
+  // Format relatedPosts as an array of strings
+  const formattedRelatedPosts = relatedPosts
+    .split(", ")
+    .map((post: string) => `"${post.trim()}"`)
     .join(", ");
 
   // Construct the new file content
-  // biome-ignore lint/style/useConst: <explanation>
-  let newFileContent = [
+  const newFileContent = [
     "export const metadata = {",
     `  id: "${existingId || data.id}",`, // Preserve existing ID or use the provided ID
     `  type: "blog",`,
@@ -52,23 +86,33 @@ export async function editPostAction(data: any, openInVSCode = false) {
     `  publishDate: "${date}",`,
     `  description: "${data.description}",`,
     `  category: [${formattedCategories}],`,
-    `  tags: [${formattedTags}]`,
+    `  tags: [${formattedTags}],`,
+    `  modifiedDate: "${new Date().toISOString()}",`, // Update the modifiedDate
+    `  image: ${image ? `"${image}"` : "null"},`,
+    `  draft: ${draft},`,
+    `  relatedPosts: [${formattedRelatedPosts}]`,
     "};",
     "",
-    `${data.content || existingContentBody}`,
+    data.content || existingContentBody,
   ].join("\n");
 
-  // Write the updated file content
+  // Write the updated file content to the new file path
   try {
-    fs.writeFileSync(filePath, newFileContent);
-    console.log("File saved to", filePath);
+    fs.writeFileSync(newFilePath, newFileContent);
+    console.log("File saved to", newFilePath);
+
+    // If the slug has changed, delete the original file
+    if (originalFilename !== filename) {
+      fs.unlinkSync(originalFilePath);
+      console.log("Original file deleted:", originalFilePath);
+    }
 
     // Regenerate posts cache
     await generatePostsCache();
 
     // Conditionally open the file in VS Code
     if (openInVSCode) {
-      exec(`code "${filePath}"`, (error, stdout, stderr) => {
+      exec(`code "${newFilePath}"`, (error, stdout, stderr) => {
         if (error) {
           console.error(`exec error: ${error}`);
           return;

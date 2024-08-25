@@ -9,28 +9,31 @@ import { generatePostsCache } from "@/lib/cache/generate-posts-cache.mjs";
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export async function createNewPostAction(data: any) {
   return new Promise<string>((resolve, reject) => {
-    const { date, title, categories, tags, ...rest } = data;
+    const {
+      date,
+      title,
+      categories,
+      tags,
+      image,
+      draft,
+      relatedPosts,
+      ...rest
+    } = data;
     const projectRoot = process.cwd();
 
-    // Sanitize the title to remove special characters and replace spaces with hyphens
-    let filename = `${title
+    // Generate a slug by sanitizing the title
+    const slug = title
       .toLowerCase()
       .replace(/[^a-z0-9\s-]/g, "")
-      .replace(/\s+/g, "-")}.mdx`;
-    const slug = `${title
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, "")
-      .replace(/\s+/g, "-")}`;
+      .replace(/\s+/g, "-");
 
+    let filename = `${slug}.mdx`;
     let filePath = path.join(projectRoot, "content/posts", filename);
 
     // Check if the file already exists and create a unique filename
     let counter = 1;
     while (fs.existsSync(filePath)) {
-      filename = `${title
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, "")
-        .replace(/\s+/g, "-")}-${counter}.mdx`;
+      filename = `${slug}-${counter}.mdx`;
       filePath = path.join(projectRoot, "content/posts", filename); // Update filePath
       counter++;
     }
@@ -47,23 +50,34 @@ export async function createNewPostAction(data: any) {
     const formattedTags = tags
       .split(", ")
       .map((tag: string) => `"${tag.trim()}"`)
-      .join(", ");
+      .join(", ")
+      .replace(/,\s*$/, ""); // Remove trailing comma
 
     const formattedCategories = categories
       .map((category: string) => `"${category}"`)
+      .join(", ")
+      .replace(/,\s*$/, ""); // Remove trailing comma
+
+    // Format relatedPosts as an array of strings
+    const formattedRelatedPosts = relatedPosts
+      .map((post: string) => `"${post.trim()}"`)
       .join(", ");
 
     // Construct the file content
     const fileContent = [
       "export const metadata = {",
-      `  id: "${id}",`, // Added id field
+      `  id: "${id}",`,
       `  type: "blog",`,
       `  title: "${title}",`,
       `  author: "${data.author}",`,
       `  publishDate: "${formattedDate}",`,
       `  description: "${data.description}",`,
       `  category: [${formattedCategories}],`,
-      `  tags: [${formattedTags}]`,
+      `  tags: [${formattedTags}],`,
+      `  modifiedDate: "${new Date().toISOString()}",`, // Automatically set modifiedDate to current date
+      `  image: ${image ? `"${image}"` : "null"},`,
+      `  draft: ${draft},`,
+      `  relatedPosts: [${formattedRelatedPosts}]`,
       "};",
       "",
       `${data.content}`,
@@ -90,7 +104,7 @@ export async function createNewPostAction(data: any) {
           console.error(`stderr: ${stderr}`);
         });
 
-        resolve(slug);
+        resolve(slug); // Return the slug for redirection
       }
     });
   });

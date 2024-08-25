@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import postsData from "@/cache/posts.json"; // Import the JSON data directly
+import postsData from "@/cache/all-posts.json"; // Import the JSON data directly
 
 import {
   CaretSortIcon,
@@ -63,6 +63,7 @@ export type Post = {
   description: string;
   tags: string[];
   likes: number;
+  draft?: boolean; // Add the draft field here
 };
 
 export const columns: ColumnDef<Post>[] = [
@@ -164,7 +165,9 @@ export const columns: ColumnDef<Post>[] = [
       const currentDate = new Date();
       currentDate.setHours(0, 0, 0, 0);
       const postDate = new Date(row.getValue("publishDate"));
-      const status = postDate <= currentDate ? "published" : "unpublished";
+      const isDraft = row.original.draft; // Check if the post is a draft
+      const status =
+        postDate > currentDate || isDraft ? "unpublished" : "published";
       return <div className="capitalize">{status}</div>;
     },
     enableSorting: true,

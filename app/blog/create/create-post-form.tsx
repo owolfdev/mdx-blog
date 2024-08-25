@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DatePickerField from "@/components/date-picker";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -19,16 +19,17 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
   FormMessage,
+  FormField,
 } from "@/components/ui/form";
 import { MultiSelect } from "@/components/rs-multi-select";
 import { useRouter } from "next/navigation";
 import { createNewPostAction } from "@/app/actions/create-new-post-action";
+import { Checkbox } from "@/components/ui/checkbox"; // Import the Checkbox component
 
+// Form schema validation using Zod
 const formSchema = z.object({
   date: z.date(),
   type: z.string().optional(),
@@ -53,10 +54,17 @@ const formSchema = z.object({
   }),
   categories: z.array(z.string()).nonempty(),
   tags: z.string().optional(),
+  image: z
+    .string()
+    .url({ message: "Invalid URL format." })
+    .nullable()
+    .optional()
+    .or(z.literal("")), // Allow empty string
+  relatedPosts: z.string().optional(),
+  draft: z.boolean().optional(), // Add draft to the form schema
 });
 
 export function CreatePostForm() {
-  const [selectedValue, setSelectedValue] = useState("blog");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,6 +75,9 @@ export function CreatePostForm() {
       content: "",
       categories: ["Web Development"],
       tags: "",
+      image: "",
+      relatedPosts: "",
+      draft: false, // Default to false
     },
   });
 
@@ -78,6 +89,9 @@ export function CreatePostForm() {
       ...values,
       author: authorName,
       id: uuidv4(),
+      modifiedDate: new Date().toISOString(), // Current date as modifiedDate
+      relatedPosts:
+        values.relatedPosts?.split(",").map((post) => post.trim()) ?? [], // Convert to array of strings
     };
 
     try {
@@ -94,6 +108,7 @@ export function CreatePostForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        {/* Existing form fields */}
         <FormField
           control={form.control}
           name="type"
@@ -175,7 +190,7 @@ export function CreatePostForm() {
           name="categories"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>categories</FormLabel>
+              <FormLabel>Categories</FormLabel>
               <FormControl>
                 <MultiSelect
                   selectedCategories={field.value}
@@ -196,6 +211,62 @@ export function CreatePostForm() {
                 <Input placeholder="Enter tags (comma separated)" {...field} />
               </FormControl>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+        {/* New Image URL field */}
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Image URL</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Enter image URL"
+                  {...field}
+                  value={field.value || ""}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {/* New Related Posts field */}
+        <FormField
+          control={form.control}
+          name="relatedPosts"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Related Posts</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Enter related post slugs (comma separated)"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {/* New Draft Checkbox field */}
+        <FormField
+          control={form.control}
+          name="draft"
+          render={({ field }) => (
+            <FormItem className="flex items-center">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormLabel className="pl-2 pb-1">
+                Save as Draft{" "}
+                <span className="text-muted-foreground">
+                  (draft will not be published)
+                </span>
+              </FormLabel>
             </FormItem>
           )}
         />

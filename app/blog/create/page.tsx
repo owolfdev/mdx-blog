@@ -2,7 +2,7 @@ import { CreatePostForm } from "./create-post-form";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 
-export default function Admin() {
+export default function CreatePost() {
   return (
     <div className="w-full max-w-xl">
       <div className="flex flex-col gap-10">
