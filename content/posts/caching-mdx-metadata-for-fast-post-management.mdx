@@ -8,7 +8,7 @@ export const metadata = {
     "By extracting metadata from your MDX files and storing it in a cache, you can dramatically speed up operations like listing, pagination, and searching.",
   category: ["Web Development"],
   tags: ["mdx", "caching"],
-  modifiedDate: "2024-08-25T10:56:41.121Z",
+  modifiedDate: "2024-08-25T22:07:01.648Z",
   image: null,
   draft: false,
   relatedPosts: [""],
@@ -34,7 +34,7 @@ Welcome to the transformative world of MDX, a hybrid of Markdown and JSX, poised
 
 The `metadata` object at the beginning of the file contains key information about the post that we want to cache for quick access.
 
-#### **2. Simplified `generatePostCache` Function**
+#### **2. A `generatePostCache` Function**
 
 To efficiently manage these posts, we can extract the metadata from each MDX file and store it in a single JSON file. Here’s a simplified version of the function that handles this:
 
@@ -86,7 +86,7 @@ After running the `generatePostCache` function, your `posts.json` file might loo
 ```json
 [
   {
-    "id": "iHoHBBR4CMRSjCnfYTFVgw",
+    "id": "somePostId",
     "title": "Test Title",
     "author": "O Wolfson",
     "publishDate": "2024-01-01",

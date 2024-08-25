@@ -103,7 +103,7 @@
       "mdx",
       "caching"
     ],
-    "modifiedDate": "2024-08-25T10:56:41.121Z",
+    "modifiedDate": "2024-08-25T22:07:01.648Z",
     "image": null,
     "draft": false,
     "relatedPosts": [
@@ -336,6 +336,31 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
+    "likes": 0
+  },
+  {
+    "slug": "keyboard-driven-content-creation-with-vim",
+    "id": "4m4LRc4WAniqvzt5ESeyGw",
+    "type": "blog",
+    "title": "Keyboard-Driven Content Creation: Markdown and MDX with Vim Motions",
+    "author": "O Wolfson",
+    "publishDate": "2024-09-02",
+    "description": "Markdown and MDX, paired with Vim motions, offer a streamlined, efficient workflow for content creation that prioritizes keyboard use over mouse interactions.",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "vim",
+      "vscode",
+      "motions",
+      "mdx"
+    ],
+    "modifiedDate": "2024-08-25T22:17:49.894Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [
+      ""
+    ],
     "likes": 0
   },
   {
