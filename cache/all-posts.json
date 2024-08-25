@@ -159,6 +159,29 @@
     "likes": 12
   },
   {
+    "slug": "frictionless-content-creation-with-mdxblog",
+    "id": "uAhrNNAHqUtuf5ScbeqkJs",
+    "type": "blog",
+    "title": "Frictionless Content Creation with MDXBlog",
+    "author": "O Wolfson",
+    "publishDate": "2024-08-25",
+    "description": "Our mission is to take the friction out of content creation. We wanted a blogging platform that was easy to use, without a lot of complications, that makes content creation a pleasure, so we built one.",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "blogging"
+    ],
+    "modifiedDate": "2024-08-25T06:11:26.010Z",
+    "image": "https://www.catschool.co/wp-content/uploads/2023/06/orange-tabby-kitten.png",
+    "draft": false,
+    "relatedPosts": [
+      "updates-to-mdx-blog-enhanced-and-streamlined",
+      "mdx-like-button-nextjs-vercel-postgresql"
+    ],
+    "likes": 0
+  },
+  {
     "slug": "future-of-mdx-trends-and-upcoming-features",
     "id": "6f2PtPoT5PQzet61FyssNS",
     "type": "blog",
