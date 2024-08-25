@@ -24,7 +24,7 @@
     "slug": "adding-mdx-support-to-your-next.js-project",
     "id": "iHp5XPN1jLsDeqs9oe1zmh",
     "type": "blog",
-    "title": "Adding MDX Support to Your Next.js Project and the next.config.mjs File",
+    "title": "Adding MDX Support to Your Next.js Project and the next config File",
     "author": "O Wolfson",
     "publishDate": "2024-05-18",
     "description": "If you're looking to integrate Markdown with JSX (MDX) into your Next.js project, you're in the right place. ",
@@ -87,6 +87,29 @@
     "draft": false,
     "relatedPosts": [],
     "likes": 3
+  },
+  {
+    "slug": "caching-mdx-metadata-for-fast-post-management",
+    "id": "awcSdUnPsCr9B7zk5vzrLV",
+    "type": "blog",
+    "title": "Caching MDX Metadata for Fast Post Management",
+    "author": "O Wolfson",
+    "publishDate": "2024-08-25",
+    "description": "By extracting metadata from your MDX files and storing it in a cache, you can dramatically speed up operations like listing, pagination, and searching.",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "caching"
+    ],
+    "modifiedDate": "2024-08-25T10:56:41.121Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [
+      ""
+    ],
+    "likes": 0
   },
   {
     "slug": "configuring-mdx-in-next.js",
@@ -165,7 +188,7 @@
     "title": "Frictionless Content Creation with MDXBlog",
     "author": "O Wolfson",
     "publishDate": "2024-08-25",
-    "description": "Our mission is to take the friction out of content creation. We wanted a blogging platform that was easy to use, without a lot of complications, that makes content creation a pleasure, so we built one.",
+    "description": "Our mission is to take the friction out of content creation. We wanted a blogging platform that was easy to use, developer friendly - and that makes content creation a pleasure... so we built one with Next.js and MDX.",
     "category": [
       "Web Development"
     ],
@@ -319,7 +342,7 @@
     "slug": "leveraging-mdx-for-documentation-websites",
     "id": "v63T4PSEiUU2MwCwrPBbFY",
     "type": "blog",
-    "title": "Leveraging MDX for Documentation Websites",
+    "title": "Leveraging MDX for Docs Websites",
     "author": "O Wolfson",
     "publishDate": "2024-03-01",
     "description": "This article explores how MDX can be effectively utilized to build documentation websites, focusing on features like table of contents, code highlighting, and more.",
@@ -448,7 +471,7 @@
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",
     "id": "taruaSGAB98tm6jbaY11bZ",
     "type": "blog",
-    "title": "Migrating from Markdown to MDX: A Step-by-Step Guide",
+    "title": "Migrating from Markdown to MDX: A Step by Step Guide",
     "author": "O Wolfson",
     "publishDate": "2024-01-30",
     "description": "This guide will walk you through the process of migrating your existing Markdown blog to MDX, showcasing the benefits and steps involved.",
@@ -468,7 +491,7 @@
     "slug": "next-mdx-remote-limitations",
     "id": "dPDqxCSkAVKK2uoCawEW7A",
     "type": "blog",
-    "title": "Limitations of next-mdx-remote and an Alternative Approach",
+    "title": "Limitations of next mdx remote and an Alternative Approach",
     "author": "O Wolfson",
     "publishDate": "2024-06-01",
     "description": "While `next-mdx-remote` offers a robust solution for integrating MDX content in Next.js applications, it presents some limitations that can be crucial depending on the project's requirements.",

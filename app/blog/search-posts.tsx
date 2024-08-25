@@ -3,7 +3,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useState, useCallback, useEffect, useRef, use } from "react";
-import React from "react";
+import type React from "react";
 import debounce from "lodash/debounce";
 
 const SearchPosts = ({
@@ -25,6 +25,7 @@ const SearchPosts = ({
 
   let search = searchParams.get("search");
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     // Focus the input whenever inputValue changes
     if (inputRef.current && search) {
@@ -32,6 +33,7 @@ const SearchPosts = ({
     }
   }, [inputValue]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (search === null) {
       search = "";
@@ -42,10 +44,12 @@ const SearchPosts = ({
     }
   }, [searchParams]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     // console.log("sort", sort);
   }, [sort]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const searchForTerm = useCallback(
     (searchTerm: string) => {
       if (numBlogs === 0) {
@@ -65,6 +69,7 @@ const SearchPosts = ({
     [limit, currentPage, sort, router]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const updateSearch = useCallback(
     debounce((searchTerm: string) => {
       searchForTerm(searchTerm);
@@ -72,6 +77,7 @@ const SearchPosts = ({
     [searchForTerm] // dependencies of the debounced function
   );
 
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const handleChange = (event: any) => {
     const searchTerm = event.target.value;
     setInputValue(searchTerm);
