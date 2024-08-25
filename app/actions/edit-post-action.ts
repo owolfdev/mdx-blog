@@ -126,6 +126,7 @@ export async function editPostAction(data: any, openInVSCode = false) {
       ok: true,
       status: 200,
       data: "File saved successfully",
+      newSlug: filename.replace(".mdx", ""), // Assuming the slug is derived from the filename without the extension
     };
   } catch (err) {
     console.error("Error writing file:", err);

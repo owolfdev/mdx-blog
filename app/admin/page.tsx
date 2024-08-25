@@ -2,10 +2,8 @@ import { DataTable } from "./data-table";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
 import CachePostsButton from "@/components/admin/cache-posts-button";
 import OpenCategoriesInVSCode from "./open-categories-in-vs-code";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
-export default function Settings() {
+export default function Administration() {
   if (!isDevMode()) {
     return (
       <div className="w-full px-6">

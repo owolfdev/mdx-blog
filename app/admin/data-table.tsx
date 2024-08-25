@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
 import postsData from "@/cache/all-posts.json"; // Import the JSON data directly
-
 import {
   CaretSortIcon,
   ChevronDownIcon,
@@ -18,18 +17,15 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-  type FilterFn, // <-- Import the FilterFn type
+  type FilterFn,
 } from "@tanstack/react-table";
-
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -50,7 +46,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import Link from "next/link";
 
 export type Post = {
@@ -63,7 +58,7 @@ export type Post = {
   description: string;
   tags: string[];
   likes: number;
-  draft?: boolean; // Add the draft field here
+  draft?: boolean;
 };
 
 export const columns: ColumnDef<Post>[] = [
@@ -165,7 +160,7 @@ export const columns: ColumnDef<Post>[] = [
       const currentDate = new Date();
       currentDate.setHours(0, 0, 0, 0);
       const postDate = new Date(row.getValue("publishDate"));
-      const isDraft = row.original.draft; // Check if the post is a draft
+      const isDraft = row.original.draft;
       const status =
         postDate > currentDate || isDraft ? "unpublished" : "published";
       return <div className="capitalize">{status}</div>;

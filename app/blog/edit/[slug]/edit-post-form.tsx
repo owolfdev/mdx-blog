@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import fs from "node:fs";
-import path from "node:path";
+// import fs from "node:fs";
+// import path from "node:path";
 import { parseISO, format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -125,7 +125,15 @@ export function EditPostForm({ postData }: { postData: any }) {
     try {
       const result = await editPostAction(submissionData, false);
 
-      if (!result.ok) {
+      if (result.ok) {
+        // Use the new slug from the result to redirect
+        console.log("Redirecting to:", `/blog/${result.newSlug}`);
+        // alert(`Redirecting to: /blog/${result.newSlug}`);
+
+        window.location.href = `/blog/${result.newSlug}`;
+        // router.push(`/blog/${result.newSlug}`);
+        // router.refresh();
+      } else {
         if (result.status === 409) {
           form.setError("slug", {
             type: "manual",
@@ -137,10 +145,6 @@ export function EditPostForm({ postData }: { postData: any }) {
         } else {
           throw new Error("Failed to save post");
         }
-      } else {
-        // Navigate to the edited blog post
-        router.push(`/blog/${values.slug}`);
-        router.refresh();
       }
     } catch (error) {
       console.error("Error:", error);
