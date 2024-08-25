@@ -60,7 +60,7 @@ const SearchPosts = ({
         );
       } else {
         router.push(
-          `/blog?limit=${limit}&page=${currentPage}${
+          `/blog?limit=${limit}&page=${1}${
             searchTerm ? `&search=${searchTerm}` : ""
           }${sort !== "date_desc" ? `&sort=${sort}` : ""}`
         );
