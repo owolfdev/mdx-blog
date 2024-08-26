@@ -119,7 +119,7 @@ export default async function Home() {
                 href={`/blog/${post.slug.replace(/\.mdx$/, "")}`}
               >
                 <div className="border rounded-lg p-4 hover:shadow-md transition-shadow text-base">
-                  <h3 className="font-bold text-3xl">{post.title}</h3>
+                  <h3 className="font-black text-4xl">{post.title}</h3>
                   <div className="flex justify-between items-center">
                     <p className="">{formatDate(post.publishDate)}</p>
                     <p className="text-sm border-2 rounded-lg px-2 py-1 bg-muted m-2">
