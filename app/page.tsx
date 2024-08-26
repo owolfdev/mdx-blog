@@ -135,13 +135,16 @@ export default async function Home() {
           </div>
         </div>
         {/* End Dynamic Popular Articles */}
+        <div className="w-full py-6">
+          <hr />
+        </div>
 
-        <div className="flex justify-center pt-2">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center">
+        <div className="flex justify-center ">
+          <h2 className="text-4xl sm:text-5xl font-bold text-center py-4">
             What is <span className="">MDX?</span>
           </h2>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center pb-2">
           <Image
             src="/logos/mdx-logo.png"
             alt="MDX Logo"
@@ -192,7 +195,7 @@ export default async function Home() {
           <hr />
         </div>
         <div className="flex justify-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center">
+          <h2 className="text-4xl sm:text-5xl font-bold text-center py-4">
             More About <span className="primary-color">MDX</span>Blog
           </h2>
         </div>
