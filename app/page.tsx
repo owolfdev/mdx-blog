@@ -51,11 +51,11 @@ export default async function Home() {
   return (
     <div className="max-w-3xl z-10 w-full items-center justify-between">
       <div className="w-full flex justify-center items-center flex-col gap-6 text-lg">
-        <h1 className="text-5xl sm:text-7xl font-bold text-center">
+        <h1 className="text-5xl sm:text-7xl font-black text-center w-full">
           Welcome to <span className="primary-color">MDX</span>Blog
         </h1>
-        <div className="flex justify-center">
-          <p>
+        <div className="flex justify-center w-full">
+          <p className="text-center">
             A simple static blog template built with{" "}
             <Link
               className="font-bold"
@@ -135,13 +135,10 @@ export default async function Home() {
           </div>
         </div>
         {/* End Dynamic Popular Articles */}
-        <div className="w-full py-6">
-          <hr />
-        </div>
 
-        <div className="flex justify-center ">
+        <div className="flex justify-center pt-4">
           <h2 className="text-4xl sm:text-5xl font-bold text-center py-4">
-            What is <span className="">MDX?</span>
+            What is MDX?
           </h2>
         </div>
         <div className="flex justify-center pb-2">
@@ -191,10 +188,8 @@ export default async function Home() {
             </li>
           </ul>
         </div>
-        <div className="w-full py-6">
-          <hr />
-        </div>
-        <div className="flex justify-center">
+
+        <div className="flex justify-center pt-4">
           <h2 className="text-4xl sm:text-5xl font-bold text-center py-4">
             More About <span className="primary-color">MDX</span>Blog
           </h2>

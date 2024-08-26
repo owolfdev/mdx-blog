@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Install() {
   return (
     <div className="max-w-3xl z-10 w-full items-center justify-between">
-      <div className="w-full flex justify-center items-center flex-col gap-8">
+      <div className="w-full flex justify-center items-center flex-col gap-8 text-lg">
         <h1 className="text-4xl sm:text-5xl font-bold text-center pb-6">
           Install <span className="primary-color">MDX</span>Blog
         </h1>

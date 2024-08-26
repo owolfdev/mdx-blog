@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Blog() {
   return (
     <div className="max-w-3xl z-10 w-full items-center justify-between">
-      <div className="w-full flex justify-center items-center flex-col gap-6">
+      <div className="w-full flex justify-center items-center flex-col gap-6 text-lg">
         <h1 className="text-4xl sm:text-5xl font-bold text-center pb-8">
           Contact
         </h1>

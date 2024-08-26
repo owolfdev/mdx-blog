@@ -145,20 +145,20 @@ export function ContactForm() {
             name="type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Message Type</FormLabel>
+                <FormLabel className="text-lg">Message Type</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="text-lg">
                       <SelectValue placeholder="Select message type" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
                     {optionsForSelectType.map((option) => (
                       <SelectItem
-                        className="input-no-zoom text-lg sm:text-base"
+                        className="input-no-zoom text-lg"
                         value={option.value}
                         key={option.value}
                       >
@@ -177,10 +177,10 @@ export function ContactForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-lg">Email</FormLabel>
                 <FormControl>
                   <Input
-                    className="input-no-zoom text-lg sm:text-base"
+                    className="input-no-zoom text-lg"
                     placeholder="Your email"
                     {...field}
                   />
@@ -199,10 +199,10 @@ export function ContactForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel className="text-lg">Name</FormLabel>
                 <FormControl>
                   <Input
-                    className="input-no-zoom text-lg sm:text-base"
+                    className="input-no-zoom text-lg"
                     placeholder="Your name"
                     {...field}
                   />
@@ -221,10 +221,10 @@ export function ContactForm() {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Message</FormLabel>
+                <FormLabel className="text-lg">Message</FormLabel>
                 <FormControl>
                   <Textarea
-                    className="input-no-zoom text-lg sm:text-base"
+                    className="input-no-zoom text-lg"
                     placeholder="Your message"
                     {...field}
                   />
