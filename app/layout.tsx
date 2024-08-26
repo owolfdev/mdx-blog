@@ -6,6 +6,8 @@ import SiteHeader from "@/components/nav/site-header";
 import Footer from "@/components/nav/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 
+import CookieConsentComponent from "@/components/cookie-consent";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -31,6 +33,7 @@ export default function RootLayout({
           <SiteHeader />
           <main className="flex flex-col items-center justify-between px-6 py-12   sm:px-10 sm:py-24 min-h-[calc(100vh-12rem)]">
             {children}
+            <CookieConsentComponent />
           </main>
           <Footer />
         </ThemeProvider>

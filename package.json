@@ -36,6 +36,7 @@
     "next-sitemap": "^4.2.3",
     "next-themes": "^0.3.0",
     "react": "^18",
+    "react-cookie-consent": "^9.0.0",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",
     "react-google-recaptcha": "^3.1.0",
