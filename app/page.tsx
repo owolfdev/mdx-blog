@@ -109,7 +109,7 @@ export default async function Home() {
 
         {/* Dynamic Popular Articles */}
         <div className="flex flex-col gap-4">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center py-3">
+          <h2 className="text-4xl sm:text-5xl font-bold text-center py-6">
             Popular Articles
           </h2>
           <div className="pb-2 flex flex-col gap-4">
