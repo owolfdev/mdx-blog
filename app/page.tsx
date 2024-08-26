@@ -50,7 +50,7 @@ export default async function Home() {
 
   return (
     <div className="max-w-3xl z-10 w-full items-center justify-between">
-      <div className="w-full flex justify-center items-center flex-col gap-6">
+      <div className="w-full flex justify-center items-center flex-col gap-6 text-lg">
         <h1 className="text-5xl sm:text-7xl font-bold text-center">
           Welcome to <span className="primary-color">MDX</span>Blog
         </h1>
@@ -118,8 +118,8 @@ export default async function Home() {
                 key={post.id}
                 href={`/blog/${post.slug.replace(/\.mdx$/, "")}`}
               >
-                <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                  <h3 className="font-bold text-2xl">{post.title}</h3>
+                <div className="border rounded-lg p-4 hover:shadow-md transition-shadow text-base">
+                  <h3 className="font-bold text-3xl">{post.title}</h3>
                   <div className="flex justify-between items-center">
                     <p className="">{formatDate(post.publishDate)}</p>
                     <p className="text-sm border-2 rounded-lg px-2 py-1 bg-muted m-2">
@@ -198,11 +198,11 @@ export default async function Home() {
         </div>
         <div className="flex flex-col gap-4">
           <p>
-            Unlike traditional blogging solutions that rely on a database to
-            store content, content management in MDXBlog is handled by easily
-            editable Markdown (mdx) files in a folder on your local machine!
-            It&apos;s a good solution for those who appreciate the ease of
-            Markdown and the power of React components.
+            Unlike some blogging solutions that rely on a database to store
+            content, content management in MDXBlog is handled by easily editable
+            Markdown (mdx) files in a folder on your local machine! It&apos;s a
+            good solution for those who appreciate the ease of Markdown and the
+            power of React components.
           </p>
 
           <p>
