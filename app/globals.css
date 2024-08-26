@@ -76,3 +76,7 @@
 .primary-color {
   color: hsl(var(--primary));
 }
+
+[id] {
+  scroll-margin-top: 80px; /* Adjust this value to match the height of your fixed navbar */
+}

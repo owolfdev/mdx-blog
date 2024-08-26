@@ -20,29 +20,33 @@ MDX blog uses MDX format which gives us the power to include React components di
 
 We built MDXBlog to make content creation easier. It’s open-source and available on [GitHub](https://github.com/owolfdev/mdx-blog). You can use the basic, stable version or explore our active code base if you want to explore the full features.
 
-**Getting Started**
+Our project is fully accessible on **[GitHub. Here is the latest code.](https://github.com/owolfdev/mdx-blog)** Note that this is a codebase in development.
 
 To get started, clone the [repo](https://github.com/owolfdev/mdx-blog), run `npm install`, and you should be good to go.
 
-**In Summary**
+**Explore this documentaton**
 
-MDXBlog is a simple, practical tool designed to remove the friction from blogging. It’s about making content creation as smooth and straightforward as possible. MDXBlog might be especially useful to content creators who are software developers as well.
+## Table of Contents
 
-Our project is fully accessible on **[GitHub. Here is the latest code.](https://github.com/owolfdev/mdx-blog)** Note that this is a codebase in development.
+- [Getting Started](#getting-started)
 
-A pared-down, clean and stable version of the code can be found on **[GitHub. Here is the latest code.](https://github.com/owolfdev/next-template-mdx-shad)**
+  - [Installation](#installation)
+  - [How to Use MDXBlog](#how-to-use-mdxblog)
+  - [Detailed Instructions](#detailed-instructions)
 
-Here is the **[legacy version of MDXBlog](https://github.com/owolfdev/mdx-blog-basic) on GitHub**, which is a more complex version of the blog template, with additional features and functionality. The legacy version is not actively maintained, but it is still available for use.
+- [Custom MDX Components](#custom-code-components)
 
-Find relevant articles on the blog, including:
+  - [\<YouTube />](#youtube)
+  - [\<Image />](#image)
+  - [code](#code)
 
-- [Installation](https://www.mdxblog.io/blog/how-to-install-mdx-blog-and-deploy-on-vercel)
-- [A User Guide](https://www.mdxblog.io/blog/how-to-use-mdx-blog)
 - [Development Insights](#development-insights)
 
-## Getting Started
+## <div id='getting-started'>Getting Started</div>
 
-**Installation:**
+<div id="installation" className="w-full">
+  **Installation:**
+</div>
 
 - Clone the [**repo**](https://github.com/owolfdev/mdx-blog-basic)
 - Run 'npm install'
@@ -52,11 +56,11 @@ Find relevant articles on the blog, including:
 - Push your local repo to GitHub
 - Deploy on Vercel
 
-**How to Use MDXBlog:**
+### <div id='how-to-use-mdxblog'>How to Use MDXBlog:</div>
 
 You'll find a directory called content/blogs where you can create your blog posts. Follow the template and you will be fine.
 
-**Detailed Instructions:**
+### <div id='detailed-instructions'>Detailed Instructions:</div>
 
 **Create a post**
 
@@ -77,20 +81,51 @@ You'll find a directory called content/blogs where you can create your blog post
 
 - **Flexible Content Editing**: Edit your MDX (Markdown + JSX) posts with ease, either directly in the browser or using VS Code, providing a flexible and user-friendly environment for content creators.
 
-**Custom MDX Components:**
+## <div id='custom-code-components'>Custom MDX Components</div>
 
-- **`<YouTube />`**: Seamlessly embed YouTube videos within your content.
-- **`<Image />`**: Integrate images elegantly, enhancing the visual appeal of your posts.
-- **code**: Include and showcase code snippets with clarity and style.
+### <div id='youtube'>`<YouTube />`: Seamlessly embed YouTube videos within your content</div>
 
-**Dynamic Page Rendering**
+To embed a YouTube video, use the `<YouTube />` component. Provide the `id` of the YouTube video you want to embed:
+
+\<YouTube id="aqz-KE-bpKQ" />
+
+- **id**: The unique identifier for the YouTube video. This can be found in the video URL after `v=`. For example, in `https://www.youtube.com/watch?v=aqz-KE-bpKQ`, the `id` is `aqz-KE-bpKQ`.
+
+### <div id='image'>`<Image />`: Integrate images elegantly, enhancing the visual appeal of your posts</div>
+
+To add an image to your content, use the `<Image />` component. You can also add a caption to describe the image:
+
+\<Image
+src="/images/posts/how-to-use-images/grass-tree-sky.jpg"
+caption="trees, grass, and sky"
+\/>
+
+- **src**: The path to your image file. This should be relative to the root of your project or the `public` folder if using Next.js.
+- **caption** _(optional)_: A short description or caption for the image.
+
+### <div id='code'>`code`: Include and showcase code snippets with clarity and style</div>
+
+To display a block of code, use the standard Markdown syntax with triple backticks (```) followed by the language identifier:
+
+\```javascript  
+console.log("Hello World")  
+\```
+
+- **language identifier** _(optional)_: Specify the programming language for syntax highlighting. In the example above, `javascript` is used. Replace it with the appropriate language if different.
+
+## Dynamic Page Rendering
 
 Our dynamic page rendering system is the backbone of MDXBlog, carefully extracting and presenting content. It leverages the next-mdx-remote/rsc for rendering MDX content, along with custom components like YouTube, Image, and Code, bringing a rich and interactive blogging experience.
 
-## <div id='development-insights'>Development Insights:</div>
+## <div id='development-insights'>Development Insights</div>
 
 - Utilizing metadata objects in each post, we extract crucial metadata for SEO and rendering purposes.
 - Only relevant posts are displayed, based on their publication date.
 - In development mode, additional tools like EditPostButton and OpenInVSCode are available, enhancing the ease of content management and editing.
 
 **MDXBlog** represents a blend of technological innovation and user-centric design, providing a platform that's not only a pleasure to use but also powerful in its capabilities. Whether you're a developer, a content creator, or someone passionate about blogging, MDXBlog offers you the tools to share your stories and ideas with the world effortlessly.
+
+Find relevant articles on the blog:
+
+- [Installation Guide](https://www.mdxblog.io/blog/how-to-install-mdx-blog-and-deploy-on-vercel)
+- [A User Guide](https://www.mdxblog.io/blog/how-to-use-mdx-blog)

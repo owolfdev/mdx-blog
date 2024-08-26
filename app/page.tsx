@@ -56,7 +56,7 @@ export default async function Home() {
         </h1>
         <div className="flex justify-center w-full">
           <p className="text-center">
-            A simple static blog template built with{" "}
+            A static blog template for developers, built with{" "}
             <Link
               className="font-bold"
               href="https://nextjs.org/docs/app/building-your-application/configuring/mdx"

@@ -37,10 +37,10 @@ export default function Install() {
         <hr className="w-full" />
         <p>
           Install MDXBlog, this site&apos;s codebase, including all the content,
-          all the bells & whistles and tools we use daily, as well as any
-          defects that we are working to overcome. This is the evolving
-          template, the latest version of the MDXBlog. This version currently
-          uses the @next/mdx package, the app router, and more.
+          all the bells & whistles and tools we use daily, as well as any issues
+          that we are working to improve. This is the evolving template, the
+          latest version of the MDXBlog. This version currently uses the
+          @next/mdx package, the app router, and more.
         </p>
         <Link
           className="text-lg"
