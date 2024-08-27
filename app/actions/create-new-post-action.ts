@@ -31,22 +31,23 @@ function waitForFile(
   });
 }
 
-interface PostData {
-  id?: string; // optional if generated later
-  type: string;
-  date: string;
-  title: string;
-  categories: string[];
-  tags: string;
-  image: string | null;
-  draft: boolean;
-  relatedPosts: string[];
-  author: string;
-  description: string;
-  content: string;
-}
+// interface PostData {
+//   id?: string;
+//   type?: string; // Make it optional
+//   date: string;
+//   title: string;
+//   categories: string[];
+//   tags: string;
+//   image: string | null;
+//   draft: boolean;
+//   relatedPosts: string[];
+//   author: string;
+//   description: string;
+//   content: string;
+// }
 
-export async function createNewPostAction(data: PostData) {
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export async function createNewPostAction(data: any) {
   return new Promise<string>((resolve, reject) => {
     const {
       date,
