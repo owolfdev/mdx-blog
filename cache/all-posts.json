@@ -103,11 +103,11 @@
       "mdx",
       "caching"
     ],
-    "modifiedDate": "2024-08-25T22:07:01.648Z",
+    "modifiedDate": "2024-08-27T20:08:00.831Z",
     "image": null,
     "draft": false,
     "relatedPosts": [
-      ""
+      "static-mdx-cms"
     ],
     "likes": 0
   },
@@ -266,10 +266,13 @@
       "image",
       "images"
     ],
-    "modifiedDate": "2024-08-23",
+    "modifiedDate": "2024-08-27T20:20:16.577Z",
     "image": null,
     "draft": false,
-    "relatedPosts": [],
+    "relatedPosts": [
+      "import-components-to-mdx",
+      "using-and-styling-custom-components-in-mdx-content"
+    ],
     "likes": 2
   },
   {
@@ -433,7 +436,7 @@
     "title": "Implementing a Like Button in an MDX App with Next.js and Vercel PostgreSQL",
     "author": "O Wolfson",
     "publishDate": "2024-06-27",
-    "description": "Our goal is to support both authenticated and anonymous users by leveraging local storage and a PostgreSQL database hosted on Vercel. This ensures a seamless user experience while maintaining data persistence.",
+    "description": "In this article, we will walk you through the process of creating a like button for an MDX-based Next.js application.",
     "category": [
       "Web Development"
     ],
@@ -442,10 +445,14 @@
       "vercel",
       "postgres"
     ],
-    "modifiedDate": "2024-08-23",
+    "modifiedDate": "2024-08-27T20:11:54.018Z",
     "image": null,
     "draft": false,
-    "relatedPosts": [],
+    "relatedPosts": [
+      "using-and-styling-custom-components-in-mdx-content",
+      "import-components-to-mdx",
+      ""
+    ],
     "likes": 17
   },
   {
@@ -663,11 +670,13 @@
       "blog",
       "cms"
     ],
-    "modifiedDate": "2024-08-23",
+    "modifiedDate": "2024-08-27T20:08:38.101Z",
     "image": null,
     "draft": false,
-    "relatedPosts": [],
-    "likes": 7
+    "relatedPosts": [
+      "caching-mdx-metadata-for-fast-post-management"
+    ],
+    "likes": 8
   },
   {
     "slug": "styling-mdx-content",
@@ -710,6 +719,95 @@
     "draft": false,
     "relatedPosts": [],
     "likes": 2
+  },
+  {
+    "slug": "test-1",
+    "id": "q7X3JNYSMYobjzYaL1r3Do",
+    "type": "blog",
+    "title": "Test",
+    "author": "O Wolfson",
+    "publishDate": "2024-08-28",
+    "description": "test test test test test test test test test test ",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "test"
+    ],
+    "modifiedDate": "2024-08-27T20:53:19.657Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [
+      ""
+    ],
+    "likes": 0
+  },
+  {
+    "slug": "test-2",
+    "id": "gZTFqfUD8Vm1yxGiqgyzfS",
+    "type": "blog",
+    "title": "Test",
+    "author": "O Wolfson",
+    "publishDate": "2024-08-28",
+    "description": "test test test test test test ",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "test"
+    ],
+    "modifiedDate": "2024-08-27T20:54:50.971Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [
+      ""
+    ],
+    "likes": 0
+  },
+  {
+    "slug": "test-3",
+    "id": "by6FrNt31oYGKcfMyKYxZu",
+    "type": "blog",
+    "title": "Test",
+    "author": "O Wolfson",
+    "publishDate": "2024-08-28",
+    "description": "test test test test test test test test test ",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "test"
+    ],
+    "modifiedDate": "2024-08-27T21:14:39.596Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [
+      ""
+    ],
+    "likes": 0
+  },
+  {
+    "slug": "test",
+    "id": "neso8rWGqBbDGdEGAQum8d",
+    "type": "blog",
+    "title": "Test",
+    "author": "O Wolfson",
+    "publishDate": "2024-08-28",
+    "description": "test test test test test test test test test test test test test ",
+    "category": [
+      "Web Development"
+    ],
+    "tags": [
+      "test"
+    ],
+    "modifiedDate": "2024-08-27T20:43:18.234Z",
+    "image": "https://www.catschool.co/wp-content/uploads/2023/06/orange-tabby-kitten.png",
+    "draft": false,
+    "relatedPosts": [
+      "updates-to-mdx-blog-enhanced-and-streamlined",
+      "mdx-like-button-nextjs-vercel-postgresql"
+    ],
+    "likes": 0
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",
@@ -775,10 +873,14 @@
       "blog",
       "app"
     ],
-    "modifiedDate": "2024-08-23",
+    "modifiedDate": "2024-08-27T20:16:15.033Z",
     "image": null,
     "draft": false,
-    "relatedPosts": [],
+    "relatedPosts": [
+      "nextjs-switch-api-to-server-actions",
+      "metadata-object-components-in-next-js-mdx-blogs",
+      "next-mdx-remote-limitations"
+    ],
     "likes": 3
   },
   {

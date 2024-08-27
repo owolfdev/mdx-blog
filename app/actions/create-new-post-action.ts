@@ -31,8 +31,22 @@ function waitForFile(
   });
 }
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export async function createNewPostAction(data: any) {
+interface PostData {
+  id?: string; // optional if generated later
+  type: string;
+  date: string;
+  title: string;
+  categories: string[];
+  tags: string;
+  image: string | null;
+  draft: boolean;
+  relatedPosts: string[];
+  author: string;
+  description: string;
+  content: string;
+}
+
+export async function createNewPostAction(data: PostData) {
   return new Promise<string>((resolve, reject) => {
     const {
       date,

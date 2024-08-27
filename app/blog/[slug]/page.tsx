@@ -8,6 +8,7 @@ import EditPostButton from "./edit-post-button";
 import OpenInVSCode from "./open-in-vs-code-button";
 import LikeButton from "@/components/like/like-button";
 import MdxContent from "./mdx-content";
+import RelatedPostsList from "./related-posts";
 
 type Props = {
   params: { slug: string };
@@ -91,6 +92,11 @@ export default async function Blog({ params }: { params: { slug: string } }) {
           )}
           <MdxContent slug={slug} id={post.metadata.id} />
         </article>
+      </div>
+      <div>
+        <div>
+          <RelatedPostsList relatedSlugs={post.metadata.relatedPosts} />
+        </div>
       </div>
       <LikeButton postId={post.metadata.id} />
     </div>

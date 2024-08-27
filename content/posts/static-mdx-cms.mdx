@@ -8,10 +8,10 @@ export const metadata = {
     "In this article, we'll walk you through creating a content management system (CMS) for our MDXBlog, where blog posts are stored as local static files. We'll cover saving posts, generating a cache for efficient data retrieval, and handling form submissions for new blog entries.",
   category: ["Web Development"],
   tags: ["cache", "mdx", "blog", "cms"],
-  modifiedDate: "2024-08-23",
+  modifiedDate: "2024-08-27T20:08:38.101Z",
   image: null,
   draft: false,
-  relatedPosts: [],
+  relatedPosts: ["caching-mdx-metadata-for-fast-post-management"],
 };
 
 Let's create a content management system (CMS) for our MDXBlog, where blog posts are stored as static files.
@@ -590,8 +590,6 @@ export async function POST(req) {
 
 ### Conclusion
 
-By following these steps, we've built a content management system for our MDXBlog. Users can submit new blog posts through a form, which are then saved as MDX files on the server. The posts cache is regenerated to ensure quick access to the latest posts, enhancing performance. Additionally, we added a home screen to list the titles of the blog posts, along with functionality to update and delete posts. This setup leverages the power of Next.js, MDX, and React to create a seamless and dynamic content creation experience in our local development environment.
-
----
+By following these steps, we've built a content management system for our blog. Users can submit new blog posts through a form, which are then saved as MDX files on the server. The posts cache is regenerated to ensure quick access to the latest posts, enhancing performance. Additionally, we added a home screen to list the titles of the blog posts, along with functionality to update and delete posts. This setup leverages the power of Next.js, MDX, and React to create a seamless and dynamic content creation experience in our local development environment.
 
 If you have any questions or need further assistance, feel free to reach out!
