@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { getPopularPosts } from "@/lib/posts/get-popular-posts";
-import type { CachedBlogPost } from "@/types/post-types";
+import type { CachedPost } from "@/types/post-types";
 
 // Utility function to parse and format the date
 function formatDate(dateString: string): string {
@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const popularPosts: CachedBlogPost[] = await getPopularPosts();
+  const popularPosts: CachedPost[] = await getPopularPosts();
 
   return (
     <div className="max-w-3xl z-10 w-full items-center justify-between">
@@ -105,7 +105,7 @@ export default async function Home() {
             Popular Articles
           </h2>
           <div className="pb-2 flex flex-col gap-4">
-            {popularPosts?.map((post: CachedBlogPost) => (
+            {popularPosts?.map((post: CachedPost) => (
               <Link
                 key={post.id}
                 href={`/blog/${post.slug.replace(/\.mdx$/, "")}`}

@@ -3,7 +3,7 @@ import { getPosts } from "@/lib/posts/get-posts.mjs";
 import Link from "next/link";
 
 type RelatedPostsListProps = {
-  relatedSlugs: string[];
+  relatedSlugs: string[] | null;
 };
 
 const RelatedPostsList: React.FC<RelatedPostsListProps> = ({
@@ -22,7 +22,7 @@ const RelatedPostsList: React.FC<RelatedPostsListProps> = ({
     relatedSlugs.includes(post.slug)
   );
 
-  if (relatedPosts.length === 0) {
+  if (relatedPosts?.length === 0) {
     return null;
   }
 

@@ -1,8 +1,7 @@
 "use client";
 import type React from "react";
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-import MdxErrorFallback from "./mdx-fallback-error";
+import { useRouter } from "next/navigation";
 
 type MdxContentProps = {
   slug: string;
@@ -13,32 +12,31 @@ const MdxContent = ({ slug, id }: MdxContentProps) => {
   const [MDXContent, setMDXContent] = useState<React.ComponentType | null>(
     null
   );
-  const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter(); // Initialize useRouter
 
   useEffect(() => {
     const loadMdxContent = async () => {
       try {
         const importedMDXContent = await import(`@/content/posts/${slug}.mdx`);
         setMDXContent(() => importedMDXContent.default);
-        setError(null); // Clear any previous errors
       } catch (err) {
         console.error("Error loading MDX content:", err);
-        setError(err instanceof Error ? err : new Error("Unknown error"));
+
+        // If the module is not found, navigate to the 404 page
+        if ((err as Error)?.message?.includes("Cannot find module")) {
+          router.replace("/404"); // Use replace to avoid adding the 404 page to the history stack
+        }
       } finally {
         setLoading(false);
       }
     };
 
     loadMdxContent();
-  }, [slug]);
+  }, [slug, router]);
 
   if (loading) {
     return <p className="text-lg">Loading content...</p>;
-  }
-
-  if (error) {
-    return <MdxErrorFallback error={error} />;
   }
 
   if (MDXContent) {

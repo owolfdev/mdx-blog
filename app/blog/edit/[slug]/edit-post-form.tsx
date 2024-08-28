@@ -46,6 +46,8 @@ import { editPostAction } from "@/app/actions/edit-post-action";
 
 import DatePickerField from "@/components/date-picker";
 
+import type { Post } from "@/types/post-types";
+
 const formSchema = z.object({
   slug: z.string().min(1, {
     message: "Slug is required.",
@@ -83,9 +85,10 @@ const formSchema = z.object({
   draft: z.boolean().optional(),
 });
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export function EditPostForm({ postData }: { postData: any }) {
+export function EditPostForm({ postData }: { postData: Post }) {
   const router = useRouter();
+
+  console.log("postData:", postData);
 
   // Update the defaultValues in the form initialization
   const form = useForm<z.infer<typeof formSchema>>({

@@ -1,6 +1,6 @@
 // /types/post-types.ts
 
-export interface CachedBlogPost {
+export interface CachedPost {
   slug: string;
   id: string;
   type: string;
@@ -16,4 +16,26 @@ export interface CachedBlogPost {
   relatedPosts: string[] | null; // relatedPosts can be an array or null
   likes: number;
   formattedDate?: string; // Optional, as it will be added later
+}
+
+export interface PostMetadata {
+  id: string;
+  type: string;
+  title: string;
+  author: string;
+  publishDate: string;
+  description: string;
+  categories: string[];
+  tags: string[] | null;
+  modifiedDate: string;
+  image: string | null;
+  draft: boolean;
+  relatedPosts: string[] | null;
+}
+
+export interface Post {
+  metadata: PostMetadata;
+  slug: string;
+  content: string;
+  filename: string;
 }

@@ -6,7 +6,7 @@ import { getPosts } from "@/lib/posts/get-posts.mjs";
 import BlogPostList from "./blog-post-list";
 import type { Metadata } from "next";
 
-import type { CachedBlogPost } from "@/types/post-types";
+import type { CachedPost } from "@/types/post-types";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -50,7 +50,7 @@ const Blog = async ({
   );
 
   // Format the publishDate for each blog post
-  const formattedBlogs = blogs.map((blog: CachedBlogPost) => ({
+  const formattedBlogs = blogs.map((blog: CachedPost) => ({
     ...blog,
     formattedDate: formatDate(blog.publishDate),
   }));
