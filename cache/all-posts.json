@@ -449,10 +449,11 @@
       "vercel",
       "postgres"
     ],
-    "modifiedDate": "2024-08-27T20:11:54.018Z",
+    "modifiedDate": "2024-08-28T21:21:56.505Z",
     "image": null,
     "draft": false,
     "relatedPosts": [
+      "adding-mdx-support-to-your-next.js-project",
       "using-and-styling-custom-components-in-mdx-content",
       "import-components-to-mdx",
       ""
@@ -744,7 +745,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 0
+    "likes": 2
   },
   {
     "slug": "test",
@@ -768,7 +769,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 0
+    "likes": 2
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",

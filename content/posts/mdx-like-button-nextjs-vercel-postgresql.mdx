@@ -1,23 +1,38 @@
 export const metadata = {
   id: "kAWnT358vCDiVnmLkBt9Ds",
   type: "blog",
-  title: "Implementing a Like Button in an MDX App with Next.js and Vercel PostgreSQL",
+  title:
+    "Implementing a Like Button in an MDX App with Next.js and Vercel PostgreSQL",
   author: "O Wolfson",
   publishDate: "2024-06-27",
-  description: "In this article, we will walk you through the process of creating a like button for an MDX-based Next.js application.",
+  description:
+    "In this article, we will walk you through the process of creating a like button for an MDX-based Next.js application.",
   categories: ["Web Development"],
   tags: ["likes", "vercel", "postgres"],
-  modifiedDate: "2024-08-27T20:11:54.018Z",
+  modifiedDate: "2024-08-28T21:21:56.505Z",
   image: null,
   draft: false,
-  relatedPosts: ["using-and-styling-custom-components-in-mdx-content", "import-components-to-mdx", ""]
+  relatedPosts: [
+    "adding-mdx-support-to-your-next.js-project",
+    "using-and-styling-custom-components-in-mdx-content",
+    "import-components-to-mdx",
+    "",
+  ],
 };
 
 In this article, we will walk you through the process of creating a like button for an MDX-based Next.js application. Our goal is to support both authenticated and anonymous users by leveraging local storage and a PostgreSQL database hosted on Vercel. This ensures a seamless user experience while maintaining data persistence.
 
 See an example [here](https://mdx-next-static-app.vercel.app/mdx/like-button).
 
-Find the code for this project on [GitHub](https://github.com/owolfdev/mdx-next-static-app)
+Find the code for this project on [GitHub](https://github.com/owolfdev/mdx-next-static-app).
+
+## Context
+
+We are using **Next.js 14** which supports Server Actions. Server Actions allow us to perform server-side operations directly from our React components, enabling smooth interactions between the client and server without needing API routes.
+
+In this project, we are also using the `@next/mdx` package, which allows us to seamlessly integrate MDX content within our Next.js application. MDX combines the simplicity of Markdown with the power of React components, making it ideal for content-driven sites that require dynamic interactivity.
+
+For our like button, we use local storage to keep track of likes for anonymous users and a PostgreSQL database hosted on Vercel for storing likes persistently across sessions and devices. This combination of technologies enables us to offer a robust user experience, whether the user is logged in or browsing anonymously.
 
 ## Prerequisites
 
@@ -72,10 +87,10 @@ function LikeButton({ postId }: LikeButtonProps) {
 
   useEffect(() => {
     // Check for an existing user ID in local storage or create a new one
-    let storedUserId = localStorage.getItem("userId");
+    let storedUserId = localStorage.getItem("userIdForMDXApp");
     if (!storedUserId) {
       storedUserId = uuidv4();
-      localStorage.setItem("userId", storedUserId);
+      localStorage.setItem("userIdForMDXApp", storedUserId);
     }
     setUserId(storedUserId);
 
@@ -235,6 +250,12 @@ function LikeButton({ postId }: LikeButtonProps) {
 export default LikeButton;
 ```
 
+### Explanation:
+
+- **State Management**: We use React's `useState` and `useEffect` hooks to manage the component's state, including whether the post is liked and the total number of likes.
+- **Local Storage**: For anonymous users, we store the user's ID and the liked posts in local storage using the key `userIdForMDXApp`. This ensures that the user's likes persist across sessions on the same device.
+- **Icons**: The `react-icons` package provides the like icons, which toggle between an outlined and filled icon based on the user's action.
+
 ## Step 3: Create Server Actions for Database Interaction
 
 Create a new file `app/actions/like-actions.ts` and add the following code:
@@ -243,6 +264,7 @@ Create a new file `app/actions/like-actions.ts` and add the following code:
 "use server";
 import { sql } from "@vercel/postgres";
 
+// Function to count the likes for a specific post
 export async function countLikes(postId: number) {
   console.log("countLikes", postId);
   try {
@@ -250,7 +272,9 @@ export async function countLikes(postId: number) {
       SELECT COUNT(*) as count FROM likes_for_test
       WHERE postid = ${postId};
     `;
-    console.log("countLikes result:", result);
+    console.log("count
+
+Likes result:", result);
     if (result.rows && result.rows.length > 0) {
       return { success: true, count: Number.parseInt(result.rows[0].count, 10) };
     } else {
@@ -262,6 +286,7 @@ export async function countLikes(postId: number) {
   }
 }
 
+// Function to create the likes table in the database
 export async function createTable() {
   console.log("createTable");
   try {
@@ -278,6 +303,7 @@ export async function createTable() {
   }
 }
 
+// Function to remove the likes table from the database
 export async function removeTable() {
   console.log("removeTable");
   try {
@@ -291,13 +317,12 @@ export async function removeTable() {
   }
 }
 
+// Function to add a like for a specific post and user
 export async function addLike(postId: number, userId: string) {
   console.log("addLike", postId, userId);
   try {
     if (!postId || !userId) {
-      throw new Error("Missing postId or user
-
-Id");
+      throw new Error("Missing postId or userId");
     }
 
     const result = await sql`
@@ -312,6 +337,7 @@ Id");
   }
 }
 
+// Function to remove a like for a specific post and user
 export async function removeLike(postId: number, userId: string) {
   console.log("removeLike", postId, userId);
   try {
@@ -331,6 +357,7 @@ export async function removeLike(postId: number, userId: string) {
   }
 }
 
+// Function to remove all likes from the database
 export async function removeAllLikes() {
   console.log("removeAllLikes");
   try {
@@ -344,6 +371,11 @@ export async function removeAllLikes() {
   }
 }
 ```
+
+### Explanation:
+
+- **Server Actions**: In Next.js 14, Server Actions allow us to perform server-side operations directly from our React components. These actions handle database mutations, such as adding or removing likes.
+- **SQL Queries**: We use SQL queries to interact with the PostgreSQL database, such as creating the likes table, inserting likes, and counting them.
 
 ## Step 4: Embed the LikeButton in Your MDX File
 
@@ -362,6 +394,10 @@ Content
 
 <LikeButton postId={metadata.id} />
 ```
+
+### Explanation:
+
+- **MDX Integration**: Here, we import the `LikeButton` component and embed it directly within our MDX content. This is one of the key benefits of using MDX—it allows you to include dynamic React components within your Markdown content.
 
 ## Conclusion
 
