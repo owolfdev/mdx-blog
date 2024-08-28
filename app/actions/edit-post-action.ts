@@ -11,7 +11,7 @@ export async function editPostAction(data: any, openInVSCode = false) {
     slug,
     date,
     title,
-    categories,
+    categories, // Update here: categories instead of category
     tags,
     originalFilename,
     filename,
@@ -68,7 +68,7 @@ export async function editPostAction(data: any, openInVSCode = false) {
   const formattedCategories = categories
     .map((category: string) => `"${category}"`)
     .join(", ")
-    .replace(/,\s*$/, ""); // Remove trailing comma
+    .replace(/,\s*$/, ""); // Update here: categories instead of category
 
   // Format relatedPosts as an array of strings
   const formattedRelatedPosts = relatedPosts
@@ -85,7 +85,7 @@ export async function editPostAction(data: any, openInVSCode = false) {
     `  author: "${data.author}",`,
     `  publishDate: "${date}",`,
     `  description: "${data.description}",`,
-    `  category: [${formattedCategories}],`,
+    `  categories: [${formattedCategories}],`,
     `  tags: [${formattedTags}],`,
     `  modifiedDate: "${new Date().toISOString()}",`, // Update the modifiedDate
     `  image: ${image ? `"${image}"` : "null"},`,

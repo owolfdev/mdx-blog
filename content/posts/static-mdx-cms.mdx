@@ -6,7 +6,7 @@ export const metadata = {
   publishDate: "2024-06-04",
   description:
     "In this article, we'll walk you through creating a content management system (CMS) for our MDXBlog, where blog posts are stored as local static files. We'll cover saving posts, generating a cache for efficient data retrieval, and handling form submissions for new blog entries.",
-  category: ["Web Development"],
+  categories: ["Web Development"],
   tags: ["cache", "mdx", "blog", "cms"],
   modifiedDate: "2024-08-27T20:08:38.101Z",
   image: null,
@@ -119,7 +119,7 @@ export function saveFileLocally(data) {
       `  author: "${data.author}",`,
       `  publishDate: "${formattedDate}",`,
       `  description: "${data.description}",`,
-      `  category: [${formattedCategories}],`,
+      `  categories: [${formattedCategories}],`,
       `  tags: [${formattedTags}]`,
       "};",
       "",

@@ -87,6 +87,7 @@ const formSchema = z.object({
 export function EditPostForm({ postData }: { postData: any }) {
   const router = useRouter();
 
+  // Update the defaultValues in the form initialization
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -98,8 +99,8 @@ export function EditPostForm({ postData }: { postData: any }) {
       title: postData.metadata?.title || "",
       description: postData.metadata?.description || "",
       content: postData.content?.trim() || "",
-      categories: Array.isArray(postData.metadata?.category)
-        ? postData.metadata.category
+      categories: Array.isArray(postData.metadata?.categories)
+        ? postData.metadata.categories // Update here to use `categories`
         : [],
       tags: postData.metadata?.tags ? postData.metadata.tags.join(", ") : "",
       image: postData.metadata?.image || "",

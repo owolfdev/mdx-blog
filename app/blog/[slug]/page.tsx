@@ -75,7 +75,14 @@ export default async function Blog({ params }: { params: { slug: string } }) {
               <span className="text-primary pr-1">
                 {post.metadata.publishDate}
               </span>{" "}
-              {post.metadata.category}
+              {post.metadata.categories?.map(
+                (category: string, index: number) => (
+                  <span key={index + category}>
+                    {category}
+                    {index < post.metadata.categories.length - 1 && ", "}
+                  </span>
+                )
+              )}
             </p>
           </div>
           <div className="pb-6">

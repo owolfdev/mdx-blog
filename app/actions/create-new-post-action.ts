@@ -31,28 +31,13 @@ function waitForFile(
   });
 }
 
-// interface PostData {
-//   id?: string;
-//   type?: string; // Make it optional
-//   date: string;
-//   title: string;
-//   categories: string[];
-//   tags: string;
-//   image: string | null;
-//   draft: boolean;
-//   relatedPosts: string[];
-//   author: string;
-//   description: string;
-//   content: string;
-// }
-
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export async function createNewPostAction(data: any) {
   return new Promise<string>((resolve, reject) => {
     const {
       date,
       title,
-      categories,
+      categories, // Update here: categories instead of category
       tags,
       image,
       draft,
@@ -114,7 +99,7 @@ export async function createNewPostAction(data: any) {
       `  author: "${data.author}",`,
       `  publishDate: "${formattedDate}",`,
       `  description: "${data.description}",`,
-      `  category: [${formattedCategories}],`,
+      `  categories: [${formattedCategories}],`,
       `  tags: [${formattedTags}],`,
       `  modifiedDate: "${new Date().toISOString()}",`, // Automatically set modifiedDate to current date
       `  image: ${image ? `"${image}"` : "null"},`,
