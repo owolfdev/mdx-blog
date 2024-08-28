@@ -6,23 +6,12 @@ import { getPosts } from "@/lib/posts/get-posts.mjs";
 import BlogPostList from "./blog-post-list";
 import type { Metadata } from "next";
 
+import type { CachedBlogPost } from "@/types/post-types";
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "MDXBlog | Blog",
   };
-}
-
-interface BlogPost {
-  slug: string;
-  type: string;
-  publishDate: string; // Ensure this is the correct field
-  title: string;
-  description: string;
-  image: string;
-  author: string;
-  tags: string[];
-  likes: number; // Add likes to the BlogPost interface
-  formattedDate?: string; // Optional, as it will be added later
 }
 
 // Utility function to parse and format the date
@@ -61,7 +50,7 @@ const Blog = async ({
   );
 
   // Format the publishDate for each blog post
-  const formattedBlogs = blogs.map((blog: BlogPost) => ({
+  const formattedBlogs = blogs.map((blog: CachedBlogPost) => ({
     ...blog,
     formattedDate: formatDate(blog.publishDate),
   }));
