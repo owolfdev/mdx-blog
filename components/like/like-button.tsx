@@ -20,10 +20,10 @@ function LikeButton({ postId }: LikeButtonProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let storedUserId = localStorage.getItem("userId");
+    let storedUserId = localStorage.getItem("userIdForMDXBlog");
     if (!storedUserId) {
       storedUserId = uuidv4();
-      localStorage.setItem("userId", storedUserId);
+      localStorage.setItem("userIdForMDXBlog", storedUserId);
     }
     setUserId(storedUserId);
 
