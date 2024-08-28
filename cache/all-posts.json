@@ -291,10 +291,12 @@
       "user",
       "guide"
     ],
-    "modifiedDate": "2024-08-23",
+    "modifiedDate": "2024-08-28T09:51:36.043Z",
     "image": null,
     "draft": false,
-    "relatedPosts": [],
+    "relatedPosts": [
+      "how-to-install-mdx-blog-and-deploy-on-vercel"
+    ],
     "likes": 0
   },
   {
@@ -311,10 +313,12 @@
     "tags": [
       "mdx"
     ],
-    "modifiedDate": "2024-08-23",
+    "modifiedDate": "2024-08-27T23:04:34.466Z",
     "image": null,
     "draft": false,
-    "relatedPosts": [],
+    "relatedPosts": [
+      "creating-custom-components-for-mdx"
+    ],
     "likes": 1
   },
   {
