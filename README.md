@@ -1,7 +1,5 @@
 # MDXBlog
 
-test
-
 [**MDXBlog** (mdxblog.io)](https://mdxblog.io) is a platform built with the latest web technologies, offering a unique blogging experience. MDXBlog is a simple template for creating blogs using MDX (Markdown + JSX) and Next.js 14. Unlike traditional blogging solutions that rely on a database to store content, content management in MDXBlog is handled by easily editable Markdown (MDX) files in a folder on your local machine! It's a good solution for those who appreciate the ease of Markdown and the power of React components.
 
 Our project is fully accessible on **[GitHub](https://github.com/owolfdev/mdx-blog)**.
