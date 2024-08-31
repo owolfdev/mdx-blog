@@ -16,20 +16,6 @@ export const metadata = {
 
 Static rendering is a powerful feature of Next.js that allows you to pre-generate HTML pages at build time. This approach enhances performance, improves SEO, and reduces server load by serving pre-rendered content instead of dynamically generating it on every request. In this article, we’ll explore how static rendering works in **MDXBlog**.
 
-## Table of Contents
-
-1. [Introduction to Static Rendering](#introduction-to-static-rendering)
-2. [How MDX is Integrated into MDXBlog](#how-mdx-is-integrated-into-mdxblog)
-3. [Understanding the Build Process](#understanding-the-build-process)
-4. [Exploring the Key Components](#exploring-the-key-components)
-   - [MDX Content Component](#mdx-content-component)
-   - [Custom MDX Components](#custom-mdx-components)
-5. [The Role of `generateMetadata`](#the-role-of-generatemetadata)
-6. [Why Static Rendering Matters](#why-static-rendering-matters)
-7. [Conclusion](#conclusion)
-
----
-
 ## Introduction to Static Rendering
 
 Static rendering, also known as Static Site Generation (SSG), is the process where HTML pages are generated at build time and served as static files. In MDXBlog, this is achieved through a combination of Next.js’s static generation capabilities and the integration of MDX files, which allow for rich, interactive content.
