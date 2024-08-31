@@ -99,7 +99,7 @@ export default async function Blog({ params }: { params: { slug: string } }) {
               <OpenInVSCode path={slug} />
             </div>
           )}
-          <MdxContent slug={slug} id={post.metadata?.id} />
+          <MdxContent slug={slug} />
         </article>
       </div>
       <div>
