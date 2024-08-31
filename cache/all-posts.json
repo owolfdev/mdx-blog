@@ -337,11 +337,12 @@
       "custom",
       "components"
     ],
-    "modifiedDate": "2024-08-31T02:51:38.833Z",
+    "modifiedDate": "2024-08-31T23:06:52.057Z",
     "image": null,
     "draft": false,
     "relatedPosts": [
-      ""
+      "using-and-styling-custom-components-in-mdx-content",
+      "import-components-to-mdx"
     ],
     "likes": 0
   },

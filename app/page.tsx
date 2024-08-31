@@ -196,21 +196,19 @@ export default async function Home() {
           </p>
 
           <p>
-            MDXBlog is a free, open-source project that is easy to install and
-            deploy. It generates static pages that are fast, secure, and
-            SEO-friendly. The app is designed to be easy to use and customize,
-            with a clean, modern design that is fully responsive and
-            mobile-friendly.
+            <span className="font-bold">MDXBlog</span> is a free, open-source
+            project that is easy to install and deploy. It&apos;s created app
+            built with the latest web technologies, offering a unique blogging
+            experience. Using MDX (Markdown + JSX) and Next.js 14, it generates
+            static pages that are fast, secure, and SEO-friendly. The app is
+            designed to be easy to use and customize, with a clean, modern
+            design that is fully responsive and mobile-friendly.
           </p>
           <p>
-            <span className="font-bold">MDXBlog</span> is an independently
-            created app built with the latest web technologies, offering a
-            unique blogging experience.{" "}
-            <span className="font-bold">MDXBlog</span> offers a simple, yet
-            powerful template for creating static blogs using MDX (Markdown +
-            JSX) and Next.js 14. We have no official affiliation with the MDX
-            team or Next.js, we are simply fans of the technology and wanted to
-            create a simple, free, easy-to-use blog template for the community.
+            We have no official affiliation with the MDX team or Next.js, we are
+            simply fans of the technology and wanted to create a simple, free,
+            easy-to-use blog template for ourselves and to share with any other
+            interested developers.
           </p>
         </div>
 

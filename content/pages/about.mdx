@@ -6,15 +6,17 @@ export const metadata = {
 
 Our mission is to take the friction out of content creation. We wanted a blogging platform that was easy to use, developer friendly - and that makes content creation a pleasure... so we built one with Next.js and MDX.
 
-**Why MDXBlog?**
+**MDXBlog** is a free, open-source project that is easy to install and deploy. It's created app built with the latest web technologies, offering a unique blogging experience. Using MDX (Markdown + JSX) and Next.js 14, it generates static pages that are fast, secure, and SEO-friendly. The app is designed to be easy to use and customize, with a clean, modern design that is fully responsive and mobile-friendly.
 
-MDXblog stores posts as markdown files on the local machine, eliminating the need for a round trip to a database every time we want to write or edit a post. Content creation with local files just feels more intuitive. We can even create content in our favorite text editor or IDE.
+[MDXBlog (mdxblog.io)](https://mdxblog.io) is an independently created app. We have no affiliation with the MDX team or Next.js, we are simply fans of the technology and wanted to create a simple, free, easy-to-use blog template for ourselves and to share with any other interested developers.
 
-MDXblog uses MDX format which gives us the power to include React components directly in the Markdown documents. This means we can include interactive elements like forms, buttons, and more in our posts in a much more developer-friendly way.
+## Why MDXBlog?
 
-[MDXBlog (mdxblog.io)](https://mdxblog.io) is an independently created blog app template built with the latest web technologies, offering a unique blogging experience.
+**MDXblog** stores posts as markdown files on the local machine, eliminating the need for a round trip to a database every time we want to write or edit a post. Content creation with local files just feels more intuitive. We can even create content in our favorite text editor or IDE.
 
-**Key Features:**
+**MDXblog** uses MDX format which gives us the power to include React components directly in the Markdown documents. This means we can include interactive elements like forms, buttons, and more in our posts, in a much more developer-friendly way.
+
+## Key Features:
 
 - **Style as You Write**: MDX content is styled with Markdown syntax. This is the most developer-frindly way: styling without needing to lift your fingers from the keyboard.
 - **Quick Post Creation**: In development mode, creating a new post is as simple as clicking a '+' icon in the nav bar. It instantly generates a new post for you to start writing.
@@ -22,15 +24,17 @@ MDXblog uses MDX format which gives us the power to include React components dir
 - **Custom Components**: Seamlessly add YouTube videos, images, and code snippets to your posts using built-in React components.
 - **Dynamic Rendering**: Next.js handles the rendering of your content, ensuring it loads quickly and is SEO friendly. You can focus on writing, and MDXBlog takes care of the rest.
 
-**Why We’re Sharing It**
-
-We built MDXBlog to make content creation easier. It’s open-source and available on [GitHub](https://github.com/owolfdev/mdx-blog). You can use the basic, stable version or explore our active code base if you want to explore the full features.
-
-Our project is fully accessible on **[GitHub. Here is the latest code.](https://github.com/owolfdev/mdx-blog)** Note that this is a codebase in development.
+- Utilizing metadata objects in each post, we extract crucial metadata for SEO and rendering purposes.
+- Only relevant posts are displayed, based on their publication date.
+- In development mode, additional tools like EditPostButton and OpenInVSCode are available, enhancing the ease of content management and editing.
 
 To get started, clone the [repo](https://github.com/owolfdev/mdx-blog), run `npm install`, and you should be good to go.
 
-**Explore this documentaton**
+<div className="py-4"></div>
+
+---
+
+<div className="py-4"></div>
 
 ## Table of Contents
 
@@ -40,13 +44,20 @@ To get started, clone the [repo](https://github.com/owolfdev/mdx-blog), run `npm
   - [How to Use MDXBlog](#how-to-use-mdxblog)
   - [Detailed Instructions](#detailed-instructions)
 
+- [Markdown and MDX Guide](#markdown-mdx)
+
+  - [Markdown Syntax](#markdown-syntax)
+  - [MDX Syntax](#mdx-syntax)
+
 - [Custom MDX Components](#custom-code-components)
 
   - [\<YouTube />](#youtube)
   - [\<Image />](#image)
   - [code](#code)
 
-- [Development Insights](#development-insights)
+---
+
+<div className="py-4"></div>
 
 ## <div id='getting-started'>Getting Started</div>
 
@@ -57,37 +68,113 @@ To get started, clone the [repo](https://github.com/owolfdev/mdx-blog), run `npm
 - Clone the [**repo**](https://github.com/owolfdev/mdx-blog-basic)
 - Run 'npm install'
 - Run 'npm run dev'
+- Create a .env.local file. See the .env.example file at the root of the project for the required environment variables.
 - Open 'http://localhost:3000' in your browser
 - Create a remote repo on GitHub
 - Push your local repo to GitHub
 - Deploy on Vercel
 
-### <div id='how-to-use-mdxblog'>How to Use MDXBlog:</div>
+## <div id='how-to-use-mdxblog'>How to Use MDXBlog:</div>
 
-You'll find a directory called content/blogs where you can create your blog posts. Follow the template and you will be fine.
-
-### <div id='detailed-instructions'>Detailed Instructions:</div>
+### <div id='detailed-instructions'>Instructions:</div>
 
 **Create a post**
 
 - Use the '+' icon in the nav bar, in development mode only, to create a new post - or simply create a new MDX file in the 'data/posts' directory, manually.
 - Edit posts in the browser or manually using VS Code (recommended), or any other text editor.
 
-**Key Features of MDXBlog**
+You'll find a directory called content/blogs where you can create your blog posts. Follow the template and you will be fine.
 
-- **Next.js 14 & App Router**: Utilizing the cutting-edge features of Next.js 14, MDXBlog offers a seamless and efficient user experience, underpinned by the powerful app router for smooth navigation.
+---
 
-- [**Deployed on Vercel**:](https://vercel.com) Experience the reliability and speed of Vercel, ensuring that our static blog site is always available and performs exceptionally.
+## <div id='markdown-mdx'>Markdown and MDX Guide</div>
 
-- **SEO Optimized**: With automatic sitemap generation at build time through 'next sitemap', our platform is finely tuned for search engine optimization, enhancing the visibility and reach of your content.
+### <div id='markdown-syntax'>Markdown Syntax</div>
 
-- **Dynamic Publishing**: Our platform smartly handles future-dated posts, ensuring they are published only on or after their set date, thanks to a meticulous filtering system.
+- **Headings**: Use `#` for headings. More `#` symbols mean smaller headings.
 
-- **Development Mode Features**: In development mode, users can swiftly create new posts using the '+' icon, streamlining the content creation process.
+  ```markdown
+  # H1 Heading
 
-- **Flexible Content Editing**: Edit your MDX (Markdown + JSX) posts with ease, either directly in the browser or using VS Code, providing a flexible and user-friendly environment for content creators.
+  ## H2 Heading
+
+  ### H3 Heading
+  ```
+
+- **Paragraphs**: Simply write text to create a paragraph.
+
+  ```markdown
+  This is a paragraph of text.
+  ```
+
+- **Bold and Italic Text**: Use `**` or `__` for bold and `*` or `_` for italic.
+
+  ```markdown
+  This is **bold** text and this is _italic_ text.
+  ```
+
+- **Lists**:
+
+  - **Unordered List**: Use `-`, `*`, or `+` for bullet points.
+    ```markdown
+    - Item 1
+    - Item 2
+    ```
+  - **Ordered List**: Use numbers followed by a period.
+    ```markdown
+    1. First item
+    2. Second item
+    ```
+
+- **Links**: Use `[text](url)` for hyperlinks.
+
+  ```markdown
+  [OpenAI](https://openai.com)
+  ```
+
+- **Images**: Use `![alt text](image url)` to embed images.
+
+  ```markdown
+  ![A cat](https://example.com/cat.jpg)
+  ```
+
+- **Code Blocks**: Use triple backticks for code blocks.
+
+  ```markdown
+
+  ```
+
+  ```javascript
+  console.log("Hello, world!");
+  ```
+
+### <div id='mdx-syntax'>MDX Syntax</div>
+
+- **Embedding Components**: Directly embed React components or custom components within your content.
+
+  ```jsx
+  import MyButton from "./MyButton";
+
+  <MyButton>Click Me!</MyButton>;
+  ```
+
+- **Combining Markdown and Components**: Use markdown for content structure and components for interactivity.
+
+  ```jsx
+  ## A Section with a Button
+
+  Here’s a paragraph of text before the button.
+
+  <MyButton>Click Me!</MyButton>
+
+  Here’s another paragraph after the button.
+  ```
 
 ## <div id='custom-code-components'>Custom MDX Components</div>
+
+MDXBlog provides custom components to enhance your content with interactive elements and visual appeal. These components are imported in the configuration, so they can be used in MDXBlog without an explicit import statement in the MDX document. Here are some of the custom components available:
+
+---
 
 ### <div id='youtube'>`<YouTube />`: Seamlessly embed YouTube videos within your content</div>
 
@@ -101,6 +188,8 @@ To embed a YouTube video, use the `<YouTube />` component. Provide the `id` of t
 
 The YouTube component is a custom MDX component that allows you to embed YouTube videos directly into your content. Simply provide the video ID, and the component will handle the rest.
 
+---
+
 ### <div id='image'>`<Image />`: Integrate images elegantly, enhancing the visual appeal of your posts</div>
 
 To add an image to your content, use the `<Image />` component. You can also add a caption to describe the image:
@@ -113,7 +202,26 @@ caption="trees, grass, and sky"
 - **src**: The path to your image file. This should be relative to the root of your project or the `public` folder if using Next.js.
 - **caption** _(optional)_: A short description or caption for the image.
 
-### <div id='code'>`code`: Include and showcase code snippets with clarity and style</div>
+<Image
+  src="/images/posts/how-to-use-images/grass-tree-sky.jpg"
+  caption="trees, grass, and sky"
+/>
+
+---
+
+### <div id='code'>Code: Include and showcase code snippets with clarity and style</div>
+
+### Inline Code
+
+Inline code can be added using single backticks (`):
+
+\`const message = "Hello, World!";\`
+
+Like this:
+
+`const message = "Hello, World!";`
+
+### Code Blocks
 
 To display a block of code, use the standard Markdown syntax with triple backticks (```) followed by the language identifier:
 
@@ -123,15 +231,25 @@ console.log("Hello World")
 
 - **language identifier** _(optional)_: Specify the programming language for syntax highlighting. In the example above, `javascript` is used. Replace it with the appropriate language if different.
 
-## Dynamic Page Rendering
+Here is a simple example of a function that doubles the numbers in an array:
 
-Our dynamic page rendering system is the backbone of MDXBlog, carefully extracting and presenting content. It leverages the next-mdx-remote/rsc for rendering MDX content, along with custom components like YouTube, Image, and Code, bringing a rich and interactive blogging experience.
+```javascript
+function doubleNumbers(numbers) {
+  return numbers.map((number) => number * 2);
+}
 
-## <div id='development-insights'>Development Insights</div>
+// Example usage
+const numbers = [1, 2, 3, 4, 5];
+const doubled = doubleNumbers(numbers);
 
-- Utilizing metadata objects in each post, we extract crucial metadata for SEO and rendering purposes.
-- Only relevant posts are displayed, based on their publication date.
-- In development mode, additional tools like EditPostButton and OpenInVSCode are available, enhancing the ease of content management and editing.
+console.log(doubled); // Output: [2, 4, 6, 8, 10]
+```
+
+Code blocks allow copy-pasting and easy readability, making it simple for readers to understand and use the code snippets you provide.
+
+---
+
+## <div id='development-insights'>More About MDXBlog</div>
 
 **MDXBlog** represents a blend of technological innovation and user-centric design, providing a platform that's not only a pleasure to use but also powerful in its capabilities. Whether you're a developer, a content creator, or someone passionate about blogging, MDXBlog offers you the tools to share your stories and ideas with the world effortlessly.
 
