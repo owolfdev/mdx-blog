@@ -91,7 +91,9 @@ export default async function Blog({ params }: { params: { slug: string } }) {
             <h1 className="text-4xl sm:text-6xl font-black capitalize leading-12">
               {post.metadata?.title}
             </h1>
-            <p className="pt-6">By {post.metadata?.author}</p>
+            <p className="pt-6 text-xl sm:text-lg">
+              By {post.metadata?.author}
+            </p>
           </div>
           {isDevMode() && (
             <div className="flex gap-2 mb-4">
