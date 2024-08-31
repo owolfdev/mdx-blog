@@ -8,19 +8,26 @@ import categoryData from "@/data/settings/categories.json";
 const categories: string[] = categoryData.categories;
 
 interface CustomStyles {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   option: (defaultStyles: any, state: any) => any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   placeholder: (provided: any, state: any) => any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   multiValue: (provided: any, state: any) => any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   control: (defaultStyles: any, state: any) => any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   input: (styles: any) => any;
 }
 
 interface MultiSelectProps {
+  categories: string[]; // Array of categories
   selectedCategories: string[]; // Ensure this is always an array
   setSelectedCategories: (categories: string[]) => void;
 }
 
 export function MultiSelect({
+  categories,
   selectedCategories = [], // Default to an empty array if undefined
   setSelectedCategories,
 }: MultiSelectProps) {
@@ -53,6 +60,7 @@ export function MultiSelect({
       backgroundColor: "transparent",
       borderColor: "gray-300",
     }),
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     input: (styles: any) => ({
       ...styles,
       color: "black",
@@ -65,6 +73,7 @@ export function MultiSelect({
   useEffect(() => {
     //console.log("theme", theme)
     setCustomStyles({
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       option: (defaultStyles: any, { isFocused }) => ({
         ...defaultStyles,
         backgroundColor: isFocused
@@ -95,6 +104,7 @@ export function MultiSelect({
             : "#6B728",
         },
       }),
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       placeholder: (provided: any, state: any) => ({
         // Styles for the placeholder text
         ...provided,
@@ -102,6 +112,7 @@ export function MultiSelect({
         fontSize: "14px",
       }),
 
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       multiValue: (provided: any, state: any) => ({
         // Styles for the placeholder text
         ...provided,
@@ -111,6 +122,7 @@ export function MultiSelect({
         fontSize: "14px",
       }),
 
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       control: (defaultStyles: any, state: any) => ({
         ...defaultStyles,
         borderRadius: "0.35rem",
@@ -125,6 +137,7 @@ export function MultiSelect({
           borderColor: "--border",
         },
       }),
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       input: (styles: any) => ({
         ...styles,
         color: theme === "dark" ? "#e2e8f0" : "black",
@@ -138,6 +151,7 @@ export function MultiSelect({
         <Select
           styles={customStyles}
           className=""
+          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
           value={selectedCategories?.map((category: any) => ({
             value: category,
             label: category,

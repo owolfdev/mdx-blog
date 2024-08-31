@@ -27,7 +27,9 @@ import {
 import { MultiSelect } from "@/components/rs-multi-select";
 import { useRouter } from "next/navigation";
 import { createNewPostAction } from "@/app/actions/create-new-post-action";
-import { Checkbox } from "@/components/ui/checkbox"; // Import the Checkbox component
+import { Checkbox } from "@/components/ui/checkbox";
+import authorsData from "@/data/settings/authors.json"; // Import authors data
+import categoriesData from "@/data/settings/categories.json";
 
 // Form schema validation using Zod
 const formSchema = z.object({
@@ -62,6 +64,7 @@ const formSchema = z.object({
     .or(z.literal("")), // Allow empty string
   relatedPosts: z.string().optional(),
   draft: z.boolean().optional(), // Add draft to the form schema
+  author: z.string().nonempty({ message: "Author is required" }), // Add author to the schema
 });
 
 export function CreatePostForm() {
@@ -73,21 +76,20 @@ export function CreatePostForm() {
       title: "",
       description: "",
       content: "",
-      categories: ["Web Development"],
+      categories: [categoriesData.categories[0]],
       tags: "",
       image: "",
       relatedPosts: "",
       draft: false, // Default to false
+      author: authorsData.authors[0], // Default to the first author
     },
   });
 
-  const authorName = "O Wolfson"; // Replace 'fullName' with the appropriate field
   const router = useRouter();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const submissionData = {
       ...values,
-      author: authorName,
       id: uuidv4(),
       modifiedDate: new Date().toISOString(), // Current date as modifiedDate
       relatedPosts:
@@ -108,7 +110,33 @@ export function CreatePostForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        {/* Existing form fields */}
+        {/* Author Selection Field */}
+        <FormField
+          control={form.control}
+          name="author"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Author</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select author" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {authorsData.authors.map((author) => (
+                    <SelectItem key={author} value={author}>
+                      {author}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* Post Type Field */}
         <FormField
           control={form.control}
           name="type"
@@ -130,6 +158,8 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
+
+        {/* Date Picker Field */}
         <FormField
           control={form.control}
           name="date"
@@ -141,6 +171,8 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
+
+        {/* Title Field */}
         <FormField
           control={form.control}
           name="title"
@@ -154,6 +186,8 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
+
+        {/* Description Field */}
         <FormField
           control={form.control}
           name="description"
@@ -167,6 +201,8 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
+
+        {/* Content Field */}
         <FormField
           control={form.control}
           name="content"
@@ -185,6 +221,8 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
+
+        {/* Categories Field */}
         <FormField
           control={form.control}
           name="categories"
@@ -193,6 +231,7 @@ export function CreatePostForm() {
               <FormLabel>Categories</FormLabel>
               <FormControl>
                 <MultiSelect
+                  categories={categoriesData.categories} // Pass categories as prop
                   selectedCategories={field.value}
                   setSelectedCategories={field.onChange}
                 />
@@ -201,6 +240,8 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
+
+        {/* Tags Field */}
         <FormField
           control={form.control}
           name="tags"
@@ -214,7 +255,8 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
-        {/* New Image URL field */}
+
+        {/* Image URL Field */}
         <FormField
           control={form.control}
           name="image"
@@ -232,7 +274,8 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
-        {/* New Related Posts field */}
+
+        {/* Related Posts Field */}
         <FormField
           control={form.control}
           name="relatedPosts"
@@ -249,7 +292,8 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
-        {/* New Draft Checkbox field */}
+
+        {/* Draft Checkbox Field */}
         <FormField
           control={form.control}
           name="draft"
@@ -270,6 +314,8 @@ export function CreatePostForm() {
             </FormItem>
           )}
         />
+
+        {/* Submit Button */}
         <div className="pt-4">
           <Button type="submit" className="text-lg">
             Create

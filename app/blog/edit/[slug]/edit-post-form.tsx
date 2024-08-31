@@ -47,6 +47,8 @@ import { editPostAction } from "@/app/actions/edit-post-action";
 import DatePickerField from "@/components/date-picker";
 
 import type { Post } from "@/types/post-types";
+import categoriesData from "@/data/settings/categories.json";
+import authorsData from "@/data/settings/authors.json";
 
 const formSchema = z.object({
   slug: z.string().min(1, {
@@ -83,6 +85,9 @@ const formSchema = z.object({
     .or(z.literal("")), // Allow empty string
   relatedPosts: z.string().optional(),
   draft: z.boolean().optional(),
+  author: z.string().min(1, {
+    message: "Author is required.",
+  }), // Add author validation
 });
 
 export function EditPostForm({ postData }: { postData: Post }) {
@@ -111,6 +116,7 @@ export function EditPostForm({ postData }: { postData: Post }) {
         ? postData.metadata.relatedPosts.join(", ")
         : "",
       draft: postData.metadata?.draft || false,
+      author: postData.metadata?.author || authorsData.authors[0], // Default to the first author if not present
     },
   });
 
@@ -119,7 +125,7 @@ export function EditPostForm({ postData }: { postData: Post }) {
 
     const submissionData = {
       ...values,
-      author: postData.metadata?.author || "",
+      author: values.author,
       id: postData.metadata?.id || "",
       originalFilename: postData.filename,
       filename: `${values.slug}.mdx`, // Use the new slug to determine the filename
@@ -186,6 +192,33 @@ export function EditPostForm({ postData }: { postData: Post }) {
                 <FormControl>
                   <Input placeholder="Enter slug" {...field} />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="author"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Author</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Select author" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {authorsData.authors.map((author) => (
+                      <SelectItem key={author} value={author}>
+                        {author}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
@@ -277,6 +310,7 @@ export function EditPostForm({ postData }: { postData: Post }) {
                 <FormLabel>Categories</FormLabel>
                 <FormControl>
                   <MultiSelect
+                    categories={categoriesData.categories} // Pass categories as prop
                     selectedCategories={field.value}
                     setSelectedCategories={field.onChange}
                   />
