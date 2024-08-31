@@ -1,11 +1,29 @@
-import ReactMarkdown from "react-markdown";
+import fs from "node:fs";
+import path from "node:path";
+import React from "react";
 import type { Metadata } from "next";
 import MdxContent from "./mdx-content";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "MDXBlog | About",
-  };
+  const filePath = path.join(process.cwd(), "content/pages/about.mdx");
+  const fileContent = fs.readFileSync(filePath, "utf8");
+
+  // Use a regular expression to extract the metadata object
+  const metadataMatch = fileContent.match(
+    /export\s+const\s+metadata\s+=\s+({[\s\S]*?});/
+  );
+
+  if (metadataMatch?.[1]) {
+    // Parse the metadata object string into an actual object
+    // biome-ignore lint/security/noGlobalEval: <explanation>
+    const metadata = eval(`(${metadataMatch[1]})`);
+
+    return {
+      title: metadata.title,
+      description: metadata.description,
+    };
+  }
+  throw new Error("Metadata not found in the MDX file.");
 }
 
 export default function About() {
