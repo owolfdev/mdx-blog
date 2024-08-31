@@ -772,10 +772,10 @@
     "likes": 1
   },
   {
-    "slug": "understanding-static-rendering-in-mdxblog",
+    "slug": "understanding-ssg-in-mdxblog",
     "id": "8LmHMHf41SyPgCyah7RXMa",
     "type": "blog",
-    "title": "Understanding Static Rendering in MDXBlog",
+    "title": "Understanding Static Site Generation in MDXBlog",
     "author": "O Wolfson",
     "publishDate": "2024-08-31",
     "description": "Static rendering is a powerful feature of Next.js that allows you to pre-generate HTML pages at build time.",
@@ -788,7 +788,7 @@
       "blog",
       "rendering"
     ],
-    "modifiedDate": "2024-08-31T01:52:46.815Z",
+    "modifiedDate": "2024-08-31T02:09:04.664Z",
     "image": null,
     "draft": false,
     "relatedPosts": [
