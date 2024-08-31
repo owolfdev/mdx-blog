@@ -1,0 +1,130 @@
+export const metadata = {
+  id: "4NZFYL3oLaRFSy8BaEAc7H",
+  type: "blog",
+  title: "Integrating Dynamic Components in MDX Files in Next.js 14",
+  author: "O Wolfson",
+  publishDate: "2024-09-02",
+  description: "One of the standout features of MDX (Markdown with JSX) in Next.js 14 is its ability to blend static content with dynamic components.",
+  categories: ["Web Development"],
+  tags: ["mdx", "custom", "components"],
+  modifiedDate: "2024-08-31T02:51:38.833Z",
+  image: null,
+  draft: false,
+  relatedPosts: [""]
+};
+
+import DynamicInputPopup from "@/components/examples/dynamic-input-popup";
+
+One of the standout features of MDX (Markdown with JSX) in Next.js 14 is its ability to blend static content with dynamic components. This allows for the creation of interactive, rich experiences directly within your Markdown files. In this article, we’ll walk through how to create and use a dynamic component in an MDX file that includes an input and a button. When the button is clicked, it will display the input text in a popup message.
+
+<DynamicInputPopup />
+
+### Creating the Dynamic Component
+
+First, we’ll create a dynamic component that will include an input field and a button. This component will be placed in the `/app/components/examples/` directory.
+
+Here’s how the component might look:
+
+```jsx
+// File: /app/components/examples/dynamic-input-popup.tsx
+
+import React, { useState } from "react";
+
+export default function DynamicInputPopup() {
+  const [inputValue, setInputValue] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleButtonClick = () => {
+    if (inputValue) {
+      setShowPopup(true);
+    }
+  };
+
+  return (
+    <div className="pb-4">
+      <input
+        type="text"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder="Type something..."
+        className="border p-2 rounded-md"
+      />
+      <button
+        type="button"
+        onClick={handleButtonClick}
+        className="ml-2 bg-blue-500 p-2 rounded-md"
+      >
+        Show Popup
+      </button>
+      {showPopup && (
+        <div className="flex flex-col gap-4 mt-4 p-4 border rounded-md">
+          <p>{inputValue}</p>
+          <button
+            type="button"
+            onClick={() => setShowPopup(false)}
+            className="bg-red-500 text-white p-2 rounded-md"
+          >
+            Close
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+### Importing and Using the Component in an MDX File
+
+Next, we’ll import this component into an MDX file and use it directly within the content.
+
+Here’s an example MDX file:
+
+```MDX
+export const metadata = {
+  id: "4NZFYL3oLaRFSy8BaEAc7H",
+  type: "blog",
+  title: "Integrating Dynamic Components in MDX Files in Next.js 14",
+  author: "O Wolfson",
+  publishDate: "2024-08-31",
+  description:
+    "One of the standout features of MDX (Markdown with JSX) in Next.js 14 is its ability to blend static content with dynamic components.",
+  categories: ["Web Development"],
+  tags: ["mdx", "custom", "components"],
+};
+
+import DynamicInputPopup from "@/components/examples/dynamic-input-popup";
+
+# Integrating Dynamic Components in MDX
+
+MDX allows you to seamlessly combine static Markdown content with dynamic React components. In this example, we’ll demonstrate how to use a custom component that takes user input and displays it in a popup.
+
+<DynamicInputPopup />
+```
+
+In the MDX file, the `DynamicInputPopup` component is imported just like any other React component. The key difference is that it is directly used within the MDX content, providing an interactive experience.
+
+### Setting Up the MDX File to Handle Dynamic Imports
+
+In your Next.js configuration, ensure that MDX is set up to support dynamic imports if it's not already. You might have something similar to this in your `next.config.js`:
+
+```javascript
+const withMDX = require("@next/mdx")({
+  extension: /\.mdx?$/,
+});
+
+module.exports = withMDX({
+  pageExtensions: ["js", "jsx", "md", "mdx"],
+});
+```
+
+This setup allows Next.js to understand MDX files and ensures that you can import components dynamically.
+
+### Conclusion
+
+By following the steps above, you’ve successfully integrated a dynamic component into an MDX file in Next.js 14. This approach enhances the interactivity of your blog or documentation site, making it more engaging for users. The possibilities are endless—whether you need forms, sliders, or other dynamic elements, MDX with Next.js allows you to create content that goes beyond static text and images.
+
+Happy coding!
+
+---
+
+This article should guide readers through the process of creating and integrating dynamic components in their MDX files, offering both a practical example and the code needed to make it work.

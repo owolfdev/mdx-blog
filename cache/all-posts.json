@@ -322,6 +322,30 @@
     "likes": 1
   },
   {
+    "slug": "integrating-dynamic-components-in-mdx-files-in-nextjs-14",
+    "id": "4NZFYL3oLaRFSy8BaEAc7H",
+    "type": "blog",
+    "title": "Integrating Dynamic Components in MDX Files in Next.js 14",
+    "author": "O Wolfson",
+    "publishDate": "2024-09-02",
+    "description": "One of the standout features of MDX (Markdown with JSX) in Next.js 14 is its ability to blend static content with dynamic components.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "custom",
+      "components"
+    ],
+    "modifiedDate": "2024-08-31T02:51:38.833Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [
+      ""
+    ],
+    "likes": 0
+  },
+  {
     "slug": "integrating-mdx-with-static-site-generators",
     "id": "3cRgq7CxeWPx3V4A7jbZtw",
     "type": "blog",
@@ -794,7 +818,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "updates-to-mdx-blog-enhanced-and-streamlined",
