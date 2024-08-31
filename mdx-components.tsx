@@ -35,7 +35,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h6: (props) => (
       <h6 className="text-base font-light pb-4 w-full" {...props} />
     ),
-    p: (props) => <p className="text-lg mb-4 w-full" {...props} />,
+    p: (props) => <p className="text-xl sm:text-lg mb-4 w-full" {...props} />,
     li: (props) => <li className="pb-1" {...props} />,
     ul: (props) => <ul className="list-disc pl-6 pb-4 w-full" {...props} />,
     ol: (props) => <ol className="list-decimal pl-6 pb-4 w-full" {...props} />,

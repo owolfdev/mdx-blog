@@ -88,7 +88,7 @@ export default async function Blog({ params }: { params: { slug: string } }) {
             </p>
           </div>
           <div className="pb-6">
-            <h1 className="text-5xl sm:text-6xl font-black capitalize leading-12">
+            <h1 className="text-4xl sm:text-6xl font-black capitalize leading-12">
               {post.metadata?.title}
             </h1>
             <p className="pt-6">By {post.metadata?.author}</p>
