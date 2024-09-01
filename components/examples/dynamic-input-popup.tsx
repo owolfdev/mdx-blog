@@ -1,4 +1,4 @@
-// File: /app/components/examples/DynamicInputPopup.js
+"use client";
 
 import React, { useState } from "react";
 

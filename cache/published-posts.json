@@ -325,6 +325,31 @@
     "likes": 1
   },
   {
+    "slug": "integrating-dynamic-components-in-mdx-files-in-nextjs-14",
+    "id": "4NZFYL3oLaRFSy8BaEAc7H",
+    "type": "blog",
+    "title": "Integrating Dynamic Components in MDX Files in Next.js 14",
+    "author": "O Wolfson",
+    "publishDate": "2024-09-02",
+    "description": "One of the standout features of MDX (Markdown with JSX) in Next.js 14 is its ability to blend static content with dynamic components.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "custom",
+      "components"
+    ],
+    "modifiedDate": "2024-08-31T23:06:52.057Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [
+      "using-and-styling-custom-components-in-mdx-content",
+      "import-components-to-mdx"
+    ],
+    "likes": 0
+  },
+  {
     "slug": "integrating-mdx-with-static-site-generators",
     "id": "3cRgq7CxeWPx3V4A7jbZtw",
     "type": "blog",
@@ -727,28 +752,6 @@
     "draft": false,
     "relatedPosts": [],
     "likes": 2
-  },
-  {
-    "slug": "test-past-published",
-    "id": "o3pah82aJcgx7d3ZNd7LeA",
-    "type": "blog",
-    "title": "Test Past Published",
-    "author": "O. Wolfson",
-    "publishDate": "2024-08-30",
-    "description": "This is only a test.",
-    "categories": [
-      "Web Development"
-    ],
-    "tags": [
-      "test"
-    ],
-    "modifiedDate": "2024-09-01T00:23:23.115Z",
-    "image": null,
-    "draft": false,
-    "relatedPosts": [
-      ""
-    ],
-    "likes": 0
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",

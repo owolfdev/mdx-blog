@@ -754,50 +754,6 @@
     "likes": 2
   },
   {
-    "slug": "test-future-published",
-    "id": "4EVTHHR2abpxZ9QG7ADumw",
-    "type": "blog",
-    "title": "Test Future Published",
-    "author": "O. Wolfson",
-    "publishDate": "2024-09-23",
-    "description": "This is only a test. ",
-    "categories": [
-      "Web Development"
-    ],
-    "tags": [
-      "test"
-    ],
-    "modifiedDate": "2024-09-01T00:25:35.468Z",
-    "image": null,
-    "draft": false,
-    "relatedPosts": [
-      ""
-    ],
-    "likes": 0
-  },
-  {
-    "slug": "test-past-published",
-    "id": "o3pah82aJcgx7d3ZNd7LeA",
-    "type": "blog",
-    "title": "Test Past Published",
-    "author": "O. Wolfson",
-    "publishDate": "2024-08-30",
-    "description": "This is only a test.",
-    "categories": [
-      "Web Development"
-    ],
-    "tags": [
-      "test"
-    ],
-    "modifiedDate": "2024-09-01T00:23:23.115Z",
-    "image": null,
-    "draft": false,
-    "relatedPosts": [
-      ""
-    ],
-    "likes": 0
-  },
-  {
     "slug": "the-jamstack-and-web-development-with-mdx",
     "id": "fCW9rjHxBSPhu8grcwdMPw",
     "type": "blog",

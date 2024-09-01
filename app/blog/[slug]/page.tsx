@@ -1,51 +1,125 @@
-import fs from "node:fs";
-import path from "node:path";
 import React from "react";
-import type { Metadata, ResolvingMetadata } from "next";
-// import { format } from "date-fns";
-import { isDevMode } from "@/lib/utils/is-dev-mode";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import path from "node:path";
+import fs from "node:fs";
+import RelatedPostsList from "./related-posts";
+import LikeButton from "@/components/like/like-button";
 import EditPostButton from "./edit-post-button";
 import OpenInVSCode from "./open-in-vs-code-button";
-import LikeButton from "@/components/like/like-button";
-import MdxContent from "./mdx-content";
-import RelatedPostsList from "./related-posts";
-import { notFound } from "next/navigation"; // Import notFound function
-import { getPost } from "@/lib/posts/get-post";
+import { isDevMode } from "@/lib/utils/is-dev-mode";
 
 type Props = {
   params: { slug: string };
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const post = await getPost(params);
+// Dynamically import the MDX file based on the slug
+async function loadMdxFile(slug: string) {
+  try {
+    const mdxPath = path.join(process.cwd(), "content", "posts", `${slug}.mdx`);
+    if (!fs.existsSync(mdxPath)) {
+      return null;
+    }
+    const mdxModule = await import(`@/content/posts/${slug}.mdx`);
+    return mdxModule;
+  } catch (error) {
+    console.error("Failed to load MDX file:", error);
+    return null;
+  }
+}
+
+// Generate metadata using the imported metadata from the MDX file
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const mdxModule = await loadMdxFile(params.slug);
+  if (!mdxModule) {
+    return {
+      title: "Post Not Found",
+      description: "",
+    };
+  }
+  const { metadata } = mdxModule;
+
   return {
-    title: post.metadata?.title,
-    description: post.metadata?.description,
+    title: metadata.title,
+    description: metadata.description,
   };
 }
 
-// async function getPost({ slug }: { slug: string }) {
-//   try {
-//     const mdxPath = path.join("content", "posts", `${slug}.mdx`);
-//     if (!fs.existsSync(mdxPath)) {
-//       throw new Error(`MDX file for slug ${slug} does not exist`);
-//     }
+export default async function Blog({ params }: Props) {
+  const { slug } = params;
+  const mdxModule = await loadMdxFile(slug);
 
-//     const { metadata } = await import(`@/content/posts/${slug}.mdx`);
+  if (!mdxModule) {
+    notFound(); // Return a 404 page if the MDX file is not found
+  }
 
-//     return {
-//       slug,
-//       metadata,
-//     };
-//   } catch (error) {
-//     console.error("Error fetching post:", error);
-//     throw new Error(`Unable to fetch the post for slug: ${slug}`);
-//   }
-// }
+  const { default: Content, metadata } = mdxModule;
 
+  // Extract the dates and compare them
+  const publishDate = new Date(metadata?.publishDate);
+  const modifiedDate = new Date(metadata?.modifiedDate);
+
+  // Choose the date to display
+  const displayDate =
+    modifiedDate > publishDate ? metadata?.modifiedDate : metadata?.publishDate;
+
+  // Format the original published date
+  const originallyPublishedDateFormatted = publishDate.toLocaleDateString(
+    "en-US",
+    {
+      year: "numeric", // "2024"
+      month: "short", // "Aug"
+      day: "numeric", // "31"
+    }
+  );
+
+  return (
+    <div className="max-w-3xl z-10 w-full items-center justify-between">
+      <div className="w-full flex justify-center items-center flex-col gap-6">
+        <article className="prose prose-lg md:prose-lg lg:prose-lg mx-auto min-w-full">
+          <div className="pb-6">
+            <p className="font-semibold text-lg">
+              <span
+                className="text-primary pr-1"
+                title={`Date last modified. Originally published on ${originallyPublishedDateFormatted}`}
+              >
+                {displayDate.split("T")[0]}
+              </span>{" "}
+              {metadata?.categories?.map((category: string, index: number) => (
+                <span key={index + category} title="Post category">
+                  {category}
+                  {index < metadata?.categories.length - 1 && ", "}
+                </span>
+              ))}
+            </p>
+          </div>
+          <div className="pb-6">
+            <h1 className="text-4xl sm:text-6xl font-black capitalize leading-12">
+              {metadata?.title}
+            </h1>
+            <p className="pt-6 text-xl sm:text-lg">By {metadata?.author}</p>
+          </div>
+          {/* Render the dynamically loaded MDX content */}
+          {isDevMode() && (
+            <div className="flex gap-2 mb-4">
+              <EditPostButton slug={slug} />
+              <OpenInVSCode path={slug} />
+            </div>
+          )}
+          <Content />
+        </article>
+      </div>
+      <div>
+        <div>
+          <RelatedPostsList relatedSlugs={metadata?.relatedPosts} />
+        </div>
+      </div>
+      <LikeButton postId={metadata?.id} />
+    </div>
+  );
+}
+
+// Generate static paths for all slugs based on MDX files in the posts directory
 export async function generateStaticParams() {
   const files = fs.readdirSync(path.join("content", "posts"));
   const params = files
@@ -55,71 +129,4 @@ export async function generateStaticParams() {
     }));
 
   return params;
-}
-
-const Loading = () => (
-  <div className="flex justify-center items-center h-full">
-    <p>Loading...</p>
-  </div>
-);
-
-export default async function Blog({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-
-  const post = await getPost(params);
-
-  // Extract the dates and compare them
-  const publishDate = new Date(post.metadata?.publishDate);
-  const modifiedDate = new Date(post.metadata?.modifiedDate);
-
-  // Choose the date to display
-  const displayDate =
-    modifiedDate > publishDate
-      ? post.metadata?.modifiedDate
-      : post.metadata?.publishDate;
-
-  return (
-    <div className="max-w-3xl z-10 w-full items-center justify-between">
-      <div className="w-full flex justify-center items-center flex-col gap-6">
-        <article className="prose prose-lg md:prose-lg lg:prose-lg mx-auto min-w-full">
-          <div className="pb-6">
-            <p className="font-semibold text-lg">
-              <span className="text-primary pr-1" title="Date last modified">
-                {displayDate.split("T")[0]}
-              </span>{" "}
-              {post.metadata?.categories?.map(
-                (category: string, index: number) => (
-                  <span key={index + category} title="Post category">
-                    {category}
-                    {index < post.metadata?.categories.length - 1 && ", "}
-                  </span>
-                )
-              )}
-            </p>
-          </div>
-          <div className="pb-6">
-            <h1 className="text-4xl sm:text-6xl font-black capitalize leading-12">
-              {post.metadata?.title}
-            </h1>
-            <p className="pt-6 text-xl sm:text-lg">
-              By {post.metadata?.author}
-            </p>
-          </div>
-          {isDevMode() && (
-            <div className="flex gap-2 mb-4">
-              <EditPostButton slug={slug} author={post.metadata?.author} />
-              <OpenInVSCode path={slug} />
-            </div>
-          )}
-          <MdxContent slug={slug} />
-        </article>
-      </div>
-      <div>
-        <div>
-          <RelatedPostsList relatedSlugs={post.metadata?.relatedPosts} />
-        </div>
-      </div>
-      <LikeButton postId={post.metadata?.id} />
-    </div>
-  );
 }

@@ -53,58 +53,164 @@ During the build process, Next.js compiles your MDX files into React components.
 
 ### Dynamic Imports and Static Rendering
 
-The `MdxContent` component uses a dynamic import to load MDX files based on a slug, and Next.js resolves these imports at build time for pre-defined pages. Here’s how it works:
+In MDXBlog, dynamic imports are used to load MDX files based on a `slug`. Next.js resolves these imports at build time for pre-defined pages, allowing the MDX content to be statically rendered into HTML. This approach is implemented directly within the page component for each dynamic route:
 
-- **Dynamic Import:** The `MdxContent` component dynamically imports the MDX content based on the provided `slug`.
-
-  ```javascript
-  const MDXContent = require(`@/content/pages/${slug}.mdx`).default;
-  ```
-
-- **Build-Time Resolution:** During the build, Next.js resolves these dynamic imports, rendering the MDX content into static HTML. This means that when the site is deployed, users receive pre-rendered HTML, ensuring fast load times and a smooth experience.
-
-## Exploring the Key Components
-
-### MDX Content Component
-
-The `MdxContent` component is crucial in dynamically rendering MDX content. Despite being a client-side component (as indicated by `"use client"`), it participates in the static generation process:
-
-```javascript
-"use client";
+```typescript
+// /app/blog/[slug]/page.tsx
 
 import React from "react";
-import { useRouter } from "next/navigation";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import path from "node:path";
+import fs from "node:fs";
+import RelatedPostsList from "@/components/related-posts";
+import LikeButton from "@/components/like/like-button";
+import EditPostButton from "./edit-post-button";
+import OpenInVSCode from "./open-in-vs-code-button";
+import { isDevMode } from "@/lib/utils/is-dev-mode";
 
-type MdxContentProps = {
-  slug: string,
+type Props = {
+  params: { slug: string };
 };
 
-const MdxContent = ({ slug }: MdxContentProps) => {
-  const router = useRouter();
-
+// Dynamically import the MDX file based on the slug
+async function loadMdxFile(slug: string) {
   try {
-    const MDXContent = require(`@/content/pages/${slug}.mdx`).default;
-
-    return (
-      <div>
-        <MDXContent />
-      </div>
-    );
+    const mdxPath = path.join(process.cwd(), "content", "posts", `${slug}.mdx`);
+    if (!fs.existsSync(mdxPath)) {
+      return null;
+    }
+    const mdxModule = await import(`@/content/posts/${slug}.mdx`);
+    return mdxModule;
   } catch (error) {
-    console.error("Failed to load MDX content:", error);
-    router.replace("/404");
-    return <p>Content not found.</p>;
+    console.error("Failed to load MDX file:", error);
+    return null;
   }
-};
+}
 
-export default MdxContent;
+// Generate metadata using the imported metadata from the MDX file
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const mdxModule = await loadMdxFile(params.slug);
+  if (!mdxModule) {
+    return {
+      title: "Post Not Found",
+      description: "",
+    };
+  }
+  const { metadata } = mdxModule;
+
+  return {
+    title: metadata.title,
+    description: metadata.description,
+  };
+}
+
+export default async function Blog({ params }: Props) {
+  const { slug } = params;
+  const mdxModule = await loadMdxFile(slug);
+
+  if (!mdxModule) {
+    notFound(); // Return a 404 page if the MDX file is not found
+  }
+
+  const { default: Content, metadata } = mdxModule;
+
+  // Extract the dates and compare them
+  const publishDate = new Date(metadata?.publishDate);
+  const modifiedDate = new Date(metadata?.modifiedDate);
+
+  // Choose the date to display
+  const displayDate =
+    modifiedDate > publishDate ? metadata?.modifiedDate : metadata?.publishDate;
+
+  return (
+    <div className="max-w-3xl z-10 w-full items-center justify-between">
+      <div className="w-full flex justify-center items-center flex-col gap-6">
+        <article className="prose prose-lg md:prose-lg lg:prose-lg mx-auto min-w-full">
+          <div className="pb-6">
+            <p className="font-semibold text-lg">
+              <span className="text-primary pr-1" title="Date last modified">
+                {displayDate.split("T")[0]}
+              </span>{" "}
+              {metadata?.categories?.map((category: string, index: number) => (
+                <span key={index + category} title="Post category">
+                  {category}
+                  {index < metadata?.categories.length - 1 && ", "}
+                </span>
+              ))}
+            </p>
+          </div>
+          <div className="pb-6">
+            <h1 className="text-4xl sm:text-6xl font-black capitalize leading-12">
+              {metadata?.title}
+            </h1>
+            <p className="pt-6 text-xl sm:text-lg">By {metadata?.author}</p>
+          </div>
+          {/* Render the dynamically loaded MDX content */}
+          {isDevMode() && (
+            <div className="flex gap-2 mb-4">
+              <EditPostButton slug={slug} />
+              <OpenInVSCode path={slug} />
+            </div>
+          )}
+          <Content />
+        </article>
+      </div>
+      <div>
+        <div>
+          <RelatedPostsList relatedSlugs={metadata?.relatedPosts} />
+        </div>
+      </div>
+      <LikeButton postId={metadata?.id} />
+    </div>
+  );
+}
+
+// Generate static paths for all slugs based on MDX files in the posts directory
+export async function generateStaticParams() {
+  const files = fs.readdirSync(path.join("content", "posts"));
+  const params = files
+    .filter((filename) => filename.endsWith(".mdx")) // Only process MDX files
+    .map((filename) => ({
+      slug: filename.replace(".mdx", ""),
+    }));
+
+  return params;
+}
 ```
+
+### Handling Dynamic Routes with `generateStaticParams`
+
+For dynamic routes like `/blog/[slug]`, MDXBlog uses the `generateStaticParams` function to pre-generate paths for all MDX files in the `content/posts` directory. This ensures that these pages are also pre-rendered during the build process, maintaining the benefits of SSG even for dynamic content.
+
+```typescript
+export async function generateStaticParams() {
+  const files = fs.readdirSync(path.join("content", "posts"));
+  const params = files
+    .filter((filename) => filename.endsWith(".mdx"))
+    .map((filename) => ({
+      slug: filename.replace(".mdx", ""),
+    }));
+
+  return params;
+}
+```
+
+## Exploring the Key Components
 
 ### Custom MDX Components
 
 Your `mdx-components.tsx` file customizes how different HTML elements and components are rendered within MDX content. This customization ensures that your content is styled consistently and utilizes the power of React components:
 
-```javascript
+```typescript
+import React from "react";
+import YouTube from "@/components/mdx/youtube";
+import Code from "@/components/mdx/code";
+import InlineCode from "@/components/mdx/inline-code";
+import Pre from "@/components/mdx/pre";
+import Image from "@/components/mdx/image";
+import type { MDXComponents } from "mdx/types";
+
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
@@ -138,7 +244,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     li: (props) => <li className="pb-1" {...props} />,
     ul: (props) => <ul className="list-disc pl-6 pb-4 w-full" {...props} />,
     ol: (props) => <ol className="list-decimal pl-6 pb-4 w-full" {...props} />,
-    hr: (props) => <hr className="my-4" {...props} />,
+    hr: (props) => (
+      <hr className="my-4 border-t border-gray-300 w-full" {...props} />
+    ),
     blockquote: (props) => (
       <blockquote
         style={{ paddingBottom: 0 }}
@@ -153,27 +261,25 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 
 These custom components are applied during the MDX compilation process, ensuring that when the content is rendered, it adheres to your design and functionality specifications.
 
-## The Role of generateMetadata
+## The Role of `generateMetadata`
 
-In a page component, the `generateMetadata` function plays a critical role in extracting and setting metadata from the MDX file:
+In a page component, the `generateMetadata` function plays a critical role in extracting and setting metadata from the MDX file. Here’s how it works:
 
-```javascript
-export async function generateMetadata(): Promise<Metadata> {
-  const filePath = path.join(process.cwd(), "content/pages/about.mdx");
-  const fileContent = fs.readFileSync(filePath, "utf8");
-
-  const metadataMatch = fileContent.match(
-    /export\s+const\s+metadata\s+=\s+({[\s\S]*?});/
-  );
-
-  if (metadataMatch?.[1]) {
-    const metadata = eval(`(${metadataMatch[1]})`);
+```typescript
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const mdxModule = await loadMdxFile(params.slug);
+  if (!mdxModule) {
     return {
-      title: metadata.title,
-      description: metadata.description,
+      title: "Post Not Found",
+      description: "",
     };
   }
-  throw new Error("Metadata not found in the MDX file.");
+  const { metadata } = mdxModule;
+
+  return {
+    title: metadata.title,
+    description: metadata.description,
+  };
 }
 ```
 

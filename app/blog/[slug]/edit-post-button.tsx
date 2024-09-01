@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-function EditPostButton({ slug, author }: { slug: string; author: string }) {
+function EditPostButton({ slug }: { slug: string }) {
   return (
     <div>
       <Link href={`/blog/edit/${slug}`}>

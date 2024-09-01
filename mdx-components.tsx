@@ -36,10 +36,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <h6 className="text-base font-light pb-4 w-full" {...props} />
     ),
     p: (props) => <p className="text-xl sm:text-lg mb-4 w-full" {...props} />,
-    li: (props) => <li className="pb-1" {...props} />,
+    li: (props) => <li className="" {...props} />,
     ul: (props) => <ul className="list-disc pl-6 pb-4 w-full" {...props} />,
     ol: (props) => <ol className="list-decimal pl-6 pb-4 w-full" {...props} />,
-    hr: (props) => <hr className="my-4" {...props} />,
+    hr: (props) => <hr className="pb-4 border-t w-full" {...props} />,
     blockquote: (props) => (
       <blockquote
         style={{ paddingBottom: 0 }}
