@@ -68,18 +68,28 @@ export default async function Blog({ params }: { params: { slug: string } }) {
 
   const post = await getPost(params);
 
+  // Extract the dates and compare them
+  const publishDate = new Date(post.metadata?.publishDate);
+  const modifiedDate = new Date(post.metadata?.modifiedDate);
+
+  // Choose the date to display
+  const displayDate =
+    modifiedDate > publishDate
+      ? post.metadata?.modifiedDate
+      : post.metadata?.publishDate;
+
   return (
     <div className="max-w-3xl z-10 w-full items-center justify-between">
       <div className="w-full flex justify-center items-center flex-col gap-6">
         <article className="prose prose-lg md:prose-lg lg:prose-lg mx-auto min-w-full">
           <div className="pb-6">
             <p className="font-semibold text-lg">
-              <span className="text-primary pr-1">
-                {post.metadata?.publishDate}
+              <span className="text-primary pr-1" title="Date last modified">
+                {displayDate.split("T")[0]}
               </span>{" "}
               {post.metadata?.categories?.map(
                 (category: string, index: number) => (
-                  <span key={index + category}>
+                  <span key={index + category} title="Post category">
                     {category}
                     {index < post.metadata?.categories.length - 1 && ", "}
                   </span>

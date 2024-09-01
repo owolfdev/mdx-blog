@@ -243,12 +243,15 @@
       "set-up",
       "download",
       "github",
-      "repo"
+      "repo",
+      "environment variables"
     ],
-    "modifiedDate": "2024-08-23",
+    "modifiedDate": "2024-08-31T23:43:03.817Z",
     "image": null,
     "draft": false,
-    "relatedPosts": [],
+    "relatedPosts": [
+      ""
+    ],
     "likes": 0
   },
   {
@@ -724,6 +727,28 @@
     "draft": false,
     "relatedPosts": [],
     "likes": 2
+  },
+  {
+    "slug": "test-past-published",
+    "id": "o3pah82aJcgx7d3ZNd7LeA",
+    "type": "blog",
+    "title": "Test Past Published",
+    "author": "O. Wolfson",
+    "publishDate": "2024-08-30",
+    "description": "This is only a test.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "test"
+    ],
+    "modifiedDate": "2024-09-01T00:23:23.115Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [
+      ""
+    ],
+    "likes": 0
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",

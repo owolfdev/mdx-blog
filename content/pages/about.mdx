@@ -55,6 +55,10 @@ To get started, clone the [repo](https://github.com/owolfdev/mdx-blog), run `npm
   - [\<Image />](#image)
   - [code](#code)
 
+- [Notes](#notes)
+
+  - [Scheduled Publishing](#scheduled-publishing)
+
 ---
 
 <div className="py-4"></div>
@@ -73,6 +77,8 @@ To get started, clone the [repo](https://github.com/owolfdev/mdx-blog), run `npm
 - Create a remote repo on GitHub
 - Push your local repo to GitHub
 - Deploy on Vercel
+
+Check out an article on the blog for a more detailed guide on [how to install MDXBlog and deploy on Vercel](https://www.mdxblog.io/blog/how-to-install-mdx-blog-and-deploy-on-vercel).
 
 ## <div id='how-to-use-mdxblog'>How to Use MDXBlog:</div>
 
@@ -246,6 +252,18 @@ console.log(doubled); // Output: [2, 4, 6, 8, 10]
 ```
 
 Code blocks allow copy-pasting and easy readability, making it simple for readers to understand and use the code snippets you provide.
+
+---
+
+## <div id='notes'>Notes</div>
+
+## <div id='shceduled-publishing'>Scheduled Publishing</div>
+
+**MDXBlog** allows you to schedule posts for future publication. This feature is particularly useful when you want to prepare content in advance and have it automatically published at a specific date and time.
+
+When you create or edit a post you will see a 'Date' field. You can set the date and time for when you want the post to go live. Once you save the post, MDXBlog will automatically publish it at the scheduled date.
+
+Note that there is also a "date modified" property. Each time you edit the post, the date modified will be updated. This is useful for tracking changes to your content. Date modified will be displayed at the top of post, next to the category indicator - unless the published date is later than the modified date - wherin it will display the publishe date. If you want the published date to match the modified date, you can manually set the published date to the same as the modified date. Remember to note that future dated posts will always be unlisted (not visible on your blog roll) until the scheduled publishe date. This is true even if you change the created date to a later date than the current time subsequent to a previous publication.
 
 ---
 
