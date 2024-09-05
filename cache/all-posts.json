@@ -109,7 +109,7 @@
     "relatedPosts": [
       "static-mdx-cms"
     ],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "configuring-mdx-in-next.js",
@@ -180,6 +180,30 @@
     "draft": false,
     "relatedPosts": [],
     "likes": 12
+  },
+  {
+    "slug": "custom-link-component-for-external-navigation",
+    "id": "wNirkYYEzLG6fDz2kpD95V",
+    "type": "blog",
+    "title": "Making a Custom Link Component for External Navigation",
+    "author": "O. Wolfson",
+    "publishDate": "2024-09-06",
+    "description": "Opening a link in a new browser tab can be useful, but MDX does not directly support attributes.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "link",
+      "hyperlink",
+      "external"
+    ],
+    "modifiedDate": "2024-09-05T20:31:24.578Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [
+      ""
+    ],
+    "likes": 0
   },
   {
     "slug": "frictionless-content-creation-with-mdxblog",
@@ -300,7 +324,7 @@
     "relatedPosts": [
       "how-to-install-mdx-blog-and-deploy-on-vercel"
     ],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "import-components-to-mdx",
@@ -347,7 +371,7 @@
       "using-and-styling-custom-components-in-mdx-content",
       "import-components-to-mdx"
     ],
-    "likes": 0
+    "likes": 2
   },
   {
     "slug": "integrating-mdx-with-static-site-generators",
@@ -396,7 +420,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "leveraging-mdx-for-documentation-websites",
@@ -597,7 +621,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "optimizing-mdx-for-seo",
