@@ -61,7 +61,7 @@ function DeleteMessageButton({ messageId }: { messageId: string }) {
               </button>
             </DialogClose>
             <DialogClose>
-              <Button onClick={handleDeleteMessage}>Cancel</Button>
+              <Button>Cancel</Button>
             </DialogClose>
           </DialogFooter>
         </DialogContent>
