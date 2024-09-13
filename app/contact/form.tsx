@@ -27,23 +27,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { useFormStatus } from "react-dom";
 import { sendContactMessage } from "./actions";
 
 function SubmitButton({
   isRecaptchaVerified,
+  isSubmitting,
 }: {
   isRecaptchaVerified: boolean;
+  isSubmitting: boolean;
 }) {
-  const { pending } = useFormStatus();
   return (
     <Button
-      aria-disabled={pending || !isRecaptchaVerified}
-      disabled={pending || !isRecaptchaVerified}
+      aria-disabled={isSubmitting || !isRecaptchaVerified}
+      disabled={isSubmitting || !isRecaptchaVerified}
       type="submit"
       className="text-lg"
     >
-      {pending ? "Submitting..." : "Submit"}
+      {isSubmitting ? "Submitting..." : "Submit"}
     </Button>
   );
 }
@@ -74,6 +74,10 @@ export function ContactForm() {
   );
   const [isRecaptchaVerified, setIsRecaptchaVerified] =
     React.useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false); // Track pending state manually
+
+  const router = useRouter(); // <-- Client-side navigation
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -85,12 +89,19 @@ export function ContactForm() {
   });
 
   const handleRecaptchaChange = (token: string | null) => {
-    setIsRecaptchaVerified(token !== null); // Recaptcha verified if token exists
+    setIsRecaptchaVerified(token !== null);
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("Form Values on Submit:", values);
-    await sendContactMessage(values);
+    setIsSubmitting(true); // Set submitting to true when submission starts
+    try {
+      // console.log("Form Values on Submit:", values);
+      await sendContactMessage(values);
+      // Redirect to the thank-you page on the client side
+      router.push("/contact/thank-you");
+    } finally {
+      setIsSubmitting(false); // Set submitting back to false once the submission is complete
+    }
   };
 
   return (
@@ -99,7 +110,6 @@ export function ContactForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 text-lg"
       >
-        {/* Message Type (Select) */}
         <FormField
           control={form.control}
           name="type"
@@ -109,7 +119,7 @@ export function ContactForm() {
               <Select
                 onValueChange={(value) => {
                   field.onChange(value);
-                  form.setValue("type", value); // Ensure the form's state is updated with the new value
+                  form.setValue("type", value);
                 }}
                 value={field.value}
                 defaultValue={field.value}
@@ -136,7 +146,6 @@ export function ContactForm() {
           )}
         />
 
-        {/* Email Input */}
         <FormField
           control={form.control}
           name="email"
@@ -155,7 +164,6 @@ export function ContactForm() {
           )}
         />
 
-        {/* Name Input */}
         <FormField
           control={form.control}
           name="name"
@@ -174,7 +182,6 @@ export function ContactForm() {
           )}
         />
 
-        {/* Message Textarea */}
         <FormField
           control={form.control}
           name="message"
@@ -193,7 +200,6 @@ export function ContactForm() {
           )}
         />
 
-        {/* reCAPTCHA */}
         <div className="pt-4">
           {recaptchaSiteKey && (
             <ReCAPTCHA
@@ -203,8 +209,10 @@ export function ContactForm() {
           )}
         </div>
 
-        {/* Submit Button */}
-        <SubmitButton isRecaptchaVerified={isRecaptchaVerified} />
+        <SubmitButton
+          isRecaptchaVerified={isRecaptchaVerified}
+          isSubmitting={isSubmitting}
+        />
       </form>
     </Form>
   );
