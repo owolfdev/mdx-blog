@@ -5,6 +5,18 @@ import { Button } from "@/components/ui/button";
 import { getPopularPosts } from "@/lib/posts/get-popular-posts";
 import type { CachedPost } from "@/types/post-types";
 
+// Dynamically import the MDX file to access metadata and content
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+async function loadMdxFile(): Promise<any> {
+  try {
+    const mdxModule = await import("@/content/pages/home.mdx");
+    return mdxModule;
+  } catch (error) {
+    console.error("Failed to load MDX file:", error);
+    return null;
+  }
+}
+
 // Utility function to parse and format the date
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -39,6 +51,13 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Home() {
   const popularPosts: CachedPost[] = await getPopularPosts();
+  const mdxModule = await loadMdxFile();
+
+  if (!mdxModule) {
+    return <p>Page not found</p>; // Handle the case where the MDX file is not found
+  }
+
+  const { default: HomeContent, metadata } = mdxModule;
 
   return (
     <div className="max-w-3xl z-10 w-full items-center justify-between">
@@ -95,13 +114,9 @@ export default async function Home() {
           </Link>
         </div>
 
-        <div className="w-full ">
-          <hr />
-        </div>
-
         {/* Dynamic Popular Articles */}
         <div className="flex flex-col gap-4">
-          <h2 className="text-4xl sm:text-5xl font-bold text-center py-6">
+          <h2 className="text-4xl sm:text-5xl font-black text-center py-6">
             Popular Articles
           </h2>
           <div className="pb-2 flex flex-col gap-4">
@@ -128,127 +143,7 @@ export default async function Home() {
         </div>
         {/* End Dynamic Popular Articles */}
 
-        <div className="flex justify-center pt-4">
-          <h2 className="text-4xl sm:text-5xl font-bold text-center py-4">
-            What is MDX?
-          </h2>
-        </div>
-        <div className="flex justify-center pb-2">
-          <Image
-            src="/logos/mdx-logo.png"
-            alt="MDX Logo"
-            width={150} // Halve the width to 150px
-            height={62}
-          />
-        </div>
-        <div>
-          MDX is a file format that combines Markdown with JSX, allowing
-          developers to seamlessly embed React components within Markdown
-          documents, enabling dynamic and interactive content creation. It
-          facilitates the creation of rich, interactive documentation and blog
-          posts in web development projects. MDX blends Markdown&apos;s
-          straightforward syntax with the capability to embed dynamic JSX
-          elements. Perfect for interactive, rich-content blogs.
-        </div>
-        <div className="w-full">
-          <ul>
-            <li>
-              <Link target="_blank" href="https://mdxjs.com/">
-                • 
-                <span className="underline">MDX Official Documentation</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                target="_blank"
-                href="https://nextjs.org/docs/app/building-your-application/configuring/mdx"
-              >
-                • 
-                <span className="underline">Integrating MDX with Next.js</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                target="_blank"
-                href="https://vercel.com/templates/next.js/portfolio-starter-kit"
-              >
-                •{" "}
-                <span className="underline">
-                  Check out the Next.js portfolio starter template
-                </span>{" "}
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="flex justify-center pt-4">
-          <h2 className="text-4xl sm:text-5xl font-bold text-center py-4">
-            More About <span className="primary-color">MDX</span>Blog
-          </h2>
-        </div>
-        <div className="flex flex-col gap-4">
-          <p>
-            Unlike some blogging solutions that rely on a database to store
-            content, content management in MDXBlog is handled by easily editable
-            Markdown (mdx) files in a folder on your local machine! It&apos;s a
-            good solution for those who appreciate the ease of Markdown and the
-            power of React components.
-          </p>
-
-          <p>
-            <span className="font-bold">MDXBlog</span> is a free, open-source
-            project that is easy to install and deploy. It&apos;s created app
-            built with the latest web technologies, offering a unique blogging
-            experience. Using MDX (Markdown + JSX) and Next.js 14, it generates
-            static pages that are fast, secure, and SEO-friendly. The app is
-            designed to be easy to use and customize, with a clean, modern
-            design that is fully responsive and mobile-friendly.
-          </p>
-          <p>
-            We have no official affiliation with the MDX team or Next.js, we are
-            simply fans of the technology and wanted to create a simple, free,
-            easy-to-use blog template for ourselves and to share with any other
-            interested developers.
-          </p>
-        </div>
-
-        <div>
-          <span className="font-bold">Get MDXBlog</span>: Download the{" "}
-          <Link
-            target="_blank"
-            href="https://github.com/owolfdev/mdx-blog-basic"
-          >
-            <span className="font-bold">github repo</span>
-          </Link>
-          . Instructions for installation and deployment are included in the
-          README.
-        </div>
-        <div className="w-full">
-          <ul>
-            <li>
-              <Link href="/about">
-                • <span className="underline">Documentation</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                target="_blank"
-                href="https://github.com/owolfdev/mdx-blog-basic"
-              >
-                • <span className="underline">MDXBlog GitHub Repo</span>
-              </Link>
-            </li>
-            <li>
-              <Link href="/blog">
-                • 
-                <span className="underline">
-                  The Blog, where you can find the latest news and tutorials
-                </span>
-                .
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <HomeContent />
       </div>
     </div>
   );
