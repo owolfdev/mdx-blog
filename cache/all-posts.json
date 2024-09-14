@@ -160,6 +160,31 @@
     "likes": 2
   },
   {
+    "slug": "creating-anchor-links-to-page-sections-in-mdx",
+    "id": "vZnNThZu9bLeHRYE2NYcNp",
+    "type": "blog",
+    "title": "Creating Anchor Links to Page Sections in MDX",
+    "author": "O. Wolfson",
+    "publishDate": "2024-09-15",
+    "description": "Anchor links can enhance navigation and make the content more accessible by creating links to specific sections within a page. This feature is particularly useful for long-form content, such as guides or documentation, where users can quickly jump to relevant sections without excessive scrolling.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "react",
+      "javascript",
+      "links",
+      "mdx"
+    ],
+    "modifiedDate": "2024-09-14T20:57:40.320Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [
+      ""
+    ],
+    "likes": 0
+  },
+  {
     "slug": "creating-custom-components-for-mdx",
     "id": "oQt8N1Zn95kQ9k7zDLxoaJ",
     "type": "blog",
@@ -203,7 +228,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 0
+    "likes": 2
   },
   {
     "slug": "frictionless-content-creation-with-mdxblog",
@@ -371,7 +396,7 @@
       "using-and-styling-custom-components-in-mdx-content",
       "import-components-to-mdx"
     ],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "integrating-mdx-with-static-site-generators",
@@ -554,7 +579,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 10
+    "likes": 11
   },
   {
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",

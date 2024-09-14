@@ -51,7 +51,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     a: ({ href = "", children, ...rest }) => {
       // Use the CustomLink component to handle external/internal links
-      return <CustomLink href={href}>{children}</CustomLink>;
+      return (
+        <CustomLink href={href}>
+          <span className="text-primary">{children}</span>
+        </CustomLink>
+      );
     },
   };
 }
