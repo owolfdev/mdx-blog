@@ -26,22 +26,22 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     h2: (props) => <h2 className="text-3xl font-bold pb-4 w-full" {...props} />,
     h3: (props) => (
-      <h3 className="text-2xl font-semibold pb-4 w/full" {...props} />
+      <h3 className="text-2xl font-semibold pb-4 w-full" {...props} />
     ),
     h4: (props) => (
-      <h4 className="text-xl font-medium pb-4 w/full" {...props} />
+      <h4 className="text-xl font-medium pb-4 w-full" {...props} />
     ),
     h5: (props) => (
-      <h5 className="text-lg font-normal pb-4 w/full" {...props} />
+      <h5 className="text-lg font-normal pb-4 w-full" {...props} />
     ),
     h6: (props) => (
-      <h6 className="text-base font-light pb-4 w/full" {...props} />
+      <h6 className="text-base font-light pb-4 w-full" {...props} />
     ),
-    p: (props) => <p className="text-xl sm:text-lg mb-4 w/full" {...props} />,
+    p: (props) => <p className="text-xl sm:text-lg mb-4 w-full" {...props} />,
     li: (props) => <li className="" {...props} />,
-    ul: (props) => <ul className="list-disc pl-6 pb-4 w/full" {...props} />,
-    ol: (props) => <ol className="list-decimal pl-6 pb-4 w/full" {...props} />,
-    hr: (props) => <hr className="pb-4 border-t w/full" {...props} />,
+    ul: (props) => <ul className="list-disc pl-6 pb-4 w-full" {...props} />,
+    ol: (props) => <ol className="list-decimal pl-6 pb-4 w-full" {...props} />,
+    hr: (props) => <hr className="pb-4 border-t w-full" {...props} />,
     blockquote: (props) => (
       <blockquote
         style={{ paddingBottom: 0 }}
