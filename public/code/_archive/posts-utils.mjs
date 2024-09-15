@@ -14,7 +14,7 @@ const supabase = createClient(
 // Function to fetch likes count from Supabase
 async function fetchLikesCount(postId) {
   const { data, error } = await supabase
-    .from("likes_for_mdx_blog_2")
+    .from("likes_for_mdx_blog")
     .select("*")
     .eq("post_id", postId);
 

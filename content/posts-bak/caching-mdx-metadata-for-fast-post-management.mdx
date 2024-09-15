@@ -1,0 +1,113 @@
+export const metadata = {
+  id: "awcSdUnPsCr9B7zk5vzrLV",
+  type: "blog",
+  title: "Caching MDX Metadata for Fast Post Management",
+  author: "O Wolfson",
+  publishDate: "2024-08-28",
+  description: "By extracting metadata from your MDX files and storing it in a cache, you can dramatically speed up operations like listing, pagination, and searching.",
+  categories: ["Web Development"],
+  tags: ["mdx", "caching"],
+  modifiedDate: "2024-08-27T20:08:00.831Z",
+  image: null,
+  draft: false,
+  relatedPosts: ["static-mdx-cms"]
+};
+
+Managing a growing number of posts efficiently in a static MDX blog is crucial for delivering a smooth user experience. By extracting metadata from your MDX files and storing it in a cache, you can dramatically speed up operations like listing, pagination, and searching. Let's walk through this process with a simple example.
+
+#### **1. Sample MDX File**
+
+Here’s a basic example of an MDX file that contains both metadata and content:
+
+```mdx
+export const metadata = {
+  id: "iHoHBBR4CMRSjCnfYTFVgw",
+  title: "Test Title",
+  author: "O Wolfson",
+  publishDate: "2024-01-01",
+  description: "Test Description",
+};
+
+Welcome to the transformative world of MDX, a hybrid of Markdown and JSX, poised to change how we interact with content on the web. This conceptual overview aims to shed light on MDX's nature and its application in creating interactive blog posts.
+```
+
+The `metadata` object at the beginning of the file contains key information about the post that we want to cache for quick access.
+
+#### **2. A `generatePostCache` Function**
+
+To efficiently manage these posts, we can extract the metadata from each MDX file and store it in a single JSON file. Here’s a simplified version of the function that handles this:
+
+```javascript
+import fs from "node:fs";
+import path from "node:path";
+
+function extractMetadata(fileContents) {
+  const metadataMatch = fileContents.match(
+    /export const metadata = ({[\s\S]*?});/
+  );
+  if (metadataMatch) {
+    const metadata = eval(`(${metadataMatch[1]})`); // Extract metadata
+    return metadata;
+  }
+  return null;
+}
+
+function generatePostCache() {
+  const postsDirectory = path.join(process.cwd(), "content/posts");
+  const fileNames = fs.readdirSync(postsDirectory);
+
+  const allPosts = fileNames
+    .map((fileName) => {
+      const filePath = path.join(postsDirectory, fileName);
+      const fileContents = fs.readFileSync(filePath, "utf8");
+      const metadata = extractMetadata(fileContents);
+      return metadata;
+    })
+    .filter(Boolean);
+
+  const cachePath = path.join(process.cwd(), "cache/posts.json");
+  fs.writeFileSync(cachePath, JSON.stringify(allPosts, null, 2));
+}
+
+generatePostCache();
+```
+
+This function:
+
+- **Extracts metadata** from each MDX file.
+- **Compiles** this data into a single array of objects.
+- **Saves** this array as a JSON file (`posts.json`) in the `cache` directory.
+
+#### **3. Simplified Sample of the Cached Posts File (`posts.json`)**
+
+After running the `generatePostCache` function, your `posts.json` file might look something like this:
+
+```json
+[
+  {
+    "id": "somePostId",
+    "title": "Test Title",
+    "author": "O Wolfson",
+    "publishDate": "2024-01-01",
+    "description": "Test Description"
+  },
+  {
+    "id": "anotherPostId",
+    "title": "Another Post",
+    "author": "A Smith",
+    "publishDate": "2024-02-15",
+    "description": "Another Test Description"
+  }
+]
+```
+
+#### **4. What You Can Do with the Cached Metadata**
+
+Having this metadata cached in a JSON file offers several benefits:
+
+- **List Posts:** Quickly generate a list of posts by reading the cached data instead of parsing every MDX file.
+- **Pagination:** Efficiently paginate through posts by slicing the array in `posts.json`.
+- **Search:** Implement search functionality by filtering the cached metadata based on the search query.
+- **Sorting:** Sort posts by different metadata fields like `publishDate` or `title` without repeatedly accessing the file system.
+
+By caching your post metadata, you not only speed up your blog’s performance but also simplify operations like listing, searching, and paginating posts. This approach is especially beneficial as your content library grows, ensuring that your site remains fast and responsive.

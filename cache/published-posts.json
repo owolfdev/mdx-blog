@@ -63,7 +63,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "automating-next.js-sitemap-generation-with-github-actions",
@@ -109,7 +109,7 @@
     "relatedPosts": [
       "static-mdx-cms"
     ],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "configuring-mdx-in-next.js",
@@ -134,7 +134,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "create-a-static-mdx-blog-with-next",
@@ -182,7 +182,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -204,7 +204,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 12
+    "likes": 13
   },
   {
     "slug": "custom-link-component-for-external-navigation",
@@ -274,7 +274,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "how-to-install-mdx-blog-and-deploy-on-vercel",
@@ -396,7 +396,7 @@
       "using-and-styling-custom-components-in-mdx-content",
       "import-components-to-mdx"
     ],
-    "likes": 5
+    "likes": 6
   },
   {
     "slug": "integrating-mdx-with-static-site-generators",
@@ -445,7 +445,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "leveraging-mdx-for-documentation-websites",
@@ -514,10 +514,10 @@
     "slug": "mdx-like-button-nextjs-vercel-postgresql",
     "id": "kAWnT358vCDiVnmLkBt9Ds",
     "type": "blog",
-    "title": "Implementing a Like Button in an MDX App with Next.js and Vercel PostgreSQL",
+    "title": "Creating a Like Button in an MDX App with Next.js and Vercel PostgreSQL",
     "author": "O Wolfson",
     "publishDate": "2024-06-27",
-    "description": "In this article, we will walk you through the process of creating a like button for an MDX-based Next.js application.",
+    "description": "In this article, we will walk through the process of creating a like button for an MDX-based Next.js application.",
     "categories": [
       "Web Development"
     ],
@@ -535,7 +535,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 21
+    "likes": 22
   },
   {
     "slug": "mdx-performance-optimization",
@@ -899,7 +899,7 @@
       "metadata-object-components-in-next-js-mdx-blogs",
       "next-mdx-remote-limitations"
     ],
-    "likes": 4
+    "likes": 5
   },
   {
     "slug": "using-and-styling-custom-components-in-mdx-content",
