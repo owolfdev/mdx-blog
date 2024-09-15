@@ -163,7 +163,7 @@
     "slug": "creating-anchor-links-to-page-sections-in-mdx",
     "id": "vZnNThZu9bLeHRYE2NYcNp",
     "type": "blog",
-    "title": "Creating Anchor Links to Page Sections in MDX",
+    "title": "Creating Anchor Links to Page Sections in MDX documents",
     "author": "O. Wolfson",
     "publishDate": "2024-09-15",
     "description": "Anchor links can enhance navigation and make the content more accessible by creating links to specific sections within a page. This feature is particularly useful for long-form content, such as guides or documentation, where users can quickly jump to relevant sections without excessive scrolling.",
@@ -176,7 +176,7 @@
       "links",
       "mdx"
     ],
-    "modifiedDate": "2024-09-14T20:57:40.320Z",
+    "modifiedDate": "2024-09-15T22:38:22.770Z",
     "image": null,
     "draft": false,
     "relatedPosts": [
@@ -420,7 +420,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "keyboard-driven-content-creation-with-vim-motions",
