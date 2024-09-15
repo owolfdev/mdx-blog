@@ -6,11 +6,11 @@ import {
   countLikes,
   addLike,
   removeLike,
-  removeAllLikes,
+  isPostLikedByUser, // New action
 } from "@/app/actions/like-actions";
 
 interface LikeButtonProps {
-  postId: string; // postId is now a string (UUID)
+  postId: string; // postId is a string (UUID)
 }
 
 function LikeButton({ postId }: LikeButtonProps) {
@@ -18,23 +18,30 @@ function LikeButton({ postId }: LikeButtonProps) {
   const [userId, setUserId] = useState<string | null>(null);
   const [totalLikes, setTotalLikes] = useState<number>(0);
   const [loading, setLoading] = useState(true);
+  const [likeActionInProgress, setLikeActionInProgress] = useState(false); // New state for like action
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    let storedUserId = localStorage.getItem("userIdForMDXBlog");
-    if (!storedUserId) {
-      storedUserId = uuidv4();
-      localStorage.setItem("userIdForMDXBlog", storedUserId);
-    }
-    setUserId(storedUserId);
+    const fetchUserId = async () => {
+      let storedUserId = localStorage.getItem("userIdForMDXBlog");
+      if (!storedUserId) {
+        storedUserId = uuidv4(); // For testing purposes, otherwise get it from your auth system.
+        localStorage.setItem("userIdForMDXBlog", storedUserId);
+      }
+      setUserId(storedUserId);
+    };
 
-    const likedPosts = JSON.parse(localStorage.getItem("likedPosts") || "{}");
-    if (likedPosts[postId]) {
-      setLiked(true);
-    }
-
+    fetchUserId();
     fetchTotalLikes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId]);
+
+  useEffect(() => {
+    if (userId) {
+      checkIfLikedByUser();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
 
   async function fetchTotalLikes() {
     try {
@@ -52,42 +59,38 @@ function LikeButton({ postId }: LikeButtonProps) {
     }
   }
 
+  async function checkIfLikedByUser() {
+    try {
+      const response = await isPostLikedByUser(postId, userId as string);
+      if (response.success) {
+        setLiked(response.liked);
+      }
+    } catch (error) {
+      console.error("Failed to check if post is liked by user:", error);
+    }
+  }
+
   async function handleLikeAction() {
-    if (userId) {
+    if (userId && !likeActionInProgress) {
+      setLikeActionInProgress(true); // Start the like action
       const response = await addLike(postId, userId);
       if (response.success) {
-        const likedPosts = JSON.parse(
-          localStorage.getItem("likedPosts") || "{}"
-        );
-        likedPosts[postId] = true;
-        localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
         setLiked(true);
         setTotalLikes((prev) => prev + 1);
       }
+      setLikeActionInProgress(false); // End the like action
     }
   }
 
   async function handleUnlikeAction() {
-    if (userId) {
+    if (userId && !likeActionInProgress) {
+      setLikeActionInProgress(true); // Start the unlike action
       const response = await removeLike(postId, userId);
       if (response.success) {
-        const likedPosts = JSON.parse(
-          localStorage.getItem("likedPosts") || "{}"
-        );
-        delete likedPosts[postId];
-        localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
         setLiked(false);
         setTotalLikes((prev) => prev - 1);
       }
-    }
-  }
-
-  async function handleRemoveAllLikes() {
-    const response = await removeAllLikes();
-    if (response.success) {
-      localStorage.setItem("likedPosts", "{}");
-      setLiked(false);
-      setTotalLikes(0);
+      setLikeActionInProgress(false); // End the unlike action
     }
   }
 
@@ -107,6 +110,7 @@ function LikeButton({ postId }: LikeButtonProps) {
           className={`like-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center relative overflow-hidden ${
             liked ? "liked" : "unliked"
           }`}
+          disabled={likeActionInProgress} // Disable button while action is in progress
         >
           <div
             className={`like-icon ${liked ? "animate-like" : "animate-unlike"}`}
@@ -118,47 +122,6 @@ function LikeButton({ postId }: LikeButtonProps) {
             )}
           </div>
           {liked ? "Liked" : "Like"}
-        </button>
-      </div>
-      <style jsx>{`
-        @keyframes like-animation {
-          0%,
-          100% {
-            transform: scale(1) rotate(0deg);
-          }
-          20% {
-            transform: scale(1.2) translateX(2px) rotate(5deg);
-          }
-        }
-
-        @keyframes unlike-animation {
-          0%,
-          50% {
-            transform: scale(1) rotate(0deg);
-          }
-        }
-
-        .like-icon {
-          animation-duration: 0.25s;
-        }
-
-        .liked .like-icon {
-          animation-name: like-animation;
-        }
-
-        .unliked .like-icon {
-          animation-name: unlike-animation;
-        }
-      `}</style>
-      <div className="hidden">
-        <button
-          type="button"
-          onClick={handleRemoveAllLikes}
-          className={
-            "bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mt-2"
-          }
-        >
-          Remove All Likes
         </button>
       </div>
     </div>

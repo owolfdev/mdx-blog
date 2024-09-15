@@ -109,7 +109,7 @@
     "relatedPosts": [
       "static-mdx-cms"
     ],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "configuring-mdx-in-next.js",
@@ -182,7 +182,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -228,7 +228,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "frictionless-content-creation-with-mdxblog",
@@ -301,7 +301,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "how-to-use-images-in-an-mdx-or-markdown-file",
@@ -325,7 +325,7 @@
       "import-components-to-mdx",
       "using-and-styling-custom-components-in-mdx-content"
     ],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "how-to-use-mdx-blog",
@@ -396,7 +396,7 @@
       "using-and-styling-custom-components-in-mdx-content",
       "import-components-to-mdx"
     ],
-    "likes": 3
+    "likes": 5
   },
   {
     "slug": "integrating-mdx-with-static-site-generators",
@@ -445,7 +445,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "leveraging-mdx-for-documentation-websites",
@@ -535,7 +535,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 18
+    "likes": 21
   },
   {
     "slug": "mdx-performance-optimization",
@@ -622,7 +622,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 6
+    "likes": 7
   },
   {
     "slug": "nextjs-switch-api-to-server-actions",
@@ -758,7 +758,7 @@
     "relatedPosts": [
       "caching-mdx-metadata-for-fast-post-management"
     ],
-    "likes": 8
+    "likes": 9
   },
   {
     "slug": "styling-mdx-content",
@@ -871,7 +871,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 3
+    "likes": 2
   },
   {
     "slug": "updates-to-mdx-blog-enhanced-and-streamlined",
@@ -899,7 +899,7 @@
       "metadata-object-components-in-next-js-mdx-blogs",
       "next-mdx-remote-limitations"
     ],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "using-and-styling-custom-components-in-mdx-content",
@@ -923,7 +923,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",

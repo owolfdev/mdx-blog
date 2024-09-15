@@ -79,3 +79,22 @@ export async function removeAllLikes() {
     return { success: false, error: (error as Error).message };
   }
 }
+
+export async function isPostLikedByUser(postId: string, userId: string) {
+  console.log("isPostLikedByUser", postId, userId);
+  try {
+    const { data, error } = await supabase
+      .from("likes_for_mdx_blog_2")
+      .select("id")
+      .eq("post_id", postId)
+      .eq("user_id", userId)
+      .single(); // We use single() to ensure we get only one match.
+
+    if (error) throw error;
+
+    return { success: true, liked: !!data }; // If data is returned, the post is liked.
+  } catch (error) {
+    console.error("Error in isPostLikedByUser:", (error as Error).message);
+    return { success: false, error: (error as Error).message, liked: false };
+  }
+}
