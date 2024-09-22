@@ -3,7 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { exec } from "node:child_process";
-import { generatePostsCache } from "@/lib/cache/generate-posts-cache.mjs";
+import { generatePostsCache } from "@/lib/cache/generate-posts-cache";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export async function editPostAction(data: any, openInVSCode = false) {

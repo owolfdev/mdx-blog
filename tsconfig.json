@@ -22,6 +22,15 @@
     },
     "target": "ES2018"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "lib/cache/generate-posts-cache",
+    "lib/cachePosts.js",
+    "lib/cache/generate-posts-cache.js",
+    "lib/config/config.js"
+  ],
   "exclude": ["node_modules"]
 }

@@ -1,6 +1,6 @@
 "use server";
 
-import { generatePostsCache } from "@/lib/cache/generate-posts-cache.mjs"; // Import the external function
+import { generatePostsCache } from "@/lib/cache/generate-posts-cache"; // Import the external function
 
 // Cache posts action using the imported generatePostsCache function
 export const cachePostsAction = async () => {
