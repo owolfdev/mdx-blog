@@ -180,9 +180,9 @@
     "image": null,
     "draft": false,
     "relatedPosts": [
-      ""
+      "custom-link-component-for-external-navigation"
     ],
-    "likes": 2
+    "likes": 4
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -204,7 +204,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 13
+    "likes": 14
   },
   {
     "slug": "custom-link-component-for-external-navigation",
@@ -226,9 +226,9 @@
     "image": null,
     "draft": false,
     "relatedPosts": [
-      ""
+      "creating-anchor-links-to-page-sections-in-mdx"
     ],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "frictionless-content-creation-with-mdxblog",
@@ -251,7 +251,7 @@
       "updates-to-mdx-blog-enhanced-and-streamlined",
       "mdx-like-button-nextjs-vercel-postgresql"
     ],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "future-of-mdx-trends-and-upcoming-features",
@@ -349,7 +349,7 @@
     "relatedPosts": [
       "how-to-install-mdx-blog-and-deploy-on-vercel"
     ],
-    "likes": 1
+    "likes": 0
   },
   {
     "slug": "import-components-to-mdx",
@@ -371,7 +371,7 @@
     "relatedPosts": [
       "creating-custom-components-for-mdx"
     ],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "integrating-dynamic-components-in-mdx-files-in-nextjs-14",
@@ -535,7 +535,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 22
+    "likes": 26
   },
   {
     "slug": "mdx-performance-optimization",
@@ -579,7 +579,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 11
+    "likes": 12
   },
   {
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",
@@ -622,7 +622,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 7
+    "likes": 8
   },
   {
     "slug": "nextjs-switch-api-to-server-actions",
@@ -646,7 +646,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 4
   },
   {
     "slug": "optimizing-mdx-for-seo",
@@ -846,7 +846,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 0
   },
   {
     "slug": "understanding-ssg-in-mdxblog",
@@ -923,7 +923,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",
