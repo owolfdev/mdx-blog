@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js"; // Adjust the import according to your project structure
+import { config } from "@/lib/config/config";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
@@ -6,10 +7,11 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function countLikes(postId: string) {
+  const tableName = config.likesTable; // Accessing table name from config
   console.log("countLikes", postId);
   try {
     const { error, count } = await supabase
-      .from("likes_for_mdx_blog")
+      .from(tableName)
       .select("id", { count: "exact" })
       .eq("post_id", postId);
 
@@ -23,6 +25,7 @@ export async function countLikes(postId: string) {
 }
 
 export async function addLike(postId: string, userId: string) {
+  const tableName = config.likesTable;
   console.log("addLike", postId, userId);
   try {
     if (!postId || !userId) {
@@ -30,7 +33,7 @@ export async function addLike(postId: string, userId: string) {
     }
 
     const { data, error } = await supabase
-      .from("likes_for_mdx_blog")
+      .from(tableName)
       .insert([{ post_id: postId, user_id: userId }]);
 
     if (error) throw error;
@@ -43,6 +46,7 @@ export async function addLike(postId: string, userId: string) {
 }
 
 export async function removeLike(postId: string, userId: string) {
+  const tableName = config.likesTable;
   console.log("removeLike", postId, userId);
   try {
     if (!postId || !userId) {
@@ -50,7 +54,7 @@ export async function removeLike(postId: string, userId: string) {
     }
 
     const { data, error } = await supabase
-      .from("likes_for_mdx_blog")
+      .from(tableName)
       .delete()
       .eq("post_id", postId)
       .eq("user_id", userId);
@@ -65,9 +69,10 @@ export async function removeLike(postId: string, userId: string) {
 }
 
 export async function removeAllLikes() {
+  const tableName = config.likesTable; // Accessing table name from config
   console.log("removeAllLikes");
   try {
-    const { data, error } = await supabase.from("likes_for_mdx_blog").delete();
+    const { data, error } = await supabase.from(tableName).delete();
 
     if (error) throw error;
 
@@ -79,10 +84,11 @@ export async function removeAllLikes() {
 }
 
 export async function isPostLikedByUser(postId: string, userId: string) {
+  const tableName = config.likesTable; // Accessing table name from config
   console.log("isPostLikedByUser", postId, userId);
   try {
     const { data, error } = await supabase
-      .from("likes_for_mdx_blog")
+      .from(tableName)
       .select("id")
       .eq("post_id", postId)
       .eq("user_id", userId)

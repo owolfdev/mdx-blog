@@ -349,7 +349,7 @@
     "relatedPosts": [
       "how-to-install-mdx-blog-and-deploy-on-vercel"
     ],
-    "likes": 0
+    "likes": 2
   },
   {
     "slug": "import-components-to-mdx",
@@ -535,7 +535,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 26
+    "likes": 25
   },
   {
     "slug": "mdx-performance-optimization",
@@ -846,7 +846,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "understanding-ssg-in-mdxblog",
