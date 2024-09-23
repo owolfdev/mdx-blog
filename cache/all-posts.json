@@ -157,7 +157,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "creating-anchor-links-to-page-sections-in-mdx",
@@ -800,7 +800,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 0
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",
@@ -899,7 +899,7 @@
       "metadata-object-components-in-next-js-mdx-blogs",
       "next-mdx-remote-limitations"
     ],
-    "likes": 5
+    "likes": 0
   },
   {
     "slug": "using-and-styling-custom-components-in-mdx-content",

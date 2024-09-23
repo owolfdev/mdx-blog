@@ -207,7 +207,7 @@ import { sql } from "@vercel/postgres";
 export async function countLikes(postId: string) {
   try {
     const result = await sql`
-      SELECT COUNT(*) as count FROM likes_for_mdx_blog
+      SELECT COUNT(*) as count FROM likes_for_blog
       WHERE post_id = ${postId};
     `;
 
@@ -230,7 +230,7 @@ export async function addLike(postId: string, userId: string) {
     }
 
     await sql`
-      INSERT INTO likes_for_mdx_blog (post_id, user_id)
+      INSERT INTO likes_for_blog (post_id, user_id)
       VALUES (${postId}, ${userId});
     `;
 
@@ -249,7 +249,7 @@ export async function removeLike(postId: string, userId: string) {
     }
 
     await sql`
-      DELETE FROM likes_for_mdx_blog
+      DELETE FROM likes_for_blog
       WHERE post_id = ${postId} AND user_id = ${userId};
     `;
 
