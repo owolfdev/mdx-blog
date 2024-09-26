@@ -77,12 +77,14 @@ const Blog = async ({
   return (
     <div className="flex flex-col gap-8 pb-6 w-full max-w-3xl sm:max-w-3xl">
       <div className="flex gap-4 justify-between items-center">
-        <SearchPosts
+        {/* <SearchPosts
           currentPage={currentPage}
           limit={postsPerPage}
           numBlogs={blogs.length}
           sort={sort as string}
-        />
+        /> */}
+        <SearchPosts limit={postsPerPage} sort={sort as string} />
+
         <SortPosts
           sort={sort as string}
           currentPage={currentPage}

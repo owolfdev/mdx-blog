@@ -182,7 +182,7 @@
     "relatedPosts": [
       "custom-link-component-for-external-navigation"
     ],
-    "likes": 4
+    "likes": 5
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -396,7 +396,7 @@
       "using-and-styling-custom-components-in-mdx-content",
       "import-components-to-mdx"
     ],
-    "likes": 6
+    "likes": 8
   },
   {
     "slug": "integrating-mdx-with-static-site-generators",
@@ -535,7 +535,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 26
+    "likes": 0
   },
   {
     "slug": "mdx-performance-optimization",
@@ -800,7 +800,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 2
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",
@@ -899,7 +899,7 @@
       "metadata-object-components-in-next-js-mdx-blogs",
       "next-mdx-remote-limitations"
     ],
-    "likes": 0
+    "likes": 5
   },
   {
     "slug": "using-and-styling-custom-components-in-mdx-content",
