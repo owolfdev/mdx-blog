@@ -1,102 +1,66 @@
 "use client";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { useState, useCallback, useEffect, useRef, use } from "react";
-import type React from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import debounce from "lodash/debounce";
 
-const SearchPosts = ({
-  currentPage,
-  limit,
-  numBlogs,
-  sort,
-}: {
-  currentPage: number;
-  limit: number;
-  numBlogs: number;
-  sort: string;
-}) => {
+const SearchPosts = ({ limit, sort }: { limit: number; sort: string }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [inputValue, setInputValue] = useState("");
-
   const inputRef = useRef<HTMLInputElement>(null);
 
-  let search = searchParams.get("search");
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    // Focus the input whenever inputValue changes
-    if (inputRef.current && search) {
-      inputRef.current.focus();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputValue]);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    if (search === null) {
-      search = "";
-    }
-    const searchFromUrl = search as string;
-    if (searchFromUrl !== inputValue) {
-      setInputValue(searchFromUrl);
-    }
-  }, [searchParams]);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    // console.log("sort", sort);
-  }, [sort]);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // Define the search function
   const searchForTerm = useCallback(
     (searchTerm: string) => {
-      if (numBlogs === 0) {
-        router.push(
-          `/blog?limit=${limit}&page=${1}${
-            searchTerm ? `&search=${searchTerm}` : ""
-          }${sort !== "date_desc" ? `&sort=${sort}` : ""}`
-        );
-      } else {
-        router.push(
-          `/blog?limit=${limit}&page=${1}${
-            searchTerm ? `&search=${searchTerm}` : ""
-          }${sort !== "date_desc" ? `&sort=${sort}` : ""}`
-        );
-      }
+      router.push(
+        `/blog?limit=${limit}&page=1${
+          searchTerm ? `&search=${searchTerm}` : ""
+        }${sort !== "date_desc" ? `&sort=${sort}` : ""}`
+      );
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [limit, currentPage, sort, router]
+    [limit, sort, router]
   );
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  const updateSearch = useCallback(
+  // useRef to keep a stable reference to the debounced function
+  const debouncedSearch = useRef(
     debounce((searchTerm: string) => {
       searchForTerm(searchTerm);
-    }, 1500),
-    [searchForTerm] // dependencies of the debounced function
+    }, 500)
   );
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const handleChange = (event: any) => {
+  // Ensure the debounced function uses the latest searchForTerm
+  useEffect(() => {
+    debouncedSearch.current = debounce((searchTerm: string) => {
+      searchForTerm(searchTerm);
+    }, 500);
+  }, [searchForTerm]);
+
+  // Handle changes in the search input
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value;
     setInputValue(searchTerm);
-    updateSearch(searchTerm);
+    debouncedSearch.current(searchTerm);
   };
 
+  // Submit the search form
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const inputValue = event.currentTarget.searchTerm.value;
     searchForTerm(inputValue);
   };
 
+  // Click handler to focus the input
+  const handleClick = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
   return (
-    <div className="flex gap-2 items-center w-1/2 sm:w-2/3 ">
+    <div className="flex gap-2 items-center w-1/2 sm:w-2/3">
       <div className="icon-container">
         <MagnifyingGlassIcon className="w-[24px] h-[24px]" />
-      </div>{" "}
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="w-full">
           <Input
@@ -106,6 +70,7 @@ const SearchPosts = ({
             placeholder="Search"
             value={inputValue}
             onChange={handleChange}
+            onClick={handleClick}
             className="text-lg sm:text-sm"
           />
         </div>
