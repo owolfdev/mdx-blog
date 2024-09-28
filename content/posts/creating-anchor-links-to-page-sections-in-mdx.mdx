@@ -24,7 +24,7 @@ In this article, we'll describe how we implemented anchor links in MDX documents
 
 - [Introduction](#introduction)
 - [How We Create Anchor Links](#how-we-create-anchor-links)
-  - [Why We Use id Attributes in divs](#why-we-use-id-attributes-in-divs)
+  - [Why We Use id Attributes in spans](#why-we-use-id-attributes-in-spans)
 - [Scroll Margin for Fixed Navbar Support](#scroll-margin-for-fixed-navbar-support)
 - [Alternatives We Considered](#alternatives-we-considered)
   - [Auto-Generated IDs](#auto-generated-ids)
@@ -35,22 +35,22 @@ In this article, we'll describe how we implemented anchor links in MDX documents
 
 ---
 
-## <div id="introduction">Introduction</div>
+## <span id="introduction">Introduction</span>
 
-Anchor links are an excellent way to improve the usability of long-form content by allowing users to navigate directly to specific sections. In MDXBlog, we use a simple and effective approach to implement anchor links by utilizing `id` attributes on `div` elements.
+Anchor links are an excellent way to improve the usability of long-form content by allowing users to navigate directly to specific sections. In MDXBlog, we use a simple and effective approach to implement anchor links by utilizing `id` attributes on `span` elements.
 
 ---
 
-## <div id="how-we-create-anchor-links">How We Create Anchor Links</div>
+## <span id="how-we-create-anchor-links">How We Create Anchor Links</span>
 
 In MDXBlog, we use `id` attributes on headings and other section elements to enable anchor linking. These `id` attributes make it easy to link directly to specific sections of the document using anchor tags (`#`). Here's how it works:
 
 ### Section:
 
 ```mdx
-## <div id="getting-started">Getting Started</div>
+## <span id="getting-started">Getting Started</span>
 
-In this example, the `<div>` tag has an `id` attribute of "getting-started". This ID allows us to create a link to this section by using an anchor tag elsewhere in the document:
+In this example, the `<span>` tag has an `id` attribute of "getting-started". This ID allows us to create a link to this section by using an anchor tag elsewhere in the document:
 ```
 
 ### Link to Section:
@@ -61,15 +61,15 @@ In this example, the `<div>` tag has an `id` attribute of "getting-started". Thi
 
 When a user clicks on this link, they are automatically scrolled to the section with the corresponding `id`. This method is straightforward, semantic, and works out-of-the-box in any MDX document.
 
-### <div id="why-we-use-id-attributes-in-divs">Why We Use `id` Attributes in `divs`</div>
+### <span id="why-we-use-id-attributes-in-spans">Why We Use `id` Attributes in `spans`</span>
 
-- **Flexibility**: By using `div` elements with `id` attributes, we can apply additional styles or classes to sections beyond what's available in markdown syntax.
+- **Flexibility**: By using `span` elements with `id` attributes, we can apply additional styles or classes to sections beyond what's available in markdown syntax.
 - **Control**: We can fine-tune the layout of sections with more complex designs while still enabling anchor linking.
 - **SEO-Friendly**: This method keeps the HTML output clean and ensures that the content structure remains clear for search engines.
 
 ---
 
-## <div id="scroll-margin-for-fixed-navbar-support">Scroll Margin for Fixed Navbar Support</div>
+## <span id="scroll-margin-for-fixed-navbar-support">Scroll Margin for Fixed Navbar Support</span>
 
 If you're using a fixed navbar at the top of your page, anchor links might cause the target section to scroll underneath the navbar, making it partially or completely hidden. To avoid this issue, we use the `scroll-margin-top` property in CSS to create an offset that ensures the target section remains visible.
 
@@ -93,28 +93,28 @@ This small tweak ensures a smooth navigation experience, especially for users of
 
 ---
 
-## <div id="alternatives-we-considered">Alternatives We Considered</div>
+## <span id="alternatives-we-considered">Alternatives We Considered</span>
 
 There are other methods we could have used for anchor linking in MDXBlog, but they didn’t fit our needs as well as the `id` attribute approach.
 
-### <div id="auto-generated-ids">Auto-Generated IDs</div>
+### <span id="auto-generated-ids">Auto-Generated IDs</span>
 
 - **How it works**: Some libraries automatically generate `id` attributes for headings (e.g., `<h1>`, `<h2>`, etc.) based on the heading text. This allows for linking without manually setting the `id`.
 - **Why we didn’t choose it**: While auto-generated IDs reduce the need for manual `id` creation, they can be unpredictable if the heading text changes. Additionally, it’s harder to customize the exact format or style of the `id` attributes.
 
-### <div id="manual-heading-ids">Manual Heading IDs</div>
+### <span id="manual-heading-ids">Manual Heading IDs</span>
 
 - **How it works**: In this method, we manually add `id` attributes to headings (`<h2 id="section">Section Title</h2>`).
-- **Why we didn’t choose it**: While this is a straightforward approach, it limits our control over styling and customization. Using `div` tags with IDs instead allows for greater flexibility in organizing content and applying additional styles.
+- **Why we didn’t choose it**: While this is a straightforward approach, it limits our control over styling and customization. Using `span` tags with IDs instead allows for greater flexibility in organizing content and applying additional styles.
 
-### <div id="javascript-scroll-management">JavaScript Scroll Management</div>
+### <span id="javascript-scroll-management">JavaScript Scroll Management</span>
 
 - **How it works**: This method involves using JavaScript to dynamically manage scrolling to different sections, typically using event listeners or smooth scrolling libraries.
 - **Why we didn’t choose it**: Although this allows for smoother scroll transitions, it adds unnecessary complexity and JavaScript dependencies to the project. We wanted a simple, lightweight solution that relied purely on HTML and CSS.
 
 ---
 
-## <div id="why-this-approach-works-best-for-mdxblog">Why This Approach Works Best for MDXBlog</div>
+## <span id="why-this-approach-works-best-for-mdxblog">Why This Approach Works Best for MDXBlog</span>
 
 - **Simplicity**: This solution uses plain HTML with no additional dependencies, making it lightweight and easy to implement.
 - **Maintainability**: By keeping the solution simple and predictable, we can easily add, remove, or update anchor links without worrying about breaking the layout.
@@ -122,14 +122,14 @@ There are other methods we could have used for anchor linking in MDXBlog, but th
 
 ---
 
-## <div id="implementing-this-in-your-mdx-project">Implementing This in Your MDX Project</div>
+## <span id="implementing-this-in-your-mdx-project">Implementing This in Your MDX Project</span>
 
 To implement this anchor link method in your own MDX project, follow these steps:
 
-1. **Add `id` Attributes to Sections**: Wherever you have a section that you want to link to, wrap the heading in a `div` tag with an `id`. For example:
+1. **Add `id` Attributes to Sections**: Wherever you have a section that you want to link to, wrap the heading in a `span` tag with an `id`. For example:
 
    ```mdx
-   ## <div id="my-section">My Section</div>
+   ## <span id="my-section">My Section</span>
    ```
 
 2. **Create Links to Sections**: Link to sections by using the `#` symbol followed by the `id` value in your anchor tags:
@@ -146,7 +146,7 @@ To implement this anchor link method in your own MDX project, follow these steps
    }
    ```
 
-4. **Optional Styling**: If you want to style the sections differently, apply CSS classes to the `div` tags.
+4. **Optional Styling**: If you want to style the sections differently, apply CSS classes to the `span` tags.
 
 ---
 
