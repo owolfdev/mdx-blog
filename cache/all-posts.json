@@ -231,28 +231,6 @@
     "likes": 4
   },
   {
-    "slug": "fasdfasdfasdf",
-    "id": "9ZXznPwCD7uYzFQoVWujoH",
-    "type": "blog",
-    "title": "fasdfasdfasdf",
-    "author": "O. Wolfson",
-    "publishDate": "2024-10-02",
-    "description": "asfasdfasf asfa fsfas fafasdf afa sdfafsf",
-    "categories": [
-      "Opinion"
-    ],
-    "tags": [
-      "sfda fsafasdf"
-    ],
-    "modifiedDate": "2024-10-02T05:00:29.975Z",
-    "image": null,
-    "draft": false,
-    "relatedPosts": [
-      ""
-    ],
-    "likes": 0
-  },
-  {
     "slug": "frictionless-content-creation-with-mdxblog",
     "id": "uAhrNNAHqUtuf5ScbeqkJs",
     "type": "blog",
@@ -825,28 +803,6 @@
     "likes": 2
   },
   {
-    "slug": "test",
-    "id": "gW8CKqHB84zMp3rmdsZgTz",
-    "type": "blog",
-    "title": "test",
-    "author": "O. Wolfson",
-    "publishDate": "2024-10-02",
-    "description": "test test testtest test test",
-    "categories": [
-      "Opinion"
-    ],
-    "tags": [
-      "test"
-    ],
-    "modifiedDate": "2024-10-02T04:14:08.494Z",
-    "image": null,
-    "draft": false,
-    "relatedPosts": [
-      ""
-    ],
-    "likes": 0
-  },
-  {
     "slug": "the-jamstack-and-web-development-with-mdx",
     "id": "fCW9rjHxBSPhu8grcwdMPw",
     "type": "blog",
@@ -1009,6 +965,6 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 0
   }
 ]
