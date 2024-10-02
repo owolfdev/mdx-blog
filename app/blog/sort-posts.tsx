@@ -7,19 +7,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { ChevronUp, ChevronDown } from "lucide-react"; // Make sure to import these icons
 
 function SortPosts({
   sort,
   currentPage,
   limit,
   searchTerm,
+  category = "", // Ensure category is passed as a prop with default value
 }: {
   sort: string;
   currentPage: number;
   limit: number;
   searchTerm: string;
+  category?: string;
 }) {
   const [sortOrder, setSortOrder] = useState(sort.split("_")[1]);
   const [sortBy, setSortBy] = useState(sort.split("_")[0]);
@@ -33,27 +35,25 @@ function SortPosts({
     router.push(
       `/blog?limit=${limit}&page=${currentPage}${
         searchTerm ? `&search=${searchTerm}` : ""
-      }${!isDateDesc ? `&sort=${theSort}` : ""}`
+      }${category ? `&category=${category}` : ""}${
+        !isDateDesc ? `&sort=${theSort}` : ""
+      }`
     );
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (hasMounted) {
       changeSort();
     } else {
       setHasMounted(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortBy, sortOrder]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (sort !== `${sortBy}_${sortOrder}`) {
       setSortBy(sort.split("_")[0]);
       setSortOrder(sort.split("_")[1]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort]);
 
   const handleChangeSort = (newSort: string) => {
@@ -71,28 +71,15 @@ function SortPosts({
       ) : (
         <ChevronDown className="cursor-pointer" onClick={toggleSortOrder} />
       )}
-      <div className=" w-full">
+      <div className="w-full">
         <Select value={sortBy} onValueChange={handleChangeSort}>
-          <SelectTrigger className="">
+          <SelectTrigger>
             <SelectValue placeholder="Sort By" />
           </SelectTrigger>
-          <SelectContent
-            ref={(ref) => {
-              if (!ref) return;
-              ref.ontouchstart = (e) => {
-                e.preventDefault();
-              };
-            }}
-          >
-            <SelectItem value="date">
-              <span className="sm:text-sm text-lg">Date</span>
-            </SelectItem>
-            <SelectItem value="title">
-              <span className="sm:text-sm text-lg">Title</span>
-            </SelectItem>
-            <SelectItem value="likes">
-              <span className="sm:text-sm text-lg">Likes</span>
-            </SelectItem>
+          <SelectContent>
+            <SelectItem value="date">Date</SelectItem>
+            <SelectItem value="title">Title</SelectItem>
+            <SelectItem value="likes">Likes</SelectItem>
           </SelectContent>
         </Select>
       </div>

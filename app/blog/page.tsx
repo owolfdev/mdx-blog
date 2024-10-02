@@ -5,7 +5,6 @@ import SortPosts from "./sort-posts";
 import { getPosts } from "@/lib/posts/get-posts.mjs";
 import BlogPostList from "./blog-post-list";
 import type { Metadata } from "next";
-
 import type { CachedPost } from "@/types/post-types";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -17,9 +16,8 @@ export async function generateMetadata(): Promise<Metadata> {
 // Utility function to parse and format the date
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  // biome-ignore lint/suspicious/noGlobalIsNan: <explanation>
   if (isNaN(date.getTime())) {
-    return "Invalid Date"; // Handle invalid date
+    return "Invalid Date";
   }
   return date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -38,7 +36,8 @@ const Blog = async ({
   const postsPerPage =
     typeof searchParams.limit === "string" ? Number(searchParams.limit) : 10;
   const searchTerm = searchParams.search || "";
-  const sort = searchParams.sort || "date_desc"; // Ensure this defaults to date sorting
+  const category = searchParams.category || ""; // Extract the category from searchParams
+  const sort = searchParams.sort || "date_desc";
 
   // Fetch posts with the specified parameters
   const { posts: blogs, totalPosts } = getPosts(
@@ -46,7 +45,8 @@ const Blog = async ({
     postsPerPage,
     currentPage,
     searchTerm,
-    sort as string
+    sort as string,
+    category as string // Pass the category to the getPosts function
   );
 
   // Format the publishDate for each blog post
@@ -77,19 +77,18 @@ const Blog = async ({
   return (
     <div className="flex flex-col gap-8 pb-6 w-full max-w-3xl sm:max-w-3xl">
       <div className="flex gap-4 justify-between items-center">
-        {/* <SearchPosts
-          currentPage={currentPage}
+        <SearchPosts
           limit={postsPerPage}
-          numBlogs={blogs.length}
           sort={sort as string}
-        /> */}
-        <SearchPosts limit={postsPerPage} sort={sort as string} />
+          category={category as string} // Pass category to SearchPosts
+        />
 
         <SortPosts
           sort={sort as string}
           currentPage={currentPage}
           limit={postsPerPage}
           searchTerm={searchTerm as string}
+          category={category as string} // Pass category to SortPosts
         />
       </div>
       <div>
@@ -117,7 +116,9 @@ const Blog = async ({
               <Link
                 href={`/blog?limit=${postsPerPage}&page=${1}${
                   searchTerm ? `&search=${searchTerm}` : ""
-                }${!isDateDesc ? `&sort=${sort}` : ""}`}
+                }${category ? `&category=${category}` : ""}${
+                  !isDateDesc ? `&sort=${sort}` : ""
+                }`}
               >
                 {"<<"}
               </Link>
@@ -130,7 +131,9 @@ const Blog = async ({
               className={""}
               href={`/blog?limit=${postsPerPage}&page=${currentPage - 1}${
                 searchTerm ? `&search=${searchTerm}` : ""
-              }${!isDateDesc ? `&sort=${sort}` : ""}`}
+              }${category ? `&category=${category}` : ""}${
+                !isDateDesc ? `&sort=${sort}` : ""
+              }`}
             >
               Previous
             </Link>
@@ -145,7 +148,9 @@ const Blog = async ({
               className={""}
               href={`/blog?limit=${postsPerPage}&page=${currentPage + 1}${
                 searchTerm ? `&search=${searchTerm}` : ""
-              }${!isDateDesc ? `&sort=${sort}` : ""}`}
+              }${category ? `&category=${category}` : ""}${
+                !isDateDesc ? `&sort=${sort}` : ""
+              }`}
             >
               Next
             </Link>
@@ -157,7 +162,9 @@ const Blog = async ({
               <Link
                 href={`/blog?limit=${postsPerPage}&page=${totalPages}${
                   searchTerm ? `&search=${searchTerm}` : ""
-                }${!isDateDesc ? `&sort=${sort}` : ""}`}
+                }${category ? `&category=${category}` : ""}${
+                  !isDateDesc ? `&sort=${sort}` : ""
+                }`}
               >
                 {">>"}
               </Link>
@@ -170,6 +177,7 @@ const Blog = async ({
           searchTerm={searchTerm as string}
           numBlogs={blogs.length}
           sort={sort as string}
+          category={category as string} // Pass category to SelectLimitPosts
         />
       </div>
     </div>
