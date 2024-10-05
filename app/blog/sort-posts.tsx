@@ -41,6 +41,7 @@ function SortPosts({
     );
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (hasMounted) {
       changeSort();
@@ -49,6 +50,7 @@ function SortPosts({
     }
   }, [sortBy, sortOrder]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (sort !== `${sortBy}_${sortOrder}`) {
       setSortBy(sort.split("_")[0]);

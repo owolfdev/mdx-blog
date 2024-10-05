@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 // Utility function to parse and format the date
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  if (isNaN(date.getTime())) {
+  if (Number.isNaN(date.getTime())) {
     return "Invalid Date";
   }
   return date.toLocaleDateString("en-US", {

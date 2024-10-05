@@ -23,6 +23,7 @@ function SelectLimitPosts({
   const searchParams = useSearchParams();
   let limit = searchParams.get("limit");
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (limit === null) {
       limit = postsPerPage !== 10 ? postsPerPage.toString() : "10";
@@ -33,6 +34,7 @@ function SelectLimitPosts({
     }
   }, [searchParams, postsPerPage]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (numBlogs === 0) {
       router.push(
