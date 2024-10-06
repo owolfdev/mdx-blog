@@ -21,28 +21,6 @@
     "likes": 1
   },
   {
-    "slug": "a-test-blog",
-    "id": "uWBPK6epjEQ1bjWHTkN6GF",
-    "type": "blog",
-    "title": "A Test Blog",
-    "author": "O. Wolfson",
-    "publishDate": "2024-10-01",
-    "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.",
-    "categories": [
-      "Web Development"
-    ],
-    "tags": [
-      ""
-    ],
-    "modifiedDate": "2024-10-05T20:53:47.478Z",
-    "image": null,
-    "draft": false,
-    "relatedPosts": [
-      ""
-    ],
-    "likes": 0
-  },
-  {
     "slug": "a-test-project",
     "id": "4nhikbPULWTjFGUPBm2JVj",
     "type": "project",
@@ -393,7 +371,7 @@
     "relatedPosts": [
       "how-to-install-mdx-blog-and-deploy-on-vercel"
     ],
-    "likes": 0
+    "likes": 3
   },
   {
     "slug": "import-components-to-mdx",
@@ -690,7 +668,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 4
+    "likes": 0
   },
   {
     "slug": "optimizing-mdx-for-seo",
@@ -714,7 +692,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "rendering-mdx-content-in-nextjs-14",
@@ -866,7 +844,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 0
   },
   {
     "slug": "the-next.js-portfolio-blog-starter-kit",
@@ -943,7 +921,7 @@
       "metadata-object-components-in-next-js-mdx-blogs",
       "next-mdx-remote-limitations"
     ],
-    "likes": 5
+    "likes": 0
   },
   {
     "slug": "using-and-styling-custom-components-in-mdx-content",
@@ -967,7 +945,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 4
+    "likes": 0
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",
