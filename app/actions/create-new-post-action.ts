@@ -94,7 +94,7 @@ export async function createNewPostAction(data: any) {
     const fileContent = [
       "export const metadata = {",
       `  id: "${id}",`,
-      `  type: "blog",`,
+      `  type: "${data.type}",`,
       `  title: "${title}",`,
       `  author: "${data.author}",`,
       `  publishDate: "${formattedDate}",`,

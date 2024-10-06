@@ -21,6 +21,50 @@
     "likes": 1
   },
   {
+    "slug": "a-test-blog",
+    "id": "uWBPK6epjEQ1bjWHTkN6GF",
+    "type": "blog",
+    "title": "A Test Blog",
+    "author": "O. Wolfson",
+    "publishDate": "2024-10-01",
+    "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      ""
+    ],
+    "modifiedDate": "2024-10-05T20:53:47.478Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [
+      ""
+    ],
+    "likes": 0
+  },
+  {
+    "slug": "a-test-project",
+    "id": "4nhikbPULWTjFGUPBm2JVj",
+    "type": "project",
+    "title": "A Test Project",
+    "author": "O. Wolfson",
+    "publishDate": "2024-10-01",
+    "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      ""
+    ],
+    "modifiedDate": "2024-10-05T20:52:52.546Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [
+      ""
+    ],
+    "likes": 0
+  },
+  {
     "slug": "adding-mdx-support-to-your-next.js-project",
     "id": "iHp5XPN1jLsDeqs9oe1zmh",
     "type": "blog",
@@ -228,7 +272,7 @@
     "relatedPosts": [
       "creating-anchor-links-to-page-sections-in-mdx"
     ],
-    "likes": 4
+    "likes": 5
   },
   {
     "slug": "frictionless-content-creation-with-mdxblog",
@@ -349,7 +393,7 @@
     "relatedPosts": [
       "how-to-install-mdx-blog-and-deploy-on-vercel"
     ],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "import-components-to-mdx",
@@ -396,7 +440,7 @@
       "using-and-styling-custom-components-in-mdx-content",
       "import-components-to-mdx"
     ],
-    "likes": 8
+    "likes": 9
   },
   {
     "slug": "integrating-mdx-with-static-site-generators",
@@ -535,7 +579,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 26
+    "likes": 27
   },
   {
     "slug": "mdx-performance-optimization",
@@ -670,7 +714,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 0
   },
   {
     "slug": "rendering-mdx-content-in-nextjs-14",
@@ -965,6 +1009,6 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 2
   }
 ]
