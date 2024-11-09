@@ -1,0 +1,30 @@
+"use client";
+import React, { use } from "react";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { openInCursorAction } from "@/app/actions/open-actions";
+
+function OpenInCursor({ path }: { path: string }) {
+  const router = useRouter();
+  const handleOpenInCursor = async () => {
+    const filePath = `content/pages/${path}.mdx`;
+    const response = await openInCursorAction(filePath);
+    if (response.ok) {
+      // router.push("/settings");
+    } else {
+      console.error("Failed to open in Cursor:", response.error);
+    }
+  };
+
+  return (
+    <div>
+      <div className="flex gap-3">
+        <Button variant="outline" type="button" onClick={handleOpenInCursor}>
+          Edit File In Cursor
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+export default OpenInCursor;

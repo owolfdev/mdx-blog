@@ -1,17 +1,15 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-export default function ThankYou() {
+import React from "react";
+
+function Page() {
   return (
-    <div className="z-10 max-w-3xl w-full items-center justify-between lg:flex">
-      <div className="h-full  p-8">
-        <h2 className="font-bold text-2xl pb-2">
-          Thank you for your message! We will get back to you as soon as
-          possible.
-        </h2>
-        <Button className="mt-4 text-lg" size="lg">
-          <Link href="/blog">Go back to the blog</Link>
-        </Button>
-      </div>
+    <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
+      <h1 className="text-6xl font-black text-center">Thank you.</h1>
+
+      <p className="text-center">
+        Your message has been sent. We will get back to you soon.
+      </p>
     </div>
   );
 }
+
+export default Page;

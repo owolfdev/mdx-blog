@@ -31,6 +31,7 @@ export interface PostMetadata {
   image: string | null;
   draft: boolean;
   relatedPosts: string[] | null;
+  link?: string; // New link field
 }
 
 export interface Post {

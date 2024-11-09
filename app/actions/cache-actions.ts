@@ -1,6 +1,7 @@
 "use server";
 
-import { generatePostsCache } from "@/lib/cache/generate-posts-cache"; // Import the external function
+import { generatePostsCache } from "@/app/actions/cache/generate-posts-cache"; // Import the external function
+// import { generatePostsCache } from "@/lib/cache/generate-posts-cache";
 
 // Cache posts action using the imported generatePostsCache function
 export const cachePostsAction = async () => {

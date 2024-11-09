@@ -7,11 +7,19 @@ import InlineCode from "@/components/mdx/inline-code";
 import Pre from "@/components/mdx/pre"; // Adjust the import path as needed
 import Image from "@/components/mdx/image"; // Adjust the import path as needed
 import CustomLink from "@/components/mdx/custom-link"; // Adjust the import path as needed
+import PopularPosts from "@/components/posts/popular-posts";
+import { Button } from "@/components/ui/button";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
     YouTube,
+    PopularPosts,
+    Button: (props) => (
+      <div className="pb-4">
+        <Button {...props} className="" />
+      </div>
+    ),
     Image, // Use the custom Image component
     pre: Pre, // Use the custom Pre component
     code: (props) => {
@@ -53,7 +61,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       // Use the CustomLink component to handle external/internal links
       return (
         <CustomLink href={href}>
-          <span className="text-primary">{children}</span>
+          <span className="dark:text-primary text-stone-600 decoration-stone-600">
+            {children}
+          </span>
         </CustomLink>
       );
     },

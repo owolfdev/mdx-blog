@@ -1,243 +1,101 @@
-# MDXBlog
+Based on Supabase Auth Template
 
-[**MDXBlog** (mdxblog.io)](https://mdxblog.io) is a platform built with the latest web technologies, offering a unique blogging experience. MDXBlog is a simple template for creating blogs using MDX (Markdown + JSX) and Next.js 14. Unlike traditional blogging solutions that rely on a database to store content, content management in MDXBlog is handled by easily editable Markdown (MDX) files in a folder on your local machine! It's a good solution for those who appreciate the ease of Markdown and the power of React components.
+npx create-next-app -e with-supabase
 
-Our project is fully accessible on **[GitHub](https://github.com/owolfdev/mdx-blog)**.
+<a href="https://demo-nextjs-with-supabase.vercel.app/">
 
-## Table of Contents
+  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
+  <h1 align="center">Next.js and Supabase Starter Kit</h1>
+</a>
 
-- [Getting Started](#getting-started)
+<p align="center">
+ The fastest way to build apps with Next.js and Supabase
+</p>
 
-  - [Installation](#installation)
-  - [How to Use MDXBlog](#how-to-use-mdxblog)
-  - [Detailed Instructions](#detailed-instructions)
+<p align="center">
+  <a href="#features"><strong>Features</strong></a> ·
+  <a href="#demo"><strong>Demo</strong></a> ·
+  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
+  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
+  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
+  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
+</p>
+<br/>
 
-- [Markdown and MDX Guide](#markdown-mdx)
+## Features
 
-  - [Markdown Syntax](#markdown-syntax)
-  - [MDX Syntax](#mdx-syntax)
+- Works across the entire [Next.js](https://nextjs.org) stack
+  - App Router
+  - Pages Router
+  - Middleware
+  - Client
+  - Server
+  - It just works!
+- supabase-ssr. A package to configure Supabase Auth to use cookies
+- Styling with [Tailwind CSS](https://tailwindcss.com)
+- Components with [shadcn/ui](https://ui.shadcn.com/)
+- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
+  - Environment variables automatically assigned to Vercel project
 
-- [Custom MDX Components](#custom-code-components)
+## Demo
 
-  - [\<YouTube />](#youtube)
-  - [\<Image />](#image)
-  - [code](#code)
+You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
 
-- [Notes](#notes)
+## Deploy to Vercel
 
-  - [Scheduled Publishing](#scheduled-publishing)
+Vercel deployment will guide you through creating a Supabase account and project.
 
----
+After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
 
-## <div id='getting-started'>Getting Started</div>
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
 
-<div id="installation" className="w-full">
-  **Installation:**
-</div>
+The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
 
-- Clone the [**repo**](https://github.com/owolfdev/mdx-blog-basic)
-- Run 'npm install'
-- Run 'npm run dev'
-- Create a .env.local file. See the .env.example file at the root of the project for the required environment variables.
-- Open 'http://localhost:3000' in your browser
-- Create a remote repo on GitHub
-- Push your local repo to GitHub
-- Deploy on Vercel
+If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
 
-Check out an article on the blog for a more detailed guide on [how to install MDXBlog and deploy on Vercel](https://www.mdxblog.io/blog/how-to-install-mdx-blog-and-deploy-on-vercel).
+## Clone and run locally
 
-## <div id='how-to-use-mdxblog'>How to Use MDXBlog:</div>
+1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
 
-### <div id='detailed-instructions'>Instructions:</div>
+2. Create a Next.js app using the Supabase Starter template npx command
 
-**Create a post**
+   ```bash
+   npx create-next-app -e with-supabase
+   ```
 
-- Use the '+' icon in the nav bar, in development mode only, to create a new post - or simply create a new MDX file in the 'data/posts' directory, manually.
-- Edit posts in the browser or manually using VS Code (recommended), or any other text editor.
+3. Use `cd` to change into the app's directory
 
-You'll find a directory called content/blogs where you can create your blog posts. Follow the template and you will be fine.
+   ```bash
+   cd name-of-new-app
+   ```
 
----
+4. Rename `.env.example` to `.env.local` and update the following:
 
-## <div id='markdown-mdx'>Markdown and MDX Guide</div>
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
+   ```
 
-### <div id='markdown-syntax'>Markdown Syntax</div>
+   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
 
-- **Headings**: Use `#` for headings. More `#` symbols mean smaller headings.
+5. You can now run the Next.js local development server:
 
-  ```markdown
-  # H1 Heading
+   ```bash
+   npm run dev
+   ```
 
-  ## H2 Heading
+   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
 
-  ### H3 Heading
-  ```
+6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
 
-- **Paragraphs**: Simply write text to create a paragraph.
+> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
 
-  ```markdown
-  This is a paragraph of text.
-  ```
+## Feedback and issues
 
-- **Bold and Italic Text**: Use `**` or `__` for bold and `*` or `_` for italic.
+Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
 
-  ```markdown
-  This is **bold** text and this is _italic_ text.
-  ```
+## More Supabase examples
 
-- **Lists**:
-
-  - **Unordered List**: Use `-`, `*`, or `+` for bullet points.
-    ```markdown
-    - Item 1
-    - Item 2
-    ```
-  - **Ordered List**: Use numbers followed by a period.
-    ```markdown
-    1. First item
-    2. Second item
-    ```
-
-- **Links**: Use `[text](url)` for hyperlinks.
-
-  ```markdown
-  [OpenAI](https://openai.com)
-  ```
-
-- **Images**: Use `![alt text](image url)` to embed images.
-
-  ```markdown
-  ![A cat](https://example.com/cat.jpg)
-  ```
-
-- **Code Blocks**: Use triple backticks for code blocks.
-
-  ```markdown
-
-  ```
-
-  ```javascript
-  console.log("Hello, world!");
-  ```
-
-### <div id='mdx-syntax'>MDX Syntax</div>
-
-- **Embedding Components**: Directly embed React components or custom components within your content.
-
-  ```jsx
-  import MyButton from "./MyButton";
-
-  <MyButton>Click Me!</MyButton>;
-  ```
-
-- **Combining Markdown and Components**: Use markdown for content structure and components for interactivity.
-
-  ```jsx
-  ## A Section with a Button
-
-  Here’s a paragraph of text before the button.
-
-  <MyButton>Click Me!</MyButton>
-
-  Here’s another paragraph after the button.
-  ```
-
-## <div id='custom-code-components'>Custom MDX Components</div>
-
-MDXBlog provides custom components to enhance your content with interactive elements and visual appeal. These components are imported in the configuration, so they can be used in MDXBlog without an explicit import statement in the MDX document. Here are some of the custom components available:
-
----
-
-### <div id='youtube'>`<YouTube />`: Seamlessly embed YouTube videos within your content</div>
-
-To embed a YouTube video, use the `<YouTube />` component. Provide the `id` of the YouTube video you want to embed:
-
-\<YouTube id="aqz-KE-bpKQ" />
-
-- **id**: The unique identifier for the YouTube video. This can be found in the video URL after `v=`. For example, in `https://www.youtube.com/watch?v=aqz-KE-bpKQ`, the `id` is `aqz-KE-bpKQ`.
-
-<YouTube id="aqz-KE-bpKQ" />
-
-The YouTube component is a custom MDX component that allows you to embed YouTube videos directly into your content. Simply provide the video ID, and the component will handle the rest.
-
----
-
-### <div id='image'>`<Image />`: Integrate images elegantly, enhancing the visual appeal of your posts</div>
-
-To add an image to your content, use the `<Image />` component. You can also add a caption to describe the image:
-
-\<Image
-src="/images/posts/how-to-use-images/grass-tree-sky.jpg"
-caption="trees, grass, and sky"
-\/>
-
-- **src**: The path to your image file. This should be relative to the root of your project or the `public` folder if using Next.js.
-- **caption** _(optional)_: A short description or caption for the image.
-
-<Image
-  src="/images/posts/how-to-use-images/grass-tree-sky.jpg"
-  caption="trees, grass, and sky"
-/>
-
----
-
-### <div id='code'>Code: Include and showcase code snippets with clarity and style</div>
-
-### Inline Code
-
-Inline code can be added using single backticks (`):
-
-\`const message = "Hello, World!";\`
-
-Like this:
-
-`const message = "Hello, World!";`
-
-### Code Blocks
-
-To display a block of code, use the standard Markdown syntax with triple backticks (```) followed by the language identifier:
-
-\```javascript  
-console.log("Hello World")  
-\```
-
-- **language identifier** _(optional)_: Specify the programming language for syntax highlighting. In the example above, `javascript` is used. Replace it with the appropriate language if different.
-
-Here is a simple example of a function that doubles the numbers in an array:
-
-```javascript
-function doubleNumbers(numbers) {
-  return numbers.map((number) => number * 2);
-}
-
-// Example usage
-const numbers = [1, 2, 3, 4, 5];
-const doubled = doubleNumbers(numbers);
-
-console.log(doubled); // Output: [2, 4, 6, 8, 10]
-```
-
-Code blocks allow copy-pasting and easy readability, making it simple for readers to understand and use the code snippets you provide.
-
----
-
-## <div id='notes'>Notes</div>
-
-## <div id='scheduled-publishing'>Scheduled Publishing</div>
-
-**MDXBlog** allows you to schedule posts for future publication. This feature is particularly useful when you want to prepare content in advance and have it automatically published at a specific date and time.
-
-When you create or edit a post you will see a 'Date' field. You can set the date and time for when you want the post to go live. Once you save the post, MDXBlog will automatically publish it at the scheduled date.
-
-Note that there is also a "date modified" property. Each time you edit the post, the date modified will be updated. This is useful for tracking changes to your content. Date modified will be displayed at the top of post, next to the category indicator - unless the published date is later than the modified date - wherin it will display the publishe date. If you want the published date to match the modified date, you can manually set the published date to the same as the modified date. Remember to note that future dated posts will always be unlisted (not visible on your blog roll) until the scheduled publishe date. This is true even if you change the created date to a later date than the current time subsequent to a previous publication.
-
----
-
-## <div id='development-insights'>More About MDXBlog</div>
-
-**MDXBlog** represents a blend of technological innovation and user-centric design, providing a platform that's not only a pleasure to use but also powerful in its capabilities. Whether you're a developer, a content creator, or someone passionate about blogging, MDXBlog offers you the tools to share your stories and ideas with the world effortlessly.
-
-Find relevant articles on the blog:
-
-- [Installation Guide](https://www.mdxblog.io/blog/how-to-install-mdx-blog-and-deploy-on-vercel)
-- [A User Guide](https://www.mdxblog.io/blog/how-to-use-mdx-blog)
+- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
+- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
+- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)

@@ -1,8 +1,8 @@
 import { createClient } from "@supabase/supabase-js"; // Adjust the import according to your project structure
 import { config } from "@/lib/config/config";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -83,16 +83,28 @@ export async function removeAllLikes() {
   }
 }
 
+function isValidUUID(uuid: string): boolean {
+  const uuidRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(uuid);
+}
+
 export async function isPostLikedByUser(postId: string, userId: string) {
+  if (!isValidUUID(postId) || !isValidUUID(userId)) {
+    console.error("Invalid UUID format for postId or userId");
+    return { success: false, error: "Invalid UUID format", liked: false };
+  }
+
   const tableName = config.likesTable; // Accessing table name from config
   console.log("isPostLikedByUser", postId, userId);
+
   try {
     const { data, error } = await supabase
       .from(tableName)
       .select("id")
       .eq("post_id", postId)
       .eq("user_id", userId)
-      .single(); // We use single() to ensure we get only one match.
+      .maybeSingle(); // Use maybeSingle() instead of single()
 
     if (error) throw error;
 

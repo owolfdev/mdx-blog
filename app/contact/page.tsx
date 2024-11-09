@@ -1,37 +1,27 @@
-import ReactMarkdown from "react-markdown";
-import Image from "next/image";
+// app/contact/page.tsx
 import type { Metadata } from "next";
 import { ContactForm } from "./form";
-import { isDevMode } from "@/lib/utils/is-dev-mode";
-import Link from "next/link";
+import type { Message } from "@/components/form-message";
 
-// Define the metadata generation function
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "MDXBlog  | Contact",
-  };
-}
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description: "Get in touch with us",
+};
 
-export default function Blog() {
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams?: Promise<Message>;
+}) {
+  const message = await searchParams;
+
   return (
-    <div className="max-w-3xl z-10 w-full items-center justify-between">
-      <div className="w-full flex justify-center items-center flex-col gap-6 text-lg">
-        <h1 className="text-4xl sm:text-5xl font-bold text-center pb-8">
-          Contact
-        </h1>
-
+    <div className="flex flex-col max-w-3xl w-full pt-10">
+      <div className="flex-1 flex flex-col sm:w-[600px] w-[300px] ">
+        <h1 className="text-6xl font-black">Contact</h1>
         <div className="w-full">
           <ContactForm />
         </div>
-        {isDevMode() && (
-          <div className="flex justify-center">
-            <div>
-              <Link href="/contact/messages" className="underline">
-                see contact messages.
-              </Link>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

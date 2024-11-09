@@ -8,8 +8,8 @@ const Code = (props: any) => {
 
   // Extract the language from the className
   const className = props.className || "";
-  const matches = className.match(/language-(?<lang>.*)/);
-  const language = matches?.groups?.lang || "";
+  const matches = className.match(/language-(.*)/);
+  const language = matches?.[1] || "";
 
   // Handle copy functionality
   const handleCopy = () => {
@@ -23,7 +23,7 @@ const Code = (props: any) => {
   };
 
   return (
-    <div className="code-block gap-0 rounded-lg text-white pb-6">
+    <div className="gap-0 rounded-lg text-white pb-6 w-full">
       <div className="flex justify-between items-center bg-gray-900 py-2 px-4 rounded-t-lg">
         <span className="text-gray-300">{language}</span>
         <button
@@ -34,10 +34,10 @@ const Code = (props: any) => {
           {copied ? "Copied!" : "Copy"}
         </button>
       </div>
-      <pre className="bg-gray-800 p-4 rounded-b-lg overflow-auto">
+      <pre className="bg-gray-800 p-4 rounded-b-lg overflow-auto w-full block">
         <code
           ref={codeRef}
-          className={`${className} bg-gray-800`}
+          className={`${className} bg-gray-800 block w-full`}
           style={{ whiteSpace: "pre-wrap" }}
         >
           {props.children}

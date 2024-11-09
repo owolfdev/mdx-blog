@@ -1,18 +1,26 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import ScrollToTop from "@/components/nav/scroll-to-top";
-import SiteHeader from "@/components/nav/site-header";
+// import DeployButton from "@/components/deploy-button";
+// import { EnvVarWarning } from "@/components/env-var-warning";
+// import HeaderAuth from "@/components/header-auth";
+// import { ThemeSwitcher } from "@/components/theme-switcher";
+// import { hasEnvVars } from "@/utils/supabase/check-env-vars";
+// import { GeistSans } from "geist/font/sans";
+import { ThemeProvider } from "next-themes";
+import Header from "@/components/nav/header";
 import Footer from "@/components/nav/footer";
-import { ThemeProvider } from "@/components/theme-provider";
-
-import CookieConsentComponent from "@/components/cookie-consent";
+// import Link from "next/link";
+import "./globals.css";
+import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "MDXBlog",
-  description: "A simple static blog template built with Next.js and MDX.",
+const defaultUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "http://localhost:3000";
+
+export const metadata = {
+  metadataBase: new URL(defaultUrl),
+  title: "Next.js and Supabase Starter Kit",
+  description: "The fastest way to build apps with Next.js and Supabase",
 };
 
 export default function RootLayout({
@@ -21,19 +29,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className}`}>
+    <html lang="en" className={inter.className} suppressHydrationWarning>
+      <body className="">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <ScrollToTop />
-          <SiteHeader />
-          <main className="flex flex-col items-center justify-between px-6 py-12   sm:px-10 sm:py-24 min-h-[calc(100vh-12rem)]">
+          <Header />
+          <main className="flex flex-col items-center justify-between px-6 py-4 sm:px-10 sm:py-8 min-h-[calc(100vh-13rem)]">
             {children}
-            <CookieConsentComponent />
           </main>
           <Footer />
         </ThemeProvider>

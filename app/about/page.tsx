@@ -1,6 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
-
+import EditPageButton from "@/components/page/edit-page-button";
+import OpenInCursor from "@/components/page/open-page-in-cursor-button";
+import { isDevMode } from "@/lib/utils/is-dev-mode";
 // Dynamically import the MDX file to access metadata and content
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 async function loadMdxFile(): Promise<any> {
@@ -18,8 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const mdxModule = await loadMdxFile();
   if (!mdxModule) {
     return {
-      title: "Page Not Found",
-      description: "",
+      title: "About MDXBlog",
+      description: "Learn more about MDXBlog",
     };
   }
   const { metadata } = mdxModule;
@@ -38,16 +40,20 @@ export default async function AboutPage() {
     return <p>Page not found</p>; // Handle the case where the MDX file is not found
   }
 
-  const { default: AboutContent, metadata } = mdxModule;
+  const { default: Content, metadata } = mdxModule;
 
   return (
-    <div className="max-w-3xl z-10 w-full items-center justify-between">
-      <div className="w-full flex justify-center items-center flex-col gap-6">
-        <h1 className="text-4xl sm:text-5xl font-bold text-center pb-8">
-          About <span className="primary-color">MDX</span>Blog
-        </h1>
-        <AboutContent />
-      </div>
+    <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
+      <h1 className="text-6xl font-black">{metadata.title}</h1>
+      {isDevMode() && (
+        <div className="flex gap-3">
+          <EditPageButton slug={metadata.slug} />
+          <OpenInCursor path={metadata.slug} />
+        </div>
+      )}
+      <article className="prose prose-lg mx-auto w-full">
+        <Content />
+      </article>
     </div>
   );
 }

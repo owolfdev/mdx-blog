@@ -3,7 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { exec } from "node:child_process";
-import { generatePostsCache } from "@/lib/cache/generate-posts-cache";
+import { generatePostsCache } from "@/app/actions/cache/generate-posts-cache";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export async function editPostAction(data: any, openInVSCode = false) {
@@ -11,7 +11,7 @@ export async function editPostAction(data: any, openInVSCode = false) {
     slug,
     date,
     title,
-    categories, // Update here: categories instead of category
+    categories,
     tags,
     originalFilename,
     filename,
@@ -68,13 +68,15 @@ export async function editPostAction(data: any, openInVSCode = false) {
   const formattedCategories = categories
     .map((category: string) => `"${category}"`)
     .join(", ")
-    .replace(/,\s*$/, ""); // Update here: categories instead of category
+    .replace(/,\s*$/, "");
 
-  // Format relatedPosts as an array of strings
+  // Format relatedPosts as an array of strings or default to an empty array
   const formattedRelatedPosts = relatedPosts
-    .split(", ")
-    .map((post: string) => `"${post.trim()}"`)
-    .join(", ");
+    ? relatedPosts
+        .split(",")
+        .map((post: string) => `"${post.trim()}"`)
+        .filter(Boolean)
+    : []; // Ensure it's an array or default to an empty array
 
   // Construct the new file content
   const newFileContent = [
@@ -90,7 +92,7 @@ export async function editPostAction(data: any, openInVSCode = false) {
     `  modifiedDate: "${new Date().toISOString()}",`, // Update the modifiedDate
     `  image: ${image ? `"${image}"` : "null"},`,
     `  draft: ${draft},`,
-    `  relatedPosts: [${formattedRelatedPosts}]`,
+    `  relatedPosts: [${formattedRelatedPosts.join(", ")}]`,
     "};",
     "",
     data.content || existingContentBody,

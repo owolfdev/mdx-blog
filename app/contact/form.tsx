@@ -1,24 +1,13 @@
+// app/contact/form.tsx
 "use client";
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import ReCAPTCHA from "react-google-recaptcha";
-
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
+import { z } from "zod";
+import { FormMessage, type Message } from "@/components/form-message";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
-
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -26,194 +15,126 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import ReCAPTCHA from "react-google-recaptcha";
 import { sendContactMessage } from "./actions";
 
-function SubmitButton({
-  isRecaptchaVerified,
-  isSubmitting,
-}: {
-  isRecaptchaVerified: boolean;
-  isSubmitting: boolean;
-}) {
-  return (
-    <Button
-      aria-disabled={isSubmitting || !isRecaptchaVerified}
-      disabled={isSubmitting || !isRecaptchaVerified}
-      type="submit"
-      className="text-lg"
-    >
-      {isSubmitting ? "Submitting..." : "Submit"}
-    </Button>
-  );
-}
-
-const formSchema = z.object({
-  email: z.string().email(),
-  name: z
-    .string()
-    .min(2, { message: "Your name must be at least 2 characters." }),
-  message: z
-    .string()
-    .min(20, { message: "Your message must be at least 20 characters." }),
-  type: z.string().min(2, { message: "Select a type." }),
-});
-
-const optionsForSelectType = [
+const messageTypes = [
   { label: "Bug Report", value: "Bug Report" },
   { label: "Support Query", value: "Support Query" },
   { label: "Correspondence", value: "Correspondence" },
 ];
 
-const NEXT_PUBLIC_RECAPTCHA_SITE_KEY =
-  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+export function ContactForm({ message }: { message?: Message }) {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+  const [isRecaptchaVerified, setIsRecaptchaVerified] = React.useState(false);
 
-export function ContactForm() {
-  const [recaptchaSiteKey] = React.useState<string>(
-    NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""
-  );
-  const [isRecaptchaVerified, setIsRecaptchaVerified] =
-    React.useState<boolean>(false);
-  const [isSubmitting, setIsSubmitting] = React.useState(false); // Track pending state manually
-
-  const router = useRouter(); // <-- Client-side navigation
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      name: "",
-      message: "",
-      type: "",
-    },
-  });
+  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
   const handleRecaptchaChange = (token: string | null) => {
     setIsRecaptchaVerified(token !== null);
   };
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    setIsSubmitting(true); // Set submitting to true when submission starts
+  const router = useRouter();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+
     try {
-      // console.log("Form Values on Submit:", values);
+      const formData = new FormData(event.currentTarget);
+
+      const values = {
+        email: formData.get("email") as string,
+        name: formData.get("name") as string,
+        message: formData.get("message") as string,
+        type: formData.get("type") as string,
+      };
+
       await sendContactMessage(values);
-      // Redirect to the thank-you page on the client side
       router.push("/contact/thank-you");
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
-      setIsSubmitting(false); // Set submitting back to false once the submission is complete
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <Form {...form}>
+    <div className="flex flex-col items-center max-w-3xl gap-8 pt-12">
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 text-lg"
+        className="flex-1 flex flex-col sm:w-[600px] w-full gap-4"
+        onSubmit={handleSubmit}
       >
-        <FormField
-          control={form.control}
-          name="type"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-lg">Message Type</FormLabel>
-              <Select
-                onValueChange={(value) => {
-                  field.onChange(value);
-                  form.setValue("type", value);
-                }}
-                value={field.value}
-                defaultValue={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger className="text-lg">
-                    <SelectValue placeholder="Select message type" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {optionsForSelectType.map((option) => (
-                    <SelectItem
-                      className="input-no-zoom text-lg"
-                      value={option.value}
-                      key={option.value}
-                    >
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <p className="text-sm text-foreground">
+          Have a question or feedback? Use the form below to get in touch with
+          us.
+        </p>
+        <div className="flex flex-col gap-2 [&>input]:mb-3 [&>textarea]:mb-3 mt-8">
+          <Label htmlFor="type">Message Type</Label>
+          <div className="mb-3">
+            <Select name="type" required>
+              <SelectTrigger className="text-lg">
+                <SelectValue placeholder="Select message type" />
+              </SelectTrigger>
+              <SelectContent>
+                {messageTypes.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-lg">Email</FormLabel>
-              <FormControl>
-                <Input
-                  className="input-no-zoom text-lg"
-                  placeholder="Your email"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <Label htmlFor="name">Name</Label>
+          <Input
+            name="name"
+            placeholder="Your name"
+            required
+            className="text-lg"
+          />
 
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-lg">Name</FormLabel>
-              <FormControl>
-                <Input
-                  className="input-no-zoom text-lg"
-                  placeholder="Your name"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <Label htmlFor="email">Email</Label>
+          <Input
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            required
+            className="text-lg"
+          />
 
-        <FormField
-          control={form.control}
-          name="message"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-lg">Message</FormLabel>
-              <FormControl>
-                <Textarea
-                  className="input-no-zoom text-lg"
-                  placeholder="Your message"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <Label htmlFor="message">Message</Label>
+          <Textarea
+            name="message"
+            placeholder="Your message"
+            required
+            className="min-h-[100px] text-lg"
+          />
 
-        <div className="pt-4">
           {recaptchaSiteKey && (
-            <ReCAPTCHA
-              sitekey={recaptchaSiteKey}
-              onChange={handleRecaptchaChange}
-            />
+            <div className="mb-4">
+              <ReCAPTCHA
+                sitekey={recaptchaSiteKey}
+                onChange={handleRecaptchaChange}
+              />
+            </div>
           )}
-        </div>
 
-        <SubmitButton
-          isRecaptchaVerified={isRecaptchaVerified}
-          isSubmitting={isSubmitting}
-        />
+          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+
+          <button
+            type="submit"
+            disabled={isSubmitting || !isRecaptchaVerified}
+            className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-lg disabled:opacity-50"
+          >
+            {isSubmitting ? "Sending..." : "Send Message"}
+          </button>
+
+          {message && <FormMessage message={message} />}
+        </div>
       </form>
-    </Form>
+    </div>
   );
 }

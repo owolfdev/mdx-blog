@@ -6,7 +6,7 @@ import { openInVSCodeAction } from "@/app/actions/open-actions";
 function OpenCategoriesInVSCode() {
   const handleOpenCategoriesInVSCode = async () => {
     try {
-      const result = await openInVSCodeAction("data/settings/categories.json");
+      const result = await openInVSCodeAction("settings/categories.json");
       if (result.ok) {
         console.log(result.data);
       } else {

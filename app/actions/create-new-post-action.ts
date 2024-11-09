@@ -3,8 +3,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import { exec } from "node:child_process";
-import shortUUID from "short-uuid";
-import { generatePostsCache } from "@/lib/cache/generate-posts-cache";
+import { v4 as uuidv4 } from "uuid"; // Import standard UUID
+// import { generatePostsCache } from "@/lib/cache/generate-posts-cache";
+import { generatePostsCache } from "@/app/actions/cache/generate-posts-cache";
 
 const POLLING_INTERVAL = 100; // Check every 100ms
 const MAX_POLLING_TIME = 5000; // Timeout after 5 seconds
@@ -37,7 +38,7 @@ export async function createNewPostAction(data: any) {
     const {
       date,
       title,
-      categories, // Update here: categories instead of category
+      categories,
       tags,
       image,
       draft,
@@ -70,8 +71,8 @@ export async function createNewPostAction(data: any) {
       currentDate.getMonth() + 1
     ).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
 
-    // Generate a short UUID for the id field
-    const id = shortUUID.generate();
+    // Generate a standard UUID for the id field
+    const id = uuidv4();
 
     // Format tags and categories for metadata
     const formattedTags = tags
@@ -85,10 +86,10 @@ export async function createNewPostAction(data: any) {
       .join(", ")
       .replace(/,\s*$/, ""); // Remove trailing comma
 
-    // Format relatedPosts as an array of strings
+    // Ensure relatedPosts is an empty array if the input is an empty string
     const formattedRelatedPosts = relatedPosts
-      .map((post: string) => `"${post.trim()}"`)
-      .join(", ");
+      ? relatedPosts.split(",").map((post: string) => `"${post.trim()}"`)
+      : [];
 
     // Construct the file content
     const fileContent = [
@@ -104,7 +105,7 @@ export async function createNewPostAction(data: any) {
       `  modifiedDate: "${new Date().toISOString()}",`, // Automatically set modifiedDate to current date
       `  image: ${image ? `"${image}"` : "null"},`,
       `  draft: ${draft},`,
-      `  relatedPosts: [${formattedRelatedPosts}]`,
+      `  relatedPosts: [${formattedRelatedPosts.join(", ")}]`, // Join formatted array for output
       "};",
       "",
       `${data.content}`,
@@ -126,7 +127,7 @@ export async function createNewPostAction(data: any) {
           await waitForFile(filePath);
 
           // Open the file in VS Code
-          exec(`code "${filePath}"`, (error, stdout, stderr) => {
+          exec(`cursor "${filePath}"`, (error, stdout, stderr) => {
             if (error) {
               console.error(`exec error: ${error}`);
               return;

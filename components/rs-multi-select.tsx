@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import Select from "react-select";
-import categoryData from "@/data/settings/categories.json";
+import categoryData from "@/settings/categories.json";
 
 const categories: string[] = categoryData.categories;
 
@@ -18,157 +18,146 @@ interface CustomStyles {
   control: (defaultStyles: any, state: any) => any;
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   input: (styles: any) => any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  menu: (provided: any) => any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  clearIndicator: (provided: any, state: any) => any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  dropdownIndicator: (provided: any, state: any) => any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  indicatorSeparator: (provided: any, state: any) => any;
 }
 
 interface MultiSelectProps {
-  categories: string[]; // Array of categories
-  selectedCategories: string[]; // Ensure this is always an array
+  categories: string[];
+  selectedCategories: string[];
   setSelectedCategories: (categories: string[]) => void;
 }
 
 export function MultiSelect({
   categories,
-  selectedCategories = [], // Default to an empty array if undefined
+  selectedCategories = [],
   setSelectedCategories,
 }: MultiSelectProps) {
-  const { setTheme, theme } = useTheme();
+  const { theme } = useTheme();
 
-  useEffect(() => {
-    selectedCategories?.length > 0 &&
-      console.log("selectedCategories", selectedCategories);
-  }, [selectedCategories]);
-
-  const initialCustomStyles: CustomStyles = {
+  const customStyles: CustomStyles = {
     option: (defaultStyles, state) => ({
       ...defaultStyles,
+      backgroundColor: state.isFocused
+        ? theme === "dark"
+          ? "hsl(var(--muted))"
+          : "hsl(var(--muted))"
+        : "transparent",
+      color: state.isFocused
+        ? theme === "dark"
+          ? "hsl(var(--foreground))"
+          : "hsl(var(--foreground))"
+        : theme === "dark"
+          ? "hsl(var(--foreground))"
+          : "hsl(var(--foreground))",
     }),
-    placeholder: (provided, state) => ({
+    placeholder: (provided) => ({
       ...provided,
-      color: "#6B7280",
+      color:
+        theme === "dark"
+          ? "hsl(var(--muted-foreground))"
+          : "hsl(var(--muted-foreground))",
       fontSize: "14px",
     }),
-    multiValue: (provided, state) => ({
+    multiValue: (provided) => ({
       ...provided,
-      backgroundColor: "#e2e8f0",
+      backgroundColor:
+        theme === "dark"
+          ? "rgba(255, 255, 255, 0.7)"
+          : "rgba(209, 213, 219, 0.7)", // Light gray for dark mode, original muted for light mode
       borderRadius: "0.35rem",
-      color: "#6B7280",
+      color: "rgba(0, 0, 0, 0.7)",
       fontSize: "14px",
     }),
     control: (defaultStyles, state) => ({
       ...defaultStyles,
       borderRadius: "0.35rem",
-      backgroundColor: "transparent",
-      borderColor: "gray-300",
+      backgroundColor: "hsl(var(--background))",
+      borderColor:
+        theme === "dark"
+          ? state.isFocused
+            ? "rgba(255, 255, 255, 0.7)" // Tailwind white with 70% opacity
+            : "rgba(255, 255, 255, 0.7)"
+          : "hsl(var(--border))",
+      boxShadow: "none",
+      "&:hover": {
+        borderColor:
+          theme === "dark" ? "rgba(255, 255, 255)" : "hsl(var(--border))",
+      },
     }),
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    input: (styles: any) => ({
+    input: (styles) => ({
       ...styles,
-      color: "black",
+      color:
+        theme === "dark" ? "hsl(var(--foreground))" : "hsl(var(--foreground))",
+    }),
+    menu: (provided) => ({
+      ...provided,
+      backgroundColor:
+        theme === "dark" ? "hsl(var(--background))" : "hsl(var(--background))",
+      color: "hsl(var(--foreground))",
+    }),
+    clearIndicator: (provided, state) => ({
+      ...provided,
+      color:
+        theme === "dark"
+          ? "rgba(255, 255, 255, 0.7)" // White with 70% opacity in dark mode
+          : "rgba(107, 114, 128, 0.7)", // Tailwind's gray-500 with 70% opacity in light mode
+      "&:hover": {
+        color:
+          theme === "dark"
+            ? "rgba(255, 255, 255, 1)" // Fully white on hover in dark mode
+            : "rgba(107, 114, 128, 1)", // Fully gray on hover in light mode
+      },
+    }),
+
+    dropdownIndicator: (provided, state) => ({
+      ...provided,
+      color:
+        theme === "dark"
+          ? "rgba(255, 255, 255, 0.7)" // White with 70% opacity in dark mode
+          : "rgba(107, 114, 128, 0.7)", // Tailwind's gray-500 with 70% opacity in light mode
+      "&:hover": {
+        color:
+          theme === "dark"
+            ? "rgba(255, 255, 255, 1)" // Fully white on hover in dark mode
+            : "rgba(107, 114, 128, 1)", // Fully gray on hover in light mode
+      },
+    }),
+
+    indicatorSeparator: (provided, state) => ({
+      ...provided,
+      backgroundColor:
+        theme === "dark"
+          ? "rgba(255, 255, 255, 0.3)" // Light separator in dark mode
+          : "rgba(107, 114, 128, 0.7)", // Tailwind's gray-500 with 70% opacity in light mode
     }),
   };
 
-  const [customStyles, setCustomStyles] =
-    useState<CustomStyles>(initialCustomStyles);
-
-  useEffect(() => {
-    //console.log("theme", theme)
-    setCustomStyles({
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-      option: (defaultStyles: any, { isFocused }) => ({
-        ...defaultStyles,
-        backgroundColor: isFocused
-          ? theme === "dark" || theme === "system"
-            ? "#e2e8f0"
-            : "#e2e8f0"
-          : "transparent",
-        color: isFocused
-          ? theme === "dark" || theme === "system"
-            ? "black"
-            : "#6B728"
-          : theme === "dark" || theme === "system"
-          ? "black"
-          : "#6B728",
-        ":active": {
-          ...defaultStyles[":active"],
-          backgroundColor: isFocused
-            ? theme === "dark" || theme === "system"
-              ? "#e2e8f0"
-              : "#e2e8f0"
-            : "transparent",
-          color: isFocused
-            ? theme === "dark" || theme === "system"
-              ? "black"
-              : "#6B728"
-            : theme === "dark" || theme === "system"
-            ? "black"
-            : "#6B728",
-        },
-      }),
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-      placeholder: (provided: any, state: any) => ({
-        // Styles for the placeholder text
-        ...provided,
-        color: "#6B7280",
-        fontSize: "14px",
-      }),
-
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-      multiValue: (provided: any, state: any) => ({
-        // Styles for the placeholder text
-        ...provided,
-        backgroundColor: "#e2e8f0",
-        borderRadius: "0.35rem",
-        color: "#6B7280",
-        fontSize: "14px",
-      }),
-
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-      control: (defaultStyles: any, state: any) => ({
-        ...defaultStyles,
-        borderRadius: "0.35rem",
-        backgroundColor: "transparent",
-        borderColor: "--border",
-        boxShadow: state.isFocused
-          ? theme === "dark"
-            ? "0 0 0 2px black, 0 0 0 4px hsl(216, 34%, 17%)"
-            : "0 0 0 2px white, 0 0 0 4px hsl(215, 20.2%, 65.1%)"
-          : "none",
-        "&:hover": {
-          borderColor: "--border",
-        },
-      }),
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-      input: (styles: any) => ({
-        ...styles,
-        color: theme === "dark" ? "#e2e8f0" : "black",
-      }),
-    });
-  }, [theme]);
-
   return (
     <div>
-      <div>
-        <Select
-          styles={customStyles}
-          className=""
-          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-          value={selectedCategories?.map((category: any) => ({
-            value: category,
-            label: category,
-          }))}
-          onChange={(selectedOptions) => {
-            const selectedValues = selectedOptions.map(
-              (option) => option.value
-            );
-            setSelectedCategories(selectedValues);
-          }}
-          options={categories.map((category) => ({
-            value: category,
-            label: category,
-          }))}
-          isMulti
-        />
-      </div>
+      <Select
+        styles={customStyles}
+        className="text-lg sm:text-sm focus:ring-0 focus:outline-none"
+        value={selectedCategories?.map((category) => ({
+          value: category,
+          label: category,
+        }))}
+        onChange={(selectedOptions) => {
+          const selectedValues = selectedOptions.map((option) => option.value);
+          setSelectedCategories(selectedValues);
+        }}
+        options={categories.map((category) => ({
+          value: category,
+          label: category,
+        }))}
+        isMulti
+      />
     </div>
   );
 }

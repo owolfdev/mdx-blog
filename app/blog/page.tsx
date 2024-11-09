@@ -1,15 +1,14 @@
 import Link from "next/link";
-import SelectLimitPosts from "./select-limit-posts";
-import SearchPosts from "./search-posts";
-import SortPosts from "./sort-posts";
-import { getPosts } from "@/lib/posts/get-posts.mjs";
-import BlogPostList from "./blog-post-list";
+import SelectLimitPosts from "@/components/posts/select-limit-posts";
+import SearchPosts from "@/components/posts/search-posts";
+import SortPosts from "@/components/posts/sort-posts";
+import { getPosts } from "@/app/actions/posts/get-posts";
+import BlogPostList from "@/components/posts/blog-post-list";
 import type { Metadata } from "next";
-import type { CachedPost } from "@/types/post-types";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "MDXBlog | Blog",
+    title: "Blog",
   };
 }
 
@@ -26,33 +25,39 @@ function formatDate(dateString: string): string {
   });
 }
 
+// Utility function to extract the first value from a string or array
+function getFirstValue(param: string | string[] | undefined): string {
+  return Array.isArray(param) ? param[0] : param || "";
+}
+
 const Blog = async ({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
-  const currentPage =
-    typeof searchParams.page === "string" ? Number(searchParams.page) : 1;
-  const postsPerPage =
-    typeof searchParams.limit === "string" ? Number(searchParams.limit) : 10;
-  const searchTerm = searchParams.search || "";
-  const category = searchParams.category || ""; // Extract the category from searchParams
-  const sort = searchParams.sort || "date_desc";
+  // Ensure searchParams is processed asynchronously
+  const params = await searchParams;
+
+  const currentPage = Number(getFirstValue(params.page)) || 1;
+  const postsPerPage = Number(getFirstValue(params.limit)) || 10;
+  const searchTerm = getFirstValue(params.search);
+  const category = getFirstValue(params.category);
+  const sort = getFirstValue(params.sort) || "date_desc";
 
   // Fetch posts with the specified parameters
-  const { posts: blogs, totalPosts } = getPosts(
-    "blog",
-    postsPerPage,
-    currentPage,
+  const { posts, totalPosts } = await getPosts({
+    type: "blog",
+    limit: postsPerPage,
+    page: currentPage,
     searchTerm,
-    sort as string,
-    category as string // Pass the category to the getPosts function
-  );
+    sort,
+    category,
+  });
 
-  // Format the publishDate for each blog post
-  const formattedBlogs = blogs.map((blog: CachedPost) => ({
-    ...blog,
-    formattedDate: formatDate(blog.publishDate),
+  // Format the publishDate for each post
+  const formattedPosts = posts.map((post) => ({
+    ...post,
+    formattedDate: formatDate(post.publishDate),
   }));
 
   const totalPages = Math.ceil(totalPosts / postsPerPage);
@@ -75,24 +80,19 @@ const Blog = async ({
   }
 
   return (
-    <div className="flex flex-col gap-8 pb-6 w-full max-w-3xl sm:max-w-3xl">
-      <div className="flex gap-4 justify-between items-center">
-        <SearchPosts
-          limit={postsPerPage}
-          sort={sort as string}
-          category={category as string} // Pass category to SearchPosts
-        />
-
+    <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
+      <div className="flex gap-4 justify-between items-center pb-0 pt-4">
+        <SearchPosts limit={postsPerPage} sort={sort} category={category} />
         <SortPosts
-          sort={sort as string}
+          sort={sort}
           currentPage={currentPage}
           limit={postsPerPage}
-          searchTerm={searchTerm as string}
-          category={category as string} // Pass category to SortPosts
+          searchTerm={searchTerm}
+          category={category}
         />
       </div>
       <div>
-        {blogs.length === 0 ? (
+        {posts.length === 0 ? (
           <div className="text-center text-lg flex flex-col justify-evenly ">
             <span className="pb-[100px] pt-[100px]">
               No blog posts found on this page...
@@ -100,7 +100,11 @@ const Blog = async ({
           </div>
         ) : (
           <BlogPostList
-            blogs={formattedBlogs}
+            blogs={formattedPosts.map((post) => ({
+              ...post,
+              date: post.publishDate,
+              image: post.image || "", // Ensure image is always a string
+            }))}
             trimDescription={trimDescription}
           />
         )}
@@ -114,7 +118,7 @@ const Blog = async ({
           ) : (
             <span>
               <Link
-                href={`/blog?limit=${postsPerPage}&page=${1}${
+                href={`/blog?limit=${postsPerPage}&page=1${
                   searchTerm ? `&search=${searchTerm}` : ""
                 }${category ? `&category=${category}` : ""}${
                   !isDateDesc ? `&sort=${sort}` : ""
@@ -128,7 +132,7 @@ const Blog = async ({
             <span className={`${disabledLinkStyle}`}>Previous</span>
           ) : (
             <Link
-              className={""}
+              className=""
               href={`/blog?limit=${postsPerPage}&page=${currentPage - 1}${
                 searchTerm ? `&search=${searchTerm}` : ""
               }${category ? `&category=${category}` : ""}${
@@ -145,7 +149,7 @@ const Blog = async ({
             <span className={`${disabledLinkStyle}`}>Next</span>
           ) : (
             <Link
-              className={""}
+              className=""
               href={`/blog?limit=${postsPerPage}&page=${currentPage + 1}${
                 searchTerm ? `&search=${searchTerm}` : ""
               }${category ? `&category=${category}` : ""}${
@@ -174,10 +178,10 @@ const Blog = async ({
         <SelectLimitPosts
           postsPerPage={postsPerPage}
           currentPage={currentPage}
-          searchTerm={searchTerm as string}
-          numBlogs={blogs.length}
-          sort={sort as string}
-          category={category as string} // Pass category to SelectLimitPosts
+          searchTerm={searchTerm}
+          numBlogs={posts.length}
+          sort={sort}
+          category={category}
         />
       </div>
     </div>
