@@ -17,7 +17,7 @@ export async function sendContactMessage(values: {
   const schema = z.object({
     email: z.string().email(),
     name: z.string().min(2),
-    message: z.string().min(20),
+    message: z.string().min(10),
     type: z.string().min(2),
   });
 

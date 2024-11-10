@@ -18,6 +18,16 @@ import {
 import ReCAPTCHA from "react-google-recaptcha";
 import { sendContactMessage } from "./actions";
 
+// Define Zod schema for validation
+const contactFormSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  name: z.string().min(1, "Name is required"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+  type: z.string().min(1, "Message type is required"),
+});
+
+type ContactFormValues = z.infer<typeof contactFormSchema>;
+
 const messageTypes = [
   { label: "Bug Report", value: "Bug Report" },
   { label: "Support Query", value: "Support Query" },
@@ -27,6 +37,9 @@ const messageTypes = [
 export function ContactForm({ message }: { message?: Message }) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [formErrors, setFormErrors] = React.useState<Record<string, string>>(
+    {}
+  );
   const [isRecaptchaVerified, setIsRecaptchaVerified] = React.useState(false);
 
   const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
@@ -41,21 +54,38 @@ export function ContactForm({ message }: { message?: Message }) {
     event.preventDefault();
     setIsSubmitting(true);
     setError(null);
+    setFormErrors({});
 
     try {
       const formData = new FormData(event.currentTarget);
 
-      const values = {
+      const values: ContactFormValues = {
         email: formData.get("email") as string,
         name: formData.get("name") as string,
         message: formData.get("message") as string,
         type: formData.get("type") as string,
       };
 
-      await sendContactMessage(values);
+      // Validate form data with Zod
+      const parsedData = contactFormSchema.parse(values);
+
+      // Proceed if valid
+      await sendContactMessage(parsedData);
       router.push("/contact/thank-you");
-    } catch (error) {
-      setError(error instanceof Error ? error.message : "An error occurred");
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        // Collect Zod validation errors
+        const errors: Record<string, string> = {};
+        for (const e of err.errors) {
+          if (e.path[0]) {
+            errors[e.path[0].toString()] = e.message;
+          }
+        }
+        setFormErrors(errors);
+      } else {
+        // Handle other errors
+        setError(err instanceof Error ? err.message : "An error occurred");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -86,6 +116,9 @@ export function ContactForm({ message }: { message?: Message }) {
                 ))}
               </SelectContent>
             </Select>
+            {formErrors.type && (
+              <div className="text-red-500 text-sm mt-1">{formErrors.type}</div>
+            )}
           </div>
 
           <Label htmlFor="name">Name</Label>
@@ -95,6 +128,9 @@ export function ContactForm({ message }: { message?: Message }) {
             required
             className="text-lg"
           />
+          {formErrors.name && (
+            <div className="text-red-500 text-sm mt-1">{formErrors.name}</div>
+          )}
 
           <Label htmlFor="email">Email</Label>
           <Input
@@ -104,6 +140,9 @@ export function ContactForm({ message }: { message?: Message }) {
             required
             className="text-lg"
           />
+          {formErrors.email && (
+            <div className="text-red-500 text-sm mt-1">{formErrors.email}</div>
+          )}
 
           <Label htmlFor="message">Message</Label>
           <Textarea
@@ -112,6 +151,11 @@ export function ContactForm({ message }: { message?: Message }) {
             required
             className="min-h-[100px] text-lg"
           />
+          {formErrors.message && (
+            <div className="text-red-500 text-sm mt-1">
+              {formErrors.message}
+            </div>
+          )}
 
           {recaptchaSiteKey && (
             <div className="mb-4">
