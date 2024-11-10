@@ -56,7 +56,6 @@ const config = {
       "/contact/thank-you",
       "/install",
       "/privacy",
-      "/test",
     ];
 
     for (const route of staticRoutes) {
