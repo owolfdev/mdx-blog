@@ -1,9 +1,21 @@
-// app/api/contacts/route.ts
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    // Extract query parameters
+    const url = new URL(req.url);
+    const password = url.searchParams.get("password");
+
+    // Validate the password
+    const validPassword = process.env.CONTACT_API_PASSWORD;
+    if (!password || password !== validPassword) {
+      return NextResponse.json(
+        { error: "Unauthorized access." },
+        { status: 401 }
+      );
+    }
+
     // Initialize Supabase client
     const supabase = await createClient();
 
