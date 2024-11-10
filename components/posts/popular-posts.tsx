@@ -31,10 +31,7 @@ export default async function PopularPostsPage() {
       <h1 className="text-4xl font-black mb-8">Popular Posts</h1>
       <ul className="flex flex-col gap-8">
         {result.data?.map((post) => (
-          <li
-            key={post.id}
-            className="border-none sm:border rounded-lg py-2 shadow-lg hover:shadow-2xl transition-shadow duration-300"
-          >
+          <li key={post.id} className="border-none sm:border rounded-lg py-2">
             <Link href={`/blog/${post.slug}`}>
               <div className="flex flex-col">
                 <h2 className="font-black text-5xl">{post.title}</h2>
