@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --no-lint",
-    "start": "next start"
+    "start": "next start",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
