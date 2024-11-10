@@ -1,4 +1,4 @@
-Mdx blog based on Supabase Auth Template app
+Mdx blog based on Supabase Auth Template
 
 npx create-next-app -e with-supabase
 
