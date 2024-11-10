@@ -1,9 +1,16 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /api/*
+Disallow: /auth/*
+Disallow: /admin/*
+Disallow: /post/create/*
+Disallow: /post/edit/*
+Disallow: /page/create/*
+Disallow: /page/edit/*
 
 # Host
-Host: https://www.mdxblog.io
+Host: https://www.mdxblog.io/
 
 # Sitemaps
 Sitemap: https://www.mdxblog.io/sitemap.xml
