@@ -19,294 +19,46 @@ export const metadata = {
   ],
 };
 
-In this article, we will walk through the process of creating a like button for an MDX-based Next.js application. Our goal is to support both authenticated and anonymous users by leveraging local storage and a PostgreSQL database hosted on Vercel. This ensures a seamless user experience while maintaining data persistence.
+In this guide, we'll explore how to create a like button for an MDX-based Next.js application. The button will cater to both authenticated and anonymous users by leveraging local storage for temporary data storage and a PostgreSQL database hosted on Vercel for persistent storage. This ensures a seamless user experience with consistent data retention across devices and sessions.
 
-See an example [here](https://mdx-next-static-app.vercel.app/mdx/like-button).
+Check out a [live example](https://mdx-next-static-app.vercel.app/mdx/like-button) of the implementation, and find the complete code for this project on [GitHub](https://github.com/owolfdev/mdx-next-static-app).
 
-Find the code for this project on [GitHub](https://github.com/owolfdev/mdx-next-static-app).
+### Context
 
-## Context
+This implementation uses **Next.js 14**, which introduces Server Actions, enabling efficient server-side operations directly from React components. This eliminates the need for API routes, streamlining client-server interactions.
 
-We are using **Next.js 14**, which supports Server Actions. Server Actions allow us to perform server-side operations directly from our React components, enabling smooth interactions between the client and server without needing API routes.
+The project integrates the `@next/mdx` package for combining Markdown and React components. This approach is particularly useful for content-driven sites requiring dynamic interactivity.
 
-In this project, we are also using the `@next/mdx` package, which allows us to seamlessly integrate MDX content within our Next.js application. MDX combines the simplicity of Markdown with the power of React components, making it ideal for content-driven sites that require dynamic interactivity.
+By combining local storage and a PostgreSQL database, the like button offers robust functionality. Anonymous users have their likes tracked in local storage, while authenticated users' likes are stored persistently in the database.
 
-For our like button, we use local storage to keep track of likes for anonymous users and a PostgreSQL database hosted on Vercel for storing likes persistently across sessions and devices. This combination of technologies enables us to offer a robust user experience, whether the user is logged in or browsing anonymously.
+### Prerequisites
 
-## Prerequisites
+Before starting, ensure you have the following:
 
-Before we start, ensure you have the following:
-
-- A Next.js project setup
+- A Next.js project set up
 - Vercel PostgreSQL database credentials
-- Necessary npm packages installed:react-icons, uuid, @vercel/postgres
+- Installed npm packages: `react-icons`, `uuid`, and `@vercel/postgres`
 
-## Step 1: Set Up Environment Variables
+### Key Steps
 
-Create a `.env.local` file in the root of your project and add your Vercel PostgreSQL database credentials:
+1. **Set Up Environment Variables**  
+   Configure a `.env.local` file in the root of your project with your Vercel PostgreSQL credentials.
 
-```bash
-POSTGRES_URL="************"
-POSTGRES_USER="************"
-POSTGRES_HOST="************"
-POSTGRES_PASSWORD="************"
-POSTGRES_DATABASE="************"
-```
+2. **Create the Like Button Component**  
+   Develop a `LikeButton` React component to manage the like button's functionality, including state management, local storage for anonymous users, and database interaction for persistent storage.
 
-## Step 2: Create the Like Button Component
+3. **Implement Server Actions**  
+   Use Next.js Server Actions for database operations, such as counting likes, adding likes, removing likes, and verifying whether a user has liked a specific post.
 
-Create a new file `components/like-button.tsx` and add the following code:
+4. **Integrate the Like Button in MDX Content**  
+   Embed the `LikeButton` component directly within your MDX content. MDX allows the seamless inclusion of React components alongside Markdown, enhancing interactivity in content-driven applications.
 
-```typescript
-"use client";
-import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { AiOutlineLike, AiFillLike } from "react-icons/ai";
-import {
-  countLikes,
-  addLike,
-  removeLike,
-  isPostLikedByUser, // New action
-} from "@/app/actions/like-actions";
+### Benefits of the Approach
 
-interface LikeButtonProps {
-  postId: string; // postId is a string (UUID)
-}
+- **Dynamic Functionality**: The combination of React components and MDX provides a flexible platform for building dynamic, content-rich applications.
+- **Persistent Storage**: By using local storage for anonymous users and PostgreSQL for authenticated ones, the solution caters to a diverse audience while ensuring data consistency.
+- **Efficient Server Operations**: Server Actions in Next.js simplify client-server communication, reducing overhead and improving performance.
 
-function LikeButton({ postId }: LikeButtonProps) {
-  const [liked, setLiked] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
-  const [totalLikes, setTotalLikes] = useState<number>(0);
-  const [loading, setLoading] = useState(true);
-  const [likeActionInProgress, setLikeActionInProgress] = useState(false); // New state for like action
+### Additional Resources
 
-  useEffect(() => {
-    const fetchUserId = async () => {
-      let storedUserId = localStorage.getItem("userIdForMDXBlog");
-      if (!storedUserId) {
-        storedUserId = uuidv4(); // For testing purposes, otherwise get it from your auth system.
-        localStorage.setItem("userIdForMDXBlog", storedUserId);
-      }
-      setUserId(storedUserId);
-    };
-
-    fetchUserId();
-    fetchTotalLikes();
-  }, [postId]);
-
-  useEffect(() => {
-    if (userId) {
-      checkIfLikedByUser();
-    }
-  }, [userId]);
-
-  async function fetchTotalLikes() {
-    try {
-      const response = await countLikes(postId);
-      if (response.success && typeof response.count === "number") {
-        setTotalLikes(response.count);
-      } else {
-        setTotalLikes(0);
-      }
-    } catch (error) {
-      console.error("Failed to fetch likes:", error);
-      setTotalLikes(0);
-    } finally {
-      setLoading(false); // Data has been loaded, even if there was an error
-    }
-  }
-
-  async function checkIfLikedByUser() {
-    try {
-      const response = await isPostLikedByUser(postId, userId as string);
-      if (response.success) {
-        setLiked(response.liked);
-      }
-    } catch (error) {
-      console.error("Failed to check if post is liked by user:", error);
-    }
-  }
-
-  async function handleLikeAction() {
-    if (userId && !likeActionInProgress) {
-      setLikeActionInProgress(true); // Start the like action
-      const response = await addLike(postId, userId);
-      if (response.success) {
-        setLiked(true);
-        setTotalLikes((prev) => prev + 1);
-      }
-      setLikeActionInProgress(false); // End the like action
-    }
-  }
-
-  async function handleUnlikeAction() {
-    if (userId && !likeActionInProgress) {
-      setLikeActionInProgress(true); // Start the unlike action
-      const response = await removeLike(postId, userId);
-      if (response.success) {
-        setLiked(false);
-        setTotalLikes((prev) => prev - 1);
-      }
-      setLikeActionInProgress(false); // End the unlike action
-    }
-  }
-
-  if (loading) {
-    return null; // Hide component while loading
-  }
-
-  return (
-    <div className="py-8 relative flex flex-col gap-2">
-      <div>Total Likes: {totalLikes}</div>
-      <div>
-        <button
-          type="button"
-          onClick={() => {
-            liked ? handleUnlikeAction() : handleLikeAction();
-          }}
-          className={`like-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center relative overflow-hidden ${
-            liked ? "liked" : "unliked"
-          }`}
-          disabled={likeActionInProgress} // Disable button while action is in progress
-        >
-          <div
-            className={`like-icon ${liked ? "animate-like" : "animate-unlike"}`}
-          >
-            {liked ? (
-              <AiFillLike className="text-xl mr-2" />
-            ) : (
-              <AiOutlineLike className="text-xl mr-2" />
-            )}
-          </div>
-          {liked ? "Liked" : "Like"}
-        </button>
-      </div>
-    </div>
-  );
-}
-
-export default LikeButton;
-```
-
-### Explanation:
-
-- **State Management**: We use React's `useState` and `useEffect` hooks to manage the component's state, including whether the post is liked and the total number of likes.
-- **Local Storage**: For anonymous users, we store the user's ID and the liked posts in local storage using the key `userIdForMDXBlog`. This ensures that the user's likes persist across sessions on the same device.
-- **Icons**: The `react-icons` package provides the like icons, which toggle between an outlined and filled icon based on the user's action.
-
-## Step 3: Create Server Actions for Database Interaction
-
-Create a new file app/actions/like-actions.ts and add the following code, leveraging the @vercel/postgres package:
-
-```typescript
-"use server";
-import { sql } from "@vercel/postgres";
-
-// Function to count the likes for a specific post
-export async function countLikes(postId: string) {
-  try {
-    const result = await sql`
-      SELECT COUNT(*) as count FROM likes_for_blog
-      WHERE post_id = ${postId};
-    `;
-
-    if (result.rows && result.rows.length > 0) {
-      return { success: true, count: Number(result.rows[0].count) };
-    } else {
-      return { success: false, error: "No results found" };
-    }
-  } catch (error) {
-    console.error("Error in countLikes:", error);
-    return { success: false, error: error.message };
-  }
-}
-
-// Function to add a like for a specific post and user
-export async function addLike(postId: string, userId: string) {
-  try {
-    if (!postId || !userId) {
-      throw new Error("Missing postId or userId");
-    }
-
-    await sql`
-      INSERT INTO likes_for_blog (post_id, user_id)
-      VALUES (${postId}, ${userId});
-    `;
-
-    return { success: true };
-  } catch (error) {
-    console.error("Error in addLike:", error);
-    return { success: false, error: error.message };
-  }
-}
-
-// Function to remove a like for a specific post and user
-export async function removeLike(postId: string, userId: string) {
-  try {
-    if (!postId || !userId) {
-      throw new Error("Missing postId or userId");
-    }
-
-    await sql`
-      DELETE FROM likes_for_blog
-      WHERE post_id = ${postId} AND user_id = ${userId};
-    `;
-
-    return { success: true };
-  } catch (error) {
-    console.error("Error in removeLike:", error);
-    return { success: false, error: error.message };
-  }
-}
-
-// Function to check if a post is liked by a specific user
-export async function isPostLikedByUser(postId: string, userId: string) {
-  try {
-    const result = await sql`
-      SELECT id FROM likes
-
-_for_mdx_blog
-      WHERE post_id = ${postId} AND user_id = ${userId};
-    `;
-
-    return { success: true, liked: result.rows.length > 0 };
-  } catch (error) {
-    console.error("Error in isPostLikedByUser:", error);
-    return { success: false, error: error.message, liked: false };
-  }
-}
-```
-
-### Explanation:
-
-- **Server Actions**: In Next.js 14, Server Actions allow us to perform server-side operations directly from our React components. These actions handle database mutations, such as adding or removing likes.
-- **SQL Queries**: We use SQL queries to interact with the PostgreSQL database, such as inserting likes, deleting them, and counting them.
-- **Error Handling**: We include robust error handling to catch issues during database interactions.
-
-## Step 4: Embed the Like Button in Your MDX File
-
-To embed the `LikeButton` component in your MDX content, use the following code:
-
-```mdx
-import LikeButton from "../components/like-button";
-
-export const metadata = {
-  title: "Like Button Article",
-  publishDate: "2024-03-01T00:00:00Z",
-  id: "oQt8N1Zn95kQ9k7zDLxoaJ", // Example UUID for the post
-};
-
-Content
-
-<LikeButton postId={metadata.id} />
-```
-
-### Explanation:
-
-- **MDX Integration**: Here, we import the `LikeButton` component and embed it directly within our MDX content. This is one of the key benefits of using MDX—it allows you to include dynamic React components within your Markdown content.
-
-## Conclusion
-
-By following these steps, you have successfully implemented a like button system that supports both anonymous and authenticated users in your Next.js MDX app. This approach leverages local storage for anonymous users and a PostgreSQL database for persistent storage, ensuring a seamless user experience across sessions and devices.
-
-For more information, check out the [official documentation](https://vercel.com/docs/edge-network/database) on Vercel's PostgreSQL database integration.
+For more information, visit the [official Vercel documentation](https://vercel.com/docs/edge-network/database) on PostgreSQL database integration.
