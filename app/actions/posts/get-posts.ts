@@ -62,15 +62,17 @@ export async function getPosts({
 
     // Search filter
     if (searchTerm && searchTerm.trim() !== "") {
+      const searchWords = searchTerm.toLowerCase().split(" ").filter(Boolean); // Split and normalize
+
       posts = posts.filter((post: Post) => {
         return (
           post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           post.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
           post.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
           (Array.isArray(post.tags) &&
-            post.tags.some((tag) =>
-              tag.toLowerCase().includes(searchTerm.toLowerCase())
-            )) ||
+            searchWords.some((word) =>
+              post.tags.some((tag) => tag.toLowerCase() === word)
+            )) || // Match any word with any tag
           (Array.isArray(post.categories) &&
             post.categories.some((cat) =>
               cat.toLowerCase().includes(searchTerm.toLowerCase())
