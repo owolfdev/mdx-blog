@@ -204,7 +204,7 @@
     "relatedPosts": [
       "custom-link-component-for-external-navigation"
     ],
-    "likes": 1
+    "likes": 3
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -554,13 +554,13 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "mdx-like-button-nextjs-vercel-postgresql",
     "id": "9afa4e37-16b2-40e1-8435-bfea762a90b3",
     "type": "blog",
-    "title": "Creating a Like Button in an MDX App with Next.js and Vercel PostgreSQL",
+    "title": "Like Button in an MDX App with Next.js and Vercel PostgreSQL",
     "author": "O Wolfson",
     "publishDate": "2024-06-27",
     "description": "In this article, we will walk through the process of creating a like button for an MDX-based Next.js application.",
@@ -572,7 +572,7 @@
       "vercel",
       "postgres"
     ],
-    "modifiedDate": "2024-08-28T21:21:56.505Z",
+    "modifiedDate": "2024-11-11T04:20:49.028Z",
     "image": null,
     "draft": false,
     "relatedPosts": [
@@ -581,7 +581,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 18
+    "likes": 19
   },
   {
     "slug": "mdx-performance-optimization",
