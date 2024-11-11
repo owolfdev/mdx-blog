@@ -44,9 +44,17 @@ export const updateSession = async (request: NextRequest) => {
     //   return NextResponse.redirect(new URL("/sign-in", request.url));
     // }
 
-    // if (request.nextUrl.pathname === "/" && user.error) {
-    //   return NextResponse.redirect(new URL("/sign-in", request.url));
-    // }
+    if (request.nextUrl.pathname === "/admin" && user.error) {
+      return NextResponse.redirect(new URL("/sign-in", request.url));
+    }
+
+    if (request.nextUrl.pathname === "/post/create" && user.error) {
+      return NextResponse.redirect(new URL("/sign-in", request.url));
+    }
+
+    if (request.nextUrl.pathname === "/post/edit/" && user.error) {
+      return NextResponse.redirect(new URL("/sign-in", request.url));
+    }
 
     return response;
   } catch (e) {
