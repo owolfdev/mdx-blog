@@ -10,8 +10,8 @@ function Header() {
       <div className="sm:px-12 px-6 flex items-center h-20 space-x-0 justify-between sm:space-x-0">
         <NavComponent />
         <div className="flex items-center gap-4">
-          {isDevMode() && <AdminButtons />}
-          <AuthComponent />
+          <AdminButtons />
+          {isDevMode() && <AuthComponent />}
         </div>
       </div>
     </header>
