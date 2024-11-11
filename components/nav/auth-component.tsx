@@ -14,7 +14,7 @@ async function AuthComponent() {
     <div className="">
       {user?.email ? (
         <div className="flex items-center gap-2 ">
-          {user?.email}
+          {/* {user?.email} */}
           <LogoutButton />
         </div>
       ) : (

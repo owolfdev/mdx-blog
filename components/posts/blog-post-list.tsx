@@ -26,7 +26,7 @@ const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
         <li key={blog.slug} className="border-none sm:border rounded-lg py-4 ">
           <Link href={`/blog/${blog.slug}`}>
             <div className="flex flex-col gap-0">
-              <h3 className="font-black text-5xl sm:text-5xl">{blog.title}</h3>
+              <h3 className="font-black text-4xl sm:text-5xl">{blog.title}</h3>
               <div className="flex justify-between items-center">
                 <p className="text-sm">{blog.formattedDate}</p>
                 <p className="text-sm rounded-lg px-2 py-1  m-2">

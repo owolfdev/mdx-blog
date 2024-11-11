@@ -96,7 +96,7 @@ export default async function Blog({ params }: Props) {
           </p>
         </div>
         <div className="pb-6">
-          <h1 className="text-5xl sm:text-6xl font-black capitalize leading-12">
+          <h1 className="text-4xl sm:text-6xl font-black capitalize leading-12">
             {metadata?.title}
           </h1>
           <p className="pt-6 text-xl sm:text-lg">By {metadata?.author}</p>
