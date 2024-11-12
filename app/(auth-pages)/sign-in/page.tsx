@@ -1,3 +1,4 @@
+// sign-in/page.tsx
 import { signInAction } from "@/app/actions/auth-actions";
 import { FormMessage, type Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
@@ -5,14 +6,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
-export default async function Login(props: { searchParams: Promise<Message> }) {
-  const searchParams = await props.searchParams;
+type PageProps = {
+  searchParams: { message?: Message | null } | null;
+};
+
+export default async function Login({ searchParams }: PageProps) {
+  const message = searchParams?.message;
+
   return (
     <div className="flex flex-col items-center max-w-3xl gap-8 pt-12">
       <form className="flex-1 flex flex-col sm:w-[500px] w-[300px] gap-4">
         <h1 className="text-6xl font-black">Sign in</h1>
         <p className="text-sm text-foreground">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link
             className="text-foreground font-medium underline"
             href="/sign-up"
@@ -47,7 +53,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
           <SubmitButton pendingText="Signing In..." formAction={signInAction}>
             Sign in
           </SubmitButton>
-          <FormMessage message={searchParams} />
+          {message && <FormMessage message={message} />}
         </div>
       </form>
     </div>

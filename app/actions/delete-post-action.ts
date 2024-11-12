@@ -35,7 +35,7 @@ export async function deletePostAction(data: { filename: string }) {
     return {
       ok: false,
       status: 500,
-      error: "Failed to delete post",
+      error: `Failed to delete post ${error}`,
     };
   }
 }

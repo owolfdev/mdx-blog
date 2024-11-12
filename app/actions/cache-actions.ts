@@ -18,7 +18,7 @@ export const cachePostsAction = async () => {
     return {
       ok: false,
       status: 500,
-      error: "Failed to generate posts cache",
+      error: `Failed to generate posts cache ${error}`,
     };
   }
 };

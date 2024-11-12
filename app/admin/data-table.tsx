@@ -1,11 +1,7 @@
 "use client";
 import * as React from "react";
 import postsData from "@/content/cache/all-posts.json"; // Import the JSON data directly
-import {
-  CaretSortIcon,
-  ChevronDownIcon,
-  DotsHorizontalIcon,
-} from "@radix-ui/react-icons";
+import { ChevronDownIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -19,7 +15,7 @@ import {
   useReactTable,
   type FilterFn,
 } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,

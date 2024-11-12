@@ -8,12 +8,8 @@ export const metadata: Metadata = {
   description: "Get in touch with us",
 };
 
-export default async function ContactPage({
-  searchParams,
-}: {
-  searchParams?: Promise<Message>;
-}) {
-  const message = await searchParams;
+export default async function ContactPage() {
+  // const message = await searchParams;
 
   return (
     <div className="flex flex-col max-w-3xl w-full pt-10 items-center">

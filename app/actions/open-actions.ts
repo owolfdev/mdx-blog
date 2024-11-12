@@ -34,7 +34,7 @@ export const openInVSCodeAction = async (path: string) => {
     return {
       ok: false,
       status: 500,
-      error: "Failed to open in VS Code",
+      error: `Failed to open in VS Code ${error}`,
     };
   }
 };
@@ -71,7 +71,7 @@ export const openInCursorAction = async (path: string) => {
     return {
       ok: false,
       status: 500,
-      error: "Failed to open in Cursor",
+      error: `Failed to open in Cursor ${error}`,
     };
   }
 };

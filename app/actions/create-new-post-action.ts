@@ -35,16 +35,7 @@ function waitForFile(
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export async function createNewPostAction(data: any) {
   return new Promise<string>((resolve, reject) => {
-    const {
-      date,
-      title,
-      categories,
-      tags,
-      image,
-      draft,
-      relatedPosts,
-      ...rest
-    } = data;
+    const { date, title, categories, tags, image, draft, relatedPosts } = data;
     const projectRoot = process.cwd();
 
     // Generate a slug by sanitizing the title

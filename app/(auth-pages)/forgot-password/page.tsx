@@ -1,15 +1,18 @@
+// forgot-password/page.tsx
 import { forgotPasswordAction } from "@/app/actions/auth-actions";
 import { FormMessage, type Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { SmtpMessage } from "../smtp-message";
 
-export default async function ForgotPassword(props: {
-  searchParams: Promise<Message>;
-}) {
-  const searchParams = await props.searchParams;
+type PageProps = {
+  searchParams: { message?: Message | null } | null;
+};
+
+export default async function ForgotPassword({ searchParams }: PageProps) {
+  const message = await searchParams?.message;
+
   return (
     <div className="flex flex-col items-center max-w-3xl gap-8 pt-12">
       <form className="flex-1 flex flex-col sm:w-[500px] w-[300px] gap-4">
@@ -20,7 +23,6 @@ export default async function ForgotPassword(props: {
             Sign in
           </Link>
         </p>
-
         <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
           <Label htmlFor="email">Email</Label>
           <Input
@@ -32,7 +34,7 @@ export default async function ForgotPassword(props: {
           <SubmitButton formAction={forgotPasswordAction}>
             Reset Password
           </SubmitButton>
-          <FormMessage message={searchParams} />
+          {message && <FormMessage message={message} />}
         </div>
       </form>
     </div>

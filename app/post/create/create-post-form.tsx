@@ -162,7 +162,7 @@ export function CreatePostForm() {
         <FormField
           control={form.control}
           name="date"
-          render={({ field }) => (
+          render={() => (
             <FormItem className="flex flex-col">
               <FormLabel className="font-semibold text-md">Date</FormLabel>
               <DatePicker />

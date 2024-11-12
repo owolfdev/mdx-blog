@@ -8,7 +8,6 @@ import { generatePostsCache } from "@/app/actions/cache/generate-posts-cache";
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export async function editPostAction(data: any, openInVSCode = false) {
   const {
-    slug,
     date,
     title,
     categories,
@@ -18,7 +17,6 @@ export async function editPostAction(data: any, openInVSCode = false) {
     image,
     draft,
     relatedPosts,
-    ...rest
   } = data;
 
   const projectRoot = process.cwd();
