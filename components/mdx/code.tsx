@@ -1,8 +1,13 @@
 "use client";
-import React, { useRef, useState } from "react";
+import type React from "react";
+import { useRef, useState } from "react";
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-const Code = (props: any) => {
+interface CodeProps {
+  className?: string;
+  children: React.ReactNode;
+}
+
+const Code = (props: CodeProps) => {
   const [copied, setCopied] = useState(false);
   const codeRef = useRef<HTMLElement>(null);
 

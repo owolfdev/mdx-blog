@@ -106,7 +106,11 @@ function LikeButton({ postId }: LikeButtonProps) {
         <button
           type="button"
           onClick={() => {
-            liked ? handleUnlikeAction() : handleLikeAction();
+            if (liked) {
+              handleUnlikeAction();
+            } else {
+              handleLikeAction();
+            }
           }}
           className={`like-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center relative overflow-hidden ${
             liked ? "liked" : "unliked"

@@ -1,7 +1,6 @@
 // app/contact/page.tsx
 import type { Metadata } from "next";
 import { ContactForm } from "./form";
-import type { Message } from "@/components/form-message";
 
 export const metadata: Metadata = {
   title: "Contact Us",

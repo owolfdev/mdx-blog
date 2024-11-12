@@ -1,15 +1,20 @@
-import React from "react";
+import type React from "react";
 import type { Metadata } from "next";
 import { XCircle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 // Dynamically import the MDX file to access metadata and content
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-async function loadMdxFile(): Promise<any> {
+async function loadMdxFile() {
   try {
     const mdxModule = await import("@/content/pages/404.mdx");
-    return mdxModule;
+    return mdxModule as {
+      default: React.ComponentType;
+      metadata: {
+        title: string;
+        description: string;
+      };
+    };
   } catch (error) {
     console.error("Failed to load MDX file:", error);
     return null;

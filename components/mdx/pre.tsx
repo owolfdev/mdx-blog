@@ -1,7 +1,6 @@
-import React from "react";
+import type React from "react";
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-const Pre = (props: any) => {
+const Pre = (props: React.ComponentPropsWithoutRef<"pre">) => {
   return <pre {...props} />;
 };
 

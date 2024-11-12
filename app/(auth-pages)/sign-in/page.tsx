@@ -7,11 +7,11 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
 type PageProps = {
-  searchParams: { message?: Message | null } | null;
+  searchParams: Promise<{ message?: Message | null } | null> | undefined;
 };
-
 export default async function Login({ searchParams }: PageProps) {
-  const message = searchParams?.message;
+  const params = await searchParams;
+  const message = params?.message;
 
   return (
     <div className="flex flex-col items-center max-w-3xl gap-8 pt-12">

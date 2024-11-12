@@ -2,10 +2,8 @@
 import type React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader } from "lucide-react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
-import { set } from "lodash";
 
 function LoaderLink({
   url,
@@ -16,28 +14,23 @@ function LoaderLink({
   children: React.ReactNode;
   isButton?: boolean;
 }) {
-  //
-  const [loading, setLoading] = useState(false);
+  const [_loading, setLoading] = useState(false); // State for showing loading screen
   const router = useRouter();
 
   const defaultButton = buttonVariants({ variant: "default", size: "default" });
 
   const handleClick = async () => {
+    setLoading(true); // Start loading
     setTimeout(() => {
-      setLoading(true);
-    }, 400); // (200)
-
-    router.push(url);
+      router.push(url);
+    }, 400); // Simulate delay before navigation
   };
 
   const handleClick2 = async () => {
+    setLoading(true); // Start loading
     setTimeout(() => {
-      setLoading(true);
-    }, 400); // (200)
-    setTimeout(() => {
-      setLoading(false);
-    }, 4000); // 1 second (1000)
-    // router.push(url);
+      setLoading(false); // Stop loading after a delay
+    }, 4000); // Simulate a longer delay
   };
 
   return (
@@ -52,22 +45,19 @@ function LoaderLink({
             {children}
           </Link>
         ) : (
-          // <div onClick={handleClick} className="w-full">
-          //   {children}
-          // </div>
           <Link href={url} onClick={handleClick2} className="w-full">
             {children}
           </Link>
         )}
-        {/* {loading && (
-          <div className="fixed top-0 left-0  bg-white dark:bg-[#010816] flex justify-center items-center w-full h-screen z-10 ">
+        {_loading && ( // Use _loading for a loading indicator
+          <div className="fixed top-0 left-0 bg-white dark:bg-[#010816] flex justify-center items-center w-full h-screen z-10">
             <span className="animated-text text-4xl font-bold letter-spacing-0">
               <span className="letter">M</span>
               <span className="letter">D</span>
               <span className="letter">X</span>
             </span>
           </div>
-        )} */}
+        )}
       </div>
     </>
   );

@@ -89,10 +89,8 @@ export function CreatePostForm() {
       ...values,
       id: uuidv4(),
       modifiedDate: new Date().toISOString(), // Current date as modifiedDate
+      date: values.date.toISOString(), // Format date as string
       relatedPosts: values.relatedPosts,
-      // values.relatedPosts && typeof values.relatedPosts === "string"
-      //   ? values.relatedPosts.split(",").map((post) => post.trim())
-      //   : [], // Ensure it's an array or default to an empty array
     };
 
     try {

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import LoaderLink from "@/components/nav/custom-link";
 
 interface BlogPost {
   slug: string;

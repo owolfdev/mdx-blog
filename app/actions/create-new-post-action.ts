@@ -3,8 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { exec } from "node:child_process";
-import { v4 as uuidv4 } from "uuid"; // Import standard UUID
-// import { generatePostsCache } from "@/lib/cache/generate-posts-cache";
+import { v4 as uuidv4 } from "uuid";
 import { generatePostsCache } from "@/app/actions/cache/generate-posts-cache";
 
 const POLLING_INTERVAL = 100; // Check every 100ms
@@ -14,7 +13,7 @@ function waitForFile(
   filePath: fs.PathLike,
   interval = POLLING_INTERVAL,
   maxTime = MAX_POLLING_TIME
-) {
+): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const startTime = Date.now();
 
@@ -32,13 +31,30 @@ function waitForFile(
   });
 }
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export async function createNewPostAction(data: any) {
+export interface CreatePostData {
+  id: string;
+  modifiedDate: string;
+  date: string; // Ensure date is a string
+  type: string;
+  title: string;
+  description: string;
+  content: string;
+  categories: string[];
+  tags?: string;
+  image?: string | null;
+  relatedPosts?: string;
+  draft?: boolean;
+  author: string;
+  link?: string;
+}
+
+export async function createNewPostAction(
+  data: CreatePostData
+): Promise<string> {
   return new Promise<string>((resolve, reject) => {
     const { date, title, categories, tags, image, draft, relatedPosts } = data;
     const projectRoot = process.cwd();
 
-    // Generate a slug by sanitizing the title
     const slug = title
       .toLowerCase()
       .replace(/[^a-z0-9\s-]/g, "")
@@ -47,13 +63,12 @@ export async function createNewPostAction(data: any) {
     let filename = `${slug}.mdx`;
     let filePath = path.join(projectRoot, "content/posts", filename);
 
-    // Check if the file already exists and create a unique filename
     let counter = 1;
-    let finalSlug = slug; // To keep track of the final slug for redirection
+    let finalSlug = slug;
     while (fs.existsSync(filePath)) {
       finalSlug = `${slug}-${counter}`;
       filename = `${finalSlug}.mdx`;
-      filePath = path.join(projectRoot, "content/posts", filename); // Update filePath
+      filePath = path.join(projectRoot, "content/posts", filename);
       counter++;
     }
 
@@ -62,27 +77,25 @@ export async function createNewPostAction(data: any) {
       currentDate.getMonth() + 1
     ).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
 
-    // Generate a standard UUID for the id field
     const id = uuidv4();
 
-    // Format tags and categories for metadata
     const formattedTags = tags
-      .split(", ")
-      .map((tag: string) => `"${tag.trim()}"`)
-      .join(", ")
-      .replace(/,\s*$/, ""); // Remove trailing comma
+      ? tags
+          .split(", ")
+          .map((tag) => `"${tag.trim()}"`)
+          .join(", ")
+          .replace(/,\s*$/, "")
+      : "";
 
     const formattedCategories = categories
-      .map((category: string) => `"${category}"`)
+      .map((category) => `"${category}"`)
       .join(", ")
-      .replace(/,\s*$/, ""); // Remove trailing comma
+      .replace(/,\s*$/, "");
 
-    // Ensure relatedPosts is an empty array if the input is an empty string
     const formattedRelatedPosts = relatedPosts
-      ? relatedPosts.split(",").map((post: string) => `"${post.trim()}"`)
+      ? relatedPosts.split(",").map((post) => `"${post.trim()}"`)
       : [];
 
-    // Construct the file content
     const fileContent = [
       "export const metadata = {",
       `  id: "${id}",`,
@@ -93,16 +106,15 @@ export async function createNewPostAction(data: any) {
       `  description: "${data.description}",`,
       `  categories: [${formattedCategories}],`,
       `  tags: [${formattedTags}],`,
-      `  modifiedDate: "${new Date().toISOString()}",`, // Automatically set modifiedDate to current date
+      `  modifiedDate: "${new Date().toISOString()}",`,
       `  image: ${image ? `"${image}"` : "null"},`,
       `  draft: ${draft},`,
-      `  relatedPosts: [${formattedRelatedPosts.join(", ")}]`, // Join formatted array for output
+      `  relatedPosts: [${formattedRelatedPosts.join(", ")}]`,
       "};",
       "",
       `${data.content}`,
     ].join("\n");
 
-    // Write the file
     fs.writeFile(filePath, fileContent, async (err) => {
       if (err) {
         console.error("Error writing file:", err);
@@ -110,14 +122,11 @@ export async function createNewPostAction(data: any) {
       } else {
         console.log("File saved to", filePath);
 
-        // Regenerate posts cache
         generatePostsCache();
 
         try {
-          // Wait for the file to be fully accessible
           await waitForFile(filePath);
 
-          // Open the file in VS Code
           exec(`cursor "${filePath}"`, (error, stdout, stderr) => {
             if (error) {
               console.error(`exec error: ${error}`);
@@ -127,7 +136,7 @@ export async function createNewPostAction(data: any) {
             console.error(`stderr: ${stderr}`);
           });
 
-          resolve(finalSlug); // Return the finalSlug for redirection
+          resolve(finalSlug);
         } catch (waitError) {
           console.error("Error waiting for file:", waitError);
           reject(waitError);

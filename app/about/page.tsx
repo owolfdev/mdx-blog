@@ -1,13 +1,22 @@
-import React from "react";
+import type React from "react";
 import type { Metadata } from "next";
 import EditPageButton from "@/components/page/edit-page-button";
 import OpenInCursor from "@/components/page/open-page-in-cursor-button";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
+
+interface MdxModule {
+  default: React.ComponentType;
+  metadata: {
+    title: string;
+    description: string;
+    slug?: string;
+  };
+}
+
 // Dynamically import the MDX file to access metadata and content
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-async function loadMdxFile(): Promise<any> {
+async function loadMdxFile(): Promise<MdxModule | null> {
   try {
-    const mdxModule = await import("@/content/pages/about.mdx");
+    const mdxModule: MdxModule = await import("@/content/pages/about.mdx");
     return mdxModule;
   } catch (error) {
     console.error("Failed to load MDX file:", error);
@@ -47,8 +56,8 @@ export default async function AboutPage() {
       <h1 className="text-6xl font-black">{metadata.title}</h1>
       {isDevMode() && (
         <div className="flex gap-3">
-          <EditPageButton slug={metadata.slug} />
-          <OpenInCursor path={metadata.slug} />
+          <EditPageButton slug={metadata.slug ?? "default-slug"} />
+          <OpenInCursor path={metadata.slug ?? "default-path"} />
         </div>
       )}
       <article className="prose prose-lg mx-auto w-full">

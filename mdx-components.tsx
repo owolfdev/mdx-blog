@@ -22,10 +22,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     Image, // Use the custom Image component
     pre: Pre, // Use the custom Pre component
-    code: (props) => {
-      const { className, children } = props;
+    code: ({ className, children, ...rest }) => {
       if (className) {
-        return <Code {...props} />;
+        return (
+          <Code className={className} {...rest}>
+            {children}
+          </Code>
+        );
       }
       return <InlineCode>{children}</InlineCode>;
     },

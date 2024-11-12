@@ -11,8 +11,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { HamburgerMenuIcon, GearIcon, PlusIcon } from "@radix-ui/react-icons";
-import { isDevMode } from "@/lib/utils/is-dev-mode";
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
 const navItems = [
   { href: "/blog", label: "Blog" },

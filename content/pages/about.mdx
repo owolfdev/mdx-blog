@@ -1,9 +1,14 @@
 export const metadata = {
-  slug: "about",
+  id: "about-page-id", // A unique identifier
+  type: "page", // Indicating this is a page
+  slug: "about", // URL-friendly slug
   title: "About",
   description:
     "Learn more about a modern blogging platform built with Next.js and MDX.",
-  modifiedDate: "2024-11-05T22:23:20.052Z",
+  modifiedDate: "2024-11-05T22:23:20.052Z", // Last modification date
+  image: null, // No image for this page
+  draft: false, // Pages are never in draft state
+  relatedPosts: [], // No related posts for this page
 };
 
 **<span className="text-primary">MDX</span>Blog** is a free starter template project that is easy to install and deploy. Using MDX (Markdown + JSX) and Next.js, it generates static pages that are fast, secure, and SEO-friendly. The app is designed to be easy to use and customize, with a clean, modern design that is fully responsive and mobile-friendly.

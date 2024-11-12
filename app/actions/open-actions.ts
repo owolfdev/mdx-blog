@@ -1,24 +1,25 @@
 "use server";
 
-const { exec } = require("node:child_process");
+import { exec } from "node:child_process";
 
 export async function openInVSCode(data: string) {
-  console.log("data from open in vs code:", data);
+  console.log("data from open in VS Code:", data);
 
-  const path = data;
-  const filePath = `${path}`;
+  const filePath = `${data}`;
 
   console.log("filePath:", filePath);
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  exec(`code "${filePath}"`, (error: any, stdout: any, stderr: any) => {
-    if (error) {
-      console.error(`exec error: ${error}`);
-      return;
+  exec(
+    `code "${filePath}"`,
+    (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => {
+      if (error) {
+        console.error(`exec error: ${error.message}`);
+        return;
+      }
+      console.log(`stdout: ${stdout.toString()}`);
+      console.error(`stderr: ${stderr.toString()}`);
     }
-    console.log(`stdout: ${stdout}`);
-    console.error(`stderr: ${stderr}`);
-  });
+  );
 }
 
 export const openInVSCodeAction = async (path: string) => {
@@ -34,28 +35,29 @@ export const openInVSCodeAction = async (path: string) => {
     return {
       ok: false,
       status: 500,
-      error: `Failed to open in VS Code ${error}`,
+      error: `Failed to open in VS Code: ${(error as Error).message}`,
     };
   }
 };
 
 export async function openInCursor(data: string) {
-  console.log("data from open in vs code:", data);
+  console.log("data from open in Cursor:", data);
 
-  const path = data;
-  const filePath = `${path}`;
+  const filePath = `${data}`;
 
   console.log("filePath:", filePath);
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  exec(`cursor "${filePath}"`, (error: any, stdout: any, stderr: any) => {
-    if (error) {
-      console.error(`exec error: ${error}`);
-      return;
+  exec(
+    `cursor "${filePath}"`,
+    (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => {
+      if (error) {
+        console.error(`exec error: ${error.message}`);
+        return;
+      }
+      console.log(`stdout: ${stdout.toString()}`);
+      console.error(`stderr: ${stderr.toString()}`);
     }
-    console.log(`stdout: ${stdout}`);
-    console.error(`stderr: ${stderr}`);
-  });
+  );
 }
 
 export const openInCursorAction = async (path: string) => {
@@ -71,7 +73,7 @@ export const openInCursorAction = async (path: string) => {
     return {
       ok: false,
       status: 500,
-      error: `Failed to open in Cursor ${error}`,
+      error: `Failed to open in Cursor: ${(error as Error).message}`,
     };
   }
 };

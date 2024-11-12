@@ -1,11 +1,10 @@
 "use client";
-import React, { use } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+
 import { openInVSCodeAction } from "@/app/actions/open-actions";
 
 function OpenInVSCode({ path }: { path: string }) {
-  const router = useRouter();
   const handleOpenInVSCode = async () => {
     const filePath = `content/posts/${path}.mdx`;
     const response = await openInVSCodeAction(filePath);

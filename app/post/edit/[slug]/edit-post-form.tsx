@@ -100,7 +100,7 @@ export function EditPostForm({ postData }: { postData: Post }) {
         ? postData.metadata.categories
         : [],
       tags: postData.metadata?.tags ? postData.metadata.tags.join(", ") : "",
-      image: postData.metadata?.image || "",
+      image: postData.metadata?.image || undefined, // Use undefined instead of null
       relatedPosts: postData.metadata?.relatedPosts
         ? postData.metadata.relatedPosts.join(", ")
         : "",
@@ -116,6 +116,9 @@ export function EditPostForm({ postData }: { postData: Post }) {
 
     const submissionData = {
       ...values,
+      draft: Boolean(values.draft), // Explicitly convert to boolean
+      tags: values.tags || "", // Ensure tags is always a string
+      image: values.image || undefined, // Convert null to undefined
       type: values.type,
       author: values.author,
       id: postData.metadata?.id || "",
@@ -242,7 +245,7 @@ export function EditPostForm({ postData }: { postData: Post }) {
             render={({ field }) => (
               <FormItem className="flex flex-col gap-1">
                 <FormLabel>Date</FormLabel>
-                <DatePicker />
+                <DatePicker value={field.value} onChange={field.onChange} />
                 <FormMessage />
               </FormItem>
             )}

@@ -1,14 +1,22 @@
-import React from "react";
+import type React from "react";
 import type { Metadata } from "next";
 import EditPageButton from "@/components/page/edit-page-button";
 import OpenInCursor from "@/components/page/open-page-in-cursor-button";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
 // Dynamically import the MDX file to access metadata and content
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-async function loadMdxFile(): Promise<any> {
+type MdxModule = {
+  default: React.ComponentType;
+  metadata: {
+    title: string;
+    description: string;
+    slug: string;
+  };
+};
+
+async function loadMdxFile(): Promise<MdxModule | null> {
   try {
     const mdxModule = await import("@/content/pages/install.mdx");
-    return mdxModule;
+    return mdxModule as MdxModule;
   } catch (error) {
     console.error("Failed to load MDX file:", error);
     return null;

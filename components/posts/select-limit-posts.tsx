@@ -21,10 +21,10 @@ function SelectLimitPosts({
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  let limit = searchParams.get("limit");
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
+    let limit = searchParams.get("limit");
     if (limit === null) {
       limit = postsPerPage !== 10 ? postsPerPage.toString() : "10";
     }

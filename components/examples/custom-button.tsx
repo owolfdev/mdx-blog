@@ -2,8 +2,7 @@ export const CustomButton = ({
   children,
   color,
 }: {
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  children: any;
+  children: React.ReactNode;
   color?: string;
 }) => (
   <button
