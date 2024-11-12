@@ -4,13 +4,17 @@ export const metadata = {
   title: "How to Use Images in MDX or Markdown Files",
   author: "O Wolfson",
   publishDate: "2024-08-13",
-  description: "Images are essential in enriching the content of your markdown or MDX files, helping to convey information visually and make your articles more engaging. ",
+  description:
+    "Images are essential in enriching the content of your markdown or MDX files, helping to convey information visually and make your articles more engaging. ",
   categories: ["Web Development"],
   tags: ["image", "images"],
   modifiedDate: "2024-08-27T20:20:16.577Z",
   image: null,
   draft: false,
-  relatedPosts: ["import-components-to-mdx", "using-and-styling-custom-components-in-mdx-content"]
+  relatedPosts: [
+    "import-components-to-mdx",
+    "using-and-styling-custom-components-in-mdx-content",
+  ],
 };
 
 Whether you’re writing a blog post, documentation, or any other content, knowing how to properly include and manage images is crucial. In this article, we'll explore how to use images in MDX and Markdown files effectively.
@@ -31,6 +35,7 @@ In Markdown, the most straightforward way to include an image is by using the fo
 The image above happens to exist in the local public folder in this Next.js project. In Next.js, the public folder is a special folder that is not processed by webpack. Files inside the public folder can be referenced from the root of the application similar to how you would reference files in a static site. `/images/posts/how-to-use-images/grass-tree-sky.jpg`
 
 <Image
+  alt="trees, grass, and sky"
   src="/images/posts/how-to-use-images/grass-tree-sky.jpg"
   caption="trees, grass, and sky"
 />
@@ -39,6 +44,7 @@ Above is our [custom image component](https://github.com/owolfdev/mdx-blog/blob/
 
 ```jsx
 <Image
+  alt="trees, grass, and sky"
   src="/images/posts/how-to-use-images/grass-tree-sky.jpg"
   caption="trees, grass, and sky"
 />

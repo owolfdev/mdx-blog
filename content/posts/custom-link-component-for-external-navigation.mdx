@@ -31,7 +31,41 @@ The first step is to create a custom `Link` component. This component will check
 Create a new file called `custom-link.tsx` in your components directory:
 
 ```tsx
-hi;
+import type React from "react";
+import Link from "next/link";
+
+const CustomLink = ({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) => {
+  // Automatically determine if the link is external based on the href value
+  const isExternalLink = href.startsWith("http");
+
+  if (isExternalLink) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline font-semibold"
+      >
+        {children}
+      </a>
+    );
+  }
+
+  // For internal links, use Next.js' `Link` component
+  return (
+    <Link href={href} className="hover:underline font-semibold">
+      {children}
+    </Link>
+  );
+};
+
+export default CustomLink;
 ```
 
 This component performs two key tasks:
@@ -46,7 +80,20 @@ Next, you’ll need to tell MDX to use this custom `Link` component whenever it 
 In your `mdx-components.tsx` file, map the default anchor (`<a>`) element to the `CustomLink` component:
 
 ```tsx
-hi;
+import React from "react";
+import type { AnchorHTMLAttributes, DetailedHTMLProps } from "react";
+import type { MDXComponents } from "mdx/types";
+import CustomLink from "@/components/mdx/custom-link"; // Adjust the import path
+
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    ...components,
+    a: ({ href = "", children, ...rest }) => {
+      // Use the CustomLink component to handle external/internal links
+      return <CustomLink href={href}>{children}</CustomLink>;
+    },
+  };
+}
 ```
 
 This ensures that every link in your MDX content will use the `CustomLink` component instead of the default HTML `<a>` tag. External links will open in a new tab, while internal links will use Next.js' `Link` component for faster client-side navigation.
@@ -56,10 +103,6 @@ This ensures that every link in your MDX content will use the `CustomLink` compo
 Now that you’ve set up the custom link component, you can use normal Markdown syntax in your MDX documents without needing to worry about manually adding `target="_blank"`.
 
 For example, you can write links like this in your MDX content:
-
-```mdx
-hi
-```
 
 - **Internal Link**: `[Open this link in the same tab.](/blog)` will use the Next.js `Link` component and keep the navigation within the same tab.
 - **External Link**: `[Open this link in a new tab.](https://github.com/owolfdev/mdx-blog)` will open in a new tab, using the custom `CustomLink` component that renders an anchor tag with `target="_blank"`.

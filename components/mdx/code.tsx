@@ -11,24 +11,25 @@ const Code = (props: CodeProps) => {
   const [copied, setCopied] = useState(false);
   const codeRef = useRef<HTMLElement>(null);
 
-  // Extract the language from the className
   const className = props.className || "";
   const matches = className.match(/language-(.*)/);
   const language = matches?.[1] || "";
 
-  // Handle copy functionality
   const handleCopy = () => {
     if (codeRef.current) {
       const codeText = codeRef.current.innerText;
       navigator.clipboard.writeText(codeText).then(() => {
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+        setTimeout(() => setCopied(false), 2000);
       });
     }
   };
 
   return (
-    <div className="gap-0 rounded-lg text-white pb-6 w-full">
+    <div
+      className="gap-0 rounded-lg text-white pb-6 w-full max-w-full overflow-hidden"
+      style={{ maxWidth: "100%", overflow: "hidden" }}
+    >
       <div className="flex justify-between items-center bg-gray-900 py-2 px-4 rounded-t-lg">
         <span className="text-gray-300">{language}</span>
         <button
@@ -39,11 +40,20 @@ const Code = (props: CodeProps) => {
           {copied ? "Copied!" : "Copy"}
         </button>
       </div>
-      <pre className="bg-gray-800 p-4 rounded-b-lg overflow-auto w-full block">
+      <pre
+        className="bg-gray-800 p-4 rounded-b-lg overflow-auto w-full block max-w-full"
+        style={{
+          maxWidth: "100%",
+          overflowX: "auto",
+          wordWrap: "break-word",
+          whiteSpace: "pre-wrap",
+          wordBreak: "break-word",
+        }}
+      >
         <code
           ref={codeRef}
           className={`${className} bg-gray-800 block w-full`}
-          style={{ whiteSpace: "pre-wrap" }}
+          style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
         >
           {props.children}
         </code>
