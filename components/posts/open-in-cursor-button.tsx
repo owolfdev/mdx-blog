@@ -17,7 +17,12 @@ function OpenInCursor({ path }: { path: string }) {
   return (
     <div>
       <div className="flex gap-3">
-        <Button variant="outline" type="button" onClick={handleOpenInCursor}>
+        <Button
+          aria-label="Open in Cursor" // Provide an accessible name
+          variant="outline"
+          type="button"
+          onClick={handleOpenInCursor}
+        >
           Edit File In Cursor
         </Button>
       </div>

@@ -8,6 +8,7 @@ import {
   removeLike,
   isPostLikedByUser, // New action
 } from "@/app/actions/like-actions";
+import { buttonVariants } from "@/components/ui/button";
 
 interface LikeButtonProps {
   postId: string; // postId is a string (UUID)
@@ -112,10 +113,11 @@ function LikeButton({ postId }: LikeButtonProps) {
               handleLikeAction();
             }
           }}
-          className={`like-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center relative overflow-hidden ${
+          className={`bg-primary text-primary-foreground font-bold py-2 px-4 rounded flex items-center relative overflow-hidden ${
             liked ? "liked" : "unliked"
           }`}
           disabled={likeActionInProgress} // Disable button while action is in progress
+          aria-label={liked ? "Unlike this post" : "Like this post"} // Provide an accessible name
         >
           <div
             className={`like-icon ${liked ? "animate-like" : "animate-unlike"}`}

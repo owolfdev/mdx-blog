@@ -7,7 +7,9 @@ function EditPostButton({ slug }: { slug: string }) {
   return (
     <div>
       <Link href={`/post/edit/${slug}`}>
-        <Button variant="outline">Edit Post</Button>
+        <Button variant="outline" aria-label="Edit Post">
+          Edit Post
+        </Button>
       </Link>
     </div>
   );
