@@ -1,5 +1,5 @@
 import React from "react";
-import type { AnchorHTMLAttributes, DetailedHTMLProps } from "react";
+// import type { AnchorHTMLAttributes, DetailedHTMLProps } from "react";
 import type { MDXComponents } from "mdx/types";
 import YouTube from "@/components/mdx/youtube";
 import Code from "@/components/mdx/code";

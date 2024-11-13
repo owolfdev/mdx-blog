@@ -30,9 +30,7 @@ function NavComponent() {
     <div className="flex items-center gap-4">
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="sm:hidden">
-            <HamburgerMenuIcon className="h-[18px] w-[18px]" />
-          </Button>
+          <HamburgerMenuIcon className="h-[18px] w-[18px]" />
         </SheetTrigger>
 
         <SheetContent side="left">
