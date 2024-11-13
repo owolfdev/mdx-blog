@@ -7,11 +7,17 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
 type PageProps = {
-  searchParams: Promise<{ message?: Message | null } | null> | undefined;
+  searchParams:
+    | Promise<{ message?: Message | null; success?: string } | null>
+    | undefined;
 };
 export default async function Login({ searchParams }: PageProps) {
   const params = await searchParams;
   const message = params?.message;
+  const success = params?.success;
+
+  // Transform the `success` string into a `Message` object if it exists
+  const successMessage: Message | null = success ? { success } : null;
 
   return (
     <div className="flex flex-col items-center max-w-3xl gap-8 pt-12">
@@ -54,6 +60,7 @@ export default async function Login({ searchParams }: PageProps) {
             Sign in
           </SubmitButton>
           {message && <FormMessage message={message} />}
+          {successMessage && <FormMessage message={successMessage} />}
         </div>
       </form>
     </div>

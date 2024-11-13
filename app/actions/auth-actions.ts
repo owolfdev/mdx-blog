@@ -80,7 +80,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
 
   return encodedRedirect(
     "success",
-    "/forgot-password",
+    "/forgot-password/thank-you",
     "Check your email for a link to reset your password."
   );
 };

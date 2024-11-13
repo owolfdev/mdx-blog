@@ -30,7 +30,9 @@ function NavComponent() {
     <div className="flex items-center gap-4">
       <Sheet>
         <SheetTrigger asChild>
-          <HamburgerMenuIcon className="h-[18px] w-[18px]" />
+          <div className="sm:hidden border border-gray-200 rounded-md p-1">
+            <HamburgerMenuIcon className="h-[22px] w-[22px]" />
+          </div>
         </SheetTrigger>
 
         <SheetContent side="left">

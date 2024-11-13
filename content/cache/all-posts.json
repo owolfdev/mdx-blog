@@ -533,10 +533,10 @@
     "likes": 2
   },
   {
-    "slug": "mdx-blog-next-15-beta",
+    "slug": "mdx-blog-next-15",
     "id": "4570c204-aa2d-4b92-8ba0-ef91345b8eb6",
     "type": "blog",
-    "title": "MDXBlog Updated for Next.js 15 (beta)",
+    "title": "MDXBlog Updated for Next.js 15",
     "author": "O. Wolfson",
     "publishDate": "2024-11-07",
     "description": "The new release focuses on performance, security, and modern development capabilities.",
@@ -551,7 +551,7 @@
       "giraffe",
       "squirrel"
     ],
-    "modifiedDate": "2024-11-12T21:16:36.322Z",
+    "modifiedDate": "2024-11-13T19:09:38.642Z",
     "image": null,
     "draft": false,
     "relatedPosts": [],
@@ -693,7 +693,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "optimizing-mdx-for-seo",

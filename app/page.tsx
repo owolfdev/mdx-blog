@@ -53,7 +53,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
-      <h1 className="text-6xl font-black">
+      <h1 className="text-6xl font-black sm:text-center">
         Welcome to <span className="text-primary">MDX</span>Blog
       </h1>
       {isDevMode() && (
