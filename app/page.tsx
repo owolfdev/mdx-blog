@@ -53,7 +53,9 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
-      <h1 className="text-6xl font-black">{metadata.title}</h1>
+      <h1 className="text-6xl font-black">
+        Welcome to <span className="text-primary">MDX</span>Blog
+      </h1>
       {isDevMode() && (
         <div className="flex gap-3">
           <EditPageButton slug={metadata.slug ?? "default-slug"} />
