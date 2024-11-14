@@ -21,28 +21,6 @@
     "likes": 1
   },
   {
-    "slug": "a-test-project",
-    "id": "df410e4c-9e97-41dd-a125-c8bdc4abf33a",
-    "type": "project",
-    "title": "A Test Project",
-    "author": "O. Wolfson",
-    "publishDate": "2024-10-01",
-    "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-    "categories": [
-      "Web Development"
-    ],
-    "tags": [
-      ""
-    ],
-    "modifiedDate": "2024-10-05T20:52:52.546Z",
-    "image": null,
-    "draft": false,
-    "relatedPosts": [
-      ""
-    ],
-    "likes": 0
-  },
-  {
     "slug": "adding-mdx-support-to-your-next.js-project",
     "id": "7dece0e7-f10f-4b67-b34b-9ab510aa6a11",
     "type": "blog",
@@ -467,7 +445,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "leveraging-mdx-for-documentation-websites",
@@ -551,7 +529,7 @@
       "giraffe",
       "squirrel"
     ],
-    "modifiedDate": "2024-11-13T19:09:38.642Z",
+    "modifiedDate": "2024-11-13T22:13:08.323Z",
     "image": null,
     "draft": false,
     "relatedPosts": [],

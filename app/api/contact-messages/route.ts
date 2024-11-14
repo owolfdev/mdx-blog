@@ -11,7 +11,7 @@ export async function GET(req: Request) {
     const validPassword = process.env.CONTACT_API_PASSWORD;
     if (!password || password !== validPassword) {
       return NextResponse.json(
-        { error: "Unauthorized access." },
+        { error: `Unauthorized access. Password: ${password}` },
         { status: 401 }
       );
     }
