@@ -8,7 +8,7 @@ export const getPopularPosts = async () => {
     // Define the path to the JSON file
     const cacheFilePath = path.join(
       process.cwd(),
-      "content/cache/published-posts.json"
+      "public/cache/published-posts.json"
     );
 
     // Read and parse the JSON data

@@ -10,7 +10,7 @@ export async function getRelatedPostTitles(relatedSlugs: string[] | null) {
 
   try {
     const projectRoot = process.cwd();
-    const filePath = path.join(projectRoot, "content/cache/all-posts.json");
+    const filePath = path.join(projectRoot, "public/cache/all-posts.json");
 
     // Read and parse the JSON data from the cache
     const allPosts = JSON.parse(fs.readFileSync(filePath, "utf-8"));

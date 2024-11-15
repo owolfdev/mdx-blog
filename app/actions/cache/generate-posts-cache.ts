@@ -109,7 +109,7 @@ export async function generatePostsCache() {
     console.log(`Final all posts count: ${finalAllPosts.length}`);
     console.log(`Published posts count: ${publishedPosts.length}`);
 
-    const cacheDir = path.join(process.cwd(), "content/cache");
+    const cacheDir = path.join(process.cwd(), "public/cache");
     console.log(`Cache directory: ${cacheDir}`);
 
     if (!fs.existsSync(cacheDir)) {
