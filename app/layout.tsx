@@ -10,6 +10,7 @@ import Footer from "@/components/nav/footer";
 // import Link from "next/link";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import CookieConsentComponent from "@/components/cookie-consent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,6 +41,7 @@ export default function RootLayout({
           <Header />
           <main className="flex flex-col items-center justify-between px-6 py-4 sm:px-10 sm:py-8 min-h-[calc(100vh-13rem)]">
             {children}
+            <CookieConsentComponent />
           </main>
           <Footer />
         </ThemeProvider>
