@@ -3,7 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { exec } from "node:child_process";
-import { generatePostsCache } from "@/app/actions/cache/generate-posts-cache";
+import { generatePostsCache } from "@/lib/cache/generate-cache-posts.mjs";
 
 interface EditPostData {
   date: string;

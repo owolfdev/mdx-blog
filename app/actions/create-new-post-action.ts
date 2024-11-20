@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { exec } from "node:child_process";
 import { v4 as uuidv4 } from "uuid";
-import { generatePostsCache } from "@/app/actions/cache/generate-posts-cache";
+import { generatePostsCache } from "@/lib/cache/generate-cache-posts.mjs";
 
 const POLLING_INTERVAL = 100; // Check every 100ms
 const MAX_POLLING_TIME = 5000; // Timeout after 5 seconds
