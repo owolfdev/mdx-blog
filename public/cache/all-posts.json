@@ -42,7 +42,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "advanced-mdx-dynamic-content-and-apis",
@@ -533,7 +533,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "mdx-like-button-nextjs-vercel-postgresql",
@@ -604,7 +604,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 10
+    "likes": 11
   },
   {
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",

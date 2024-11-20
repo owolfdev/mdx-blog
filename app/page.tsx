@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import EditPageButton from "@/components/page/edit-page-button";
 import OpenInCursor from "@/components/page/open-page-in-cursor-button";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
-
 interface MdxModule {
   default: React.ComponentType;
   metadata: {
