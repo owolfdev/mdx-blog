@@ -51,6 +51,7 @@ export const signInAction = async (formData: FormData) => {
   return redirect("/");
 };
 
+// forgot password action
 export const forgotPasswordAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const supabase = await createClient();
@@ -85,6 +86,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
   );
 };
 
+// reset password action
 export const resetPasswordAction = async (formData: FormData) => {
   const supabase = await createClient();
 
