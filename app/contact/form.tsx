@@ -1,10 +1,8 @@
-// app/contact/form.tsx
 "use client";
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-import { FormMessage, type Message } from "@/components/form-message";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,23 +16,27 @@ import {
 import ReCAPTCHA from "react-google-recaptcha";
 import { sendContactMessage } from "./actions";
 
+// Define constants
+const ORIGIN = "MDXBlog";
+
 // Define Zod schema for validation
 const contactFormSchema = z.object({
   email: z.string().email("Invalid email address"),
   name: z.string().min(1, "Name is required"),
   message: z.string().min(10, "Message must be at least 10 characters"),
   type: z.string().min(1, "Message type is required"),
+  subject: z.string().min(1, "Subject is required"),
 });
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const messageTypes = [
-  { label: "Bug Report", value: "Bug Report" },
-  { label: "Support Query", value: "Support Query" },
   { label: "Correspondence", value: "Correspondence" },
+  { label: "Support Query", value: "Support Query" },
+  { label: "Bug Report", value: "Bug Report" },
 ];
 
-export function ContactForm({ message }: { message?: Message }) {
+export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [formErrors, setFormErrors] = React.useState<Record<string, string>>(
@@ -64,13 +66,19 @@ export function ContactForm({ message }: { message?: Message }) {
         name: formData.get("name") as string,
         message: formData.get("message") as string,
         type: formData.get("type") as string,
+        subject: formData.get("subject") as string,
       };
 
       // Validate form data with Zod
       const parsedData = contactFormSchema.parse(values);
 
-      // Proceed if valid
-      await sendContactMessage(parsedData);
+      // Send the data to the server action, including the hardcoded origin
+      await sendContactMessage({
+        ...parsedData,
+        origin: ORIGIN,
+        receivedDate: new Date().toISOString(), // Add the current date
+      });
+
       router.push("/contact/thank-you");
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -103,23 +111,34 @@ export function ContactForm({ message }: { message?: Message }) {
         </p>
         <div className="flex flex-col gap-2 [&>input]:mb-3 [&>textarea]:mb-3 mt-8">
           <Label htmlFor="type">Message Type</Label>
-          <div className="mb-3">
-            <Select name="type" required>
-              <SelectTrigger className="text-lg">
-                <SelectValue placeholder="Select message type" />
-              </SelectTrigger>
-              <SelectContent>
-                {messageTypes.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {formErrors.type && (
-              <div className="text-red-500 text-sm mt-1">{formErrors.type}</div>
-            )}
-          </div>
+          <Select name="type" required>
+            <SelectTrigger className="text-lg">
+              <SelectValue placeholder="Select message type" />
+            </SelectTrigger>
+            <SelectContent>
+              {messageTypes.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {formErrors.type && (
+            <div className="text-red-500 text-sm mt-1">{formErrors.type}</div>
+          )}
+
+          <Label htmlFor="subject">Subject</Label>
+          <Input
+            name="subject"
+            placeholder="Subject"
+            required
+            className="text-lg"
+          />
+          {formErrors.subject && (
+            <div className="text-red-500 text-sm mt-1">
+              {formErrors.subject}
+            </div>
+          )}
 
           <Label htmlFor="name">Name</Label>
           <Input
@@ -175,8 +194,6 @@ export function ContactForm({ message }: { message?: Message }) {
           >
             {isSubmitting ? "Sending..." : "Send Message"}
           </button>
-
-          {message && <FormMessage message={message} />}
         </div>
       </form>
     </div>
