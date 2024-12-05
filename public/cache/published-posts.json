@@ -89,6 +89,27 @@
     "likes": 3
   },
   {
+    "slug": "building-a-contact-form-in-nextjs-15",
+    "id": "244616b4-1723-49fd-be68-54dadc594383",
+    "type": "blog",
+    "title": "Building a Contact Form in Next.js 15",
+    "author": "O. Wolfson",
+    "publishDate": "2024-12-05",
+    "description": "This article demonstrates how to implement a secure, functional contact form that integrates client-side validation, Google reCAPTCHA, and a server-side connection to Notion for storing submissions.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "notion",
+      "app router"
+    ],
+    "modifiedDate": "2024-12-05T01:36:42.648Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [],
+    "likes": 0
+  },
+  {
     "slug": "caching-mdx-metadata-for-fast-post-management",
     "id": "c0e80de8-cbc6-4341-af2b-fb177449b735",
     "type": "blog",
@@ -182,7 +203,7 @@
     "relatedPosts": [
       "custom-link-component-for-external-navigation"
     ],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -396,7 +417,7 @@
       "using-and-styling-custom-components-in-mdx-content",
       "import-components-to-mdx"
     ],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "integrating-mdx-with-static-site-generators",
@@ -533,7 +554,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 5
   },
   {
     "slug": "mdx-like-button-nextjs-vercel-postgresql",
@@ -647,7 +668,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 6
+    "likes": 7
   },
   {
     "slug": "nextjs-switch-api-to-server-actions",

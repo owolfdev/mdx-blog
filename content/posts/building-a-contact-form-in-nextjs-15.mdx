@@ -1,0 +1,176 @@
+export const metadata = {
+  id: "244616b4-1723-49fd-be68-54dadc594383",
+  type: "blog",
+  title: "Building a Contact Form in Next.js 15",
+  author: "O. Wolfson",
+  publishDate: "2024-12-05",
+  description: "This article demonstrates how to implement a secure, functional contact form that integrates client-side validation, Google reCAPTCHA, and a server-side connection to Notion for storing submissions.",
+  categories: ["Web Development"],
+  tags: ["notion", "app router"],
+  modifiedDate: "2024-12-05T01:36:42.648Z",
+  image: null,
+  draft: false,
+  relatedPosts: []
+};
+
+Next.js 15 introduces tools like the App Router and server actions that streamline building modern web applications. This article demonstrates how to implement a secure, functional contact form that integrates client-side validation, Google reCAPTCHA, and a server-side connection to Notion for storing submissions.
+
+---
+
+### **Overview**
+
+This contact form workflow consists of:
+1. A React-based user interface for capturing inputs.
+2. Validation on both the client and server using Zod.
+3. Server-side handling of submissions with Next.js server actions.
+4. Integration with the Notion API to store form data.
+
+---
+
+### **Contact Form Implementation**
+
+The form is a React component rendered on the client. It includes fields for the sender's email, name, message type, subject, and message content. Google reCAPTCHA is used to prevent spam.
+
+#### **Code Example**
+
+```tsx
+"use client";
+
+import * as React from "react";
+import { z } from "zod";
+import { Input, Label, Textarea } from "@/components/ui";
+import ReCAPTCHA from "react-google-recaptcha";
+import { sendContactMessage } from "./actions";
+
+const contactFormSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  name: z.string().min(1, "Name is required"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+  type: z.string().min(1, "Message type is required"),
+  subject: z.string().min(1, "Subject is required"),
+});
+
+export function ContactForm() {
+  const [isRecaptchaVerified, setIsRecaptchaVerified] = React.useState(false);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    const values = {
+      email: formData.get("email"),
+      name: formData.get("name"),
+      message: formData.get("message"),
+      type: formData.get("type"),
+      subject: formData.get("subject"),
+    };
+
+    try {
+      contactFormSchema.parse(values);
+      await sendContactMessage(values);
+    } catch (error) {
+      // Handle validation or server errors here
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* Input fields and reCAPTCHA */}
+      <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={(token) => setIsRecaptchaVerified(!!token)} />
+      <button type="submit" disabled={!isRecaptchaVerified}>
+        Send Message
+      </button>
+    </form>
+  );
+}
+```
+
+---
+
+### **Server-Side Processing**
+
+Server actions in Next.js allow direct server-side processing without a dedicated API route. This example uses `sendContactMessage` to validate input and store it in Notion.
+
+#### **Validation and API Request**
+
+```tsx
+"use server";
+
+import { z } from "zod";
+
+const NOTION_API_URL = "https://api.notion.com/v1/pages";
+
+export async function sendContactMessage(values) {
+  const schema = z.object({
+    email: z.string().email(),
+    name: z.string().min(2),
+    message: z.string().min(10),
+    type: z.string().min(1),
+    subject: z.string().min(1),
+  });
+
+  const validated = schema.parse(values);
+
+  const response = await fetch(NOTION_API_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.NOTION_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      parent: { database_id: process.env.NEXT_PUBLIC_NOTION_DATABASE_ID },
+      properties: {
+        Name: { title: [{ text: { content: validated.name } }] },
+        Email: { email: validated.email },
+        Message: { rich_text: [{ text: { content: validated.message } }] },
+        Type: { select: { name: validated.type } },
+        Subject: { rich_text: [{ text: { content: validated.subject } }] },
+      },
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to save message");
+  }
+}
+```
+
+---
+
+### **Integration with Notion**
+
+Notion serves as the storage backend. Each form submission creates a new page in a specified Notion database.
+
+#### **Setup**
+1. Create a Notion integration and retrieve the API key.
+2. Add the database ID and API key to `.env.local`:
+   ```
+   NOTION_API_KEY=your-api-key
+   NEXT_PUBLIC_NOTION_DATABASE_ID=your-database-id
+   ```
+
+3. Ensure database properties align with the payload structure defined in `sendContactMessage`.
+
+---
+
+### **How It Works**
+
+1. The user completes the form and reCAPTCHA.
+2. The client validates the input and submits it to the server action.
+3. The server validates the data again and sends it to Notion via its API.
+4. On success, the user is redirected or notified.
+
+---
+
+### **Advantages of This Approach**
+
+1. **Simplified Server Logic**: Server actions eliminate the need for traditional API endpoints.
+2. **Enhanced Security**: Sensitive operations and environment variables remain on the server.
+3. **Validation on Both Ends**: Zod ensures data integrity on both the client and server.
+4. **Spam Prevention**: Google reCAPTCHA integration reduces automated submissions.
+
+---
+
+### **Conclusion**
+
+Using Next.js 15's App Router and server actions, you can implement a contact form with clear separation of concerns, robust validation, and secure handling of user data. This approach is adaptable for other backends and use cases while maintaining simplicity and reliability.
