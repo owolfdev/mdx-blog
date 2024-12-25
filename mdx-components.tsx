@@ -70,5 +70,33 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </CustomLink>
       );
     },
+    // table
+    table: (props) => (
+      <table
+        className="border-collapse w-full text-left table-auto border border-gray-300 dark:border-gray-700 "
+        {...props}
+      />
+    ),
+    thead: (props) => (
+      <thead className="bg-gray-100 dark:bg-gray-800" {...props} />
+    ),
+    tbody: (props) => (
+      <tbody className="bg-white dark:bg-gray-900" {...props} />
+    ),
+    tr: (props) => (
+      <tr className="even:bg-gray-50 dark:even:bg-gray-800" {...props} />
+    ),
+    th: (props) => (
+      <th
+        className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-700"
+        {...props}
+      />
+    ),
+    td: (props) => (
+      <td
+        className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-700"
+        {...props}
+      />
+    ),
   };
 }

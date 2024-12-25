@@ -7,7 +7,7 @@ MDXBlog has been updated to incorporate the latest features of **Next.js 15**. T
 **Key Updates in Next.js 15:**
 
 - **Async Request APIs**: Breaking change to caching—fetch requests and GET routes are no longer cached by default. Improves control over rendering and caching.
-- **React 19 Support**: Enhanced hydration error handling and experimental React Compiler integration.
+- **React 19 Support**: Next.js 15 supports React 19, introducing improved hydration error handling and experimental React Compiler integration. However, we have opted to downgrade to React 18.3.1 to ensure compatibility with a wider range of dependencies.
 - **Turbopack Dev**: Faster builds and stable development performance improvements.
 - **unstable_after API**: Experimental API to execute code after response streaming.
 - **Caching Semantics**: Updated caching for fetch, GET handlers, and client navigation.

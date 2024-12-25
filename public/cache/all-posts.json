@@ -42,7 +42,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "advanced-mdx-dynamic-content-and-apis",
@@ -581,7 +581,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 22
+    "likes": 23
   },
   {
     "slug": "mdx-performance-optimization",
@@ -779,7 +779,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "static-mdx-cms",
