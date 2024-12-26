@@ -4,44 +4,36 @@ import {
   PayPalButtons,
   PayPalScriptProvider,
   type ReactPayPalScriptOptions,
+  type PayPalButtonsComponentProps,
 } from "@paypal/react-paypal-js";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 
 import { useRouter } from "next/navigation";
 
 export default function App() {
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
-  const [donationAmount, setDonationAmount] = useState<string>("1");
-  const donationAmountRef = useRef<string>(donationAmount);
+  const [donationAmount, setDonationAmount] = useState<string>("");
 
   const router = useRouter();
-
-  useEffect(() => {
-    donationAmountRef.current = donationAmount; // Ensure the ref is updated
-  }, [donationAmount]);
 
   const initialOptions: ReactPayPalScriptOptions = {
     clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
     currency: "USD",
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDonationAmount(e.target.value);
+  };
+
   return (
     <div className="bg-white p-6 rounded-lg w-full flex flex-col gap-4">
-      <div className="text-black flex flex-col gap-2">
-        <div>
-          <span className="font-bold">Current Donation Amount:</span> $
-          {donationAmount}
-        </div>
-        <Input
-          className="w-full text-black bg-gray-200 border-none"
-          type="number"
-          value={donationAmount}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setDonationAmount(e.target.value)
-          }
-        />
-      </div>
+      <Input
+        type="text"
+        placeholder="Enter amount to donate (in USD)"
+        value={donationAmount}
+        onChange={handleInputChange}
+      />
       <PayPalScriptProvider options={initialOptions}>
         <PayPalButtons
           style={{
@@ -52,15 +44,13 @@ export default function App() {
             height: 40,
           }}
           createOrder={(data, actions) => {
-            const latestAmount = donationAmountRef.current; // Always get the latest value from the ref
-            console.log("Creating order with amount:", latestAmount);
             return actions.order.create({
               intent: "CAPTURE",
               purchase_units: [
                 {
                   amount: {
                     currency_code: "USD",
-                    value: latestAmount, // Use the updated value from the ref
+                    value: "1",
                   },
                 },
               ],
