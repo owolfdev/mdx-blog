@@ -42,7 +42,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 4
+    "likes": 5
   },
   {
     "slug": "advanced-mdx-dynamic-content-and-apis",
@@ -107,7 +107,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 3
   },
   {
     "slug": "caching-mdx-metadata-for-fast-post-management",
@@ -203,7 +203,7 @@
     "relatedPosts": [
       "custom-link-component-for-external-navigation"
     ],
-    "likes": 4
+    "likes": 5
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -272,7 +272,7 @@
       "updates-to-mdx-blog-enhanced-and-streamlined",
       "mdx-like-button-nextjs-vercel-postgresql"
     ],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "future-of-mdx-trends-and-upcoming-features",
@@ -296,6 +296,31 @@
     "draft": false,
     "relatedPosts": [],
     "likes": 1
+  },
+  {
+    "slug": "how-nextjs-processes-mdx",
+    "id": "72dc6c34-58b3-4293-987c-3477a86c33d6",
+    "type": "blog",
+    "title": "How Next.js Processes MDX",
+    "author": "O. Wolfson",
+    "publishDate": "2025-01-09",
+    "description": "Next.js provides seamless support for MDX through the @next/mdx package, allowing developers to write and render MDX content in various ways.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "mdx",
+      "markdown",
+      "next.js",
+      "react",
+      "static",
+      "blog"
+    ],
+    "modifiedDate": "2025-01-08T22:44:58.964Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [],
+    "likes": 0
   },
   {
     "slug": "how-to-install-mdx-blog-and-deploy-on-vercel",
@@ -322,7 +347,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "how-to-use-images-in-an-mdx-or-markdown-file",
@@ -581,7 +606,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 23
+    "likes": 27
   },
   {
     "slug": "mdx-performance-optimization",
@@ -779,7 +804,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "static-mdx-cms",
@@ -804,7 +829,7 @@
     "relatedPosts": [
       "caching-mdx-metadata-for-fast-post-management"
     ],
-    "likes": 8
+    "likes": 9
   },
   {
     "slug": "styling-mdx-content",
@@ -846,7 +871,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",

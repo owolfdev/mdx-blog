@@ -1,0 +1,226 @@
+export const metadata = {
+  id: "72dc6c34-58b3-4293-987c-3477a86c33d6",
+  type: "blog",
+  title: "How Next.js Processes MDX",
+  author: "O. Wolfson",
+  publishDate: "2025-01-09",
+  description:
+    "Next.js provides seamless support for MDX through the @next/mdx package, allowing developers to write and render MDX content in various ways.",
+  categories: ["Web Development"],
+  tags: ["mdx", "markdown", "next.js", "react", "static", "blog"],
+  modifiedDate: "2025-01-08T22:44:58.964Z",
+  image: null,
+  draft: false,
+  relatedPosts: [],
+};
+
+MDX (Markdown + JSX) is a powerful format for writing content with React components. Next.js provides seamless support for MDX through the `@next/mdx` package, allowing developers to write and render MDX content in various ways.
+
+In this article, we will explore how MDX is processed and rendered in Next.js using two examples:
+
+1. [A **simple local MDX import**.](../examples/simple-mdx)
+2. [**Remote MDX content fetched dynamically**.](../examples/remote-mdx)
+
+---
+
+### Setting Up Next.js for MDX
+
+To enable MDX in a Next.js app, install the required dependencies:
+
+```bash
+npm install @next/mdx @mdx-js/loader
+```
+
+Update your `next.config.js` to handle `.mdx` files:
+
+```javascript
+const withMDX = require("@next/mdx")({
+  extension: /\.mdx?$/,
+});
+
+module.exports = withMDX({
+  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+});
+```
+
+This configuration ensures that Next.js recognizes `.mdx` files as valid page or component files.
+
+---
+
+### Example 1: Simple Local MDX Import
+
+This example demonstrates how to render a local `.mdx` file as part of a React component:
+
+#### File Structure
+
+- `/content/test/example.mdx` (MDX content file)
+- `/examples/simple-mdx` (Page rendering the MDX content)
+
+#### MDX File (`example.mdx`):
+
+```mdx
+# Hello MDX
+
+This is a simple MDX example.
+```
+
+#### Page Component (`/examples/simple-mdx`):
+
+```javascript
+import Content from "@/content/test/example.mdx";
+
+export default function Page() {
+  return (
+    <div className="flex flex-col justify-center items-center h-96 ">
+      <Content />
+    </div>
+  );
+}
+```
+
+#### How It Works
+
+1. The MDX file (`example.mdx`) is imported as a React component using the `@next/mdx` loader.
+2. During the build process, the MDX content is compiled into a React component.
+3. The `Content` component renders the MDX content as part of the React tree.
+4. The custom styles or components defined in your MDX configuration (e.g., `useMDXComponents`) are automatically applied when rendering local MDX.
+
+---
+
+### Example 2: Remote MDX Content
+
+This example demonstrates how to fetch MDX content from a remote source (e.g., a database or API) and dynamically render it.
+
+#### File Structure
+
+- `/utils/supabase/client.js` (Supabase client configuration)
+- `/examples/remote-mdx` (Page rendering the remote MDX content)
+
+#### Supabase Table (`mdx_content`):
+
+```json
+[
+  {
+    "id": 1,
+    "created_at": "2025-01-08T21:50:22.284318+00:00",
+    "title": "Test Content",
+    "content": "# Hello World\n\nThis is some **MDX content** from a remote source, Supabase."
+  }
+]
+```
+
+#### Page Component (`/examples/remote-mdx`):
+
+```javascript
+"use client";
+
+import { createClient } from "@/utils/supabase/client";
+import { evaluate } from "@mdx-js/mdx";
+import { useEffect, useState } from "react";
+import { Fragment } from "react";
+import * as runtime from "react/jsx-runtime";
+import { MDXProvider } from "@mdx-js/react";
+import { useMDXComponents } from "@/mdx-components"; // Adjust path as needed
+
+export default function RemoteMDXPage() {
+  const [Component, setComponent] = useState<React.ComponentType | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [data, setData] = useState<{
+    id: number;
+    title: string;
+    content: string;
+  } | null>(null);
+
+  useEffect(() => {
+    async function fetchMDXFromSupabase() {
+      try {
+        const supabase = createClient();
+
+        // Fetch the MDX content column from the `mdx_content` table
+        const { data, error } = await supabase
+          .from("mdx_content")
+          .select("*")
+          .eq("id", 1)
+          .single();
+
+        setData(data);
+
+        if (error) {
+          throw new Error(`Supabase error: ${error.message}`);
+        }
+
+        const rawMDX = data?.content;
+        if (!rawMDX) {
+          throw new Error("MDX content not found");
+        }
+
+        // Compile and evaluate the MDX content into a React component
+        const { default: MDXComponent } = await evaluate(rawMDX, {
+          ...runtime,
+          Fragment,
+          useMDXComponents: () => useMDXComponents({}), // Attach custom MDX components
+        });
+
+        setComponent(() => MDXComponent);
+      } catch (err) {
+        console.error("Error loading MDX:", err);
+        setError(err instanceof Error ? err.message : "Unknown error");
+      }
+    }
+
+    fetchMDXFromSupabase();
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div className="flex flex-col justify-center items-center h-96">
+      <div className="flex flex-col gap-4">
+        <h1 className="text-5xl font-black">{data?.title}</h1>
+        {Component ? (
+          <MDXProvider components={useMDXComponents({})}>
+            <Component />
+          </MDXProvider>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
+    </div>
+  );
+}
+```
+
+#### How It Works
+
+1. The MDX content is stored in a Supabase table (`mdx_content`) with a `content` column containing MDX.
+2. The content is fetched via the Supabase client using a query.
+3. The raw MDX string is compiled into a React component at runtime using the `@mdx-js/mdx` `evaluate` function.
+4. The `MDXProvider` wraps the rendered content, ensuring custom MDX components (like styled `h1`, `p`, `code`, etc.) are applied.
+5. The dynamically created React component is rendered once ready, styled consistently with locally imported MDX.
+
+---
+
+### Comparison of the Two Approaches
+
+| Feature             | Local MDX Import                    | Remote MDX Fetch                         |
+| ------------------- | ----------------------------------- | ---------------------------------------- |
+| **Data Source**     | Local `.mdx` file                   | Remote database or API                   |
+| **Processing Time** | Compile during build time           | Compile dynamically at runtime           |
+| **Use Case**        | Static content, frequent reuse      | Dynamic or user-specific content         |
+| **Performance**     | Faster (pre-compiled at build time) | Slower (requires fetching and compiling) |
+| **Styling**         | Automatically applies custom styles | Requires `MDXProvider` for custom styles |
+| **Flexibility**     | Limited to local files              | Content can come from any remote source  |
+
+---
+
+### Conclusion
+
+Next.js 13+ (currently 15) with `@next/mdx` offers robust MDX support for both local and dynamic content. For static pages, local MDX imports are straightforward and highly performant. For dynamic content, fetching and rendering MDX at runtime provides incredible flexibility, enabling dynamic and user-driven experiences.
+
+Choose the approach that best fits your application’s needs!
