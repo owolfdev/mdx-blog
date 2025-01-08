@@ -17,6 +17,9 @@ export default function RemoteMDXPage() {
     content: string;
   } | null>(null);
 
+  // Extract custom components for MDX
+  const mdxComponents = useMDXComponents({});
+
   useEffect(() => {
     async function fetchMDXFromSupabase() {
       try {
@@ -43,8 +46,7 @@ export default function RemoteMDXPage() {
         // Compile and evaluate the MDX content into a React component
         const { default: MDXComponent } = await evaluate(rawMDX, {
           ...runtime,
-          Fragment,
-          useMDXComponents: () => useMDXComponents({}), // Attach custom MDX components
+          Fragment, // Pass Fragment explicitly
         });
 
         setComponent(() => MDXComponent);
@@ -66,11 +68,11 @@ export default function RemoteMDXPage() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-96">
+    <div className="flex flex-col justify-center items-center h-96">
       <div className="flex flex-col gap-4">
-        <h1 className="text-5xl font-black pb-4">{data?.title}</h1>
+        <h1 className="text-5xl font-black">{data?.title}</h1>
         {Component ? (
-          <MDXProvider components={useMDXComponents({})}>
+          <MDXProvider components={mdxComponents}>
             <Component />
           </MDXProvider>
         ) : (
