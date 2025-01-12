@@ -4,13 +4,14 @@ export const metadata = {
   title: "Building a Contact Form in Next.js 15",
   author: "O. Wolfson",
   publishDate: "2024-12-05",
-  description: "This article demonstrates how to implement a secure, functional contact form that integrates client-side validation, Google reCAPTCHA, and a server-side connection to Notion for storing submissions.",
+  description:
+    "This article demonstrates how to implement a secure, functional contact form that integrates client-side validation, Google reCAPTCHA, and a server-side connection to Notion for storing submissions.",
   categories: ["Web Development"],
   tags: ["notion", "app router"],
   modifiedDate: "2024-12-05T01:36:42.648Z",
   image: null,
   draft: false,
-  relatedPosts: []
+  relatedPosts: [],
 };
 
 Next.js 15 introduces tools like the App Router and server actions that streamline building modern web applications. This article demonstrates how to implement a secure, functional contact form that integrates client-side validation, Google reCAPTCHA, and a server-side connection to Notion for storing submissions.
@@ -20,6 +21,7 @@ Next.js 15 introduces tools like the App Router and server actions that streamli
 ### **Overview**
 
 This contact form workflow consists of:
+
 1. A React-based user interface for capturing inputs.
 2. Validation on both the client and server using Zod.
 3. Server-side handling of submissions with Next.js server actions.
@@ -76,7 +78,10 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit}>
       {/* Input fields and reCAPTCHA */}
-      <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={(token) => setIsRecaptchaVerified(!!token)} />
+      <ReCAPTCHA
+        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+        onChange={(token) => setIsRecaptchaVerified(!!token)}
+      />
       <button type="submit" disabled={!isRecaptchaVerified}>
         Send Message
       </button>
@@ -142,8 +147,10 @@ export async function sendContactMessage(values) {
 Notion serves as the storage backend. Each form submission creates a new page in a specified Notion database.
 
 #### **Setup**
+
 1. Create a Notion integration and retrieve the API key.
 2. Add the database ID and API key to `.env.local`:
+
    ```
    NOTION_API_KEY=your-api-key
    NEXT_PUBLIC_NOTION_DATABASE_ID=your-database-id
