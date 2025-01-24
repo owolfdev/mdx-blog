@@ -8,6 +8,7 @@ const Image = ({
   src,
   alt,
   caption,
+  title,
   layout = "responsive",
   width = 700,
   height = 400,
@@ -15,15 +16,23 @@ const Image = ({
   src: string;
   alt: string;
   caption?: string;
+  title?: string; // Optional title
   layout?: "fill" | "responsive";
   width?: number;
   height?: number;
 }) => {
   return (
-    <div className="relative" style={{ width: "100%", height: "auto" }}>
+    <div
+      role="img"
+      aria-label={alt}
+      aria-describedby={caption ? "image-caption" : undefined}
+      className="relative"
+      style={{ width: "100%", height: "auto" }}
+    >
       <NextImage
         src={src}
         alt={alt}
+        title={title || alt} // Use title if provided; fallback to alt
         layout={layout}
         width={width}
         height={height}
