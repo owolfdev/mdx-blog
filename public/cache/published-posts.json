@@ -18,7 +18,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "adding-mdx-support-to-your-next.js-project",
@@ -87,6 +87,28 @@
     "draft": false,
     "relatedPosts": [],
     "likes": 3
+  },
+  {
+    "slug": "basic-markdown-guide",
+    "id": "c8b746d8-b6d4-4868-a076-3050b23cdb68",
+    "type": "blog",
+    "title": "Basic Markdown Guide",
+    "author": "O. Wolfson",
+    "publishDate": "2025-02-06",
+    "description": "Markdown is a lightweight markup language for formatting plain text",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "markdown",
+      "markup",
+      "language"
+    ],
+    "modifiedDate": "2025-02-06T22:48:00.431Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [],
+    "likes": 0
   },
   {
     "slug": "building-a-contact-form-in-nextjs-15",
@@ -249,7 +271,7 @@
     "relatedPosts": [
       "creating-anchor-links-to-page-sections-in-mdx"
     ],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "frictionless-content-creation-with-mdxblog",
@@ -272,7 +294,7 @@
       "updates-to-mdx-blog-enhanced-and-streamlined",
       "mdx-like-button-nextjs-vercel-postgresql"
     ],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "future-of-mdx-trends-and-upcoming-features",
@@ -320,7 +342,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 3
   },
   {
     "slug": "how-to-install-mdx-blog-and-deploy-on-vercel",
@@ -371,7 +393,7 @@
       "import-components-to-mdx",
       "using-and-styling-custom-components-in-mdx-content"
     ],
-    "likes": 2
+    "likes": 4
   },
   {
     "slug": "how-to-use-mdx-blog",
@@ -395,7 +417,7 @@
     "relatedPosts": [
       "how-to-install-mdx-blog-and-deploy-on-vercel"
     ],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "import-components-to-mdx",
@@ -417,7 +439,7 @@
     "relatedPosts": [
       "creating-custom-components-for-mdx"
     ],
-    "likes": 1
+    "likes": 4
   },
   {
     "slug": "integrating-dynamic-components-in-mdx-files-in-nextjs-14",
@@ -579,7 +601,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 5
+    "likes": 6
   },
   {
     "slug": "mdx-like-button-nextjs-vercel-postgresql",
@@ -606,7 +628,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 27
+    "likes": 29
   },
   {
     "slug": "mdx-performance-optimization",
@@ -917,7 +939,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "understanding-ssg-in-mdxblog",
@@ -942,7 +964,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 1
+    "likes": 3
   },
   {
     "slug": "updates-to-mdx-blog-enhanced-and-streamlined",
@@ -994,7 +1016,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 2
+    "likes": 4
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",
