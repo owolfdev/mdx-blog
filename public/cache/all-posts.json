@@ -97,18 +97,20 @@
     "publishDate": "2025-02-06",
     "description": "Markdown is a lightweight markup language for formatting plain text",
     "categories": [
-      "Web Development"
+      "Web Development",
+      "Programming",
+      "Productivity"
     ],
     "tags": [
       "markdown",
       "markup",
       "language"
     ],
-    "modifiedDate": "2025-02-06T22:48:00.431Z",
+    "modifiedDate": "2025-02-06T23:16:23.246Z",
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "building-a-contact-form-in-nextjs-15",
