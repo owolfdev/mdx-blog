@@ -110,7 +110,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 3
   },
   {
     "slug": "building-a-contact-form-in-nextjs-15",
@@ -249,7 +249,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 13
+    "likes": 14
   },
   {
     "slug": "custom-link-component-for-external-navigation",
@@ -395,7 +395,7 @@
       "import-components-to-mdx",
       "using-and-styling-custom-components-in-mdx-content"
     ],
-    "likes": 4
+    "likes": 5
   },
   {
     "slug": "how-to-use-mdx-blog",
@@ -630,7 +630,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 29
+    "likes": 30
   },
   {
     "slug": "mdx-performance-optimization",
@@ -853,7 +853,7 @@
     "relatedPosts": [
       "caching-mdx-metadata-for-fast-post-management"
     ],
-    "likes": 9
+    "likes": 10
   },
   {
     "slug": "styling-mdx-content",
@@ -895,7 +895,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 4
+    "likes": 5
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",
