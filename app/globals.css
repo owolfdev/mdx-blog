@@ -71,3 +71,14 @@
 [id] {
   scroll-margin-top: 80px; /* Adjust based on your navbar height */
 }
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

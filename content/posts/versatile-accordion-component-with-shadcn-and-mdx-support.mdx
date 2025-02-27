@@ -1,0 +1,171 @@
+export const metadata = {
+  id: "cc7eda73-12a0-40d0-83d8-7329464779a1",
+  type: "blog",
+  title: "Versatile Accordion Component Built with ShadCN and MDX Support",
+  author: "O. Wolfson",
+  publishDate: "2025-02-28",
+  description:
+    "Accordions are an essential UI component for organizing content in a compact and interactive manner. In this article, we will explore how to build an enhanced accordion component using [ShadCN](https://ui.shadcn.com) that supports both Markdown (MDX) components and raw JSX or plain text as content.",
+  categories: ["Web Development", "Productivity"],
+  tags: ["accordion", "shadcn"],
+  modifiedDate: "2025-02-27T20:43:37.196Z",
+  image: null,
+  draft: false,
+  relatedPosts: [],
+};
+
+import AccordionComponent from "@/components/mdx/accordion-component";
+import ThalesOfMiletus from "@/content/mdx-snippets/thales-of-miletus.mdx";
+
+Accordions are an essential UI component for organizing content in a compact and interactive manner. In this article, we will explore how to build an enhanced accordion component using [ShadCN](https://ui.shadcn.com) that supports both Markdown (MDX) components and raw JSX or plain text as content. This component is integrated into a Next.js 15 application that handles MDX via `@/next/mdx`.
+
+## Example:
+
+<AccordionComponent
+  items={[
+    {
+      trigger:
+        "Thales of Miletus (c. 624–546 BCE) – Considered the first philosopher, he proposed that water is the fundamental substance of all things, laying the foundation for naturalistic explanations.",
+      content: <ThalesOfMiletus />,
+    },
+  ]}
+/>
+
+MDX snippets are rendered as MDX components, so they can be used in the accordion content:
+
+```mdx
+![Thales of Miletus](/images/posts/philosophers/western/thales-of-miletus.jpg)
+
+**Thales of Miletus** was a pre-Socratic Greek philosopher, mathematician, and astronomer, often regarded as the first philosopher in Western tradition. A native of the Ionian city of Miletus, he sought to explain natural phenomena without relying on mythology, marking a shift toward rational inquiry. He proposed that water is the fundamental substance (archê) of all things, laying the groundwork for later natural philosophy.
+
+Thales was also an accomplished mathematician, credited with foundational contributions to geometry, including the theorem that bears his name. He applied his knowledge practically, such as predicting a solar eclipse in 585 BCE and using geometric principles to measure the height of pyramids. As one of the Seven Sages of Greece, his influence extended beyond philosophy, shaping early scientific and mathematical thought.
+```
+
+## Why Use ShadCN for Accordions?
+
+ShadCN provides a set of pre-styled, accessible UI components built on top of Radix UI, making it an excellent choice for creating a sleek and functional accordion component. With minimal styling and built-in accessibility, it allows developers to focus on functionality rather than reinventing the wheel.
+
+## The Accordion Component
+
+Our accordion component will allow each item to contain:
+
+- A **trigger**, which represents the title or label of the accordion item.
+- A **content** section that can accept either:
+  - Plain text
+  - JSX elements
+  - MDX components
+
+By supporting MDX components, this accordion can seamlessly integrate interactive Markdown-based elements, making it particularly useful for documentation, blogs, and content-heavy applications.
+
+### Implementation
+
+Below is the implementation of the `AccordionComponent`, as used in a Next.js 15 application:
+
+```tsx
+import React, { type ComponentType, type ReactNode } from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+// Define the props for each accordion item
+interface AccordionItemProps {
+  trigger: string;
+  content: ReactNode | ComponentType<Record<string, never>>; // Accepts text, JSX, or MDX components
+}
+
+// Define the props for the accordion component
+interface AccordionComponentProps {
+  items: AccordionItemProps[];
+}
+
+// Accordion component definition
+export default function AccordionComponent({ items }: AccordionComponentProps) {
+  return (
+    <Accordion type="single" collapsible className="w-full text-lg mb-8">
+      {items.map((item, i) => (
+        <AccordionItem key={`${item.trigger}-${i}`} value={`item-${i + 1}`}>
+          <AccordionTrigger className="text-lg">
+            {item.trigger}
+          </AccordionTrigger>
+          <AccordionContent className="text-lg">
+            {typeof item.content === "function" ? (
+              <item.content /> // Render MDX component
+            ) : (
+              item.content // Render plain text or JSX
+            )}
+          </AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
+}
+```
+
+## Integration in a Next.js 15 Application
+
+In a Next.js 15 app that supports MDX via `@/next/mdx`, we dynamically load MDX content from a structured content directory and use the accordion to present it. Here’s how the accordion component is used within an MDX-powered blog post:
+
+```mdx
+import AccordionComponent from "@/components/mdx/accordion-component";
+import ThalesOfMiletus from "@/content/mdx-snippets/thales-of-miletus.mdx";
+
+<AccordionComponent
+  items={[
+    {
+      trigger: "Thales of Miletus (c. 624–546 BCE)",
+      content: <ThalesOfMiletus />, // MDX component
+    },
+  ]}
+/>
+;
+```
+
+### Dynamic MDX Loading
+
+The Next.js application dynamically imports MDX files based on a `slug`, ensuring that the correct content is loaded into the accordion. This is accomplished using the following function:
+
+```tsx
+async function loadMdxFile(slug: string) {
+  try {
+    const mdxModule = await import(`@/content/posts/${slug}.mdx`);
+    return mdxModule;
+  } catch (error) {
+    console.error("Failed to load MDX file:", error);
+    return null;
+  }
+}
+```
+
+This function ensures that our accordion seamlessly integrates with the dynamically imported MDX content, allowing for a flexible and scalable content architecture.
+
+## Key Features
+
+### 1. **Flexible Content Support**
+
+The component can accept different types of content:
+
+- Plain strings or JSX elements (for regular use cases)
+- MDX components (ideal for markdown-driven applications)
+
+### 2. **Collapsible Single Selection**
+
+The `Accordion` component is configured as `type="single" collapsible`, meaning only one item can be open at a time, and users can collapse an open section by clicking on its trigger.
+
+### 3. **Dynamic Item Rendering**
+
+Using `.map()`, the component dynamically renders the list of accordion items while ensuring unique keys for React’s reconciliation process.
+
+### 4. **ShadCN Styling**
+
+The component uses ShadCN’s pre-styled `Accordion`, `AccordionItem`, `AccordionTrigger`, and `AccordionContent`, ensuring a polished and consistent design without extra CSS.
+
+## Conclusion
+
+By leveraging ShadCN’s pre-built components and MDX’s dynamic capabilities, you can create a seamless and engaging user experience with minimal effort.
+
+---
+
+Looking for more UI enhancements? Check out [ShadCN’s documentation](https://ui.shadcn.com) for more pre-styled components.
