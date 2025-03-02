@@ -1,0 +1,145 @@
+export const metadata = {
+  id: "973cf8ae-a0ed-45a2-8c8c-876df64b085a",
+  type: "blog",
+  title: "Optimized CustomImage Component for Next.js",
+  author: "O. Wolfson",
+  publishDate: "2025-03-03",
+  description:
+    "When working with images in a Next.js project, using the built-in next/image component is the recommended approach for optimized loading, automatic resizing, and improved performance.",
+  categories: ["Web Development"],
+  tags: ["image", "images"],
+  modifiedDate: "2025-03-02T19:55:43.182Z",
+  image: null,
+  draft: false,
+  relatedPosts: [],
+};
+
+When working with images in a Next.js project, using the built-in `next/image` component is the recommended approach for optimized loading, automatic resizing, and improved performance. However, customizing `next/image` to fit various layouts while maintaining responsiveness and loading enhancements can be tricky.
+
+This article introduces a reusable `CustomImage` component (`custom-image.tsx`) designed to provide seamless aspect ratio maintenance, a skeleton loader, and caption support.
+
+## MDX Compatibility
+
+The `CustomImage` component is fully compatible with MDX content, making it easy to embed optimized images directly within Markdown files. This is particularly useful for blog posts, documentation, and other content-driven projects in Next.js.
+
+<Image
+  src="/images/posts/philosophers/western/thales-of-miletus.jpg"
+  alt="Thales of Miletus"
+  width={800}
+  height={400}
+  caption="Example of the CustomImage component in use."
+/>
+
+### Example Usage in MDX
+
+When using `CustomImage` in an MDX file, simply import the component and embed it within the Markdown content:
+
+```mdx
+import CustomImage from "../components/custom-image";
+
+<CustomImage
+  src="/images/posts/philosophers/western/thales-of-miletus.jpg"
+  alt="Thales of Miletus"
+  width={800}
+  height={500}
+  caption="Thales of Miletus"
+/>
+
+**Thales of Miletus** was a pre-Socratic Greek philosopher, mathematician, and astronomer, often regarded as the first philosopher in Western tradition. A native of the Ionian city of Miletus, he sought to explain natural phenomena without relying on mythology, marking a shift toward rational inquiry. He proposed that water is the fundamental substance (archê) of all things, laying the groundwork for later natural philosophy.
+```
+
+This approach allows you to seamlessly integrate images within your content while leveraging Next.js optimizations.
+
+## Component Overview
+
+The `CustomImage` component, implemented in `custom-image.tsx`, wraps Next.js's `next/image` component and enhances it with additional features:
+
+- **Maintains Aspect Ratio**: Dynamically calculates the aspect ratio from `width` and `height` props, ensuring the image scales correctly.
+- **Skeleton Loader**: Displays a subtle loading animation until the image fully loads.
+- **Automatic Responsive Behavior**: Uses absolute positioning to maintain layout integrity.
+- **Optional Caption**: Displays a descriptive text below the image if provided.
+
+## Code Implementation
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import NextImage from "next/image";
+
+const CustomImage = ({
+  src,
+  alt,
+  width = 2000,
+  height = 1000,
+  caption,
+}: {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+}) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const aspectRatio = height / width; // Calculate aspect ratio
+
+  return (
+    <div className="w-full mb-4">
+      <div
+        className="relative w-full"
+        style={{ paddingBottom: `${aspectRatio * 100}%` }}
+      >
+        {/* Skeleton Loader */}
+        {isLoading && (
+          <div className="absolute inset-0 bg-muted animate-pulse" />
+        )}
+
+        {/* Next.js Image (maintains aspect ratio) */}
+        <NextImage
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ${
+            isLoading ? "opacity-0" : "opacity-100"
+          }`}
+          style={{ objectFit: "cover" }}
+          onLoadingComplete={() => setIsLoading(false)}
+        />
+      </div>
+
+      {caption && (
+        <div className="text-sm text-muted-foreground mt-2">{caption}</div>
+      )}
+    </div>
+  );
+};
+
+export default CustomImage;
+```
+
+## Key Features and Benefits
+
+### 1. **Preserves Aspect Ratio**
+
+By wrapping the `NextImage` component in a `div` with a dynamic `padding-bottom` based on the aspect ratio, the image maintains its expected proportions without layout shifts.
+
+### 2. **Skeleton Loader for Better UX**
+
+A subtle loading animation is displayed while the image is fetching, creating a smoother user experience.
+
+### 3. **Improved Performance**
+
+By leveraging `next/image`, the component benefits from Next.js’s automatic optimizations, such as lazy loading and efficient image rendering.
+
+### 4. **Optional Caption Support**
+
+Adding a caption below the image makes it more descriptive and useful for accessibility and SEO.
+
+## Naming Considerations
+
+Naming the component `CustomImage` inside `custom-image.tsx` avoids confusion with the built-in `next/image` import. This change improves clarity and maintains best practices for naming conventions in Next.js projects.
+
+## Conclusion
+
+This reusable `CustomImage` component enhances the standard `next/image` with additional usability features, ensuring responsive, optimized, and aesthetically pleasing image rendering in a Next.js project. By implementing a skeleton loader, maintaining aspect ratios, and supporting captions, this component improves user experience while leveraging Next.js’s powerful image optimization capabilities.

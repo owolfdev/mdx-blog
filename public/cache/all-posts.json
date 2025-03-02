@@ -744,6 +744,27 @@
     "likes": 3
   },
   {
+    "slug": "optimized-customimage-component-for-nextjs",
+    "id": "973cf8ae-a0ed-45a2-8c8c-876df64b085a",
+    "type": "blog",
+    "title": "Optimized CustomImage Component for Next.js",
+    "author": "O. Wolfson",
+    "publishDate": "2025-03-03",
+    "description": "When working with images in a Next.js project, using the built-in next/image component is the recommended approach for optimized loading, automatic resizing, and improved performance.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "image",
+      "images"
+    ],
+    "modifiedDate": "2025-03-02T19:55:43.182Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [],
+    "likes": 0
+  },
+  {
     "slug": "optimizing-mdx-for-seo",
     "id": "382e77f9-d0b5-46af-ab8e-c7b86c9758db",
     "type": "blog",
@@ -1068,7 +1089,7 @@
     "type": "blog",
     "title": "Versatile Accordion Component Built with ShadCN and MDX Support",
     "author": "O. Wolfson",
-    "publishDate": "2025-02-28",
+    "publishDate": "2025-02-27",
     "description": "Accordions are an essential UI component for organizing content in a compact and interactive manner. In this article, we will explore how to build an enhanced accordion component using [ShadCN](https://ui.shadcn.com) that supports both Markdown (MDX) components and raw JSX or plain text as content.",
     "categories": [
       "Web Development",
