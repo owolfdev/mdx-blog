@@ -2,16 +2,16 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
+import { BiLoaderAlt } from "react-icons/bi"; // Loading Spinner Icon
 import {
   countLikes,
   addLike,
   removeLike,
-  isPostLikedByUser, // New action
+  isPostLikedByUser,
 } from "@/app/actions/like-actions";
-import { buttonVariants } from "@/components/ui/button";
 
 interface LikeButtonProps {
-  postId: string; // postId is a string (UUID)
+  postId: string;
 }
 
 function LikeButton({ postId }: LikeButtonProps) {
@@ -19,14 +19,14 @@ function LikeButton({ postId }: LikeButtonProps) {
   const [userId, setUserId] = useState<string | null>(null);
   const [totalLikes, setTotalLikes] = useState<number>(0);
   const [loading, setLoading] = useState(true);
-  const [likeActionInProgress, setLikeActionInProgress] = useState(false); // New state for like action
+  const [likeActionInProgress, setLikeActionInProgress] = useState(false);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const fetchUserId = async () => {
       let storedUserId = localStorage.getItem("userIdForMDXBlog");
       if (!storedUserId) {
-        storedUserId = uuidv4(); // For testing purposes, otherwise get it from your auth system.
+        storedUserId = uuidv4();
         localStorage.setItem("userIdForMDXBlog", storedUserId);
       }
       setUserId(storedUserId);
@@ -34,29 +34,27 @@ function LikeButton({ postId }: LikeButtonProps) {
 
     fetchUserId();
     fetchTotalLikes();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId]);
 
   useEffect(() => {
     if (userId) {
       checkIfLikedByUser();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   async function fetchTotalLikes() {
     try {
       const response = await countLikes(postId);
-      if (response.success && typeof response.count === "number") {
-        setTotalLikes(response.count);
-      } else {
-        setTotalLikes(0);
-      }
+      setTotalLikes(
+        response.success && typeof response.count === "number"
+          ? response.count
+          : 0
+      );
     } catch (error) {
       console.error("Failed to fetch likes:", error);
       setTotalLikes(0);
     } finally {
-      setLoading(false); // Data has been loaded, even if there was an error
+      setLoading(false);
     }
   }
 
@@ -73,30 +71,38 @@ function LikeButton({ postId }: LikeButtonProps) {
 
   async function handleLikeAction() {
     if (userId && !likeActionInProgress) {
-      setLikeActionInProgress(true); // Start the like action
-      const response = await addLike(postId, userId);
-      if (response.success) {
-        setLiked(true);
-        setTotalLikes((prev) => prev + 1);
+      setLikeActionInProgress(true);
+      try {
+        const response = await addLike(postId, userId);
+        if (response.success) {
+          setLiked(true);
+          setTotalLikes((prev) => prev + 1);
+        }
+      } catch (error) {
+        console.error("Error liking the post:", error);
       }
-      setLikeActionInProgress(false); // End the like action
+      setLikeActionInProgress(false);
     }
   }
 
   async function handleUnlikeAction() {
     if (userId && !likeActionInProgress) {
-      setLikeActionInProgress(true); // Start the unlike action
-      const response = await removeLike(postId, userId);
-      if (response.success) {
-        setLiked(false);
-        setTotalLikes((prev) => prev - 1);
+      setLikeActionInProgress(true);
+      try {
+        const response = await removeLike(postId, userId);
+        if (response.success) {
+          setLiked(false);
+          setTotalLikes((prev) => prev - 1);
+        }
+      } catch (error) {
+        console.error("Error unliking the post:", error);
       }
-      setLikeActionInProgress(false); // End the unlike action
+      setLikeActionInProgress(false);
     }
   }
 
   if (loading) {
-    return null; // Hide component while loading
+    return null;
   }
 
   return (
@@ -113,22 +119,28 @@ function LikeButton({ postId }: LikeButtonProps) {
               handleLikeAction();
             }
           }}
-          className={`bg-primary text-primary-foreground font-bold py-2 px-4 rounded flex items-center relative overflow-hidden ${
+          className={`bg-primary text-primary-foreground font-bold py-2 px-4 rounded flex items-center gap-2 relative overflow-hidden ${
             liked ? "liked" : "unliked"
-          }`}
-          disabled={likeActionInProgress} // Disable button while action is in progress
-          aria-label={liked ? "Unlike this post" : "Like this post"} // Provide an accessible name
+          } hover:bg-primary/80 active:scale-95 disabled:opacity-50`}
+          disabled={likeActionInProgress}
+          aria-label={liked ? "Unlike this post" : "Like this post"}
         >
           <div
             className={`like-icon ${liked ? "animate-like" : "animate-unlike"}`}
           >
             {liked ? (
-              <AiFillLike className="text-xl mr-2" />
+              <AiFillLike className="text-xl" />
             ) : (
-              <AiOutlineLike className="text-xl mr-2" />
+              <AiOutlineLike className="text-xl" />
             )}
           </div>
-          {liked ? "Liked" : "Like"}
+          {likeActionInProgress ? (
+            <BiLoaderAlt className="animate-spin text-lg" /> // Loading spinner
+          ) : liked ? (
+            "Liked"
+          ) : (
+            "Like"
+          )}
         </button>
       </div>
     </div>
