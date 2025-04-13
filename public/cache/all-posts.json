@@ -21,6 +21,32 @@
     "likes": 2
   },
   {
+    "slug": "a-minimal-mdx-blog-with-nextjs-15-and-react-19",
+    "id": "3efef92b-ac89-4fcf-817a-bd8d21821110",
+    "type": "blog",
+    "title": "A Minimal MDX Blog with Next.js 15 and React 19",
+    "author": "O. Wolfson",
+    "publishDate": "2025-04-12",
+    "description": "This project is a lightweight demo of an MDX-powered blog using Next.js 15, React 19, and the @/next/mdx package.",
+    "categories": [
+      "Web Development",
+      "Productivity"
+    ],
+    "tags": [
+      "mdx",
+      "markdown",
+      "next.js",
+      "react",
+      "static",
+      "blog"
+    ],
+    "modifiedDate": "2025-04-13T01:59:55.947Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [],
+    "likes": 0
+  },
+  {
     "slug": "adding-mdx-support-to-your-next.js-project",
     "id": "7dece0e7-f10f-4b67-b34b-9ab510aa6a11",
     "type": "blog",
@@ -131,7 +157,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 5
   },
   {
     "slug": "caching-mdx-metadata-for-fast-post-management",
@@ -273,7 +299,7 @@
     "relatedPosts": [
       "creating-anchor-links-to-page-sections-in-mdx"
     ],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "frictionless-content-creation-with-mdxblog",
@@ -344,7 +370,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "how-to-install-mdx-blog-and-deploy-on-vercel",
@@ -395,7 +421,7 @@
       "import-components-to-mdx",
       "using-and-styling-custom-components-in-mdx-content"
     ],
-    "likes": 5
+    "likes": 7
   },
   {
     "slug": "how-to-use-mdx-blog",
@@ -419,7 +445,7 @@
     "relatedPosts": [
       "how-to-install-mdx-blog-and-deploy-on-vercel"
     ],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "import-components-to-mdx",
@@ -630,7 +656,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 30
+    "likes": 33
   },
   {
     "slug": "mdx-performance-optimization",
@@ -762,7 +788,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 3
   },
   {
     "slug": "optimizing-mdx-for-seo",
@@ -786,7 +812,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "rendering-mdx-content-in-nextjs-14",
@@ -849,7 +875,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "static-mdx-cms",
@@ -916,7 +942,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 5
+    "likes": 6
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",
@@ -1039,7 +1065,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 4
+    "likes": 5
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",
@@ -1103,6 +1129,6 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 3
   }
 ]
