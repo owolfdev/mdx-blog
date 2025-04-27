@@ -18,5 +18,3 @@ MDXBlog has been updated to incorporate the latest features of **Next.js 15**. T
 The updated code is currently in beta and available for testing.
 
 **GitHub Repo:** [N15-Site-Template](https://github.com/owolfdev/N15-Site-Template)
-
-fix
