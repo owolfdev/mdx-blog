@@ -1,0 +1,204 @@
+export const metadata = {
+  id: "80e5e0a0-8522-4b50-b6dc-11cf9081cfd5",
+  type: "blog",
+  title:
+    "How I Built a Markdown-to-PDF Converter with Node.js, Puppeteer, and Next.js",
+  author: "O. Wolfson",
+  publishDate: "2025-04-27",
+  description:
+    "In this article, I’ll walk you through how I built a full-stack Markdown-to-PDF conversion service, combining a simple Node.js backend and a modern Next.js frontend.",
+  categories: ["Web Development", "Programming", "Productivity"],
+  tags: ["markdown", "pdf", "puppeteer", "nodejs", "productivity"],
+  modifiedDate: "2025-04-27T09:08:37.160Z",
+  image: null,
+  draft: false,
+  relatedPosts: [],
+};
+
+In this article, I’ll walk you through how I built a **full-stack** [Markdown-to-PDF conversion service](https://md2pdf.owolf.com), combining a simple Node.js backend and a modern Next.js frontend.
+
+The goal was simple:  
+**Allow users to paste Markdown into a form, and download a styled PDF document — instantly.**
+
+---
+
+## The Tech Stack
+
+- **Backend**: Node.js + Express + Puppeteer
+- **Frontend**: Next.js 15 (App Router) + Tailwind CSS 4 + ShadCN UI components
+- **Deployment**:
+  - Backend API server on **DigitalOcean** (Ubuntu 22.04 droplet)
+  - Frontend web app on **Vercel**
+- **Libraries**:
+  - Backend:
+    - `express`, `cors`, `express-rate-limit`
+    - `markdown-it`, `markdown-it-container`
+    - `puppeteer`
+  - Frontend:
+    - `next` (v15.3.0)
+    - `react` (v19)
+    - `tailwindcss` (v4)
+    - `lucide-react`, `clsx`, `class-variance-authority`
+    - UI behavior powered by `@radix-ui/react-tabs`
+
+---
+
+## Backend: Building the Markdown-to-PDF API
+
+The backend server is a lightweight Express app that:
+
+1. Accepts a `POST` request containing raw Markdown.
+2. Parses it into styled HTML.
+3. Converts the HTML into a PDF using Puppeteer.
+4. Sends the PDF back to the client for download.
+
+### Markdown Parsing
+
+Markdown is parsed using `markdown-it`, with special extensions for **custom page breaks**:
+
+```javascript
+const md = markdownIt().use(markdownItContainer, "pagebreak", {
+  render: function (tokens, idx) {
+    if (tokens[idx].nesting === 1) {
+      return '<div style="page-break-after: always;"></div>';
+    }
+    return "";
+  },
+});
+```
+
+This allows users to manually insert page breaks inside their Markdown.
+
+### HTML Styling
+
+The HTML output is wrapped in a basic template with embedded CSS for:
+
+- Body padding, font sizing, and line height
+- Table styling (bordered, striped rows)
+- Page break styling (`div[style*="page-break-after"]`)
+
+This ensures the PDF has a clean, readable, consistent appearance.
+
+### PDF Conversion
+
+Using Puppeteer (headless Chrome), the server:
+
+- Loads the generated HTML
+- Applies margins and A4 page size
+- Generates a PDF in-memory
+- Streams it back to the client
+
+Example PDF generation:
+
+```javascript
+await page.pdf({
+  path: outputPath,
+  format: "A4",
+  margin: { top: "20mm", right: "20mm", bottom: "20mm", left: "20mm" },
+});
+```
+
+Finally, rate limiting (`express-rate-limit`) was added to protect the server from abuse.
+
+---
+
+## Frontend: Next.js App for Markdown Input
+
+The frontend is built with **Next.js 15** using the **App Router** and Tailwind CSS 4.
+
+It provides:
+
+- A text editor (`Textarea`) to paste or write Markdown
+- Tabs to **Edit**, **Preview**, and pick from **Templates**
+- Download button to generate and download the PDF
+
+Everything is beautifully styled using **TailwindCSS**, **Radix Tabs**, and **ShadCN UI** components.
+
+### Markdown Preview
+
+To show a simple live preview without heavy libraries, I wrote a small Markdown-to-HTML converter for the preview pane:
+
+```javascript
+const html = content
+  .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold my-4">$1</h1>')
+  .replace(/^## (.*$)/gm, '<h2 class="text-xl font-semibold my-3">$1</h2>')
+  .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+  .replace(/\*(.*?)\*/g, "<em>$1</em>")
+  .replace(/\n\n/g, "<br/><br/>");
+```
+
+(For production, something like `marked` or `react-markdown` would be more robust.)
+
+### Templates
+
+The frontend offers quick-start templates (like **Resume**, **Project Report**, and **Formal Letter**) that users can click to auto-fill the editor.
+
+This speeds up the process and helps users unfamiliar with Markdown syntax.
+
+### Download Action
+
+When users click **Download PDF**, the client sends a `POST` request to the backend:
+
+```javascript
+export async function convertMarkdownToPdf(markdown: string): Promise<Blob | null> {
+  const response = await fetch("https://md2pdfapi.owolf.com/api/convert", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ markdown }),
+  });
+
+  if (!response.ok) return null;
+  return await response.blob();
+}
+```
+
+The PDF Blob is then downloaded **automatically** via a hidden `<a>` link.
+
+---
+
+## Deployment
+
+- **Backend** (`md-to-pdf` API server):
+  - Deployed on a **DigitalOcean** droplet (Ubuntu 22.04).
+  - Runs a simple Node.js app with Puppeteer installed.
+- **Frontend** (Next.js web app):
+  - Deployed on **Vercel**.
+  - Automatic HTTPS, edge caching, and CI/CD for fast updates.
+
+---
+
+## Challenges and Lessons Learned
+
+- Puppeteer requires special flags (`--no-sandbox`) to run on DigitalOcean without a full desktop environment.
+- Basic rate-limiting is important to avoid potential abuse.
+- Page break handling was trickier than expected — HTML/CSS alone needs special tricks to get it right for PDFs.
+- Keeping things lightweight improves UX:  
+  No heavy client-side libraries, no unnecessary Markdown renderers — fast and clean.
+
+---
+
+## Final Result
+
+- **Frontend**: Clean, simple, fast Markdown editor with live preview and templates.
+- **Backend**: Reliable, secure Markdown-to-PDF conversion engine.
+- **User experience**: Paste → Preview → Download PDF in seconds.
+
+---
+
+# ✨ Future Improvements
+
+Some ideas to make it even better:
+
+- Add file upload support (upload `.md` files)
+- Save previous documents for logged-in users
+- Offer style/theme options (modern, professional, academic)
+- Queue large jobs and email the PDF when ready (for very large markdown)
+- Allow image upload or embedded media support
+
+---
+
+# Conclusion
+
+This project was a fun and practical full-stack build — and a great example of how you can combine **Node.js**, **Puppeteer**, and **Next.js** to create useful, production-ready web services.
+
+If you’re looking to spin up a project that combines real-world Markdown usage, PDF generation, and modern web app design — this stack works beautifully.

@@ -24,7 +24,7 @@
     "slug": "a-minimal-mdx-blog-with-nextjs-15-and-react-19",
     "id": "3efef92b-ac89-4fcf-817a-bd8d21821110",
     "type": "blog",
-    "title": "A Minimal MDX Blog with Next.js 15 and React 19",
+    "title": "A Minimal MDX Blog App with Next.js 15 and React 19",
     "author": "O. Wolfson",
     "publishDate": "2025-04-12",
     "description": "This project is a lightweight demo of an MDX-powered blog using Next.js 15, React 19, and the @/next/mdx package.",
@@ -44,7 +44,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 4
   },
   {
     "slug": "adding-mdx-support-to-your-next.js-project",
@@ -275,7 +275,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 14
+    "likes": 16
   },
   {
     "slug": "custom-link-component-for-external-navigation",
@@ -346,6 +346,32 @@
     "draft": false,
     "relatedPosts": [],
     "likes": 1
+  },
+  {
+    "slug": "how-i-built-a-markdown-to-pdf-converter-with-nodejs-puppeteer-and-nextjs",
+    "id": "80e5e0a0-8522-4b50-b6dc-11cf9081cfd5",
+    "type": "blog",
+    "title": "How I Built a Markdown-to-PDF Converter with Node.js, Puppeteer, and Next.js",
+    "author": "O. Wolfson",
+    "publishDate": "2025-04-27",
+    "description": "In this article, I’ll walk you through how I built a full-stack Markdown-to-PDF conversion service, combining a simple Node.js backend and a modern Next.js frontend.",
+    "categories": [
+      "Web Development",
+      "Programming",
+      "Productivity"
+    ],
+    "tags": [
+      "markdown",
+      "pdf",
+      "puppeteer",
+      "nodejs",
+      "productivity"
+    ],
+    "modifiedDate": "2025-04-27T09:08:37.160Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [],
+    "likes": 0
   },
   {
     "slug": "how-nextjs-processes-mdx",
@@ -656,7 +682,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 33
+    "likes": 34
   },
   {
     "slug": "mdx-performance-optimization",
