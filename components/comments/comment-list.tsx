@@ -7,6 +7,11 @@ import type { Comment } from "@/types/comment"; // ✅ Import the real Comment t
 
 type Props = {
   comments: Comment[];
+  onAdd: (
+    authorName: string,
+    content: string,
+    repliedToId?: string | null
+  ) => void;
   onEdit: (id: string, newContent: string) => void;
   onDelete: (id: string) => void;
   isDevMode: boolean;
@@ -14,6 +19,7 @@ type Props = {
 
 export default function CommentList({
   comments,
+  onAdd, // ✅ add this!
   onEdit,
   onDelete,
   isDevMode,
@@ -43,13 +49,13 @@ export default function CommentList({
           </div>
           {editingId === comment.id ? (
             <CommentForm
+              onSubmit={(authorName, content) => {
+                onEdit(comment.id, content); // ✅ Edit the existing comment
+                setEditingId(null);
+              }}
               initialAuthorName={comment.authorName ?? undefined}
               initialContent={comment.content}
               onCancel={() => setEditingId(null)}
-              onSubmit={(authorName, content) => {
-                onEdit(comment.id, content);
-                setEditingId(null);
-              }}
             />
           ) : (
             <p className="text-base">{comment.content}</p>
@@ -76,7 +82,7 @@ export default function CommentList({
           <div className="ml-6 mt-3">
             <CommentForm
               onSubmit={(authorName, content) => {
-                onEdit(comment.id, content);
+                onAdd(authorName, content, comment.id); // ✅ New reply
                 setReplyingToId(null);
               }}
               repliedToId={comment.id}

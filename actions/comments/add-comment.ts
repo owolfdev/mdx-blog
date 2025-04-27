@@ -13,26 +13,26 @@ export async function addComment({
   postSlug,
   authorName,
   content,
-  repliedToId = null,
-}: AddCommentParams) {
+  repliedToId = null, // ✅ default to null if missing
+}: {
+  postSlug: string;
+  authorName: string;
+  content: string;
+  repliedToId?: string | null;
+}) {
   const supabase = await createClient();
-
   const { data, error } = await supabase
     .from("mdxblog_comments")
     .insert([
       {
         post_slug: postSlug,
         author_name: authorName,
-        content,
-        replied_to_id: repliedToId,
+        content: content,
+        replied_to_id: repliedToId ?? null,
       },
     ])
-    .select("*"); // Select inserted row to return it
+    .select("*");
 
-  if (error) {
-    console.error("Add comment error:", error.message);
-    throw new Error(error.message);
-  }
-
+  if (error) throw new Error(error.message);
   return data;
 }

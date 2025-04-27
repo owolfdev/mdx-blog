@@ -100,6 +100,7 @@ export default function CommentSection({ postSlug, initialComments }: Props) {
       {/* Comments List */}
       <CommentList
         comments={comments}
+        onAdd={handleAddComment}
         onEdit={handleEditComment}
         onDelete={handleDeleteComment}
         isDevMode={isDevMode()}
