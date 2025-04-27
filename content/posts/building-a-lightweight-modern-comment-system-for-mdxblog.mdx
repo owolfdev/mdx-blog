@@ -1,0 +1,133 @@
+export const metadata = {
+  id: "fcb4bab5-281e-4bfd-85d8-8cd3d1a7b03a",
+  type: "blog",
+  title: "Building a Lightweight, Modern Comment System for MDXBlog",
+  author: "O. Wolfson",
+  publishDate: "2025-04-27",
+  description:
+    "One of our goals for this site is to keep it fast, focused, and pleasant to read.",
+  categories: ["Web Development", "Programming"],
+  tags: ["comments", "comment section", "comment", "reply"],
+  modifiedDate: "2025-04-27T21:59:30.073Z",
+  image: null,
+  draft: false,
+  relatedPosts: [],
+};
+
+One of our goals for this site is to keep it fast, focused, and pleasant to read — without unnecessary clutter.
+
+When we decided to add a **comment system** to our blog posts, we had a few requirements:
+
+- Comments should be lightweight — no external heavy platforms.
+- Readers should be able to **comment anonymously** without needing an account.
+- Replies should be supported — simple threaded discussions.
+- The experience should feel modern and smooth, but **minimalist**.
+- Admins (me) should be able to **edit and delete** any comment directly.
+
+Here’s how we built it.
+
+---
+
+## The Tech Stack
+
+The comment system integrates tightly with the blog, built using:
+
+- **Next.js 15** (with the App Router and server actions)
+- **Supabase** as the backend database
+- **Tailwind CSS** for styling
+- **ShadCN UI** for modern, consistent components
+- **TypeScript** everywhere for strict typing
+
+---
+
+## Database Structure
+
+On the database side (in Supabase), we created a simple table:
+
+```sql
+CREATE TABLE mdxblog_comments (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  post_slug TEXT NOT NULL,
+  author_name TEXT,
+  content TEXT NOT NULL,
+  replied_to_id UUID REFERENCES mdxblog_comments(id),
+  created_at TIMESTAMP DEFAULT now(),
+  updated_at TIMESTAMP
+);
+```
+
+- **Top-level comments** have `replied_to_id = null`.
+- **Replies** store the `id` of the parent comment in `replied_to_id`.
+
+This creates a clean parent–child relationship between comments and replies.
+
+---
+
+## How It Works
+
+1. **Fetching Comments:**  
+   On the server (inside the blog page), we query all comments for the given post slug during server-side rendering, and pass them as props to the client.
+
+2. **Displaying Comments:**  
+   A `CommentSection` component renders a **Leave a Comment** button (instead of a huge empty form).  
+   When clicked, a **ShadCN Dialog** pops open containing the comment form.
+
+3. **Posting Comments:**  
+   When a user submits a comment, a **server action** adds it to the Supabase database and updates the local comment list immediately.
+
+4. **Replies:**  
+   Replies are implemented recursively.  
+   A reply is just another comment that happens to have a `repliedToId` pointing to its parent.  
+   Replies are visually indented, but they don't get their own bottom border like top-level comments do.
+
+5. **Admin Controls:**  
+   If the app is running in development mode (`isDevMode()`), admin users can **edit** or **delete** any comment directly from the UI.
+
+---
+
+## Handling Edge Cases
+
+- Comments are stored in **local storage** so anonymous users can still edit or delete their own comments during the same session.
+- We manually **mapped the database fields** (which come in `snake_case`) to our frontend models (which use `camelCase`) to keep TypeScript happy.
+- We made sure **only top-level comments** render dividers (`border-b`). Replies are indented without extra borders or padding that would create awkward gaps.
+
+---
+
+## Why Not Realtime?
+
+At first, we considered using **Supabase Realtime** to live-stream new comments into the page.
+
+However, for a personal blog — where live, multi-user editing isn’t a strong requirement — it made more sense to keep things simple:
+
+- New comments are added directly into local React state after posting.
+- No open WebSocket connections.
+- Lighter, faster, and more resource-efficient.
+
+If needed later, adding Realtime would only take about 10–20 lines of extra code.
+
+---
+
+## Final Result
+
+✅ Readers can leave comments anonymously.  
+✅ We can manage comments easily when editing the blog.  
+✅ The UX feels modern and minimal.  
+✅ The system is lightweight, secure, and extendable for the future.
+
+---
+
+## Future Improvements
+
+In the future, we might polish the system with small enhancements:
+
+- **Scroll into view** after posting a new comment
+- **Fade-in animations** when comments appear
+- **Soft vertical lines** between parent and child comments for better threading visualization
+- **Better spam protection** if necessary
+
+But for now, it does exactly what we need — without any extra bloat.
+
+---
+
+**Thanks for reading!**  
+If you have any thoughts or ideas for improving the comment system, feel free to... leave a comment. 🙂

@@ -160,6 +160,30 @@
     "likes": 5
   },
   {
+    "slug": "building-a-lightweight-modern-comment-system-for-mdxblog",
+    "id": "fcb4bab5-281e-4bfd-85d8-8cd3d1a7b03a",
+    "type": "blog",
+    "title": "Building a Lightweight, Modern Comment System for MDXBlog",
+    "author": "O. Wolfson",
+    "publishDate": "2025-04-27",
+    "description": "One of our goals for this site is to keep it fast, focused, and pleasant to read.",
+    "categories": [
+      "Web Development",
+      "Programming"
+    ],
+    "tags": [
+      "comments",
+      "comment section",
+      "comment",
+      "reply"
+    ],
+    "modifiedDate": "2025-04-27T21:59:30.073Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [],
+    "likes": 1
+  },
+  {
     "slug": "caching-mdx-metadata-for-fast-post-management",
     "id": "c0e80de8-cbc6-4341-af2b-fb177449b735",
     "type": "blog",
@@ -371,7 +395,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 3
   },
   {
     "slug": "how-nextjs-processes-mdx",
@@ -1142,7 +1166,7 @@
     "title": "Versatile Accordion Component Built with ShadCN and MDX Support",
     "author": "O. Wolfson",
     "publishDate": "2025-02-27",
-    "description": "Accordions are an essential UI component for organizing content in a compact and interactive manner. In this article, we will explore how to build an enhanced accordion component using [ShadCN](https://ui.shadcn.com) that supports both Markdown (MDX) components and raw JSX or plain text as content.",
+    "description": "Accordions are an essential UI component for organizing content in a compact and interactive manner.",
     "categories": [
       "Web Development",
       "Productivity"
@@ -1151,7 +1175,7 @@
       "accordion",
       "shadcn"
     ],
-    "modifiedDate": "2025-02-27T20:43:37.196Z",
+    "modifiedDate": "2025-04-27T22:07:30.693Z",
     "image": null,
     "draft": false,
     "relatedPosts": [],

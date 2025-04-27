@@ -4,6 +4,7 @@ import { useState } from "react";
 import { addComment } from "@/actions/comments/add-comment";
 import { editComment } from "@/actions/comments/edit-comment";
 import { deleteComment } from "@/actions/comments/delete-comment";
+import { approveComment } from "@/actions/comments/approve-comment"; // ✅ Import approve
 import {
   getMyCommentIds,
   addMyCommentId,
@@ -53,11 +54,12 @@ export default function CommentSection({ postSlug, initialComments }: Props) {
         repliedToId: newComment[0].replied_to_id,
         createdAt: newComment[0].created_at,
         updatedAt: newComment[0].updated_at,
+        approved: newComment[0].is_approved,
       };
 
       setComments((prev) => [...prev, mappedComment]);
       addMyCommentId(mappedComment.id);
-      setDialogOpen(false); // Close dialog after submitting
+      setDialogOpen(false);
     } catch (err) {
       console.error(err);
       setError("Failed to add comment.");
@@ -89,6 +91,20 @@ export default function CommentSection({ postSlug, initialComments }: Props) {
     }
   }
 
+  async function handleApproveComment(id: string) {
+    try {
+      await approveComment(id);
+      setComments((prev) =>
+        prev.map((comment) =>
+          comment.id === id ? { ...comment, approved: true } : comment
+        )
+      );
+    } catch (err) {
+      console.error(err);
+      setError("Failed to approve comment.");
+    }
+  }
+
   return (
     <div className="mt-4">
       {/* Comment button */}
@@ -116,6 +132,7 @@ export default function CommentSection({ postSlug, initialComments }: Props) {
         onAdd={handleAddComment}
         onEdit={handleEditComment}
         onDelete={handleDeleteComment}
+        onApprove={handleApproveComment} // ✅ Pass the approve handler
         isDevMode={isDevMode()}
       />
 

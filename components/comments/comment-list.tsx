@@ -3,7 +3,7 @@
 import { useState } from "react";
 import CommentForm from "./comment-form";
 import { getMyCommentIds } from "@/lib/comments/local-storage";
-import type { Comment } from "@/types/comment"; // ✅ Import the real Comment type
+import type { Comment } from "@/types/comment";
 
 type Props = {
   comments: Comment[];
@@ -14,14 +14,16 @@ type Props = {
   ) => void;
   onEdit: (id: string, newContent: string) => void;
   onDelete: (id: string) => void;
+  onApprove: (id: string) => void;
   isDevMode: boolean;
 };
 
 export default function CommentList({
   comments,
-  onAdd, // ✅ add this!
+  onAdd,
   onEdit,
   onDelete,
+  onApprove,
   isDevMode,
 }: Props) {
   const [replyingToId, setReplyingToId] = useState<string | null>(null);
@@ -33,23 +35,39 @@ export default function CommentList({
     return isDevMode || myCommentIds.includes(commentId);
   };
 
-  const topLevelComments = comments.filter(
+  const canSeeComment = (comment: Comment) => {
+    return isDevMode || comment.approved || myCommentIds.includes(comment.id);
+  };
+
+  const visibleComments = comments.filter(canSeeComment);
+
+  const topLevelComments = visibleComments.filter(
     (comment) => comment.repliedToId === null
   );
 
   const repliesFor = (commentId: string) =>
-    comments.filter((comment) => comment.repliedToId === commentId);
+    visibleComments.filter((comment) => comment.repliedToId === commentId);
 
   function renderComment(comment: Comment, isReply = false) {
     return (
       <div
         key={comment.id}
-        className={`${isReply ? "pt-2" : "border-b py-4"} pl-0`}
+        className={`pl-0 ${isReply ? "pt-2" : "border-b py-4"} ${
+          !comment.approved ? "bg-muted-background" : ""
+        }`}
       >
         <div className="flex flex-col gap-1">
-          <div className="text-lg font-semibold mb-1">
-            {comment.authorName || "Anonymous"}
+          <div className="flex items-center gap-2">
+            <div className="text-xl font-semibold">
+              {comment.authorName || "Anonymous"}
+            </div>
+            {!comment.approved && (
+              <span className="text-xs text-destructive">
+                (Comment is Pending Approval)
+              </span>
+            )}
           </div>
+
           {editingId === comment.id ? (
             <CommentForm
               onSubmit={(authorName, content) => {
@@ -63,6 +81,7 @@ export default function CommentList({
           ) : (
             <p className="text-base">{comment.content}</p>
           )}
+
           <div className="flex gap-2 mt-1 text-xs text-gray-500">
             <button type="button" onClick={() => setReplyingToId(comment.id)}>
               Reply
@@ -75,6 +94,15 @@ export default function CommentList({
                 <button type="button" onClick={() => onDelete(comment.id)}>
                   Delete
                 </button>
+                {isDevMode && !comment.approved && (
+                  <button
+                    type="button"
+                    className="text-red-500"
+                    onClick={() => onApprove(comment.id)}
+                  >
+                    Approve
+                  </button>
+                )}
               </>
             )}
           </div>
@@ -104,9 +132,6 @@ export default function CommentList({
 
   return (
     <div className="flex flex-col mt-6">
-      {/* {topLevelComments.length === 0 && (
-        <p className="text-gray-500">No comments yet.</p>
-      )} */}
       {topLevelComments.map((comment) => renderComment(comment))}
     </div>
   );

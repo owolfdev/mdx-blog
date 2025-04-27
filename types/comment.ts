@@ -9,9 +9,10 @@ export interface Comment {
   repliedToId: string | null;
   createdAt: string;
   updatedAt: string | null;
+  approved: boolean; // ✅ Add this field
 }
 
-// Database version (snake_case)
+// Database version (snake_case from Supabase)
 export interface DbComment {
   id: string;
   post_slug: string;
@@ -20,4 +21,5 @@ export interface DbComment {
   replied_to_id: string | null;
   created_at: string;
   updated_at: string | null;
+  is_approved: boolean; // ✅ You need to add this too for accuracy
 }

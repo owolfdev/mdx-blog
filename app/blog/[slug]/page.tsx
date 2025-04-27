@@ -25,6 +25,7 @@ interface DbComment {
   replied_to_id: string | null;
   created_at: string;
   updated_at: string | null;
+  is_approved: boolean;
 }
 
 interface Comment {
@@ -35,6 +36,7 @@ interface Comment {
   repliedToId: string | null;
   createdAt: string;
   updatedAt: string | null;
+  approved: boolean;
 }
 
 // Dynamically import the MDX file based on the slug
@@ -120,6 +122,7 @@ export default async function Blog({ params }: Props) {
         repliedToId: c.replied_to_id,
         createdAt: c.created_at,
         updatedAt: c.updated_at,
+        approved: c.is_approved,
       }));
     } else {
       console.error("Failed to load comments:", error?.message);
