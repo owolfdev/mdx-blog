@@ -44,8 +44,19 @@ export default function CommentSection({ postSlug, initialComments }: Props) {
         content,
         repliedToId,
       });
-      setComments((prev) => [...prev, newComment[0]]);
-      addMyCommentId(newComment[0].id);
+
+      const mappedComment: Comment = {
+        id: newComment[0].id,
+        postSlug: newComment[0].post_slug,
+        authorName: newComment[0].author_name,
+        content: newComment[0].content,
+        repliedToId: newComment[0].replied_to_id,
+        createdAt: newComment[0].created_at,
+        updatedAt: newComment[0].updated_at,
+      };
+
+      setComments((prev) => [...prev, mappedComment]);
+      addMyCommentId(mappedComment.id);
       setDialogOpen(false); // Close dialog after submitting
     } catch (err) {
       console.error(err);
@@ -79,9 +90,7 @@ export default function CommentSection({ postSlug, initialComments }: Props) {
   }
 
   return (
-    <div className="mt-10">
-      <h2 className="text-2xl font-bold mb-4">Comments</h2>
-
+    <div className="mt-4">
       {/* Comment button */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogTrigger asChild>
@@ -96,6 +105,10 @@ export default function CommentSection({ postSlug, initialComments }: Props) {
           <CommentForm onSubmit={handleAddComment} />
         </DialogContent>
       </Dialog>
+
+      {comments.length > 0 && (
+        <h2 className="text-2xl font-bold mb-4">Comments</h2>
+      )}
 
       {/* Comments List */}
       <CommentList

@@ -40,17 +40,20 @@ export default function CommentList({
   const repliesFor = (commentId: string) =>
     comments.filter((comment) => comment.repliedToId === commentId);
 
-  function renderComment(comment: Comment) {
+  function renderComment(comment: Comment, isReply = false) {
     return (
-      <div key={comment.id} className="border-b py-4 pl-0">
+      <div
+        key={comment.id}
+        className={`${isReply ? "pt-2" : "border-b py-4"} pl-0`}
+      >
         <div className="flex flex-col gap-1">
-          <div className="text-lg font-semibold  mb-1">
+          <div className="text-lg font-semibold mb-1">
             {comment.authorName || "Anonymous"}
           </div>
           {editingId === comment.id ? (
             <CommentForm
               onSubmit={(authorName, content) => {
-                onEdit(comment.id, content); // ✅ Edit the existing comment
+                onEdit(comment.id, content);
                 setEditingId(null);
               }}
               initialAuthorName={comment.authorName ?? undefined}
@@ -82,7 +85,7 @@ export default function CommentList({
           <div className="ml-6 mt-3">
             <CommentForm
               onSubmit={(authorName, content) => {
-                onAdd(authorName, content, comment.id); // ✅ New reply
+                onAdd(authorName, content, comment.id);
                 setReplyingToId(null);
               }}
               repliedToId={comment.id}
@@ -93,7 +96,7 @@ export default function CommentList({
 
         {/* Nested replies */}
         <div className="ml-6">
-          {repliesFor(comment.id).map((reply) => renderComment(reply))}
+          {repliesFor(comment.id).map((reply) => renderComment(reply, true))}
         </div>
       </div>
     );
@@ -101,9 +104,9 @@ export default function CommentList({
 
   return (
     <div className="flex flex-col mt-6">
-      {topLevelComments.length === 0 && (
+      {/* {topLevelComments.length === 0 && (
         <p className="text-gray-500">No comments yet.</p>
-      )}
+      )} */}
       {topLevelComments.map((comment) => renderComment(comment))}
     </div>
   );
