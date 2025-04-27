@@ -10,9 +10,32 @@ import EditPostButton from "@/components/posts/edit-post-button";
 import OpenInCursor from "@/components/posts/open-in-cursor-button";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
 
+import CommentSection from "@/components/comments/comment-section"; // ✅
+import { createClient } from "@/utils/supabase/server";
+
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+interface DbComment {
+  id: string;
+  post_slug: string;
+  author_name: string | null;
+  content: string;
+  replied_to_id: string | null;
+  created_at: string;
+  updated_at: string | null;
+}
+
+interface Comment {
+  id: string;
+  postSlug: string;
+  authorName: string | null;
+  content: string;
+  repliedToId: string | null;
+  createdAt: string;
+  updatedAt: string | null;
+}
 
 // Dynamically import the MDX file based on the slug
 
@@ -76,6 +99,35 @@ export default async function Blog({ params }: Props) {
     }
   );
 
+  const supabase = await createClient();
+
+  let commentsData: Comment[] = [];
+
+  try {
+    const { data, error } = await supabase
+      .from("mdxblog_comments")
+      .select("*")
+      .eq("post_slug", slug)
+      .order("created_at", { ascending: true });
+
+    if (data && !error) {
+      const dbComments = data as DbComment[]; // tell TS: this is DbComment[]
+      commentsData = dbComments.map((c) => ({
+        id: c.id,
+        postSlug: c.post_slug,
+        authorName: c.author_name,
+        content: c.content,
+        repliedToId: c.replied_to_id,
+        createdAt: c.created_at,
+        updatedAt: c.updated_at,
+      }));
+    } else {
+      console.error("Failed to load comments:", error?.message);
+    }
+  } catch (err) {
+    console.error("Error loading comments:", err);
+  }
+
   return (
     <div className="flex flex-col max-w-3xl w-full gap-0 pt-10">
       <article className="prose prose-lg md:prose-lg lg:prose-lg mx-auto min-w-full">
@@ -115,6 +167,7 @@ export default async function Blog({ params }: Props) {
         </div>
       </div>
       <LikeButton postId={metadata?.id} />
+      <CommentSection postSlug={slug} initialComments={commentsData} />
     </div>
   );
 }
