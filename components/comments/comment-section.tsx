@@ -107,7 +107,7 @@ export default function CommentSection({ postSlug, initialComments }: Props) {
       </Dialog>
 
       {comments.length > 0 && (
-        <h2 className="text-2xl font-bold mb-4">Comments</h2>
+        <h2 className="text-2xl font-bold mt-4">Comments</h2>
       )}
 
       {/* Comments List */}
