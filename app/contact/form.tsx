@@ -176,7 +176,7 @@ export function ContactForm() {
             </div>
           )}
 
-          {recaptchaSiteKey && (
+          {Boolean(recaptchaSiteKey) && (
             <div className="mb-4">
               <ReCAPTCHA
                 sitekey={recaptchaSiteKey}
@@ -189,7 +189,7 @@ export function ContactForm() {
 
           <button
             type="submit"
-            disabled={isSubmitting || !isRecaptchaVerified}
+            disabled={isSubmitting || (Boolean(recaptchaSiteKey) && !isRecaptchaVerified)}
             className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-lg disabled:opacity-50"
           >
             {isSubmitting ? "Sending..." : "Send Message"}
