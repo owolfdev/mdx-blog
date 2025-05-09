@@ -13,10 +13,29 @@ const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 
-export const metadata = {
+const siteTitle = 'MDXBlog: A simple, static-site blogging platform for Next.js';
+const siteDescription = 'A blogging platform that is easy to use, developer friendly, and a pleasure to work with, built with Next.js and MDX.';
+
+// See the following docs for an explanation of Metadata and how Next.js processes it.
+// https://nextjs.org/docs/app/building-your-application/optimizing/metadata
+export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: siteTitle,
+  description: siteDescription,
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/',
+    },
+  },
+  openGraph: {
+    siteName: 'MDXBlog',
+    title: siteTitle,
+    description: siteDescription,
+    url: defaultUrl,
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
