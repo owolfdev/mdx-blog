@@ -69,10 +69,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const defaultUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:34512";
+
   const { metadata } = mdxModule;
+
+  const openGraphData = {
+    title: metadata.title,
+    description: metadata.description,
+    url: defaultUrl + '/blog/' + slug,
+    images: metadata.image,
+    // TODO: We could inherit the OG fields below that never change from layout.tsx.
+    // This could be accomplished via `app/shared-metadata.tsx`, as in the example below:
+    // https://nextjs.org/docs/app/api-reference/functions/generate-metadata#overwriting-fields
+    siteName: 'MDXBlog',
+    locale: 'en_US',
+    type: 'website',
+  };
+
   return {
     title: metadata.title,
     description: metadata.description,
+    authors: {
+      name: metadata.author,
+    },
+    keywords: metadata.tags,
+    openGraph: openGraphData,
   };
 }
 export default async function Blog({ params }: Props) {
