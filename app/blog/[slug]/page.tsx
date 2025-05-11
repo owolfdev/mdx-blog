@@ -78,14 +78,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const openGraphData = {
     title: metadata.title,
     description: metadata.description,
-    url: defaultUrl + '/blog/' + slug,
+    url: `${defaultUrl}/blog/${slug}`,
     images: metadata.image,
     // TODO: We could inherit the OG fields below that never change from layout.tsx.
     // This could be accomplished via `app/shared-metadata.tsx`, as in the example below:
     // https://nextjs.org/docs/app/api-reference/functions/generate-metadata#overwriting-fields
-    siteName: 'MDXBlog',
-    locale: 'en_US',
-    type: 'website',
+    siteName: "MDXBlog",
+    locale: "en_US",
+    type: "website",
   };
 
   return {
