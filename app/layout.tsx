@@ -6,6 +6,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import CookieConsentComponent from "@/components/cookie-consent";
 import Script from "next/script"; // <-- Import next/script
+import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,8 +14,10 @@ const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 
-const siteTitle = 'MDXBlog: A simple, static-site blogging platform for Next.js';
-const siteDescription = 'A blogging platform that is easy to use, developer friendly, and a pleasure to work with, built with Next.js and MDX.';
+const siteTitle =
+  "MDXBlog: A simple, static-site blogging platform for Next.js";
+const siteDescription =
+  "A blogging platform that is easy to use, developer friendly, and a pleasure to work with, built with Next.js and MDX.";
 
 // See the following docs for an explanation of Metadata and how Next.js processes it.
 // https://nextjs.org/docs/app/building-your-application/optimizing/metadata
@@ -23,18 +26,18 @@ export const metadata: Metadata = {
   title: siteTitle,
   description: siteDescription,
   alternates: {
-    canonical: '/',
+    canonical: "/",
     languages: {
-      'en-US': '/',
+      "en-US": "/",
     },
   },
   openGraph: {
-    siteName: 'MDXBlog',
+    siteName: "MDXBlog",
     title: siteTitle,
     description: siteDescription,
     url: defaultUrl,
-    locale: 'en_US',
-    type: 'website',
+    locale: "en_US",
+    type: "website",
   },
 };
 

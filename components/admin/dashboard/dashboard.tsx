@@ -16,17 +16,17 @@ import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  SidebarProvider,
-  Sidebar,
-  SidebarContent,
-  SidebarHeader,
-  SidebarFooter,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+// import {
+//   SidebarProvider,
+//   Sidebar,
+//   SidebarContent,
+//   SidebarHeader,
+//   SidebarFooter,
+//   SidebarMenu,
+//   SidebarMenuItem,
+//   SidebarMenuButton,
+//   SidebarTrigger,
+// } from "@/components/ui/sidebar";
 
 import PostsTable from "@/components/admin/dashboard/posts-table";
 import CommentsTable from "@/components/admin/dashboard/comments-table";
@@ -53,9 +53,9 @@ export default function Dashboard() {
   };
 
   return (
-    <SidebarProvider>
-      <div className="flex min-h-screen w-full bg-background items-center justify-center">
-        {/* <Sidebar>
+    // <SidebarProvider>
+    <div className="flex min-h-screen w-full bg-background items-center justify-center">
+      {/* <Sidebar>
           <SidebarHeader className="flex h-14 items-center border-b px-6">
             <span className="font-semibold">Content Dashboard</span>
           </SidebarHeader>
@@ -103,63 +103,61 @@ export default function Dashboard() {
             <UserProfile />
           </SidebarFooter>
         </Sidebar> */}
-        <div className="flex-1">
-          <header className="flex h-14 items-center gap-4 border-b bg-background px-6">
-            {/* <SidebarTrigger /> */}
-            <div className="flex w-full items-center justify-between">
-              <div className="relative w-full max-w-md">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Search posts..."
-                  className="w-full pl-8"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleRefresh}
-                disabled={isRefreshing}
-              >
-                <RefreshCw
-                  className={`mr-2 h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`}
-                />
-                {isRefreshing ? "Refreshing..." : "Refresh Cache"}
-              </Button>
+      <div className="flex-1">
+        <header className="flex h-14 items-center gap-4 border-b bg-background px-6">
+          {/* <SidebarTrigger /> */}
+          <div className="flex w-full items-center justify-between">
+            <div className="relative w-full max-w-md">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Search posts..."
+                className="w-full pl-8"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
             </div>
-          </header>
-          <main className="flex-1 p-6">
-            <Tabs defaultValue="posts">
-              <div className="flex items-center justify-between">
-                <TabsList>
-                  <TabsTrigger value="posts">Posts</TabsTrigger>
-                  <TabsTrigger value="comments">Comments</TabsTrigger>
-                  <TabsTrigger value="analytics">Analytics</TabsTrigger>
-                  <TabsTrigger value="categories">
-                    Categories & Tags
-                  </TabsTrigger>
-                </TabsList>
-              </div>
-              <div className="mt-6">
-                <TabsContent value="posts" className="space-y-4">
-                  <PostsTable searchQuery={searchQuery} />
-                </TabsContent>
-                <TabsContent value="comments" className="space-y-4">
-                  <CommentsTable />
-                </TabsContent>
-                <TabsContent value="analytics" className="space-y-4">
-                  <AnalyticsView />
-                </TabsContent>
-                <TabsContent value="categories" className="space-y-4">
-                  <CategoriesView />
-                </TabsContent>
-              </div>
-            </Tabs>
-          </main>
-        </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+            >
+              <RefreshCw
+                className={`mr-2 h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`}
+              />
+              {isRefreshing ? "Refreshing..." : "Refresh Cache"}
+            </Button>
+          </div>
+        </header>
+        <main className="flex-1 p-6">
+          <Tabs defaultValue="posts">
+            <div className="flex items-center justify-between">
+              <TabsList>
+                <TabsTrigger value="posts">Posts</TabsTrigger>
+                <TabsTrigger value="comments">Comments</TabsTrigger>
+                <TabsTrigger value="analytics">Analytics</TabsTrigger>
+                <TabsTrigger value="categories">Categories & Tags</TabsTrigger>
+              </TabsList>
+            </div>
+            <div className="mt-6">
+              <TabsContent value="posts" className="space-y-4">
+                <PostsTable searchQuery={searchQuery} />
+              </TabsContent>
+              <TabsContent value="comments" className="space-y-4">
+                <CommentsTable />
+              </TabsContent>
+              <TabsContent value="analytics" className="space-y-4">
+                <AnalyticsView />
+              </TabsContent>
+              <TabsContent value="categories" className="space-y-4">
+                <CategoriesView />
+              </TabsContent>
+            </div>
+          </Tabs>
+        </main>
       </div>
-    </SidebarProvider>
+    </div>
+    // </SidebarProvider>
   );
 }

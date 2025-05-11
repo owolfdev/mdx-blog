@@ -44,7 +44,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 4
+    "likes": 5
   },
   {
     "slug": "adding-mdx-support-to-your-next.js-project",
@@ -68,7 +68,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 5
+    "likes": 6
   },
   {
     "slug": "advanced-mdx-dynamic-content-and-apis",
@@ -181,7 +181,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 4
   },
   {
     "slug": "caching-mdx-metadata-for-fast-post-management",
@@ -277,7 +277,7 @@
     "relatedPosts": [
       "custom-link-component-for-external-navigation"
     ],
-    "likes": 5
+    "likes": 6
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -299,7 +299,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 16
+    "likes": 17
   },
   {
     "slug": "custom-link-component-for-external-navigation",
@@ -471,7 +471,7 @@
       "import-components-to-mdx",
       "using-and-styling-custom-components-in-mdx-content"
     ],
-    "likes": 7
+    "likes": 8
   },
   {
     "slug": "how-to-use-mdx-blog",
