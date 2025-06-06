@@ -1,17 +1,20 @@
+//app/blog/[slug]/page.tsx
 import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import path from "node:path";
 import fs from "node:fs";
-//
+
 import RelatedPostsList from "@/components/posts/related-posts";
 import LikeButton from "@/components/like/like-button";
 import EditPostButton from "@/components/posts/edit-post-button";
 import OpenInCursor from "@/components/posts/open-in-cursor-button";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
 
-import CommentSection from "@/components/comments/comment-section"; // ✅
+import CommentSection from "@/components/comments/comment-section";
 import { createClient } from "@/utils/supabase/server";
+
+import Image from "next/image";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -38,8 +41,6 @@ interface Comment {
   updatedAt: string | null;
   approved: boolean;
 }
-
-// Dynamically import the MDX file based on the slug
 
 async function loadMdxFile(slug: string) {
   try {
@@ -80,9 +81,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: metadata.description,
     url: `${defaultUrl}/blog/${slug}`,
     images: metadata.image,
-    // TODO: We could inherit the OG fields below that never change from layout.tsx.
-    // This could be accomplished via `app/shared-metadata.tsx`, as in the example below:
-    // https://nextjs.org/docs/app/api-reference/functions/generate-metadata#overwriting-fields
     siteName: "MDXBlog",
     locale: "en_US",
     type: "website",
@@ -98,6 +96,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: openGraphData,
   };
 }
+
 export default async function Blog({ params }: Props) {
   if (!params || !(await params).slug) {
     notFound();
@@ -136,7 +135,7 @@ export default async function Blog({ params }: Props) {
       .order("created_at", { ascending: true });
 
     if (data && !error) {
-      const dbComments = data as DbComment[]; // tell TS: this is DbComment[]
+      const dbComments = data as DbComment[];
       commentsData = dbComments.map((c) => ({
         id: c.id,
         postSlug: c.post_slug,
@@ -155,45 +154,74 @@ export default async function Blog({ params }: Props) {
   }
 
   return (
-    <div className="flex flex-col max-w-3xl w-full gap-0 pt-10">
-      <article className="prose prose-lg md:prose-lg lg:prose-lg mx-auto min-w-full">
-        <div className="pb-6">
-          <p className="font-semibold text-lg">
-            <span
-              className="text-primary pr-1"
-              title={`Date last modified. Originally published on ${originallyPublishedDateFormatted}`}
-            >
-              {displayDate.split("T")[0]}
-            </span>{" "}
-            {metadata?.categories?.map((category: string, index: number) => (
-              <span key={index + category} title="Post category">
-                {category}
-                {index < metadata?.categories.length - 1 && ", "}
+    <main
+      className="flex flex-col max-w-3xl w-full gap-0 pt-10"
+      aria-label="Main content"
+    >
+      <article
+        className="prose prose-lg md:prose-lg lg:prose-lg mx-auto min-w-full"
+        aria-labelledby="post-title"
+      >
+        <header aria-label="Post metadata">
+          <div className="pb-6">
+            <p className="font-semibold text-lg">
+              <time
+                className="text-primary pr-1"
+                title={`Date last modified. Originally published on ${originallyPublishedDateFormatted}`}
+                dateTime={displayDate}
+              >
+                {displayDate.split("T")[0]}
+              </time>{" "}
+              <span role="list">
+                {metadata?.categories?.map(
+                  (category: string, index: number) => (
+                    <span
+                      key={index + category}
+                      role="listitem"
+                      title="Post category"
+                    >
+                      {category}
+                      {index < metadata?.categories.length - 1 && ", "}
+                    </span>
+                  )
+                )}
               </span>
-            ))}
-          </p>
-        </div>
-        <div className="pb-6">
-          <h1 className="text-4xl sm:text-6xl font-black capitalize leading-12">
-            {metadata?.title}
-          </h1>
-          <p className="pt-6 text-xl sm:text-lg">By {metadata?.author}</p>
-        </div>
+            </p>
+          </div>
+          <div className="pb-6">
+            <h1
+              id="post-title"
+              className="text-4xl sm:text-6xl font-black capitalize leading-12"
+            >
+              {metadata?.title}
+            </h1>
+            <p className="pt-6 text-xl sm:text-lg">By {metadata?.author}</p>
+          </div>
+        </header>
+
         {isDevMode() && (
-          <div className="flex gap-2 mb-4">
+          <div className="flex gap-2 mb-4" aria-label="Developer controls">
             <EditPostButton slug={slug} />
             <OpenInCursor path={slug} />
           </div>
         )}
-        <Content />
+
+        <section aria-label="Post content">
+          <Content />
+        </section>
       </article>
-      <div>
-        <div>
-          <RelatedPostsList relatedSlugs={metadata?.relatedPosts} />
-        </div>
-      </div>
-      <LikeButton postId={metadata?.id} />
-      <CommentSection postSlug={slug} initialComments={commentsData} />
-    </div>
+
+      <aside aria-label="Related posts">
+        <RelatedPostsList relatedSlugs={metadata?.relatedPosts} />
+      </aside>
+
+      <section aria-label="Post reactions">
+        <LikeButton postId={metadata?.id} />
+      </section>
+
+      <section aria-label="Comments">
+        <CommentSection postSlug={slug} initialComments={commentsData} />
+      </section>
+    </main>
   );
 }

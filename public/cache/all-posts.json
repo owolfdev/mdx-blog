@@ -181,7 +181,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 4
+    "likes": 5
   },
   {
     "slug": "caching-mdx-metadata-for-fast-post-management",
@@ -495,7 +495,7 @@
     "relatedPosts": [
       "how-to-install-mdx-blog-and-deploy-on-vercel"
     ],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "import-components-to-mdx",
@@ -517,7 +517,7 @@
     "relatedPosts": [
       "creating-custom-components-for-mdx"
     ],
-    "likes": 4
+    "likes": 5
   },
   {
     "slug": "integrating-dynamic-components-in-mdx-files-in-nextjs-14",
@@ -706,7 +706,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 34
+    "likes": 35
   },
   {
     "slug": "mdx-performance-optimization",
@@ -1115,7 +1115,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 5
+    "likes": 6
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",

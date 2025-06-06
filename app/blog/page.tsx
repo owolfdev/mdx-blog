@@ -12,20 +12,17 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// Utility function to parse and format the date
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  if (Number.isNaN(date.getTime())) {
-    return "Invalid Date";
-  }
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  return Number.isNaN(date.getTime())
+    ? "Invalid Date"
+    : date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
 }
 
-// Utility function to extract the first value from a string or array
 function getFirstValue(param: string | string[] | undefined): string {
   return Array.isArray(param) ? param[0] : param || "";
 }
@@ -35,7 +32,6 @@ const Blog = async ({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
-  // Ensure searchParams is processed asynchronously
   const params = await searchParams;
 
   const currentPage = Number(getFirstValue(params.page)) || 1;
@@ -44,7 +40,6 @@ const Blog = async ({
   const category = getFirstValue(params.category);
   const sort = getFirstValue(params.sort) || "date_desc";
 
-  // Fetch posts with the specified parameters
   const { posts, totalPosts } = await getPosts({
     type: "blog",
     limit: postsPerPage,
@@ -54,7 +49,6 @@ const Blog = async ({
     category,
   });
 
-  // Format the publishDate for each post
   const formattedPosts = posts.map((post) => ({
     ...post,
     formattedDate: formatDate(post.publishDate),
@@ -65,23 +59,25 @@ const Blog = async ({
   const isPreviousDisabled = currentPage <= 1;
   const isNextDisabled = currentPage >= totalPages;
   const disabledLinkStyle = "opacity-50 cursor-not-allowed";
-
   const isDateDesc = sort === "date_desc";
 
-  // Utility function to trim the description to a word limit
   function trimDescription(description: string) {
     const wordLimit = 20;
     const words = description.split(" ");
-
-    if (words.length > wordLimit) {
-      return `${words.slice(0, wordLimit).join(" ")}...`;
-    }
-    return description;
+    return words.length > wordLimit
+      ? `${words.slice(0, wordLimit).join(" ")}...`
+      : description;
   }
 
   return (
-    <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
-      <div className="flex gap-4 justify-between items-center pb-0 pt-4">
+    <main
+      className="flex flex-col max-w-3xl w-full gap-8 pt-10"
+      aria-label="Main content"
+    >
+      <header
+        className="flex gap-4 justify-between items-center pb-0 pt-4"
+        aria-label="Search and sort controls"
+      >
         <SearchPosts limit={postsPerPage} sort={sort} category={category} />
         <SortPosts
           sort={sort}
@@ -90,91 +86,74 @@ const Blog = async ({
           searchTerm={searchTerm}
           category={category}
         />
-      </div>
-      <div>
+      </header>
+
+      <section aria-label="Blog post list">
         {posts.length === 0 ? (
-          <div className="text-center text-lg flex flex-col justify-evenly ">
-            <span className="pb-[100px] pt-[100px]">
-              No blog posts found on this page...
-            </span>
-          </div>
+          <p className="text-center text-lg py-24">
+            No blog posts found on this page...
+          </p>
         ) : (
           <BlogPostList
             blogs={formattedPosts.map((post) => ({
               ...post,
               date: post.publishDate,
-              image: post.image || "", // Ensure image is always a string
+              image: post.image || "",
             }))}
             trimDescription={trimDescription}
           />
         )}
+      </section>
 
-        <div
-          id="pagination"
-          className="flex gap-2 pt-8 pb-2 items-center justify-center"
-        >
-          {currentPage === 1 ? (
-            <span className={`${disabledLinkStyle}`}>{"<<"}</span>
-          ) : (
-            <span>
-              <Link
-                href={`/blog?limit=${postsPerPage}&page=1${
-                  searchTerm ? `&search=${searchTerm}` : ""
-                }${category ? `&category=${category}` : ""}${
-                  !isDateDesc ? `&sort=${sort}` : ""
-                }`}
-              >
-                {"<<"}
-              </Link>
-            </span>
-          )}
-          {isPreviousDisabled ? (
-            <span className={`${disabledLinkStyle}`}>Previous</span>
-          ) : (
-            <Link
-              className=""
-              href={`/blog?limit=${postsPerPage}&page=${currentPage - 1}${
-                searchTerm ? `&search=${searchTerm}` : ""
-              }${category ? `&category=${category}` : ""}${
-                !isDateDesc ? `&sort=${sort}` : ""
-              }`}
-            >
-              Previous
-            </Link>
-          )}
+      <nav
+        id="pagination"
+        className="flex gap-2 pt-8 pb-2 items-center justify-center"
+        aria-label="Pagination"
+      >
+        {currentPage === 1 ? (
+          <span className={disabledLinkStyle}>{"<<"}</span>
+        ) : (
+          <Link
+            href={`/blog?limit=${postsPerPage}&page=1${searchTerm ? `&search=${searchTerm}` : ""}${category ? `&category=${category}` : ""}${!isDateDesc ? `&sort=${sort}` : ""}`}
+          >
+            {"<<"}
+          </Link>
+        )}
 
-          <span>- {`Page ${currentPage} of ${totalPages}`} -</span>
+        {isPreviousDisabled ? (
+          <span className={disabledLinkStyle}>Previous</span>
+        ) : (
+          <Link
+            href={`/blog?limit=${postsPerPage}&page=${currentPage - 1}${searchTerm ? `&search=${searchTerm}` : ""}${category ? `&category=${category}` : ""}${!isDateDesc ? `&sort=${sort}` : ""}`}
+          >
+            Previous
+          </Link>
+        )}
 
-          {isNextDisabled ? (
-            <span className={`${disabledLinkStyle}`}>Next</span>
-          ) : (
-            <Link
-              className=""
-              href={`/blog?limit=${postsPerPage}&page=${currentPage + 1}${
-                searchTerm ? `&search=${searchTerm}` : ""
-              }${category ? `&category=${category}` : ""}${
-                !isDateDesc ? `&sort=${sort}` : ""
-              }`}
-            >
-              Next
-            </Link>
-          )}
-          {currentPage === totalPages ? (
-            <span className={`${disabledLinkStyle}`}>{">>"}</span>
-          ) : (
-            <span>
-              <Link
-                href={`/blog?limit=${postsPerPage}&page=${totalPages}${
-                  searchTerm ? `&search=${searchTerm}` : ""
-                }${category ? `&category=${category}` : ""}${
-                  !isDateDesc ? `&sort=${sort}` : ""
-                }`}
-              >
-                {">>"}
-              </Link>
-            </span>
-          )}
-        </div>
+        <span>- {`Page ${currentPage} of ${totalPages}`} -</span>
+
+        {isNextDisabled ? (
+          <span className={disabledLinkStyle}>Next</span>
+        ) : (
+          <Link
+            href={`/blog?limit=${postsPerPage}&page=${currentPage + 1}${searchTerm ? `&search=${searchTerm}` : ""}${category ? `&category=${category}` : ""}${!isDateDesc ? `&sort=${sort}` : ""}`}
+          >
+            Next
+          </Link>
+        )}
+
+        {currentPage === totalPages ? (
+          <span className={disabledLinkStyle}>{">>"}</span>
+        ) : (
+          <Link
+            href={`/blog?limit=${postsPerPage}&page=${totalPages}${searchTerm ? `&search=${searchTerm}` : ""}${category ? `&category=${category}` : ""}${!isDateDesc ? `&sort=${sort}` : ""}`}
+          >
+            {">>"}
+          </Link>
+        )}
+      </nav>
+
+      <section aria-label="Limit selector">
         <SelectLimitPosts
           postsPerPage={postsPerPage}
           currentPage={currentPage}
@@ -183,8 +162,8 @@ const Blog = async ({
           sort={sort}
           category={category}
         />
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 
