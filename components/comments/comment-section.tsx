@@ -122,7 +122,7 @@ export default function CommentSection({ postSlug, initialComments }: Props) {
         </DialogContent>
       </Dialog>
 
-      {comments.length > 0 && (
+      {comments.some((c) => c.approved) && (
         <h2 className="text-2xl font-bold mt-4">Comments</h2>
       )}
 
