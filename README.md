@@ -1,5 +1,3 @@
-npx create-next-app -e with-supabase
-
 MDXBlog has been updated to incorporate the latest features of **Next.js 15**. The new release focuses on performance, security, and modern development capabilities.
 
 **Key Updates in Next.js 15:**
