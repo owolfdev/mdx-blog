@@ -7,11 +7,10 @@ interface CodeProps {
   children: React.ReactNode;
 }
 
-const Code = (props: CodeProps) => {
+const Code = ({ className = "", children }: CodeProps) => {
   const [copied, setCopied] = useState(false);
   const codeRef = useRef<HTMLElement>(null);
 
-  const className = props.className || "";
   const matches = className.match(/language-(.*)/);
   const language = matches?.[1] || "";
 
@@ -26,22 +25,19 @@ const Code = (props: CodeProps) => {
   };
 
   return (
-    <div
-      className="gap-0 rounded-lg text-white pb-6 w-full max-w-full overflow-hidden"
-      style={{ maxWidth: "100%", overflow: "hidden" }}
-    >
-      <div className="flex justify-between items-center bg-gray-900 py-2 px-4 rounded-t-lg">
-        <span className="text-gray-300">{language}</span>
+    <div className="gap-0 rounded-lg pb-6 w-full max-w-full overflow-hidden text-black dark:text-white">
+      <div className="flex justify-between items-center bg-gray-100 dark:bg-gray-900 py-2 px-4 rounded-t-lg border">
+        <span className="text-gray-600 dark:text-gray-300">{language}</span>
         <button
           type="button"
-          className="text-gray-300 hover:text-white"
+          className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
           onClick={handleCopy}
         >
           {copied ? "Copied!" : "Copy"}
         </button>
       </div>
       <pre
-        className="bg-gray-800 p-4 rounded-b-lg overflow-auto w-full block max-w-full"
+        className="bg-gray-50 dark:bg-gray-800 p-4 rounded-b-lg overflow-auto w-full block max-w-full border border-t-0"
         style={{
           maxWidth: "100%",
           overflowX: "auto",
@@ -52,10 +48,10 @@ const Code = (props: CodeProps) => {
       >
         <code
           ref={codeRef}
-          className={`${className} bg-gray-800 block w-full`}
+          className={`${className} bg-gray-50 dark:bg-gray-800 block w-full`}
           style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
         >
-          {props.children}
+          {children}
         </code>
       </pre>
     </div>
