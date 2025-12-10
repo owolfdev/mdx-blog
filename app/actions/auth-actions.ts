@@ -5,14 +5,15 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const signUpAction = async (formData: FormData) => {
+export const signUpAction = async (formData: FormData): Promise<void> => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
 
   if (!email || !password) {
-    return { error: "Email and password are required" };
+    encodedRedirect("error", "/sign-up", "Email and password are required");
+    return;
   }
 
   const { error } = await supabase.auth.signUp({
@@ -25,16 +26,17 @@ export const signUpAction = async (formData: FormData) => {
 
   if (error) {
     console.error(`${error.code} ${error.message}`);
-    return encodedRedirect("error", "/sign-up", error.message);
+    encodedRedirect("error", "/sign-up", error.message);
+    return;
   }
-  return encodedRedirect(
+  encodedRedirect(
     "success",
     "/sign-up",
     "Thanks for signing up! Please check your email for a verification link."
   );
 };
 
-export const signInAction = async (formData: FormData) => {
+export const signInAction = async (formData: FormData): Promise<void> => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const supabase = await createClient();
@@ -45,21 +47,23 @@ export const signInAction = async (formData: FormData) => {
   });
 
   if (error) {
-    return encodedRedirect("error", "/sign-in", error.message);
+    encodedRedirect("error", "/sign-in", error.message);
+    return;
   }
 
-  return redirect("/");
+  redirect("/");
 };
 
 // forgot password action
-export const forgotPasswordAction = async (formData: FormData) => {
+export const forgotPasswordAction = async (formData: FormData): Promise<void> => {
   const email = formData.get("email")?.toString();
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
   const callbackUrl = formData.get("callbackUrl")?.toString();
 
   if (!email) {
-    return encodedRedirect("error", "/forgot-password", "Email is required");
+    encodedRedirect("error", "/forgot-password", "Email is required");
+    return;
   }
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -68,18 +72,20 @@ export const forgotPasswordAction = async (formData: FormData) => {
 
   if (error) {
     console.error(error.message);
-    return encodedRedirect(
+    encodedRedirect(
       "error",
       "/forgot-password",
       "Could not reset password"
     );
+    return;
   }
 
   if (callbackUrl) {
-    return redirect(callbackUrl);
+    redirect(callbackUrl);
+    return;
   }
 
-  return encodedRedirect(
+  encodedRedirect(
     "success",
     "/forgot-password/thank-you",
     "Check your email for a link to reset your password."
@@ -87,7 +93,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
 };
 
 // reset password action
-export const resetPasswordAction = async (formData: FormData) => {
+export const resetPasswordAction = async (formData: FormData): Promise<void> => {
   const supabase = await createClient();
 
   const password = formData.get("password") as string;
@@ -99,6 +105,7 @@ export const resetPasswordAction = async (formData: FormData) => {
       "/protected/reset-password",
       "Password and confirm password are required"
     );
+    return;
   }
 
   if (password !== confirmPassword) {
@@ -107,6 +114,7 @@ export const resetPasswordAction = async (formData: FormData) => {
       "/protected/reset-password",
       "Passwords do not match"
     );
+    return;
   }
 
   const { error } = await supabase.auth.updateUser({
@@ -119,6 +127,7 @@ export const resetPasswordAction = async (formData: FormData) => {
       "/protected/reset-password",
       "Password update failed"
     );
+    return;
   }
 
   encodedRedirect("success", "/protected/reset-password", "Password updated");
