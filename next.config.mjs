@@ -7,9 +7,10 @@ import rehypeHighlight from "rehype-highlight";
 const nextConfig = {
   // Configure `pageExtensions` to include markdown and MDX files
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
-  // Optionally, add any other Next.js config below
 };
 
+// Note: MDX plugins configuration may have issues with Turbopack in Next.js 16
+// If you encounter serialization errors, you may need to use webpack instead
 const withMDX = createMDX({
   options: {
     remarkPlugins: [remarkGfm, remarkFrontmatter],

@@ -44,7 +44,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 5
+    "likes": 10
   },
   {
     "slug": "adding-mdx-support-to-your-next.js-project",
@@ -68,7 +68,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 6
+    "likes": 7
   },
   {
     "slug": "advanced-mdx-dynamic-content-and-apis",
@@ -112,7 +112,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "basic-markdown-guide",
@@ -181,7 +181,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 5
+    "likes": 16
   },
   {
     "slug": "caching-mdx-metadata-for-fast-post-management",
@@ -204,7 +204,7 @@
     "relatedPosts": [
       "static-mdx-cms"
     ],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "configuring-mdx-in-next.js",
@@ -252,7 +252,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 4
   },
   {
     "slug": "creating-anchor-links-to-page-sections-in-mdx",
@@ -299,7 +299,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 17
+    "likes": 23
   },
   {
     "slug": "custom-link-component-for-external-navigation",
@@ -323,7 +323,7 @@
     "relatedPosts": [
       "creating-anchor-links-to-page-sections-in-mdx"
     ],
-    "likes": 2
+    "likes": 4
   },
   {
     "slug": "frictionless-content-creation-with-mdxblog",
@@ -395,7 +395,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 7
   },
   {
     "slug": "how-nextjs-processes-mdx",
@@ -447,7 +447,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 1
+    "likes": 3
   },
   {
     "slug": "how-to-use-images-in-an-mdx-or-markdown-file",
@@ -471,7 +471,7 @@
       "import-components-to-mdx",
       "using-and-styling-custom-components-in-mdx-content"
     ],
-    "likes": 8
+    "likes": 13
   },
   {
     "slug": "how-to-use-mdx-blog",
@@ -495,7 +495,7 @@
     "relatedPosts": [
       "how-to-install-mdx-blog-and-deploy-on-vercel"
     ],
-    "likes": 4
+    "likes": 6
   },
   {
     "slug": "import-components-to-mdx",
@@ -517,7 +517,7 @@
     "relatedPosts": [
       "creating-custom-components-for-mdx"
     ],
-    "likes": 5
+    "likes": 7
   },
   {
     "slug": "integrating-dynamic-components-in-mdx-files-in-nextjs-14",
@@ -611,7 +611,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 2
   },
   {
     "slug": "mdx-and-content-management-with-headless-cms",
@@ -632,7 +632,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 1
   },
   {
     "slug": "mdx-best-practices-and-common-pitfalls",
@@ -679,7 +679,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 6
+    "likes": 7
   },
   {
     "slug": "mdx-like-button-nextjs-vercel-postgresql",
@@ -706,7 +706,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 35
+    "likes": 30789
   },
   {
     "slug": "mdx-performance-optimization",
@@ -750,7 +750,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 12
+    "likes": 13
   },
   {
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",
@@ -838,7 +838,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "optimizing-mdx-for-seo",
@@ -862,7 +862,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "rendering-mdx-content-in-nextjs-14",
@@ -884,7 +884,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 3
   },
   {
     "slug": "simple-markdown-rendering-react",
@@ -992,7 +992,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 6
+    "likes": 8
   },
   {
     "slug": "the-jamstack-and-web-development-with-mdx",
@@ -1115,7 +1115,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 6
+    "likes": 13
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",
