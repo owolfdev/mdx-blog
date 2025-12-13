@@ -1,7 +1,5 @@
 the template for this project was created with the command:
 
-test
-
 npx create-next-app -e with-supabase
 
 this gives us Supabase and Supbase auth out of the box.
