@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config = {
-  darkMode: ["class"],
+  darkMode: ["class", ".dark"],
   theme: {
     hljs: {
       theme: "atom-one-dark",
@@ -44,11 +44,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate"), require("tailwind-highlightjs")],
-  safelist: [
-    {
-      pattern: /hljs+/,
-    },
-  ],
 } satisfies Config;
 
 export default config;
