@@ -26,15 +26,18 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "./*"
+        "./src/*"
       ],
       "@/types/*": [
-        "types/*"
+        "src/types/*"
+      ],
+      "@/content/*": [
+        "./content/*"
       ]
     },
     "typeRoots": [
       "./node_modules/@types",
-      "./types"
+      "./src/types"
     ] // Include custom types directory
   },
   "include": [

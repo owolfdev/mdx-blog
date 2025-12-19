@@ -2,11 +2,20 @@ import createMDX from "@next/mdx";
 import remarkGfm from "remark-gfm";
 import remarkFrontmatter from "remark-frontmatter";
 import rehypeHighlight from "rehype-highlight";
+import path from "node:path";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Configure `pageExtensions` to include markdown and MDX files
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  // Configure webpack to resolve content directory for MDX imports
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "@/content": path.join(process.cwd(), "content"),
+    };
+    return config;
+  },
 };
 
 // Note: MDX plugins configuration may have issues with Turbopack in Next.js 16
