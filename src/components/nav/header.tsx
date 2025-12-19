@@ -6,8 +6,8 @@ import { isDevMode } from "@/lib/utils/is-dev-mode";
 
 function Header() {
   return (
-    <header className="sticky top-0 z-40 w-full bg-background">
-      <div className="sm:px-12 px-6 flex items-center h-20 space-x-0 justify-between sm:space-x-0">
+    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur">
+      <div className="site-container flex h-16 items-center justify-between">
         <NavComponent />
         <div className="flex items-center gap-4">
           <AdminButtons />

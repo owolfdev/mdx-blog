@@ -27,10 +27,10 @@ function NavComponent() {
   };
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-6">
       <Sheet>
         <SheetTrigger asChild>
-          <div className="sm:hidden border border-gray-200 rounded-md p-1">
+          <div className="sm:hidden border border-border bg-background p-2">
             <HamburgerMenuIcon className="h-[22px] w-[22px]" />
           </div>
         </SheetTrigger>
@@ -55,18 +55,18 @@ function NavComponent() {
       </Sheet>
 
       <div className="flex items-center">
-        <h1 className="text-4xl font-black mr-6">
+        <h1 className="text-2xl font-black uppercase tracking-tight sm:text-3xl">
           <Link href="/">
             <span className="text-primary">MDX</span>Blog
           </Link>
         </h1>
-        <nav className="hidden sm:flex h-9 space-x-6  items-end">
+        <nav className="ml-6 hidden items-center gap-6 text-sm font-semibold uppercase tracking-[0.2em] sm:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`hover:text-primary ${
-                isActive(item.href) ? "font-semibold" : ""
+              className={`transition-colors hover:text-primary ${
+                isActive(item.href) ? "text-foreground" : "text-muted-foreground"
               }`}
             >
               {item.label}

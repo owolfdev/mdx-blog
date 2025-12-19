@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import EditPageButton from "@/components/page/edit-page-button";
 import OpenInCursor from "@/components/page/open-page-in-cursor-button";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
+import { HomeHero } from "@/components/home/hero";
+import { HomeFeatures } from "@/components/home/features";
+import { HomeUseCases } from "@/components/home/use-cases";
+import { HomeCta } from "@/components/home/cta";
 interface MdxModule {
   default: React.ComponentType;
   metadata: {
@@ -51,19 +55,24 @@ export default async function HomePage() {
   const { default: Content, metadata } = mdxModule;
 
   return (
-    <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
-      <h1 className="text-6xl font-black sm:text-center">
-        Welcome to <span className="text-primary">MDX</span>Blog
-      </h1>
-      {isDevMode() && (
-        <div className="flex gap-3">
-          <EditPageButton slug={metadata.slug ?? "default-slug"} />
-          <OpenInCursor path={metadata.slug ?? "default-path"} />
+    <div className="flex w-full flex-col">
+      <HomeHero />
+      <HomeFeatures />
+      <HomeUseCases />
+      <section className="site-container py-16 md:py-24">
+        <div className="mx-auto flex max-w-3xl flex-col gap-6">
+          {isDevMode() && (
+            <div className="flex flex-wrap gap-3">
+              <EditPageButton slug={metadata.slug ?? "default-slug"} />
+              <OpenInCursor path={metadata.slug ?? "default-path"} />
+            </div>
+          )}
+          <article className="prose prose-lg max-w-none">
+            <Content />
+          </article>
         </div>
-      )}
-      <article className="prose prose-lg mx-auto w-full">
-        <Content />
-      </article>
+      </section>
+      <HomeCta />
     </div>
   );
 }

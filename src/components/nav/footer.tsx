@@ -3,21 +3,36 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 
 function Footer() {
   return (
-    <footer className="bottom-0 z-40 w-full bg-background ">
-      <div className="sm:px-8 px-4 flex flex-col  items-center h-32 space-y-4 sm:space-y-4 font-light">
-        <div className="flex gap-6 items-center pt-5">
-          <div className="">&copy; {new Date().getFullYear()} mdxblog.com</div>
+    <footer className="border-t border-border bg-background">
+      <div className="site-container flex flex-col gap-6 py-10 text-sm">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="text-base font-semibold">
+            &copy; {new Date().getFullYear()} mdxblog.com
+          </div>
           <ThemeSwitcher />
         </div>
-        <nav className="flex gap-4 items-center">
-          <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
-          <Link href="/contact">Contact</Link>
-          {/* <Link href="/blog">Blog</Link> */}
-          <Link href="/privacy">Privacy</Link>
+        <nav className="flex flex-wrap items-center gap-6 font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          <Link href="/" className="transition-colors hover:text-foreground">
+            Home
+          </Link>
+          <Link href="/about" className="transition-colors hover:text-foreground">
+            About
+          </Link>
+          <Link
+            href="/contact"
+            className="transition-colors hover:text-foreground"
+          >
+            Contact
+          </Link>
+          <Link
+            href="/privacy"
+            className="transition-colors hover:text-foreground"
+          >
+            Privacy
+          </Link>
           <Link
             href="/donate"
-            className="bg-primary px-3 py-1 rounded-full font-bold text-black"
+            className="bg-primary px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-black"
           >
             Donate
           </Link>

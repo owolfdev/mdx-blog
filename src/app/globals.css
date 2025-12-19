@@ -122,9 +122,47 @@
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    letter-spacing: -0.01em;
+  }
+
+  h1 {
+    @apply text-balance tracking-tight;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+  }
+
+  h2 {
+    @apply text-balance tracking-tight;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+
+  h3 {
+    @apply text-balance tracking-tight;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  h4,
+  h5,
+  h6 {
+    @apply text-balance tracking-tight;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    @apply text-pretty leading-relaxed;
   }
 }
 
 [id] {
   scroll-margin-top: 80px;
+}
+
+@layer utilities {
+  .site-container {
+    @apply mx-auto w-full max-w-6xl px-6 sm:px-10;
+  }
 }

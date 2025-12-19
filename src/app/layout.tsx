@@ -64,7 +64,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="">
+      <body className="min-h-screen bg-background text-foreground">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -72,10 +72,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <div className="flex flex-col items-center justify-between px-6 py-4 sm:px-10 sm:py-8 min-h-[calc(100vh-13rem)]">
+          <main className="flex min-h-[calc(100vh-13rem)] w-full flex-col">
             {children}
             <CookieConsentComponent />
-          </div>
+          </main>
           <Footer />
         </ThemeProvider>
       </body>
