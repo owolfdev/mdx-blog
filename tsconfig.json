@@ -33,6 +33,9 @@
       ],
       "@/content/*": [
         "./content/*"
+      ],
+      "@/settings/*": [
+        "./settings/*"
       ]
     },
     "typeRoots": [

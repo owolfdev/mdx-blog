@@ -8,11 +8,12 @@ import path from "node:path";
 const nextConfig = {
   // Configure `pageExtensions` to include markdown and MDX files
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
-  // Configure webpack to resolve content directory for MDX imports
+  // Configure webpack to resolve content and settings directories
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
       "@/content": path.join(process.cwd(), "content"),
+      "@/settings": path.join(process.cwd(), "settings"),
     };
     return config;
   },
