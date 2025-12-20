@@ -100,19 +100,18 @@ export function ContactForm() {
   };
 
   return (
-    <div className="flex flex-col items-center max-w-3xl gap-8 pt-12">
-      <form
-        className="flex-1 flex flex-col sm:w-[600px] w-full gap-4"
-        onSubmit={handleSubmit}
-      >
-        <p className="text-sm text-foreground">
-          Have a question or feedback? Use the form below to get in touch with
-          us.
-        </p>
-        <div className="flex flex-col gap-2 [&>input]:mb-3 [&>textarea]:mb-3 mt-8">
-          <Label htmlFor="type">Message Type</Label>
+    <form className="flex w-full flex-col gap-8" onSubmit={handleSubmit}>
+      <p className="text-sm font-medium text-muted-foreground">
+        Have a question or feedback? Use the form below to get in touch with us.
+      </p>
+
+      <div className="grid gap-6">
+        <div className="grid gap-2">
+          <Label htmlFor="type" className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            Message Type
+          </Label>
           <Select name="type" required>
-            <SelectTrigger className="text-lg">
+            <SelectTrigger className="h-11 text-sm font-medium">
               <SelectValue placeholder="Select message type" />
             </SelectTrigger>
             <SelectContent>
@@ -124,78 +123,100 @@ export function ContactForm() {
             </SelectContent>
           </Select>
           {formErrors.type && (
-            <div className="text-red-500 text-sm mt-1">{formErrors.type}</div>
+            <div className="text-sm text-destructive">{formErrors.type}</div>
           )}
+        </div>
 
-          <Label htmlFor="subject">Subject</Label>
+        <div className="grid gap-2">
+          <Label htmlFor="subject" className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            Subject
+          </Label>
           <Input
             name="subject"
             placeholder="Subject"
             required
-            className="text-lg"
+            className="h-11 text-sm font-medium"
           />
           {formErrors.subject && (
-            <div className="text-red-500 text-sm mt-1">
-              {formErrors.subject}
-            </div>
+            <div className="text-sm text-destructive">{formErrors.subject}</div>
           )}
+        </div>
 
-          <Label htmlFor="name">Name</Label>
-          <Input
-            name="name"
-            placeholder="Your name"
-            required
-            className="text-lg"
-          />
-          {formErrors.name && (
-            <div className="text-red-500 text-sm mt-1">{formErrors.name}</div>
-          )}
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-2">
+            <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              Name
+            </Label>
+            <Input
+              name="name"
+              placeholder="Your name"
+              required
+              className="h-11 text-sm font-medium"
+            />
+            {formErrors.name && (
+              <div className="text-sm text-destructive">{formErrors.name}</div>
+            )}
+          </div>
 
-          <Label htmlFor="email">Email</Label>
-          <Input
-            name="email"
-            type="email"
-            placeholder="you@example.com"
-            required
-            className="text-lg"
-          />
-          {formErrors.email && (
-            <div className="text-red-500 text-sm mt-1">{formErrors.email}</div>
-          )}
+          <div className="grid gap-2">
+            <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              Email
+            </Label>
+            <Input
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              required
+              className="h-11 text-sm font-medium"
+            />
+            {formErrors.email && (
+              <div className="text-sm text-destructive">{formErrors.email}</div>
+            )}
+          </div>
+        </div>
 
-          <Label htmlFor="message">Message</Label>
+        <div className="grid gap-2">
+          <Label htmlFor="message" className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            Message
+          </Label>
           <Textarea
             name="message"
-            placeholder="Your message"
+            placeholder="Tell us what you need help with..."
             required
-            className="min-h-[100px] text-lg"
+            className="min-h-[140px] text-sm font-medium"
           />
           {formErrors.message && (
-            <div className="text-red-500 text-sm mt-1">
-              {formErrors.message}
-            </div>
+            <div className="text-sm text-destructive">{formErrors.message}</div>
           )}
+        </div>
 
-          {Boolean(recaptchaSiteKey) && (
-            <div className="mb-4">
-              <ReCAPTCHA
-                sitekey={recaptchaSiteKey}
-                onChange={handleRecaptchaChange}
-              />
-            </div>
-          )}
+        {Boolean(recaptchaSiteKey) && (
+          <div>
+            <ReCAPTCHA
+              sitekey={recaptchaSiteKey}
+              onChange={handleRecaptchaChange}
+            />
+          </div>
+        )}
 
-          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+        {error && <div className="text-sm text-destructive">{error}</div>}
 
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            We typically reply within 1–2 business days.
+          </p>
           <button
             type="submit"
-            disabled={isSubmitting || (Boolean(recaptchaSiteKey) && !isRecaptchaVerified)}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-lg disabled:opacity-50"
+            disabled={
+              isSubmitting ||
+              (Boolean(recaptchaSiteKey) && !isRecaptchaVerified)
+            }
+            className="h-12 rounded-none bg-foreground px-8 text-xs font-black uppercase tracking-[0.2em] text-background hover:bg-foreground/90 disabled:opacity-50"
           >
             {isSubmitting ? "Sending..." : "Send Message"}
           </button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 }
