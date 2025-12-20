@@ -7,6 +7,7 @@ import { HomeHero } from "@/components/home/hero";
 import { HomeFeatures } from "@/components/home/features";
 import { HomeUseCases } from "@/components/home/use-cases";
 import { HomeCta } from "@/components/home/cta";
+import PopularPosts from "@/components/posts/popular-posts";
 interface MdxModule {
   default: React.ComponentType;
   metadata: {
@@ -60,6 +61,9 @@ export default async function HomePage() {
       <HomeFeatures />
       <HomeUseCases />
       <section className="site-container py-16 md:py-24">
+        <PopularPosts />
+      </section>
+      {/* <section className="site-container py-16 md:py-24">
         <div className="mx-auto flex max-w-3xl flex-col gap-6">
           {isDevMode() && (
             <div className="flex flex-wrap gap-3">
@@ -67,11 +71,8 @@ export default async function HomePage() {
               <OpenInCursor path={metadata.slug ?? "default-path"} />
             </div>
           )}
-          <article className="prose prose-lg max-w-none">
-            <Content />
-          </article>
         </div>
-      </section>
+      </section> */}
       <HomeCta />
     </div>
   );
