@@ -61,23 +61,19 @@ const SearchPosts = ({
   };
 
   return (
-    <div className="flex gap-2 items-center w-1/2 sm:w-2/3">
-      <div className="icon-container">
-        <MagnifyingGlassIcon className="w-[24px] h-[24px]" />
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className="w-full">
-          <Input
-            ref={inputRef}
-            type="text"
-            name="searchTerm"
-            placeholder="Search"
-            value={inputValue}
-            onChange={handleChange}
-            onClick={handleClick}
-            className="text-lg sm:text-sm"
-          />
-        </div>
+    <div className="flex w-full items-center gap-3">
+      <MagnifyingGlassIcon className="h-5 w-5 text-muted-foreground" />
+      <form onSubmit={handleSubmit} className="w-full">
+        <Input
+          ref={inputRef}
+          type="text"
+          name="searchTerm"
+          placeholder="Search posts"
+          value={inputValue}
+          onChange={handleChange}
+          onClick={handleClick}
+          className="h-11 text-sm font-medium"
+        />
       </form>
     </div>
   );

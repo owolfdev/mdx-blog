@@ -154,24 +154,33 @@ export default async function Blog({ params }: Props) {
   }
 
   return (
-    <main
-      className="flex flex-col max-w-3xl w-full gap-0 pt-10"
-      aria-label="Main content"
-    >
-      <article
-        className="prose prose-lg md:prose-lg lg:prose-lg mx-auto min-w-full"
-        aria-labelledby="post-title"
-      >
-        <header aria-label="Post metadata">
-          <div className="pb-6">
-            <p className="font-semibold text-lg">
+    <main className="flex w-full flex-col" aria-label="Main content">
+      <section className="border-b border-border bg-muted/20">
+        <div className="site-container py-16 md:py-20">
+          <header
+            className="mx-auto flex max-w-3xl flex-col gap-6 text-center"
+            aria-label="Post metadata"
+          >
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              MDXBlog Journal
+            </span>
+            <h1
+              id="post-title"
+              className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl"
+            >
+              {metadata?.title}
+            </h1>
+            <div className="flex flex-wrap items-center justify-center gap-2 text-sm font-semibold text-muted-foreground">
               <time
-                className="text-primary pr-1"
+                className="text-primary"
                 title={`Date last modified. Originally published on ${originallyPublishedDateFormatted}`}
                 dateTime={displayDate}
               >
                 {displayDate.split("T")[0]}
-              </time>{" "}
+              </time>
+              <span>·</span>
+              <span>By {metadata?.author}</span>
+              {metadata?.categories?.length ? <span>·</span> : null}
               <span role="list">
                 {metadata?.categories?.map(
                   (category: string, index: number) => (
@@ -186,41 +195,49 @@ export default async function Blog({ params }: Props) {
                   )
                 )}
               </span>
-            </p>
-          </div>
-          <div className="pb-6">
-            <h1
-              id="post-title"
-              className="text-4xl sm:text-6xl font-black capitalize leading-12"
-            >
-              {metadata?.title}
-            </h1>
-            <p className="pt-6 text-xl sm:text-lg">By {metadata?.author}</p>
-          </div>
-        </header>
+            </div>
+            {metadata?.description ? (
+              <p className="text-base font-medium text-muted-foreground sm:text-lg">
+                {metadata.description}
+              </p>
+            ) : null}
+          </header>
+        </div>
+      </section>
 
+      <section className="site-container py-16 md:py-20">
         {isDevMode() && (
-          <div className="flex gap-2 mb-4" aria-label="Developer controls">
+          <div className="flex flex-wrap justify-center gap-2 pb-6" aria-label="Developer controls">
             <EditPostButton slug={slug} />
             <OpenInCursor path={slug} />
           </div>
         )}
+        <article
+          className="prose prose-lg mx-auto w-full max-w-3xl"
+          aria-labelledby="post-title"
+        >
+          <section aria-label="Post content">
+            <Content />
+          </section>
+        </article>
+      </section>
 
-        <section aria-label="Post content">
-          <Content />
-        </section>
-      </article>
+      <section className="border-t border-border bg-muted/10">
+        <div className="site-container py-12">
+          <aside aria-label="Related posts">
+            <RelatedPostsList relatedSlugs={metadata?.relatedPosts} />
+          </aside>
+        </div>
+      </section>
 
-      <aside aria-label="Related posts">
-        <RelatedPostsList relatedSlugs={metadata?.relatedPosts} />
-      </aside>
-
-      <section aria-label="Post reactions">
+      <section className="site-container pb-10" aria-label="Post reactions">
         <LikeButton postId={metadata?.id} />
       </section>
 
-      <section aria-label="Comments">
-        <CommentSection postSlug={slug} initialComments={commentsData} />
+      <section className="border-t border-border bg-muted/10">
+        <div className="site-container py-12" aria-label="Comments">
+          <CommentSection postSlug={slug} initialComments={commentsData} />
+        </div>
       </section>
     </main>
   );

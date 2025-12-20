@@ -49,17 +49,26 @@ export default async function NotFoundPage() {
   const { default: NotFoundContent, metadata } = mdxModule;
 
   return (
-    <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
-      <XCircle className="w-24 h-24 mx-auto text-muted-foreground" />
-      <h1 className="text-6xl font-black text-center">404</h1>
-      <h2 className="text-4xl font-bold text-center">{metadata.title}</h2>
-      {/* Add the prose class here */}
-      <article className="prose prose-lg mx-auto w-full text-center">
-        <NotFoundContent />
-      </article>
-      <Button asChild className="max-w-3xl mx-auto">
-        <Link href="/">Return to Home</Link>
-      </Button>
-    </div>
+    <section className="site-container py-16 md:py-24">
+      <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
+        <XCircle className="h-24 w-24 text-muted-foreground" />
+        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          MDXBlog
+        </span>
+        <h1 className="text-5xl font-black tracking-tight sm:text-6xl">404</h1>
+        <h2 className="text-2xl font-semibold text-muted-foreground sm:text-3xl">
+          {metadata.title}
+        </h2>
+        <article className="prose prose-lg mx-auto max-w-2xl text-center">
+          <NotFoundContent />
+        </article>
+        <Button
+          asChild
+          className="h-12 rounded-none bg-foreground px-8 text-sm font-black uppercase tracking-[0.2em] text-background hover:bg-foreground/90"
+        >
+          <Link href="/">Return to Home</Link>
+        </Button>
+      </div>
+    </section>
   );
 }

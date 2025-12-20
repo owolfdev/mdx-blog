@@ -67,24 +67,29 @@ function SortPosts({
   };
 
   return (
-    <div className="w-1/2 sm:w-1/3 flex gap-2 items-center">
-      {sortOrder === "asc" ? (
-        <ChevronUp className="cursor-pointer" onClick={toggleSortOrder} />
-      ) : (
-        <ChevronDown className="cursor-pointer" onClick={toggleSortOrder} />
-      )}
-      <div className="w-full">
-        <Select value={sortBy} onValueChange={handleChangeSort}>
-          <SelectTrigger>
-            <SelectValue placeholder="Sort By" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="date">Date</SelectItem>
-            <SelectItem value="title">Title</SelectItem>
-            <SelectItem value="likes">Likes</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+    <div className="flex w-full items-center gap-3 md:w-64">
+      <button
+        type="button"
+        className="inline-flex h-11 w-11 items-center justify-center border border-border bg-background text-muted-foreground transition-colors hover:text-foreground"
+        onClick={toggleSortOrder}
+        aria-label="Toggle sort order"
+      >
+        {sortOrder === "asc" ? (
+          <ChevronUp className="h-4 w-4" />
+        ) : (
+          <ChevronDown className="h-4 w-4" />
+        )}
+      </button>
+      <Select value={sortBy} onValueChange={handleChangeSort}>
+        <SelectTrigger className="h-11">
+          <SelectValue placeholder="Sort By" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="date">Date</SelectItem>
+          <SelectItem value="title">Title</SelectItem>
+          <SelectItem value="likes">Likes</SelectItem>
+        </SelectContent>
+      </Select>
     </div>
   );
 }

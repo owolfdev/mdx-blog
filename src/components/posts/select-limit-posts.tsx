@@ -60,21 +60,19 @@ function SelectLimitPosts({
   };
 
   return (
-    <div>
-      <div className="text-center">
-        <label htmlFor="postsPerPage">Posts per page:</label>
-        <select
-          id="postsPerPage"
-          value={localPostsPerPage}
-          onChange={(e) => handlePostsPerPageChange(Number(e.target.value))}
-          className="mx-2 rounded-md border border-gray-500"
-        >
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-        </select>
-      </div>
+    <div className="flex flex-col items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+      <label htmlFor="postsPerPage">Posts per page</label>
+      <select
+        id="postsPerPage"
+        value={localPostsPerPage}
+        onChange={(e) => handlePostsPerPageChange(Number(e.target.value))}
+        className="h-11 w-32 border border-border bg-background px-3 text-center text-sm font-semibold text-foreground"
+      >
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+      </select>
     </div>
   );
 }

@@ -70,27 +70,40 @@ const Blog = async ({
   }
 
   return (
-    <main
-      className="flex flex-col max-w-3xl w-full gap-8 pt-10"
-      aria-label="Main content"
-    >
-      <header
-        className="flex gap-4 justify-between items-center pb-0 pt-4"
-        aria-label="Search and sort controls"
-      >
-        <SearchPosts limit={postsPerPage} sort={sort} category={category} />
-        <SortPosts
-          sort={sort}
-          currentPage={currentPage}
-          limit={postsPerPage}
-          searchTerm={searchTerm}
-          category={category}
-        />
-      </header>
+    <main className="flex w-full flex-col" aria-label="Main content">
+      <section className="border-b border-border bg-muted/20">
+        <div className="site-container flex flex-col gap-8 py-16 md:py-20">
+          <header className="mx-auto flex max-w-3xl flex-col gap-4 text-center">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              MDXBlog
+            </span>
+            <h1 className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
+              The MDXBlog Journal
+            </h1>
+            <p className="text-base font-medium text-muted-foreground sm:text-lg">
+              Tutorials, product notes, and MDX publishing stories from the team.
+            </p>
+          </header>
 
-      <section aria-label="Blog post list">
+          <div
+            className="flex flex-col gap-4 md:flex-row"
+            aria-label="Search and sort controls"
+          >
+            <SearchPosts limit={postsPerPage} sort={sort} category={category} />
+            <SortPosts
+              sort={sort}
+              currentPage={currentPage}
+              limit={postsPerPage}
+              searchTerm={searchTerm}
+              category={category}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="site-container py-16 md:py-20" aria-label="Blog post list">
         {posts.length === 0 ? (
-          <p className="text-center text-lg py-24">
+          <p className="text-center text-lg text-muted-foreground py-24">
             No blog posts found on this page...
           </p>
         ) : (
@@ -105,55 +118,58 @@ const Blog = async ({
         )}
       </section>
 
-      <nav
-        id="pagination"
-        className="flex gap-2 pt-8 pb-2 items-center justify-center"
-        aria-label="Pagination"
-      >
-        {currentPage === 1 ? (
-          <span className={disabledLinkStyle}>{"<<"}</span>
-        ) : (
-          <Link
-            href={`/blog?limit=${postsPerPage}&page=1${searchTerm ? `&search=${searchTerm}` : ""}${category ? `&category=${category}` : ""}${!isDateDesc ? `&sort=${sort}` : ""}`}
-          >
-            {"<<"}
-          </Link>
-        )}
+      <section className="site-container pb-10" aria-label="Pagination">
+        <nav
+          id="pagination"
+          className="flex flex-wrap items-center justify-center gap-4 text-sm font-semibold uppercase tracking-[0.2em]"
+        >
+          {currentPage === 1 ? (
+            <span className={disabledLinkStyle}>{"<<"}</span>
+          ) : (
+            <Link
+              href={`/blog?limit=${postsPerPage}&page=1${searchTerm ? `&search=${searchTerm}` : ""}${category ? `&category=${category}` : ""}${!isDateDesc ? `&sort=${sort}` : ""}`}
+            >
+              {"<<"}
+            </Link>
+          )}
 
-        {isPreviousDisabled ? (
-          <span className={disabledLinkStyle}>Previous</span>
-        ) : (
-          <Link
-            href={`/blog?limit=${postsPerPage}&page=${currentPage - 1}${searchTerm ? `&search=${searchTerm}` : ""}${category ? `&category=${category}` : ""}${!isDateDesc ? `&sort=${sort}` : ""}`}
-          >
-            Previous
-          </Link>
-        )}
+          {isPreviousDisabled ? (
+            <span className={disabledLinkStyle}>Previous</span>
+          ) : (
+            <Link
+              href={`/blog?limit=${postsPerPage}&page=${currentPage - 1}${searchTerm ? `&search=${searchTerm}` : ""}${category ? `&category=${category}` : ""}${!isDateDesc ? `&sort=${sort}` : ""}`}
+            >
+              Previous
+            </Link>
+          )}
 
-        <span>- {`Page ${currentPage} of ${totalPages}`} -</span>
+          <span className="text-muted-foreground">
+            Page {currentPage} of {totalPages}
+          </span>
 
-        {isNextDisabled ? (
-          <span className={disabledLinkStyle}>Next</span>
-        ) : (
-          <Link
-            href={`/blog?limit=${postsPerPage}&page=${currentPage + 1}${searchTerm ? `&search=${searchTerm}` : ""}${category ? `&category=${category}` : ""}${!isDateDesc ? `&sort=${sort}` : ""}`}
-          >
-            Next
-          </Link>
-        )}
+          {isNextDisabled ? (
+            <span className={disabledLinkStyle}>Next</span>
+          ) : (
+            <Link
+              href={`/blog?limit=${postsPerPage}&page=${currentPage + 1}${searchTerm ? `&search=${searchTerm}` : ""}${category ? `&category=${category}` : ""}${!isDateDesc ? `&sort=${sort}` : ""}`}
+            >
+              Next
+            </Link>
+          )}
 
-        {currentPage === totalPages ? (
-          <span className={disabledLinkStyle}>{">>"}</span>
-        ) : (
-          <Link
-            href={`/blog?limit=${postsPerPage}&page=${totalPages}${searchTerm ? `&search=${searchTerm}` : ""}${category ? `&category=${category}` : ""}${!isDateDesc ? `&sort=${sort}` : ""}`}
-          >
-            {">>"}
-          </Link>
-        )}
-      </nav>
+          {currentPage === totalPages ? (
+            <span className={disabledLinkStyle}>{">>"}</span>
+          ) : (
+            <Link
+              href={`/blog?limit=${postsPerPage}&page=${totalPages}${searchTerm ? `&search=${searchTerm}` : ""}${category ? `&category=${category}` : ""}${!isDateDesc ? `&sort=${sort}` : ""}`}
+            >
+              {">>"}
+            </Link>
+          )}
+        </nav>
+      </section>
 
-      <section aria-label="Limit selector">
+      <section className="site-container pb-16" aria-label="Limit selector">
         <SelectLimitPosts
           postsPerPage={postsPerPage}
           currentPage={currentPage}

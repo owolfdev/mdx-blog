@@ -11,13 +11,24 @@ export default async function ContactPage() {
   // const message = await searchParams;
 
   return (
-    <div className="flex flex-col max-w-3xl w-full pt-10 items-center">
-      <div className="flex-1 flex flex-col sm:w-[600px] w-full">
-        <h1 className="text-6xl font-black">Contact</h1>
-        <div className="w-full">
+    <section className="site-container py-16 md:py-24">
+      <div className="mx-auto flex max-w-3xl flex-col gap-8">
+        <header className="flex flex-col items-center gap-4 text-center">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            MDXBlog
+          </span>
+          <h1 className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
+            Contact
+          </h1>
+          <p className="text-base font-medium text-muted-foreground sm:text-lg">
+            Have a question or want to collaborate? Send us a note and we’ll get
+            back to you soon.
+          </p>
+        </header>
+        <div className="border border-border bg-card p-6 sm:p-10">
           <ContactForm />
         </div>
       </div>
-    </div>
+    </section>
   );
 }

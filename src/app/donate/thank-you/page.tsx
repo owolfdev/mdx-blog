@@ -16,15 +16,24 @@ const ThankYouPage = async ({
   const amount = getFirstValue(params.amount) || "0.00";
 
   return (
-    <div className="max-w-lg mx-auto py-10 text-center flex flex-col items-center justify-center gap-4 text-lg">
-      <div className="flex flex-col items-center justify-center mb-4">
-        <h1 className="text-6xl font-black mb-2">Thank You!</h1>
-        <p className="text-md">Your donation is appreciated!</p>
+    <section className="site-container py-16 md:py-24">
+      <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
+        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          MDXBlog
+        </span>
+        <h1 className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
+          Thank You!
+        </h1>
+        <p className="text-base font-medium text-muted-foreground sm:text-lg">
+          Your donation is appreciated!
+        </p>
+        <div className="grid w-full max-w-md gap-2 border border-border bg-card p-6 text-sm">
+          <p>{`Payment Status: ${paymentStatus}`}</p>
+          <p>{`Client: ${clientName}`}</p>
+          <p>{`Amount Paid: $${amount}`}</p>
+        </div>
       </div>
-      <p>{`Payment Status: ${paymentStatus}`}</p>
-      <p>{`Client: ${clientName}`}</p>
-      <p>{`Amount Paid: $${amount}`}</p>
-    </div>
+    </section>
   );
 };
 

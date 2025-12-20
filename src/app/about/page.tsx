@@ -52,17 +52,31 @@ export default async function AboutPage() {
   const { default: Content, metadata } = mdxModule;
 
   return (
-    <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
-      <h1 className="text-6xl font-black">{metadata.title}</h1>
-      {isDevMode() && (
-        <div className="flex gap-3">
-          <EditPageButton slug={metadata.slug ?? "default-slug"} />
-          <OpenInCursor path={metadata.slug ?? "default-path"} />
-        </div>
-      )}
-      <article className="prose prose-lg mx-auto w-full">
-        <Content />
-      </article>
-    </div>
+    <section className="site-container py-16 md:py-24">
+      <div className="mx-auto flex max-w-3xl flex-col gap-8">
+        <header className="flex flex-col items-center gap-4 text-center">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            MDXBlog
+          </span>
+          <h1 className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
+            {metadata.title}
+          </h1>
+          {metadata.description ? (
+            <p className="text-base font-medium text-muted-foreground sm:text-lg">
+              {metadata.description}
+            </p>
+          ) : null}
+        </header>
+        {isDevMode() && (
+          <div className="flex flex-wrap justify-center gap-3">
+            <EditPageButton slug={metadata.slug ?? "default-slug"} />
+            <OpenInCursor path={metadata.slug ?? "default-path"} />
+          </div>
+        )}
+        <article className="prose prose-lg max-w-none">
+          <Content />
+        </article>
+      </div>
+    </section>
   );
 }
