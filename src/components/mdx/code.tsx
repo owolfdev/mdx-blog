@@ -11,8 +11,9 @@ const Code = ({ className = "", children }: CodeProps) => {
   const [copied, setCopied] = useState(false);
   const codeRef = useRef<HTMLElement>(null);
 
-  const matches = className.match(/language-(.*)/);
-  const language = matches?.[1] || "";
+  const matches = className.match(/language-([a-z0-9+-]+)/i);
+  const hasMdxLabel = className.includes("language-mdx-label");
+  const language = hasMdxLabel ? "mdx" : matches?.[1] || "";
 
   const handleCopy = () => {
     if (codeRef.current) {

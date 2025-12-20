@@ -181,7 +181,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 16
+    "likes": 17
   },
   {
     "slug": "caching-mdx-metadata-for-fast-post-management",
@@ -834,7 +834,7 @@
       "image",
       "images"
     ],
-    "modifiedDate": "2025-03-02T19:55:43.182Z",
+    "modifiedDate": "2025-12-20T01:33:15.027Z",
     "image": null,
     "draft": false,
     "relatedPosts": [],
