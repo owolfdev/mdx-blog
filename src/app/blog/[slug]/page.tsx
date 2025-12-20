@@ -207,13 +207,16 @@ export default async function Blog({ params }: Props) {
 
       <section className="site-container py-16 md:py-20">
         {isDevMode() && (
-          <div className="flex flex-wrap justify-center gap-2 pb-6" aria-label="Developer controls">
+          <div
+            className="flex flex-wrap justify-center gap-2 pb-6"
+            aria-label="Developer controls"
+          >
             <EditPostButton slug={slug} />
             <OpenInCursor path={slug} />
           </div>
         )}
         <article
-          className="prose prose-lg mx-auto w-full max-w-3xl"
+          className="prose prose-lg mx-auto w-full max-w-4xl"
           aria-labelledby="post-title"
         >
           <section aria-label="Post content">

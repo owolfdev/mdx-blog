@@ -4,6 +4,7 @@
 
 @source "./src/**/*.{ts,tsx,mdx}";
 @source "./content/**/*.{md,mdx}";
+@safelist "hljs" /hljs-.+/;
 
 :root {
   --background: 0 0% 100%;
@@ -159,6 +160,138 @@
 
 [id] {
   scroll-margin-top: 80px;
+}
+
+@layer base {
+  pre code.hljs,
+  code.hljs,
+  .hljs {
+    background-color: transparent !important;
+  }
+}
+
+@layer base {
+  .hljs {
+    color: #24292f;
+  }
+
+  .hljs-comment,
+  .hljs-quote {
+    color: #6e7781;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-subst {
+    color: #cf222e;
+  }
+
+  .hljs-title,
+  .hljs-section,
+  .hljs-selector-id {
+    color: #8250df;
+  }
+
+  .hljs-name,
+  .hljs-type,
+  .hljs-attribute {
+    color: #d18616;
+  }
+
+  .hljs-symbol,
+  .hljs-bullet,
+  .hljs-addition,
+  .hljs-variable,
+  .hljs-template-tag,
+  .hljs-template-variable {
+    color: #116329;
+  }
+
+  .hljs-string,
+  .hljs-doctag {
+    color: #0a3069;
+  }
+
+  .hljs-number,
+  .hljs-literal,
+  .hljs-regexp,
+  .hljs-link {
+    color: #0550ae;
+  }
+
+  .hljs-meta {
+    color: #8250df;
+  }
+
+  .hljs-built_in,
+  .hljs-params {
+    color: #d18616;
+  }
+
+  .hljs-attr {
+    color: #0550ae;
+  }
+}
+
+.dark .hljs {
+  color: #c9d1d9;
+}
+
+.dark .hljs-comment,
+.dark .hljs-quote {
+  color: #8b949e;
+}
+
+.dark .hljs-keyword,
+.dark .hljs-selector-tag,
+.dark .hljs-subst {
+  color: #ff7b72;
+}
+
+.dark .hljs-title,
+.dark .hljs-section,
+.dark .hljs-selector-id {
+  color: #d2a8ff;
+}
+
+.dark .hljs-name,
+.dark .hljs-type,
+.dark .hljs-attribute {
+  color: #ffa657;
+}
+
+.dark .hljs-symbol,
+.dark .hljs-bullet,
+.dark .hljs-addition,
+.dark .hljs-variable,
+.dark .hljs-template-tag,
+.dark .hljs-template-variable {
+  color: #7ee787;
+}
+
+.dark .hljs-string,
+.dark .hljs-doctag {
+  color: #a5d6ff;
+}
+
+.dark .hljs-number,
+.dark .hljs-literal,
+.dark .hljs-regexp,
+.dark .hljs-link {
+  color: #79c0ff;
+}
+
+.dark .hljs-meta {
+  color: #d2a8ff;
+}
+
+.dark .hljs-built_in,
+.dark .hljs-params {
+  color: #ffa657;
+}
+
+.dark .hljs-attr {
+  color: #79c0ff;
 }
 
 @layer utilities {

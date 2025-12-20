@@ -33,64 +33,87 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return <InlineCode>{children}</InlineCode>;
     },
     h1: (props) => (
-      <h1 className="text-4xl font-black pb-4 w-full" {...props} />
+      <h1
+        className="w-full pb-3 text-3xl font-black tracking-tight sm:text-4xl"
+        {...props}
+      />
     ),
     h2: (props) => (
-      <h2 className="text-3xl font-black pb-4 w-full" {...props} />
+      <h2
+        className="w-full pb-3 text-2xl font-black tracking-tight sm:text-3xl"
+        {...props}
+      />
     ),
-    h3: (props) => <h3 className="text-2xl font-bold pb-4 w-full" {...props} />,
-    h4: (props) => <h4 className="text-xl font-bold pb-4 w-full" {...props} />,
-    h5: (props) => <h5 className="text-lg font-bold pb-4 w-full" {...props} />,
+    h3: (props) => (
+      <h3
+        className="w-full pb-3 text-xl font-bold tracking-tight sm:text-2xl"
+        {...props}
+      />
+    ),
+    h4: (props) => (
+      <h4 className="w-full pb-2 text-lg font-semibold" {...props} />
+    ),
+    h5: (props) => (
+      <h5 className="w-full pb-2 text-base font-semibold" {...props} />
+    ),
     h6: (props) => (
-      <h6 className="text-base font-light pb-4 w-full" {...props} />
+      <h6 className="w-full pb-2 text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground" {...props} />
     ),
-    p: (props) => <p className="text-xl sm:text-lg mb-4 w-full" {...props} />,
-    li: (props) => <li className="" {...props} />,
-    ul: (props) => <ul className="list-disc pl-6 pb-4 w-full" {...props} />,
-    ol: (props) => <ol className="list-decimal pl-6 pb-4 w-full" {...props} />,
-    hr: (props) => <hr className="pb-4 border-t w-full" {...props} />,
+    p: (props) => (
+      <p
+        className="w-full pb-4 text-base font-medium leading-relaxed text-foreground/70 dark:text-foreground/75 sm:text-lg"
+        {...props}
+      />
+    ),
+    li: (props) => (
+      <li className="text-base font-medium leading-relaxed text-foreground/70 dark:text-foreground/75" {...props} />
+    ),
+    ul: (props) => (
+      <ul className="w-full list-disc space-y-2 pl-6 pb-4" {...props} />
+    ),
+    ol: (props) => (
+      <ol className="w-full list-decimal space-y-2 pl-6 pb-4" {...props} />
+    ),
+    hr: (props) => <hr className="w-full border-t border-border pb-6" {...props} />,
     blockquote: (props) => (
       <blockquote
-        style={{ paddingBottom: 0 }}
-        className="border-l-4 pl-4 my-4"
+        className="my-6 border-l-2 border-primary/40 bg-muted/30 p-4 text-sm font-medium text-foreground/80"
         {...props}
       />
     ),
     a: ({ href = "", children, ...rest }) => {
-      // Use the CustomLink component to handle external/internal links
       return (
-        <CustomLink href={href}>
-          <span className="dark:text-primary text-primary decoration-primary hover:underline hover:decoration-primary">
-            {children}
-          </span>
+        <CustomLink
+          href={href}
+          className="text-primary decoration-primary/60 underline-offset-4 hover:text-primary/80 hover:underline"
+        >
+          {children}
         </CustomLink>
       );
     },
     // table
     table: (props) => (
       <table
-        className="border-collapse w-full text-left table-auto border border-gray-300 dark:border-gray-700 "
+        className="w-full table-auto border-collapse border border-border text-left text-sm"
         {...props}
       />
     ),
     thead: (props) => (
-      <thead className="bg-gray-100 dark:bg-gray-800" {...props} />
+      <thead className="bg-muted/50 text-foreground" {...props} />
     ),
-    tbody: (props) => (
-      <tbody className="bg-white dark:bg-gray-900" {...props} />
-    ),
+    tbody: (props) => <tbody className="bg-card" {...props} />,
     tr: (props) => (
-      <tr className="even:bg-gray-50 dark:even:bg-gray-800" {...props} />
+      <tr className="even:bg-muted/20" {...props} />
     ),
     th: (props) => (
       <th
-        className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-700"
+        className="border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground"
         {...props}
       />
     ),
     td: (props) => (
       <td
-        className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-700"
+        className="border border-border px-4 py-3 text-sm text-muted-foreground"
         {...props}
       />
     ),

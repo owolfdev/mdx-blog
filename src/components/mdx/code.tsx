@@ -25,19 +25,19 @@ const Code = ({ className = "", children }: CodeProps) => {
   };
 
   return (
-    <div className="gap-0 rounded-lg pb-6 w-full max-w-full overflow-hidden text-black dark:text-white">
-      <div className="flex justify-between items-center bg-gray-100 dark:bg-gray-900 py-2 px-4 rounded-t-lg border">
-        <span className="text-gray-600 dark:text-gray-300">{language}</span>
+    <div className="mb-6 w-full max-w-full overflow-hidden rounded-none border border-border bg-muted/30 dark:bg-muted/20 text-foreground shadow-sm">
+      <div className="flex items-center justify-between border-b border-border bg-muted/50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+        <span>{language || "code"}</span>
         <button
           type="button"
-          className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+          className="rounded-none border border-border bg-background px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-foreground transition-colors hover:bg-foreground hover:text-background"
           onClick={handleCopy}
         >
-          {copied ? "Copied!" : "Copy"}
+          {copied ? "Copied" : "Copy"}
         </button>
       </div>
       <pre
-        className="bg-gray-50 dark:bg-gray-800 p-4 rounded-b-lg overflow-auto w-full block max-w-full border border-t-0"
+        className="bg-transparent p-4 text-sm leading-relaxed text-foreground"
         style={{
           maxWidth: "100%",
           overflowX: "auto",
@@ -48,7 +48,7 @@ const Code = ({ className = "", children }: CodeProps) => {
       >
         <code
           ref={codeRef}
-          className={`${className} bg-gray-50 dark:bg-gray-800 block w-full`}
+          className={`${className} block w-full bg-transparent font-mono`}
           style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
         >
           {children}
