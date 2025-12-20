@@ -57,8 +57,8 @@ export function HomeUseCases() {
               >
                 <div className="absolute -right-12 -top-12 h-28 w-28 rounded-full bg-accent/10" />
                 <div className="relative space-y-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-md bg-accent/10">
-                    <Icon className="h-5 w-5 text-accent" />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-md border border-border bg-primary/15 dark:bg-primary/20">
+                    <Icon className="h-5 w-5 text-primary" />
                   </div>
                   <h3 className="text-xl font-bold">{useCase.title}</h3>
                   <p className="text-sm text-muted-foreground">

@@ -91,8 +91,8 @@ export function HomeFeatures() {
               className="group relative overflow-hidden border border-border bg-card p-6 transition-shadow hover:shadow-lg"
             >
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-md bg-accent/10">
-                  <Icon className="h-5 w-5 text-accent" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-md border border-border bg-primary/15 dark:bg-primary/20">
+                  <Icon className="h-5 w-5 text-primary" />
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-lg font-bold">{feature.title}</h3>

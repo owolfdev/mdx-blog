@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 
 function Footer() {
   return (
@@ -9,7 +8,6 @@ function Footer() {
           <div className="text-base font-semibold">
             &copy; {new Date().getFullYear()} mdxblog.com
           </div>
-          <ThemeSwitcher />
         </div>
         <nav className="flex flex-wrap items-center gap-6 font-semibold uppercase tracking-[0.2em] text-muted-foreground">
           <Link href="/" className="transition-colors hover:text-foreground">
