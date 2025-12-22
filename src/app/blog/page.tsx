@@ -78,11 +78,10 @@ const Blog = async ({
               MDXBlog
             </span>
             <h1 className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
-              The MDXBlog Journal
+              The MDXBlog
             </h1>
             <p className="text-base font-medium text-foreground/80 sm:text-lg">
-              Tutorials, product notes, and MDX publishing stories from the
-              team.
+              Tutorials, product notes, and MDX publishing stories.
             </p>
           </header>
 

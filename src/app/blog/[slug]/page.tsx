@@ -162,7 +162,7 @@ export default async function Blog({ params }: Props) {
             aria-label="Post metadata"
           >
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              MDXBlog Journal
+              MDXBlog
             </span>
             <h1
               id="post-title"
