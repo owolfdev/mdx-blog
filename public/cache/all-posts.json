@@ -112,7 +112,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 4
+    "likes": 3
   },
   {
     "slug": "basic-markdown-guide",
@@ -277,7 +277,7 @@
     "relatedPosts": [
       "custom-link-component-for-external-navigation"
     ],
-    "likes": 6
+    "likes": 7
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -299,7 +299,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 23
+    "likes": 21
   },
   {
     "slug": "custom-link-component-for-external-navigation",
@@ -706,7 +706,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 30789
+    "likes": 45
   },
   {
     "slug": "mdx-performance-optimization",
@@ -750,7 +750,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 13
+    "likes": 12
   },
   {
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",
@@ -793,7 +793,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 7
+    "likes": 5
   },
   {
     "slug": "nextjs-switch-api-to-server-actions",
@@ -1014,7 +1014,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 1
   },
   {
     "slug": "the-next.js-portfolio-blog-starter-kit",

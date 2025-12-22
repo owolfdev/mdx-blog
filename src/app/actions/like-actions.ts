@@ -32,13 +32,22 @@ export async function addLike(postId: string, userId: string) {
       throw new Error("Missing postId or userId");
     }
 
+    if (!isValidUUID(postId) || !isValidUUID(userId)) {
+      throw new Error("Invalid UUID format for postId or userId");
+    }
+
     const { data, error } = await supabase
       .from(tableName)
-      .insert([{ post_id: postId, user_id: userId }]);
+      .upsert(
+        [{ post_id: postId, user_id: userId }],
+        { onConflict: "post_id,user_id", ignoreDuplicates: true }
+      )
+      .select("id");
 
     if (error) throw error;
 
-    return { success: true, data };
+    const inserted = Array.isArray(data) && data.length > 0;
+    return { success: true, data, inserted };
   } catch (error) {
     console.error("Error in addLike:", (error as Error).message);
     return { success: false, error: (error as Error).message };
@@ -53,15 +62,21 @@ export async function removeLike(postId: string, userId: string) {
       throw new Error("Missing postId or userId");
     }
 
+    if (!isValidUUID(postId) || !isValidUUID(userId)) {
+      throw new Error("Invalid UUID format for postId or userId");
+    }
+
     const { data, error } = await supabase
       .from(tableName)
       .delete()
       .eq("post_id", postId)
-      .eq("user_id", userId);
+      .eq("user_id", userId)
+      .select("id");
 
     if (error) throw error;
 
-    return { success: true, data };
+    const deleted = Array.isArray(data) && data.length > 0;
+    return { success: true, data, deleted };
   } catch (error) {
     console.error("Error in removeLike:", (error as Error).message);
     return { success: false, error: (error as Error).message };
