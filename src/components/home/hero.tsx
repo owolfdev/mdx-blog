@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 export function HomeHero() {
   return (
     <section className="relative overflow-hidden border-b border-border">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(249,172,0,0.18),transparent_60%)]" />
+      <div className="pointer-events-none absolute inset-0 dark:bg-[radial-gradient(circle_at_top,rgba(249,172,0,0.18),transparent_60%)]" />
       <div className="site-container relative flex flex-col items-center gap-10 py-16 md:py-24 text-center">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
