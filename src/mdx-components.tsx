@@ -64,14 +64,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     p: (props) => (
       <p
-        className="w-full pb-4 text-base font-normal leading-relaxed text-foreground/85 dark:text-foreground/90 sm:text-lg"
+        className="w-full pb-4 text-base font-normal leading-relaxed text-foreground/85 dark:text-foreground/85 sm:text-lg"
         // style={{ fontFamily: "var(--font-geist)" }}
         {...props}
       />
     ),
     li: (props) => (
       <li
-        className="text-base font-normal leading-relaxed text-foreground/85 dark:text-foreground/90"
+        className="text-base font-normal leading-relaxed text-foreground/85 dark:text-foreground/85"
         {...props}
       />
     ),
@@ -86,7 +86,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     blockquote: (props) => (
       <blockquote
-        className="my-6 border-l-2 border-primary/40 bg-muted/30 p-4 text-sm font-medium text-foreground/85 dark:text-foreground/90"
+        className="my-6 border-l-2 border-primary/40 bg-muted/30 p-4 text-sm font-medium text-foreground/85 dark:text-foreground/85"
         {...props}
       />
     ),
@@ -94,7 +94,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return (
         <CustomLink
           href={href}
-          className="text-primary decoration-primary/60 underline-offset-4 hover:text-primary/85 dark:hover:text-primary/90 hover:underline"
+          className="text-primary decoration-primary/60 underline-offset-4 hover:text-primary/85 dark:hover:text-primary/85 hover:underline"
         >
           {children}
         </CustomLink>
@@ -109,7 +109,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     thead: (props) => (
       <thead
-        className="bg-muted/50 text-foreground/85 dark:text-foreground/90"
+        className="bg-muted/50 text-foreground/85 dark:text-foreground/85"
         {...props}
       />
     ),

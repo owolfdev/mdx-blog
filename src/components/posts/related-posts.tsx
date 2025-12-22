@@ -24,7 +24,7 @@ const RelatedPostsList = async ({ relatedSlugs }: RelatedPostsListProps) => {
     <div className="mt-8">
       <hr className="pb-8" />
       <h3 className="text-xl font-bold mb-4">Related Posts</h3>
-      <ul className="text-muted-foreground">
+      <ul className="text-foreground/85">
         {relatedPosts.map((post) => (
           <li key={post?.slug} className="mb-2">
             <Link
