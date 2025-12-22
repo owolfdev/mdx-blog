@@ -80,8 +80,9 @@ const Blog = async ({
             <h1 className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
               The MDXBlog Journal
             </h1>
-            <p className="text-base font-medium text-muted-foreground sm:text-lg">
-              Tutorials, product notes, and MDX publishing stories from the team.
+            <p className="text-base font-medium text-foreground/80 sm:text-lg">
+              Tutorials, product notes, and MDX publishing stories from the
+              team.
             </p>
           </header>
 
@@ -101,7 +102,10 @@ const Blog = async ({
         </div>
       </section>
 
-      <section className="site-container py-16 md:py-20" aria-label="Blog post list">
+      <section
+        className="site-container py-16 md:py-20"
+        aria-label="Blog post list"
+      >
         {posts.length === 0 ? (
           <p className="text-center text-lg text-muted-foreground py-24">
             No blog posts found on this page...

@@ -27,7 +27,10 @@ const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
           className="group relative overflow-hidden border border-border bg-card p-6 transition-shadow hover:shadow-lg"
         >
           <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-accent/10" />
-          <Link href={`/blog/${blog.slug}`} className="relative block space-y-4">
+          <Link
+            href={`/blog/${blog.slug}`}
+            className="relative block space-y-3"
+          >
             <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               <span>{blog.formattedDate}</span>
               {typeof blog.likes === "number" && (
@@ -36,8 +39,10 @@ const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
                 </span>
               )}
             </div>
-            <h3 className="text-2xl font-black leading-tight">{blog.title}</h3>
-            <p className="text-sm text-muted-foreground">
+            <h3 className="text-2xl font-black leading-tight tracking-normal">
+              {blog.title}
+            </h3>
+            <p className="text-sm text-foreground/80 dark:text-muted-foreground">
               {trimDescription(blog.description)}
             </p>
           </Link>

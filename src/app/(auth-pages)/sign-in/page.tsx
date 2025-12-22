@@ -20,7 +20,7 @@ export default async function Login({ searchParams }: PageProps) {
   const successMessage: Message | null = success ? { success } : null;
 
   return (
-    <div className="flex flex-col items-center max-w-3xl gap-8 pt-12">
+    <div className="flex flex-col items-center gap-8 pt-12 sm:pt-24">
       <form className="flex-1 flex flex-col sm:w-[500px] w-[300px] gap-4">
         <h1 className="text-6xl font-black">Sign in</h1>
         <p className="text-sm text-foreground">

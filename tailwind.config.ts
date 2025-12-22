@@ -14,6 +14,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        "libre-baskerville": ["var(--font-libre-baskerville)", "serif"],
+        geist: ["var(--font-geist)", "sans-serif"],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

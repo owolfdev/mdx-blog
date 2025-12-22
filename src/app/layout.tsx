@@ -5,11 +5,23 @@ import Footer from "@/components/nav/footer";
 // import Link from "next/link";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { Libre_Baskerville } from "next/font/google";
+import { Geist } from "next/font/google";
 import CookieConsentComponent from "@/components/cookie-consent";
 import Script from "next/script"; // <-- Import next/script
 import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
+export const libreBaskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-libre-baskerville",
+});
+
+export const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+});
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -48,7 +60,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.className} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.className} ${libreBaskerville.variable} ${geist.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         {/* Google Analytics Script */}
         <Script

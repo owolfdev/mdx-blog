@@ -197,7 +197,7 @@ export default async function Blog({ params }: Props) {
               </span>
             </div>
             {metadata?.description ? (
-              <p className="text-base font-medium text-muted-foreground sm:text-lg">
+              <p className="text-base font-regular text-foreground/80 sm:text-lg">
                 {metadata.description}
               </p>
             ) : null}

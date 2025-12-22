@@ -57,16 +57,23 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <h5 className="w-full pb-2 text-base font-semibold" {...props} />
     ),
     h6: (props) => (
-      <h6 className="w-full pb-2 text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground" {...props} />
+      <h6
+        className="w-full pb-2 text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground"
+        {...props}
+      />
     ),
     p: (props) => (
       <p
-        className="w-full pb-4 text-base font-medium leading-relaxed text-foreground/70 dark:text-foreground/75 sm:text-lg"
+        className="w-full pb-4 text-base font-normal leading-relaxed text-foreground/85 dark:text-foreground/90 sm:text-lg"
+        // style={{ fontFamily: "var(--font-geist)" }}
         {...props}
       />
     ),
     li: (props) => (
-      <li className="text-base font-medium leading-relaxed text-foreground/70 dark:text-foreground/75" {...props} />
+      <li
+        className="text-base font-normal leading-relaxed text-foreground/85 dark:text-foreground/90"
+        {...props}
+      />
     ),
     ul: (props) => (
       <ul className="w-full list-disc space-y-2 pl-6 pb-4" {...props} />
@@ -74,10 +81,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ol: (props) => (
       <ol className="w-full list-decimal space-y-2 pl-6 pb-4" {...props} />
     ),
-    hr: (props) => <hr className="w-full border-t border-border pb-6" {...props} />,
+    hr: (props) => (
+      <hr className="w-full border-t border-border pb-6" {...props} />
+    ),
     blockquote: (props) => (
       <blockquote
-        className="my-6 border-l-2 border-primary/40 bg-muted/30 p-4 text-sm font-medium text-foreground/80"
+        className="my-6 border-l-2 border-primary/40 bg-muted/30 p-4 text-sm font-medium text-foreground/85 dark:text-foreground/90"
         {...props}
       />
     ),
@@ -85,7 +94,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return (
         <CustomLink
           href={href}
-          className="text-primary decoration-primary/60 underline-offset-4 hover:text-primary/80 hover:underline"
+          className="text-primary decoration-primary/60 underline-offset-4 hover:text-primary/85 dark:hover:text-primary/90 hover:underline"
         >
           {children}
         </CustomLink>
@@ -99,12 +108,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       />
     ),
     thead: (props) => (
-      <thead className="bg-muted/50 text-foreground" {...props} />
+      <thead
+        className="bg-muted/50 text-foreground/85 dark:text-foreground/90"
+        {...props}
+      />
     ),
     tbody: (props) => <tbody className="bg-card" {...props} />,
-    tr: (props) => (
-      <tr className="even:bg-muted/20" {...props} />
-    ),
+    tr: (props) => <tr className="even:bg-muted/20" {...props} />,
     th: (props) => (
       <th
         className="border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground"
