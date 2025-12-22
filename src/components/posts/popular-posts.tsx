@@ -34,7 +34,7 @@ export default async function PopularPostsPage() {
         <h2 className="text-3xl font-black tracking-tight sm:text-5xl">
           Popular Posts
         </h2>
-        <p className="flex w-full text-foreground/80 sm:text-base justify-center">
+        <p className="flex w-full text-foreground/70  sm:text-base justify-center">
           Explore the most loved tutorials and updates from the MDXBlog
           community.
         </p>

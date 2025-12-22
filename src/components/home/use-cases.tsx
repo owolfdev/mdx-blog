@@ -38,7 +38,7 @@ export function HomeUseCases() {
           <h2 className="text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
             Designed for the Way You Publish
           </h2>
-          <p className="text-base font-medium text-foreground/80 sm:text-lg">
+          <p className="text-base font-medium text-foreground/70  sm:text-lg">
             Match MDXBlog with the content you already create and share.
           </p>
         </div>

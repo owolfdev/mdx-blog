@@ -69,7 +69,7 @@ export function HomeFeatures() {
         <h2 className="text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
           Built for Content That Ships
         </h2>
-        <p className="text-base font-medium text-foreground/80 sm:text-lg">
+        <p className="text-base font-medium text-foreground/70  sm:text-lg">
           MDXBlog keeps publishing simple while giving you the power of React,
           MDX, and Next.js.
         </p>

@@ -19,12 +19,13 @@ export function HomeHero() {
           <span className="inline-flex items-center border border-border bg-muted px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-foreground/80">
             MDXBlog
           </span>
-          <h1 className="text-5xl font-black leading-[0.9] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
+          <h1 className="text-5xl font-black tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
             A Better Way To Publish With MDX
           </h1>
           <p className="max-w-2xl text-lg font-semibold text-foreground/70 sm:text-xl md:text-2xl">
-            A simple, static-site blogging platform for Next.js and MDX. Local files, no database, and a workflow that
-            makes publishing feel effortless.
+            A simple, static-site blogging template for Next.js and MDX. Local
+            files, no database, and a workflow that makes publishing feel
+            effortless.
           </p>
         </motion.div>
 
