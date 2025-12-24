@@ -62,7 +62,7 @@ export default async function AboutPage() {
             {metadata.title}
           </h1>
           {metadata.description ? (
-            <p className="text-base font-medium text-muted-foreground sm:text-lg">
+            <p className="text-base font-medium text-foreground/80 sm:text-lg">
               {metadata.description}
             </p>
           ) : null}

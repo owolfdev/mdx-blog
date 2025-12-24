@@ -20,7 +20,7 @@ export default async function ContactPage() {
           <h1 className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
             Contact
           </h1>
-          <p className="text-base font-medium text-muted-foreground sm:text-lg">
+          <p className="text-base font-medium text-foreground/80 sm:text-lg">
             Have a question or want to collaborate? Send us a note and we’ll get
             back to you soon.
           </p>
