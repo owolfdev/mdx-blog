@@ -12,35 +12,13 @@ import OpenInCursor from "@/components/posts/open-in-cursor-button";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
 
 import CommentSection from "@/components/comments/comment-section";
-import { createClient } from "@/utils/supabase/server";
-
-import Image from "next/image";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-interface DbComment {
-  id: string;
-  post_slug: string;
-  author_name: string | null;
-  content: string;
-  replied_to_id: string | null;
-  created_at: string;
-  updated_at: string | null;
-  is_approved: boolean;
-}
-
-interface Comment {
-  id: string;
-  postSlug: string;
-  authorName: string | null;
-  content: string;
-  repliedToId: string | null;
-  createdAt: string;
-  updatedAt: string | null;
-  approved: boolean;
-}
+export const dynamic = "force-static";
+export const dynamicParams = false;
 
 async function loadMdxFile(slug: string) {
   try {
@@ -54,6 +32,17 @@ async function loadMdxFile(slug: string) {
     console.error("Failed to load MDX file:", error);
     return null;
   }
+}
+
+export async function generateStaticParams() {
+  const postsDir = path.join(process.cwd(), "content", "posts");
+  const files = fs.readdirSync(postsDir);
+
+  return files
+    .filter((fileName) => fileName.endsWith(".mdx") && !fileName.startsWith("."))
+    .map((fileName) => ({
+      slug: fileName.replace(/\.mdx$/, ""),
+    }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -122,36 +111,6 @@ export default async function Blog({ params }: Props) {
       day: "numeric",
     }
   );
-
-  const supabase = await createClient();
-
-  let commentsData: Comment[] = [];
-
-  try {
-    const { data, error } = await supabase
-      .from("mdxblog_comments")
-      .select("*")
-      .eq("post_slug", slug)
-      .order("created_at", { ascending: true });
-
-    if (data && !error) {
-      const dbComments = data as DbComment[];
-      commentsData = dbComments.map((c) => ({
-        id: c.id,
-        postSlug: c.post_slug,
-        authorName: c.author_name,
-        content: c.content,
-        repliedToId: c.replied_to_id,
-        createdAt: c.created_at,
-        updatedAt: c.updated_at,
-        approved: c.is_approved,
-      }));
-    } else {
-      console.error("Failed to load comments:", error?.message);
-    }
-  } catch (err) {
-    console.error("Error loading comments:", err);
-  }
 
   return (
     <main className="flex w-full flex-col" aria-label="Main content">
@@ -239,7 +198,7 @@ export default async function Blog({ params }: Props) {
 
       <section className="border-t border-border bg-muted/10">
         <div className="site-container py-12" aria-label="Comments">
-          <CommentSection postSlug={slug} initialComments={commentsData} />
+          <CommentSection postSlug={slug} initialComments={[]} />
         </div>
       </section>
     </main>

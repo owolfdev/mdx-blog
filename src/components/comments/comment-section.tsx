@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { addComment } from "@/actions/comments/add-comment";
 import { editComment } from "@/actions/comments/edit-comment";
 import { deleteComment } from "@/actions/comments/delete-comment";
 import { approveComment } from "@/actions/comments/approve-comment"; // ✅ Import approve
+import { getComments } from "@/actions/comments/get-comments";
 import {
   getMyCommentIds,
   addMyCommentId,
@@ -32,6 +33,40 @@ export default function CommentSection({ postSlug, initialComments }: Props) {
   const [comments, setComments] = useState<Comment[]>(initialComments);
   const [error, setError] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(initialComments.length === 0);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadComments() {
+      if (initialComments.length > 0) {
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const fetchedComments = await getComments(postSlug);
+        if (isMounted) {
+          setComments(fetchedComments);
+        }
+      } catch (err) {
+        console.error(err);
+        if (isMounted) {
+          setError("Failed to load comments.");
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadComments();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [postSlug, initialComments.length]);
 
   async function handleAddComment(
     authorName: string,
@@ -121,6 +156,10 @@ export default function CommentSection({ postSlug, initialComments }: Props) {
           <CommentForm onSubmit={handleAddComment} />
         </DialogContent>
       </Dialog>
+
+      {isLoading && (
+        <p className="text-sm text-muted-foreground">Loading comments...</p>
+      )}
 
       {comments.some((c) => c.approved) && (
         <h2 className="text-2xl font-bold mt-4">Comments</h2>

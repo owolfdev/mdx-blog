@@ -70,8 +70,8 @@ export function HomeFeatures() {
           Built for Content That Ships
         </h2>
         <p className="text-base font-medium text-foreground/70  sm:text-lg">
-          MDXBlog keeps publishing simple while giving you the power of React,
-          MDX, and Next.js.
+          The MDXBlog template keeps publishing simple while giving you the
+          power of React, MDX, and Next.js.
         </p>
       </div>
 

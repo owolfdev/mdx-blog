@@ -23,9 +23,9 @@ export function HomeHero() {
             A Better Way To Publish With MDX
           </h1>
           <p className="max-w-2xl text-lg font-semibold text-foreground/70 sm:text-xl md:text-2xl">
-            A simple, static-site blogging template for Next.js and MDX. Local
-            files, no database, and a workflow that makes publishing feel
-            effortless.
+            Read about MDX and how to use it. Download the template and start
+            publishing your content today. Discover how to use local files, no
+            database, and a workflow that makes publishing feel effortless.
           </p>
         </motion.div>
 

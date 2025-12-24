@@ -12,13 +12,13 @@ import Script from "next/script"; // <-- Import next/script
 import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
-export const libreBaskerville = Libre_Baskerville({
+const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-libre-baskerville",
 });
 
-export const geist = Geist({
+const geist = Geist({
   subsets: ["latin"],
   variable: "--font-geist",
 });
