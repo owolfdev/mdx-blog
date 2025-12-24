@@ -6,27 +6,27 @@ import { BookOpen, Newspaper, Code2, Layers3 } from "lucide-react";
 const useCases = [
   {
     icon: BookOpen,
-    title: "Technical Articles",
+    title: "Technical Publications",
     description:
-      "Publish in-depth tutorials and guides with embedded code examples.",
+      "This works well when long-form content needs to live next to code.",
   },
   {
     icon: Newspaper,
-    title: "News & Updates",
+    title: "Release Notes",
     description:
-      "Ship announcements and release notes without touching a database.",
+      "This keeps updates in Git history instead of a separate CMS.",
   },
   {
     icon: Code2,
-    title: "Developer Docs",
+    title: "Product Documentation",
     description:
-      "Document APIs and products with MDX-powered, interactive pages.",
+      "This makes it easier to keep docs in the same repo as the product.",
   },
   {
     icon: Layers3,
-    title: "Static Site Collections",
+    title: "Content Collections",
     description:
-      "Organize content for portfolios, knowledge bases, or internal hubs.",
+      "This keeps multi-section sites tidy and predictable as they grow.",
   },
 ];
 
@@ -36,10 +36,10 @@ export function HomeUseCases() {
       <div className="site-container py-16 md:py-24">
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
           <h2 className="text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
-            Designed for the Way You Publish
+            Where It Fits
           </h2>
           <p className="text-base font-medium text-foreground/70  sm:text-lg">
-            Match MDXBlog with the content you already create and share.
+            Clear use cases where a file-based, static workflow stays simple.
           </p>
         </div>
 

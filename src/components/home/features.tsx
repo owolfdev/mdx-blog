@@ -15,37 +15,37 @@ const features = [
     icon: FileCode2,
     title: "MDX-First Writing",
     description:
-      "Write Markdown with React components embedded directly in your content.",
+      "This keeps content flexible while still letting you use components.",
   },
   {
     icon: Database,
     title: "Local-First Content",
     description:
-      "No database required. Content lives as editable MDX files in your repo.",
+      "This keeps content as real files in Git, so review and history stay simple.",
   },
   {
     icon: Rocket,
     title: "Fast Static Pages",
     description:
-      "Build SEO-friendly pages with Next.js and ship blazing-fast performance.",
+      "This makes it easier to ship predictable static builds with fewer moving parts.",
   },
   {
     icon: Palette,
     title: "Clean, Responsive Design",
     description:
-      "A modern UI that looks great across devices and adapts to your brand.",
+      "This works well when the UI needs to be adapted to match each project.",
   },
   {
     icon: Layers,
     title: "Open Template, Easy to Extend",
     description:
-      "Start with a solid foundation and customize the system to fit your needs.",
+      "This keeps the setup clear when you extend or swap parts over time.",
   },
   {
     icon: Sparkles,
     title: "Developer-Friendly Workflow",
     description:
-      "A frictionless publishing experience built for developers and teams.",
+      "This makes it easier for teams to review, deploy, and keep changes in sync.",
   },
 ];
 
@@ -67,12 +67,23 @@ export function HomeFeatures() {
     <section className="site-container py-16 md:py-24">
       <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
         <h2 className="text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
-          Built for Content That Ships
+          What is MDXBlog?
         </h2>
-        <p className="text-base font-medium text-foreground/70  sm:text-lg">
-          The MDXBlog template keeps publishing simple while giving you the
-          power of React, MDX, and Next.js.
-        </p>
+        <div className="space-y-4 text-base font-medium text-foreground/70 sm:text-lg">
+          <p>
+            This is a working example of a Git-based, static MDX setup. Content
+            lives as files, Git is the source of truth, and pages are built
+            statically.
+          </p>
+          {/* <p>
+            This setup is used in real agency and client projects, and it is
+            adapted per project.
+          </p> */}
+          {/* <p>
+            It is here to show how this approach works in practice, not as a
+            hosted tool or CMS product.
+          </p> */}
+        </div>
       </div>
 
       <motion.div

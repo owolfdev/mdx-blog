@@ -23,9 +23,7 @@ export function HomeHero() {
             A Better Way To Publish With MDX
           </h1>
           <p className="max-w-2xl text-lg font-semibold text-foreground/70 sm:text-xl md:text-2xl">
-            Download the template and start publishing your content today.
-            Discover how to use local files, no database, and a workflow that
-            makes publishing feel effortless.
+            A Git-based, mobile friendly, static publishing system.
           </p>
         </motion.div>
 
@@ -41,7 +39,7 @@ export function HomeHero() {
             className="h-12 rounded-none bg-foreground px-8 text-sm font-black uppercase tracking-[0.2em] text-background hover:bg-foreground/90"
           >
             <Link href="/install">
-              Get Started
+              Explore the Code
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

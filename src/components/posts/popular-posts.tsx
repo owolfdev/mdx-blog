@@ -32,11 +32,10 @@ export default async function PopularPostsPage() {
     <section className="not-prose py-6">
       <div className="mb-8 flex flex-col gap-2 text-center">
         <h2 className="text-3xl font-black tracking-tight sm:text-5xl">
-          Popular Posts
+          Posts
         </h2>
         <p className="flex w-full text-foreground/70  sm:text-base justify-center">
-          Explore the most popular tutorials and updates from the MDXBlog
-          community.
+          Technical articles and tutorials.
         </p>
       </div>
 
