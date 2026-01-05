@@ -39,7 +39,7 @@ export function HomeHero() {
             size="lg"
             className="h-12 rounded-none bg-foreground px-8 text-sm font-black uppercase tracking-[0.2em] text-background hover:bg-foreground/90"
           >
-            <Link href="/install">
+            <Link href="/code">
               Expore Code
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
