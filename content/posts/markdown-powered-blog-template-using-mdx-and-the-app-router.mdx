@@ -1,0 +1,76 @@
+export const metadata = {
+  id: "9c6540e2-7b98-40f9-b57e-750c29acd8f2",
+  type: "blog",
+  title: "Markdown-powered blog template using MDX and the App Router.",
+  author: "O. Wolfson",
+  publishDate: "2026-01-05",
+  description: "MDX lets you write Markdown content enhanced with JSX. It’s ideal for content-driven apps where you want the power of React inside rich text — perfect for blogs, documentation, and interactive pages.",
+  categories: ["Code"],
+  tags: ["MDX", "code", "web development"],
+  modifiedDate: "2026-01-05T09:31:20.951Z",
+  image: null,
+  draft: false,
+  relatedPosts: []
+};
+
+## 🔗 Project Links
+
+This blog application is open source and available for exploration:
+
+- **[GitHub Repository](https://github.com/owolfdev/mdx-nextjs-latest)** — View the complete source code, explore the implementation, and contribute improvements
+- **[Live Deployment](https://mdx-next-latest.vercel.app/)** — See the blog in action on Vercel, showcasing MDX with Next.js 16 and React 19
+
+You can clone the repository, run it locally, or use it as a starting point for your own MDX-powered blog.
+
+---
+
+### Using MDX with Next.js 16, React 19, Tailwind, and ShadCN
+
+**MDX** lets you write Markdown content enhanced with JSX. It’s ideal for content-driven apps where you want the power of React inside rich text — perfect for blogs, documentation, and interactive pages.
+
+---
+
+## ✅ App Router + MDX
+
+Next.js 16 with the App Router supports MDX smoothly.
+
+To load an MDX file dynamically:
+
+```tsx
+const post = await import(`@/content/posts/${slug}.mdx`);
+```
+
+Then render it using `@/next/mdx` compiled output. Use `useMDXComponents` to register any global components you want available in all MDX files.
+
+---
+
+## 🧪 Example: ShadCN Button in MDX
+
+Because we’ve already registered the ShadCN `Button` in our `useMDXComponents` config, we can use it in MDX **without needing to import it**:
+
+import { AlertDialogDemo } from "@/components/alert-dialog-demo";
+
+<div className="flex flex-col items-center py-4 gap-2">
+  Example:
+  <AlertDialogDemo />
+</div>
+
+```mdx
+## Example with globally registered Button
+
+<Button variant="outline">Click me</Button>
+```
+
+Alternatively, you can import it manually if you prefer:
+
+```mdx
+import { Button } from "@/components/ui/button";
+
+## Example with local import
+
+<Button variant="default">I was imported manually</Button>
+```
+
+Both approaches render the same styled component — choose based on your project's organization or preference.
+
+-

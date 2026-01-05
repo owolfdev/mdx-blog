@@ -637,6 +637,28 @@
     "likes": 2
   },
   {
+    "slug": "markdown-powered-blog-template-using-mdx-and-the-app-router",
+    "id": "9c6540e2-7b98-40f9-b57e-750c29acd8f2",
+    "type": "blog",
+    "title": "Markdown-powered blog template using MDX and the App Router.",
+    "author": "O. Wolfson",
+    "publishDate": "2026-01-05",
+    "description": "MDX lets you write Markdown content enhanced with JSX. It’s ideal for content-driven apps where you want the power of React inside rich text — perfect for blogs, documentation, and interactive pages.",
+    "categories": [
+      "Code"
+    ],
+    "tags": [
+      "MDX",
+      "code",
+      "web development"
+    ],
+    "modifiedDate": "2026-01-05T09:31:20.951Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [],
+    "likes": 0
+  },
+  {
     "slug": "mdx-and-content-management-with-headless-cms",
     "id": "c06e2b1c-678d-42fe-980e-8d63cdab1273",
     "type": "blog",
