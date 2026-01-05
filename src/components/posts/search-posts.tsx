@@ -9,10 +9,12 @@ const SearchPosts = ({
   limit,
   sort,
   category = "", // Ensure category is passed as a prop with default value
+  basePath = "/blog",
 }: {
   limit: number;
   sort: string;
   category?: string;
+  basePath?: string;
 }) => {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
@@ -21,14 +23,14 @@ const SearchPosts = ({
   const searchForTerm = useCallback(
     (searchTerm: string) => {
       router.push(
-        `/blog?limit=${limit}&page=1${
+        `${basePath}?limit=${limit}&page=1${
           searchTerm ? `&search=${searchTerm}` : ""
         }${category ? `&category=${category}` : ""}${
           sort !== "date_desc" ? `&sort=${sort}` : ""
         }`
       );
     },
-    [limit, sort, category, router]
+    [limit, sort, category, basePath, router]
   );
 
   const debouncedSearch = useRef(

@@ -184,6 +184,29 @@
     "likes": 17
   },
   {
+    "slug": "building-a-modern-blog-with-mdx-and-nextjs-16",
+    "id": "7d6f01b8-5460-447b-8c06-994d85f5e5c5",
+    "type": "blog",
+    "title": "Building a Modern Blog with MDX and Next.js 16",
+    "author": "O. Wolfson",
+    "publishDate": "2026-01-05",
+    "description": "Traditional markdown is great for writing, but it's limited. You can't embed interactive components, create custom layouts, or leverage the full power of React within your content. MDX (Markdown + JSX) solves this by allowing you to write markdown that can include React components seamlessly.",
+    "categories": [
+      "Web Development",
+      "Code"
+    ],
+    "tags": [
+      "MDX",
+      "code",
+      "web dev"
+    ],
+    "modifiedDate": "2026-01-05T09:12:16.743Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [],
+    "likes": 0
+  },
+  {
     "slug": "caching-mdx-metadata-for-fast-post-management",
     "id": "c0e80de8-cbc6-4341-af2b-fb177449b735",
     "type": "blog",
@@ -706,7 +729,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 46
+    "likes": 48
   },
   {
     "slug": "mdx-performance-optimization",
@@ -1115,7 +1138,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 13
+    "likes": 14
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",

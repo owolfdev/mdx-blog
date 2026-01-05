@@ -24,6 +24,8 @@ type Post = {
 
 type Props = {
   posts: Post[];
+  basePath?: string;
+  defaultCategory?: string;
 };
 
 function formatDate(dateString: string): string {
@@ -49,14 +51,19 @@ function getFirstValue(value: string | null): string {
   return value ?? "";
 }
 
-export default function BlogIndexClient({ posts }: Props) {
+export default function BlogIndexClient({
+  posts,
+  basePath = "/blog",
+  defaultCategory = "",
+}: Props) {
   const searchParams = useSearchParams();
 
   const currentPage = Number(getFirstValue(searchParams.get("page"))) || 1;
   const postsPerPageRaw = Number(getFirstValue(searchParams.get("limit")));
   const postsPerPage = postsPerPageRaw > 0 ? postsPerPageRaw : 10;
   const searchTerm = getFirstValue(searchParams.get("search"));
-  const category = getFirstValue(searchParams.get("category"));
+  const category =
+    getFirstValue(searchParams.get("category")) || defaultCategory;
   const sort = getFirstValue(searchParams.get("sort")) || "date_desc";
 
   const filteredPosts = useMemo(() => {
@@ -154,6 +161,7 @@ export default function BlogIndexClient({ posts }: Props) {
               limit={postsPerPage}
               sort={sort}
               category={category}
+              basePath={basePath}
             />
             <SortPosts
               sort={sort}
@@ -161,6 +169,7 @@ export default function BlogIndexClient({ posts }: Props) {
               limit={postsPerPage}
               searchTerm={searchTerm}
               category={category}
+              basePath={basePath}
             />
           </div>
         </div>
@@ -196,7 +205,7 @@ export default function BlogIndexClient({ posts }: Props) {
             <span className={disabledLinkStyle}>{"<<"}</span>
           ) : (
             <Link
-              href={`/blog?limit=${postsPerPage}&page=1${
+              href={`${basePath}?limit=${postsPerPage}&page=1${
                 searchTerm ? `&search=${searchTerm}` : ""
               }${category ? `&category=${category}` : ""}${
                 !isDateDesc ? `&sort=${sort}` : ""
@@ -210,7 +219,9 @@ export default function BlogIndexClient({ posts }: Props) {
             <span className={disabledLinkStyle}>Previous</span>
           ) : (
             <Link
-              href={`/blog?limit=${postsPerPage}&page=${currentPageClamped - 1}${
+              href={`${basePath}?limit=${postsPerPage}&page=${
+                currentPageClamped - 1
+              }${
                 searchTerm ? `&search=${searchTerm}` : ""
               }${category ? `&category=${category}` : ""}${
                 !isDateDesc ? `&sort=${sort}` : ""
@@ -228,7 +239,9 @@ export default function BlogIndexClient({ posts }: Props) {
             <span className={disabledLinkStyle}>Next</span>
           ) : (
             <Link
-              href={`/blog?limit=${postsPerPage}&page=${currentPageClamped + 1}${
+              href={`${basePath}?limit=${postsPerPage}&page=${
+                currentPageClamped + 1
+              }${
                 searchTerm ? `&search=${searchTerm}` : ""
               }${category ? `&category=${category}` : ""}${
                 !isDateDesc ? `&sort=${sort}` : ""
@@ -242,7 +255,7 @@ export default function BlogIndexClient({ posts }: Props) {
             <span className={disabledLinkStyle}>{">>"}</span>
           ) : (
             <Link
-              href={`/blog?limit=${postsPerPage}&page=${totalPages}${
+              href={`${basePath}?limit=${postsPerPage}&page=${totalPages}${
                 searchTerm ? `&search=${searchTerm}` : ""
               }${category ? `&category=${category}` : ""}${
                 !isDateDesc ? `&sort=${sort}` : ""
@@ -262,6 +275,7 @@ export default function BlogIndexClient({ posts }: Props) {
           numBlogs={paginatedPosts.length}
           sort={sort}
           category={category}
+          basePath={basePath}
         />
       </section>
     </main>

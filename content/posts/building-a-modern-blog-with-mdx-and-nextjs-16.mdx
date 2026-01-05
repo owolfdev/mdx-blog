@@ -1,0 +1,418 @@
+export const metadata = {
+  id: "7d6f01b8-5460-447b-8c06-994d85f5e5c5",
+  type: "blog",
+  title: "Building a Modern Blog with MDX and Next.js 16",
+  author: "O. Wolfson",
+  publishDate: "2026-01-05",
+  description:
+    "Traditional markdown is great for writing, but it's limited. You can't embed interactive components, create custom layouts, or leverage the full power of React within your content. MDX (Markdown + JSX) solves this by allowing you to write markdown that can include React components seamlessly.",
+  categories: ["Web Development", "Code"],
+  tags: ["MDX", "code", "web dev"],
+  modifiedDate: "2026-01-05T09:12:16.743Z",
+  image: null,
+  draft: false,
+  relatedPosts: [],
+};
+
+## Why MDX? The Perfect Marriage of Content and Code
+
+Traditional markdown is great for writing, but it's limited. You can't embed interactive components, create custom layouts, or leverage the full power of React within your content. **MDX** (Markdown + JSX) solves this by allowing you to write markdown that can include React components seamlessly.
+
+This article explores how to build a production-ready blog using MDX with Next.js 16, React 19, and the App Router—a stack that combines the best of content authoring with modern web development.
+
+---
+
+## The Use Case: When MDX Makes Sense
+
+MDX shines in several scenarios:
+
+### 📝 **Content-Driven Applications**
+
+- **Blogs**: Write posts in markdown, but embed interactive demos, code editors, or custom components
+- **Documentation**: Create docs that include live examples, interactive tutorials, and embedded widgets
+- **Landing Pages**: Mix marketing copy with interactive product demos
+- **Newsletters**: Embed signup forms, interactive charts, or product showcases directly in content
+
+### 🎯 **Key Benefits**
+
+1. **Developer-Friendly**: Write content in familiar markdown syntax
+2. **Component Reusability**: Use your existing React components within content
+3. **Type Safety**: Leverage TypeScript for both content and components
+4. **Server Components**: MDX works seamlessly with Next.js Server Components for optimal performance
+5. **No Build Step for Content**: Content is compiled at build time, not runtime
+
+---
+
+## Architecture Overview
+
+This blog application uses a **file-based content system** where MDX files live in `/content/posts` and are dynamically imported at build and runtime. Here's how it all fits together:
+
+```
+/content/posts/          → Your MDX blog posts
+/app/blog/[slug]/       → Dynamic route handler
+/lib/actions/get-posts.ts → Metadata extraction
+/mdx-components.tsx      → Global component mapping
+/next.config.ts          → MDX configuration
+```
+
+---
+
+## Core Components
+
+### 1. Next.js Configuration (`next.config.ts`)
+
+The foundation starts with configuring Next.js to handle MDX files:
+
+```typescript
+import createMDX from "@next/mdx";
+
+const nextConfig = {
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+};
+
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+});
+
+export default withMDX(nextConfig);
+```
+
+**What this does:**
+
+- Extends Next.js to recognize `.mdx` files as valid page extensions
+- Uses `@next/mdx` to compile MDX files into React components
+- Enables dynamic imports of MDX files throughout your application
+
+### 2. MDX Component Mapping (`mdx-components.tsx`)
+
+One of MDX's most powerful features is the ability to customize how markdown elements render. The `useMDXComponents` hook allows you to map markdown elements to your own React components:
+
+```typescript
+export function useMDXComponents(
+  components: MDXComponents = {}
+): MDXComponents {
+  return {
+    h1: (props) => <h1 className="mt-10 text-6xl font-bold" {...props} />,
+    h2: (props) => <h2 className="mt-8 text-4xl font-bold" {...props} />,
+    p: (props) => <p className="mt-4 text-base leading-relaxed" {...props} />,
+    code: (props) => (
+      <code
+        className="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800"
+        {...props}
+      />
+    ),
+    Button: (props) => <Button {...props} />,
+    ...components,
+  };
+}
+```
+
+**Why this matters:**
+
+- **Consistent Styling**: All headings, paragraphs, and code blocks use your design system
+- **Global Components**: Register components like `<Button>` that can be used in any MDX file without imports
+- **Dark Mode**: Apply theme-aware classes that work with your dark mode implementation
+- **Type Safety**: TypeScript ensures your component mappings are correct
+
+### 3. Dynamic Route Handler (`app/blog/[slug]/page.tsx`)
+
+Next.js 16's App Router uses **async params**, which means route parameters are Promises. Here's how we handle dynamic MDX imports:
+
+```typescript
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+
+  try {
+    const post = await import(`@/content/posts/${slug}.mdx`);
+    const { default: Content, metadata } = post;
+
+    return (
+      <article className="prose dark:prose-invert w-full max-w-3xl mx-auto">
+        <div className="space-y-4">
+          <h1>{metadata.title}</h1>
+          <div>{metadata.publishDate}</div>
+        </div>
+        <Content />
+      </article>
+    );
+  } catch {
+    return notFound();
+  }
+}
+```
+
+**Key points:**
+
+- **Dynamic Import**: Uses Next.js's dynamic import to load MDX files at runtime
+- **Metadata Extraction**: Each MDX file exports metadata that's automatically extracted
+- **Error Handling**: Gracefully handles missing posts with Next.js's `notFound()`
+- **Server Component**: Runs on the server, so no JavaScript is sent to the client for content
+
+### 4. Metadata Extraction (`lib/actions/get-posts.ts`)
+
+To build a blog index, we need to extract metadata from all MDX files without loading the entire content:
+
+```typescript
+function extractMetadata(source: string) {
+  const match = source.match(/export const metadata = ({[\s\S]*?});/);
+  if (!match) return null;
+
+  try {
+    return new Function(`return ${match[1]}`)();
+  } catch (err) {
+    console.error("Failed to parse metadata:", err);
+    return null;
+  }
+}
+
+export async function getAllPosts() {
+  const files = await fs.readdir(postsDir);
+
+  const posts = await Promise.all(
+    files
+      .filter((file) => file.endsWith(".mdx"))
+      .map(async (filename) => {
+        const source = await fs.readFile(filePath, "utf8");
+        const metadata = extractMetadata(source);
+
+        return {
+          slug: path.basename(filename, ".mdx"),
+          metadata,
+        };
+      })
+  );
+
+  return posts.filter((post) => post.metadata);
+}
+```
+
+**Why this approach:**
+
+- **Fast Indexing**: Only reads and parses metadata, not full content
+- **Server Action**: Uses Next.js Server Actions for type-safe server-side data fetching
+- **Flexible**: Easy to add filtering, sorting, or pagination later
+
+---
+
+## Writing MDX Content
+
+Each blog post is a simple `.mdx` file with exported metadata:
+
+```mdx
+export const metadata = {
+  title: "My Blog Post",
+  publishDate: "2025-01-05",
+  description: "A brief description of the post.",
+};
+
+## Introduction
+
+This is regular markdown content.
+
+<Button variant="outline">Click me</Button>
+
+You can use React components directly in your markdown!
+```
+
+**What makes this powerful:**
+
+- **Familiar Syntax**: Write in markdown, just like you always have
+- **Component Integration**: Drop in React components anywhere
+- **No Imports Needed**: Globally registered components (like `Button`) work automatically
+- **Type Safety**: TypeScript validates your metadata exports
+
+---
+
+## Technical Deep Dive
+
+### Server Components and MDX
+
+Next.js 16's Server Components are perfect for MDX because:
+
+1. **Zero Client JavaScript**: MDX content is rendered on the server, reducing bundle size
+2. **Fast Initial Load**: Content is HTML from the start, no hydration needed
+3. **SEO Friendly**: Search engines get fully rendered content
+4. **Async Support**: Works seamlessly with async data fetching
+
+### The Async Params Pattern
+
+Next.js 15+ introduced async `params`, `searchParams`, `cookies`, and `headers`. This change enables better streaming and performance:
+
+```typescript
+// ❌ Old way (Next.js 14)
+export default function Page({ params }: { params: { slug: string } }) {
+  const slug = params.slug; // Synchronous access
+}
+
+// ✅ New way (Next.js 15+)
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params; // Must await
+}
+```
+
+### Styling with Tailwind and Prose
+
+The blog uses Tailwind's `prose` class for automatic typography styling:
+
+```tsx
+<article className="prose dark:prose-invert max-w-3xl mx-auto">
+  <Content />
+</article>
+```
+
+**Benefits:**
+
+- **Automatic Typography**: Headings, lists, links, and more are styled automatically
+- **Dark Mode**: `dark:prose-invert` handles theme switching
+- **Customizable**: Override specific elements via `useMDXComponents`
+- **Responsive**: Works beautifully on all screen sizes
+
+---
+
+## Real-World Use Cases
+
+### 1. **Interactive Documentation**
+
+Embed code editors, live demos, or interactive tutorials directly in your docs:
+
+```mdx
+## Try It Yourself
+
+<CodeEditor language="typescript">const greeting = "Hello, MDX!";</CodeEditor>
+```
+
+### 2. **Product Showcases**
+
+Mix marketing copy with interactive product demos:
+
+```mdx
+## Our New Feature
+
+Check out this interactive demo:
+
+<ProductDemo />
+```
+
+### 3. **Technical Blog Posts**
+
+Include runnable code examples, interactive diagrams, or embedded videos:
+
+```mdx
+## Understanding React Server Components
+
+<VideoEmbed src="..." />
+
+Here's a live example:
+
+<ServerComponentDemo />
+```
+
+---
+
+## Performance Considerations
+
+### Build-Time Compilation
+
+- MDX files are compiled during `next build`, not at runtime
+- This means faster page loads and better caching
+- Content changes require a rebuild (or use ISR for dynamic updates)
+
+### Static Generation
+
+- Blog posts can be statically generated at build time
+- Use `generateStaticParams()` to pre-render all posts
+- Or use ISR (Incremental Static Regeneration) for frequently updated content
+
+### Bundle Size
+
+- Only the MDX runtime is included in your bundle
+- Content is server-rendered, so it doesn't increase client bundle size
+- Components used in MDX are code-split automatically
+
+---
+
+## Best Practices
+
+### 1. **Organize Your Content**
+
+```
+/content
+  /posts
+    /2025
+      /01
+        my-post.mdx
+```
+
+### 2. **Validate Metadata**
+
+Always include required metadata fields and validate them:
+
+```typescript
+metadata: {
+  title: post.metadata.title || "Untitled Post",
+  publishDate: post.metadata.publishDate || "Unknown Date",
+  description: post.metadata.description || "",
+}
+```
+
+### 3. **Error Handling**
+
+Gracefully handle missing or malformed content:
+
+```typescript
+try {
+  const post = await import(`@/content/posts/${slug}.mdx`);
+} catch {
+  return notFound(); // Shows 404 page
+}
+```
+
+### 4. **Component Registration**
+
+Register commonly used components globally to avoid repetitive imports:
+
+```typescript
+// In mdx-components.tsx
+Button: (props) => <Button {...props} />,
+```
+
+---
+
+## Conclusion
+
+MDX with Next.js 16 provides a powerful, flexible solution for content-driven applications. By combining:
+
+- **Markdown** for easy content authoring
+- **React Components** for interactivity
+- **Server Components** for performance
+- **TypeScript** for type safety
+- **Tailwind CSS** for styling
+
+You get a modern, maintainable blog that's both developer-friendly and performant. Whether you're building a personal blog, documentation site, or content-rich application, MDX offers the perfect balance between simplicity and power.
+
+The architecture we've explored here scales from small blogs to large documentation sites, and the patterns can be extended to support features like:
+
+- Content search
+- Tag filtering
+- Related posts
+- Comment systems
+- Analytics integration
+
+Start with this foundation and build the content platform that fits your needs.
+
+---
+
+## Resources
+
+- [MDX Documentation](https://mdxjs.com/)
+- [Next.js MDX Documentation](https://nextjs.org/docs/app/building-your-application/configuring/mdx)
+- [Next.js 16 Release Notes](https://nextjs.org/blog/next-16)
+- [React Server Components](https://react.dev/reference/rsc/server-components)

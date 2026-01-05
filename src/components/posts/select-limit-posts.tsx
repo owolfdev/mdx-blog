@@ -9,6 +9,7 @@ function SelectLimitPosts({
   numBlogs,
   sort,
   category = "", // Ensure category is passed as a prop with default value
+  basePath = "/blog",
 }: {
   postsPerPage: number;
   currentPage: number;
@@ -16,6 +17,7 @@ function SelectLimitPosts({
   numBlogs: number;
   sort: string;
   category?: string;
+  basePath?: string;
 }) {
   const [localPostsPerPage, setLocalPostsPerPage] = useState(postsPerPage);
 
@@ -38,7 +40,7 @@ function SelectLimitPosts({
   useEffect(() => {
     if (numBlogs === 0) {
       router.push(
-        `/blog?limit=${localPostsPerPage}&page=1${
+        `${basePath}?limit=${localPostsPerPage}&page=1${
           searchTerm ? `&search=${searchTerm}` : ""
         }${category ? `&category=${category}` : ""}${
           sort !== "date_desc" ? `&sort=${sort}` : ""
@@ -46,7 +48,7 @@ function SelectLimitPosts({
       );
     } else {
       router.push(
-        `/blog?limit=${localPostsPerPage}&page=${currentPage}${
+        `${basePath}?limit=${localPostsPerPage}&page=${currentPage}${
           searchTerm ? `&search=${searchTerm}` : ""
         }${category ? `&category=${category}` : ""}${
           sort !== "date_desc" ? `&sort=${sort}` : ""

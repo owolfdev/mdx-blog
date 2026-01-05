@@ -16,12 +16,14 @@ function SortPosts({
   limit,
   searchTerm,
   category = "", // Ensure category is passed as a prop with default value
+  basePath = "/blog",
 }: {
   sort: string;
   currentPage: number;
   limit: number;
   searchTerm: string;
   category?: string;
+  basePath?: string;
 }) {
   const [sortOrder, setSortOrder] = useState(sort.split("_")[1]);
   const [sortBy, setSortBy] = useState(sort.split("_")[0]);
@@ -33,7 +35,7 @@ function SortPosts({
     const theSort = `${sortBy}_${sortOrder}`;
     const isDateDesc = theSort === "date_desc";
     router.push(
-      `/blog?limit=${limit}&page=${currentPage}${
+      `${basePath}?limit=${limit}&page=${currentPage}${
         searchTerm ? `&search=${searchTerm}` : ""
       }${category ? `&category=${category}` : ""}${
         !isDateDesc ? `&sort=${theSort}` : ""

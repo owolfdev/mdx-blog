@@ -20,10 +20,11 @@ export function HomeHero() {
             MDXBlog
           </span>
           <h1 className="text-5xl font-black tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
-            A Better Way To Publish With MDX
+            Better Ways To Publish With MDX
           </h1>
           <p className="max-w-2xl text-lg font-semibold text-foreground/70 sm:text-xl md:text-2xl">
-            A Git-based, mobile friendly, static publishing system.
+            Modern publishing tricks and practical code tips for components and
+            Markdown.
           </p>
         </motion.div>
 
@@ -39,7 +40,7 @@ export function HomeHero() {
             className="h-12 rounded-none bg-foreground px-8 text-sm font-black uppercase tracking-[0.2em] text-background hover:bg-foreground/90"
           >
             <Link href="/install">
-              Explore the Code
+              Expore Code
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

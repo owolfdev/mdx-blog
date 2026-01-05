@@ -1,3 +1,5 @@
+A Git-based, mobile friendly, static publishing system.
+
 the template for this project was created with the command:
 
 npx create-next-app -e with-supabase
