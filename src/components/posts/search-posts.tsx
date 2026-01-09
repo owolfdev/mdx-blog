@@ -10,14 +10,16 @@ const SearchPosts = ({
   sort,
   category = "", // Ensure category is passed as a prop with default value
   basePath = "/blog",
+  initialSearchTerm = "",
 }: {
   limit: number;
   sort: string;
   category?: string;
   basePath?: string;
+  initialSearchTerm?: string;
 }) => {
   const router = useRouter();
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(initialSearchTerm);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const searchForTerm = useCallback(
@@ -45,6 +47,10 @@ const SearchPosts = ({
     }, 500);
   }, [searchForTerm]);
 
+  useEffect(() => {
+    setInputValue(initialSearchTerm);
+  }, [initialSearchTerm]);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value;
     setInputValue(searchTerm);
@@ -54,12 +60,6 @@ const SearchPosts = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     searchForTerm(inputValue);
-  };
-
-  const handleClick = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
   };
 
   return (
@@ -73,7 +73,6 @@ const SearchPosts = ({
           placeholder="Search posts"
           value={inputValue}
           onChange={handleChange}
-          onClick={handleClick}
           className="h-11 text-sm font-medium"
         />
       </form>

@@ -7,7 +7,6 @@ import { HomeHero } from "@/components/home/hero";
 import { HomeFeatures } from "@/components/home/features";
 import { HomeUseCases } from "@/components/home/use-cases";
 import { HomeForAgencies } from "@/components/home/for-agencies";
-import { HomeCta } from "@/components/home/cta";
 import PopularPosts from "@/components/posts/popular-posts";
 interface MdxModule {
   default: React.ComponentType;
@@ -75,7 +74,6 @@ export default async function HomePage() {
           )}
         </div>
       </section> */}
-      <HomeCta />
     </div>
   );
 }

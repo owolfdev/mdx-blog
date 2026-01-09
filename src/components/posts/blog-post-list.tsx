@@ -18,9 +18,14 @@ interface BlogPost {
 interface BlogPostListProps {
   blogs: BlogPost[];
   trimDescription: (description: string) => string;
+  showDate?: boolean;
 }
 
-const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
+const BlogPostList = ({
+  blogs,
+  trimDescription,
+  showDate = true,
+}: BlogPostListProps) => {
   return (
     <ul className="grid gap-6 md:grid-cols-2">
       {blogs.map((blog) => (
@@ -34,8 +39,8 @@ const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
             className="relative block space-y-3"
           >
             <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              <span>{blog.formattedDate}</span>
-              {typeof blog.likes === "number" && (
+              {showDate ? <span>{blog.formattedDate}</span> : <span />}
+              {typeof blog.likes === "number" && blog.likes >= 1 && (
                 <span className="rounded-full border border-border px-3 py-1 text-[0.65rem]">
                   {blog.likes} Likes
                 </span>

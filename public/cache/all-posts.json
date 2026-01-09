@@ -192,15 +192,14 @@
     "publishDate": "2026-01-05",
     "description": "Traditional markdown is great for writing, but it's limited. You can't embed interactive components, create custom layouts, or leverage the full power of React within your content. MDX (Markdown + JSX) solves this by allowing you to write markdown that can include React components seamlessly.",
     "categories": [
-      "Web Development",
-      "Code"
+      "Web Development"
     ],
     "tags": [
       "MDX",
       "code",
       "web dev"
     ],
-    "modifiedDate": "2026-01-05T09:12:16.743Z",
+    "modifiedDate": "2026-01-09T06:21:59.466Z",
     "image": null,
     "draft": false,
     "relatedPosts": [],

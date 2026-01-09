@@ -36,10 +36,11 @@ export function HomeUseCases() {
       <div className="site-container py-16 md:py-24">
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
           <h2 className="text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
-            Where It Fits
+            Where MDX Fits
           </h2>
           <p className="text-base font-medium text-foreground/70  sm:text-lg">
-            Clear use cases where a file-based, static workflow stays simple.
+            Use cases where a MDX powered, file-based, static workflow makes
+            sense.
           </p>
         </div>
 

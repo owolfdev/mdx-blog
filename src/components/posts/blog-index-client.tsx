@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import SearchPosts from "@/components/posts/search-posts";
@@ -26,6 +26,13 @@ type Props = {
   posts: Post[];
   basePath?: string;
   defaultCategory?: string;
+  title?: string;
+  subtitle?: string;
+  showSearch?: boolean;
+  showSort?: boolean;
+  showDate?: boolean;
+  showPagination?: boolean;
+  showLimitSelector?: boolean;
 };
 
 function formatDate(dateString: string): string {
@@ -55,6 +62,13 @@ export default function BlogIndexClient({
   posts,
   basePath = "/blog",
   defaultCategory = "",
+  title = "The MDXBlog",
+  subtitle = "Tutorials, product notes, and MDX publishing stories.",
+  showSearch = true,
+  showSort = true,
+  showDate = true,
+  showPagination = true,
+  showLimitSelector = true,
 }: Props) {
   const searchParams = useSearchParams();
 
@@ -136,47 +150,78 @@ export default function BlogIndexClient({
   const isNextDisabled = currentPageClamped >= totalPages;
   const disabledLinkStyle = "opacity-50 cursor-not-allowed";
   const isDateDesc = sort === "date_desc";
+  const [controlsOpen, setControlsOpen] = useState(
+    searchTerm.trim() !== "" || sort !== "date_desc" || category.trim() !== ""
+  );
+  const showControls = showSearch || showSort;
+
+  useEffect(() => {
+    if (searchTerm.trim() !== "" || sort !== "date_desc" || category.trim() !== "") {
+      setControlsOpen(true);
+    }
+  }, [searchTerm, sort, category]);
 
   return (
     <main className="flex w-full flex-col" aria-label="Main content">
       <section className="border-b border-border bg-muted/20">
-        <div className="site-container flex flex-col gap-8 py-16 md:py-20">
+        <div className="site-container flex flex-col gap-6 py-12 md:py-16">
           <header className="mx-auto flex max-w-3xl flex-col gap-4 text-center">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               MDXBlog
             </span>
             <h1 className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
-              The MDXBlog
+              {title}
             </h1>
             <p className="text-base font-medium text-foreground/80 sm:text-lg">
-              Tutorials, product notes, and MDX publishing stories.
+              {subtitle}
             </p>
           </header>
 
-          <div
-            className="flex flex-col gap-4 md:flex-row"
-            aria-label="Search and sort controls"
-          >
-            <SearchPosts
-              limit={postsPerPage}
-              sort={sort}
-              category={category}
-              basePath={basePath}
-            />
-            <SortPosts
-              sort={sort}
-              currentPage={currentPageClamped}
-              limit={postsPerPage}
-              searchTerm={searchTerm}
-              category={category}
-              basePath={basePath}
-            />
-          </div>
+          {showControls ? (
+            <div className="flex flex-col items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setControlsOpen((open) => !open)}
+                className="rounded-full border border-border px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground transition hover:text-foreground"
+                aria-expanded={controlsOpen}
+                aria-controls="blog-controls"
+              >
+                {controlsOpen ? "Hide Search + Sort" : "Show Search + Sort"}
+              </button>
+              {controlsOpen ? (
+                <div
+                  id="blog-controls"
+                  className="flex w-full flex-col gap-3 md:flex-row"
+                  aria-label="Search and sort controls"
+                >
+                  {showSearch ? (
+                    <SearchPosts
+                      limit={postsPerPage}
+                      sort={sort}
+                      category={category}
+                      basePath={basePath}
+                      initialSearchTerm={searchTerm}
+                    />
+                  ) : null}
+                  {showSort ? (
+                    <SortPosts
+                      sort={sort}
+                      currentPage={currentPageClamped}
+                      limit={postsPerPage}
+                      searchTerm={searchTerm}
+                      category={category}
+                      basePath={basePath}
+                    />
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       </section>
 
       <section
-        className="site-container py-16 md:py-20"
+        className="site-container py-12 md:py-16"
         aria-label="Blog post list"
       >
         {paginatedPosts.length === 0 ? (
@@ -192,92 +237,97 @@ export default function BlogIndexClient({
               formattedDate: post.formattedDate ?? formatDate(post.publishDate),
             }))}
             trimDescription={trimDescription}
+            showDate={showDate}
           />
         )}
       </section>
 
-      <section className="site-container pb-10" aria-label="Pagination">
-        <nav
-          id="pagination"
-          className="flex flex-wrap items-center justify-center gap-4 text-sm font-semibold uppercase tracking-[0.2em]"
-        >
-          {currentPageClamped === 1 ? (
-            <span className={disabledLinkStyle}>{"<<"}</span>
-          ) : (
-            <Link
-              href={`${basePath}?limit=${postsPerPage}&page=1${
-                searchTerm ? `&search=${searchTerm}` : ""
-              }${category ? `&category=${category}` : ""}${
-                !isDateDesc ? `&sort=${sort}` : ""
-              }`}
-            >
-              {"<<"}
-            </Link>
-          )}
+      {showPagination ? (
+        <section className="site-container pb-10" aria-label="Pagination">
+          <nav
+            id="pagination"
+            className="flex flex-wrap items-center justify-center gap-4 text-sm font-semibold uppercase tracking-[0.2em]"
+          >
+            {currentPageClamped === 1 ? (
+              <span className={disabledLinkStyle}>{"<<"}</span>
+            ) : (
+              <Link
+                href={`${basePath}?limit=${postsPerPage}&page=1${
+                  searchTerm ? `&search=${searchTerm}` : ""
+                }${category ? `&category=${category}` : ""}${
+                  !isDateDesc ? `&sort=${sort}` : ""
+                }`}
+              >
+                {"<<"}
+              </Link>
+            )}
 
-          {isPreviousDisabled ? (
-            <span className={disabledLinkStyle}>Previous</span>
-          ) : (
-            <Link
-              href={`${basePath}?limit=${postsPerPage}&page=${
-                currentPageClamped - 1
-              }${
-                searchTerm ? `&search=${searchTerm}` : ""
-              }${category ? `&category=${category}` : ""}${
-                !isDateDesc ? `&sort=${sort}` : ""
-              }`}
-            >
-              Previous
-            </Link>
-          )}
+            {isPreviousDisabled ? (
+              <span className={disabledLinkStyle}>Previous</span>
+            ) : (
+              <Link
+                href={`${basePath}?limit=${postsPerPage}&page=${
+                  currentPageClamped - 1
+                }${
+                  searchTerm ? `&search=${searchTerm}` : ""
+                }${category ? `&category=${category}` : ""}${
+                  !isDateDesc ? `&sort=${sort}` : ""
+                }`}
+              >
+                Previous
+              </Link>
+            )}
 
-          <span className="text-muted-foreground">
-            Page {currentPageClamped} of {totalPages}
-          </span>
+            <span className="text-muted-foreground">
+              Page {currentPageClamped} of {totalPages}
+            </span>
 
-          {isNextDisabled ? (
-            <span className={disabledLinkStyle}>Next</span>
-          ) : (
-            <Link
-              href={`${basePath}?limit=${postsPerPage}&page=${
-                currentPageClamped + 1
-              }${
-                searchTerm ? `&search=${searchTerm}` : ""
-              }${category ? `&category=${category}` : ""}${
-                !isDateDesc ? `&sort=${sort}` : ""
-              }`}
-            >
-              Next
-            </Link>
-          )}
+            {isNextDisabled ? (
+              <span className={disabledLinkStyle}>Next</span>
+            ) : (
+              <Link
+                href={`${basePath}?limit=${postsPerPage}&page=${
+                  currentPageClamped + 1
+                }${
+                  searchTerm ? `&search=${searchTerm}` : ""
+                }${category ? `&category=${category}` : ""}${
+                  !isDateDesc ? `&sort=${sort}` : ""
+                }`}
+              >
+                Next
+              </Link>
+            )}
 
-          {currentPageClamped === totalPages ? (
-            <span className={disabledLinkStyle}>{">>"}</span>
-          ) : (
-            <Link
-              href={`${basePath}?limit=${postsPerPage}&page=${totalPages}${
-                searchTerm ? `&search=${searchTerm}` : ""
-              }${category ? `&category=${category}` : ""}${
-                !isDateDesc ? `&sort=${sort}` : ""
-              }`}
-            >
-              {">>"}
-            </Link>
-          )}
-        </nav>
-      </section>
+            {currentPageClamped === totalPages ? (
+              <span className={disabledLinkStyle}>{">>"}</span>
+            ) : (
+              <Link
+                href={`${basePath}?limit=${postsPerPage}&page=${totalPages}${
+                  searchTerm ? `&search=${searchTerm}` : ""
+                }${category ? `&category=${category}` : ""}${
+                  !isDateDesc ? `&sort=${sort}` : ""
+                }`}
+              >
+                {">>"}
+              </Link>
+            )}
+          </nav>
+        </section>
+      ) : null}
 
-      <section className="site-container pb-16" aria-label="Limit selector">
-        <SelectLimitPosts
-          postsPerPage={postsPerPage}
-          currentPage={currentPageClamped}
-          searchTerm={searchTerm}
-          numBlogs={paginatedPosts.length}
-          sort={sort}
-          category={category}
-          basePath={basePath}
-        />
-      </section>
+      {showLimitSelector ? (
+        <section className="site-container pb-16" aria-label="Limit selector">
+          <SelectLimitPosts
+            postsPerPage={postsPerPage}
+            currentPage={currentPageClamped}
+            searchTerm={searchTerm}
+            numBlogs={paginatedPosts.length}
+            sort={sort}
+            category={category}
+            basePath={basePath}
+          />
+        </section>
+      ) : null}
     </main>
   );
 }

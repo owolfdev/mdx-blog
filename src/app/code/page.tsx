@@ -13,7 +13,16 @@ export async function generateMetadata(): Promise<Metadata> {
 const Code = async () => {
   const { posts } = await getPosts({ type: "blog" });
   return (
-    <BlogIndexClient posts={posts} basePath="/code" defaultCategory="code" />
+    <BlogIndexClient
+      posts={posts}
+      basePath="/code"
+      defaultCategory="code"
+      title="Code Repo"
+      subtitle="Templates, Snippets, Apps"
+      showSearch={false}
+      showPagination={false}
+      showLimitSelector={false}
+    />
   );
 };
 

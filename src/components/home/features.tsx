@@ -71,9 +71,12 @@ export function HomeFeatures() {
         </h2>
         <div className="space-y-4 text-base font-medium text-foreground/70 sm:text-lg">
           <p>
-            This is a working example of a Git-based, static MDX setup. Content
-            lives as files, Git is the source of truth, and pages are built
-            statically.
+            This is where we experiment with static MDX sites, Markdown,
+            Next.js, JavaScript, and React, and we blog about what we learn.
+          </p>
+          <p>
+            We also offer templates, so you can start from a solid base and
+            adapt it to your own projects.
           </p>
           {/* <p>
             This setup is used in real agency and client projects, and it is
