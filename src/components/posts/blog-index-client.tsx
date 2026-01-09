@@ -76,8 +76,8 @@ export default function BlogIndexClient({
   const postsPerPageRaw = Number(getFirstValue(searchParams.get("limit")));
   const postsPerPage = postsPerPageRaw > 0 ? postsPerPageRaw : 10;
   const searchTerm = getFirstValue(searchParams.get("search"));
-  const category =
-    getFirstValue(searchParams.get("category")) || defaultCategory;
+  const categoryParam = getFirstValue(searchParams.get("category"));
+  const category = categoryParam || defaultCategory;
   const sort = getFirstValue(searchParams.get("sort")) || "date_desc";
 
   const filteredPosts = useMemo(() => {
@@ -151,15 +151,19 @@ export default function BlogIndexClient({
   const disabledLinkStyle = "opacity-50 cursor-not-allowed";
   const isDateDesc = sort === "date_desc";
   const [controlsOpen, setControlsOpen] = useState(
-    searchTerm.trim() !== "" || sort !== "date_desc" || category.trim() !== ""
+    searchTerm.trim() !== "" || sort !== "date_desc" || categoryParam.trim() !== ""
   );
   const showControls = showSearch || showSort;
 
   useEffect(() => {
-    if (searchTerm.trim() !== "" || sort !== "date_desc" || category.trim() !== "") {
+    if (
+      searchTerm.trim() !== "" ||
+      sort !== "date_desc" ||
+      categoryParam.trim() !== ""
+    ) {
       setControlsOpen(true);
     }
-  }, [searchTerm, sort, category]);
+  }, [searchTerm, sort, categoryParam]);
 
   return (
     <main className="flex w-full flex-col" aria-label="Main content">

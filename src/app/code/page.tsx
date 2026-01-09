@@ -19,7 +19,6 @@ const Code = async () => {
       defaultCategory="code"
       title="Code Repo"
       subtitle="Templates, Snippets, Apps"
-      showSearch={false}
       showPagination={false}
       showLimitSelector={false}
     />
