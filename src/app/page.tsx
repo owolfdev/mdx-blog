@@ -4,7 +4,6 @@ import EditPageButton from "@/components/page/edit-page-button";
 import OpenInCursor from "@/components/page/open-page-in-cursor-button";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
 import { HomeHero } from "@/components/home/hero";
-import { HomeFeatures } from "@/components/home/features";
 import { HomeUseCases } from "@/components/home/use-cases";
 import { HomeForAgencies } from "@/components/home/for-agencies";
 import PopularPosts from "@/components/posts/popular-posts";
@@ -58,7 +57,6 @@ export default async function HomePage() {
   return (
     <div className="flex w-full flex-col">
       <HomeHero />
-      <HomeFeatures />
       <HomeUseCases />
       {/* <HomeForAgencies /> */}
       <section className="site-container py-16 md:py-24">
