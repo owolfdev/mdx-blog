@@ -133,8 +133,8 @@ function LikeButton({ postId }: LikeButtonProps) {
   }
 
   return (
-    <div className="py-8 relative flex flex-col gap-2">
-      <hr className="pb-8" />
+    <div className="relative flex flex-col gap-2">
+      {/* <hr className="pb-8" /> */}
       <div>Total Likes: {totalLikes}</div>
       <div>
         <button

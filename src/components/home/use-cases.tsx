@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { BookOpen, Newspaper, Code2, Layers3 } from "lucide-react";
+import { MdxPlayground } from "@/components/mdx/mdx-playground";
 
 const useCases = [
   {
@@ -34,6 +35,12 @@ export function HomeUseCases() {
   return (
     <section className="border-y border-border bg-muted/30">
       <div className="site-container py-16 md:py-24">
+        <section className="mb-16">
+          <MdxPlayground variant="embedded" />
+        </section>
+
+        <hr className="mb-12 border-border/60" />
+
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
           <h2 className="text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
             What is MDXBlog?

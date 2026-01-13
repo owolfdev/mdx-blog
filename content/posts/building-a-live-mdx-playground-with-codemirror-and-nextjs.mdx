@@ -1,0 +1,94 @@
+export const metadata = {
+  id: "0a13a8f5-1b4c-4f9f-b20b-7fd90c8b7c71",
+  type: "blog",
+  title: "Building a Live MDX Playground with CodeMirror and Next.js",
+  author: "O Wolfson",
+  publishDate: "2026-01-13",
+  description:
+    "Install CodeMirror with Vim mode, compile MDX in the browser, and render a live preview styled with your MDX components.",
+  categories: ["Web Development"],
+  tags: ["nextjs", "mdx", "codemirror", "editor", "preview"],
+  modifiedDate: "2026-01-13",
+  image: null,
+  draft: false,
+  relatedPosts: [],
+};
+
+## Why a Live MDX Playground
+
+MDX is Markdown with JSX. That makes it perfect for writing content and sprinkling in React components, but it is hard to iterate on MDX without a fast preview loop. A live editor solves that problem by compiling MDX in the browser and rendering it instantly.
+
+In this project, we built a dedicated route at `src/app/mdx/page.tsx` that splits the screen into a CodeMirror editor on the left and a live MDX preview on the right. It runs inside the Next.js App Router as a client component.
+
+## Packages We Installed
+
+We installed a small set of packages to support editing, Vim mode, and MDX compilation:
+
+- `@uiw/react-codemirror` for the React wrapper around CodeMirror 6.
+- `@codemirror/lang-markdown` to enable Markdown syntax.
+- `@replit/codemirror-vim` to enable Vim keybindings.
+- `@mdx-js/mdx` to compile MDX strings into a React component at runtime.
+- `remark-gfm` to support GitHub Flavored Markdown features like tables and task lists.
+
+Next.js already ships with React, so the rest is just wiring.
+
+## Building the Editor
+
+The editor lives in a client component because CodeMirror and MDX compilation are browser-only. In the page we:
+
+1. Import `CodeMirror` and configure it with `markdown()` and `vim()` extensions.
+2. Track the editor content in `useState`.
+3. Debounce compilation to avoid running `evaluate` on every keystroke.
+
+CodeMirror gives us a fast, fully featured editor, and Vim mode makes it feel natural for keyboard-first workflows.
+
+## Compiling MDX on the Client
+
+For the live preview, we compile MDX with `evaluate`:
+
+```tsx
+const { default: MDXComponent } = await evaluate(source, {
+  ...runtime,
+  Fragment,
+  remarkPlugins: [remarkGfm],
+  providerImportSource: "@mdx-js/react",
+});
+```
+
+Two pieces matter here:
+
+- `remarkPlugins` lets us opt into GitHub Flavored Markdown.
+- `providerImportSource` ensures the compiled MDX can receive a `components` prop for custom rendering.
+
+The result is a React component we can render immediately.
+
+## Matching Blog Styling with `mdx-components.tsx`
+
+The blog uses `src/mdx-components.tsx` to define custom renderers for headings, links, tables, code blocks, and more. To keep the live preview consistent with blog posts, we pass those same components into the compiled MDX component:
+
+```tsx
+const mdxComponents = useMDXComponents({});
+
+<Component components={mdxComponents} />
+```
+
+This ensures `h1`, `h2`, and other elements render with the same styles and spacing as real posts. The preview also wraps content in a `prose` container to match the reading layout.
+
+## Putting It All Together
+
+The final `/mdx` page is a two-column layout:
+
+- Left: CodeMirror editor with Markdown and Vim support.
+- Right: A live preview that uses the exact same MDX component mapping as the blog.
+
+This creates a tight feedback loop for authors and keeps the preview honest. If a component exists in `mdx-components.tsx`, it works the same way in the preview.
+
+## Where to Go Next
+
+From here, you can:
+
+- Add syntax highlighting or themes to CodeMirror.
+- Save drafts to local storage or a database.
+- Add a toolbar with insertions for common MDX components.
+
+The core workflow is already in place: edit MDX, compile on the client, and render with your real MDX component system.

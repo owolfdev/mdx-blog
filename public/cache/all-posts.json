@@ -184,6 +184,30 @@
     "likes": 17
   },
   {
+    "slug": "building-a-live-mdx-playground-with-codemirror-and-nextjs",
+    "id": "0a13a8f5-1b4c-4f9f-b20b-7fd90c8b7c71",
+    "type": "blog",
+    "title": "Building a Live MDX Playground with CodeMirror and Next.js",
+    "author": "O Wolfson",
+    "publishDate": "2026-01-13",
+    "description": "Install CodeMirror with Vim mode, compile MDX in the browser, and render a live preview styled with your MDX components.",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [
+      "nextjs",
+      "mdx",
+      "codemirror",
+      "editor",
+      "preview"
+    ],
+    "modifiedDate": "2026-01-13",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [],
+    "likes": 0
+  },
+  {
     "slug": "building-a-modern-blog-with-mdx-and-nextjs-16",
     "id": "7d6f01b8-5460-447b-8c06-994d85f5e5c5",
     "type": "blog",
@@ -321,7 +345,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 21
+    "likes": 22
   },
   {
     "slug": "custom-link-component-for-external-navigation",
@@ -655,7 +679,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 0
+    "likes": 3
   },
   {
     "slug": "mdx-and-content-management-with-headless-cms",
