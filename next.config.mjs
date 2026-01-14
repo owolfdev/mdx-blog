@@ -28,6 +28,10 @@ const remarkMdxToMd = () => {
 const nextConfig = {
   // Configure `pageExtensions` to include markdown and MDX files
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  images: {
+    domains: ["images.unsplash.com"],
+    // or remotePatterns: [{ protocol: "https", hostname: "images.example.com" }],
+  },
   // Configure webpack to resolve content and settings directories
   webpack: (config) => {
     config.resolve.alias = {

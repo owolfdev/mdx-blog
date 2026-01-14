@@ -21,6 +21,16 @@ const Image = ({
   width?: number;
   height?: number;
 }) => {
+  const normalizedSrc = src
+    ? src.startsWith("/")
+      ? src
+      : src.startsWith("http://") || src.startsWith("https://")
+        ? src
+        : src.startsWith("//")
+          ? `https:${src}`
+          : `https://${src}`
+    : src;
+
   return (
     <div
       role="img"
@@ -30,7 +40,7 @@ const Image = ({
       style={{ width: "100%", height: "auto" }}
     >
       <NextImage
-        src={src}
+        src={normalizedSrc}
         alt={alt}
         title={title || alt} // Use title if provided; fallback to alt
         layout={layout}

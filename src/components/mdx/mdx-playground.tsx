@@ -7,6 +7,7 @@ import * as runtime from "react/jsx-runtime";
 import CodeMirror from "@uiw/react-codemirror";
 import { markdown } from "@codemirror/lang-markdown";
 import type { EditorView } from "@codemirror/view";
+import { defaultHighlightStyle, syntaxHighlighting } from "@codemirror/language";
 import { vim } from "@replit/codemirror-vim";
 import { evaluate } from "@mdx-js/mdx";
 import remarkGfm from "remark-gfm";
@@ -159,7 +160,7 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
     },
     {
       label: "Image",
-      snippet: '<Image src="/images/" alt="" />',
+      snippet: '<Image src="/images/example/wikicat.jpg" alt="" />',
       cursorOffset: '<Image src="'.length,
     },
     {
@@ -233,7 +234,11 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
               height="100%"
               minHeight={isFull ? "60vh" : "50vh"}
               theme="light"
-              extensions={[markdown(), ...(vimEnabled ? [vim()] : [])]}
+              extensions={[
+                markdown(),
+                syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+                ...(vimEnabled ? [vim()] : []),
+              ]}
               onChange={(value) => setSource(value)}
               onCreateEditor={(view) => setEditorView(view)}
               basicSetup={{
