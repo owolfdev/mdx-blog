@@ -1,17 +1,48 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState } from "react";
+import React, { useEffect, useId, useMemo, useState } from "react";
 import Link from "next/link";
 import { Fragment } from "react";
 import * as runtime from "react/jsx-runtime";
 import CodeMirror from "@uiw/react-codemirror";
 import { markdown } from "@codemirror/lang-markdown";
+import type { EditorView } from "@codemirror/view";
 import { vim } from "@replit/codemirror-vim";
 import { evaluate } from "@mdx-js/mdx";
 import remarkGfm from "remark-gfm";
 import { useMDXComponents } from "@/mdx-components";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
+
+class MdxRuntimeErrorBoundary extends React.Component<
+  { onError: (message: string) => void; children: React.ReactNode },
+  { hasError: boolean }
+> {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    this.props.onError(message);
+  }
+
+  componentDidUpdate(prevProps: { children: React.ReactNode }) {
+    if (prevProps.children !== this.props.children && this.state.hasError) {
+      this.setState({ hasError: false });
+    }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return null;
+    }
+    return this.props.children;
+  }
+}
 
 type MdxPlaygroundVariant = "full" | "embedded";
 
@@ -39,9 +70,11 @@ export const answer = 42;
 export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
   const [source, setSource] = useState(starterMDX);
   const [Component, setComponent] = useState<React.ComponentType | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [compileError, setCompileError] = useState<string | null>(null);
+  const [runtimeError, setRuntimeError] = useState<string | null>(null);
   const [isCompiling, setIsCompiling] = useState(false);
   const [vimEnabled, setVimEnabled] = useState(false);
+  const [editorView, setEditorView] = useState<EditorView | null>(null);
   const vimSwitchId = useId();
   const mdxComponents = useMemo(() => useMDXComponents({}), []);
   const isFull = variant === "full";
@@ -73,13 +106,13 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
         }
 
         setComponent(() => MDXComponent);
-        setError(null);
+        setCompileError(null);
       } catch (err) {
         if (!active) {
           return;
         }
 
-        setError(err instanceof Error ? err.message : "Unknown error");
+        setCompileError(err instanceof Error ? err.message : "Unknown error");
       } finally {
         if (active) {
           setIsCompiling(false);
@@ -93,12 +126,53 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
     };
   }, [source, mdxComponents]);
 
+  useEffect(() => {
+    setRuntimeError(null);
+  }, [source]);
+
   const handleToggleVim = (next: boolean) => {
     setVimEnabled(next);
     if (typeof window !== "undefined") {
       window.localStorage.setItem("mdx-playground-vim", String(next));
     }
   };
+
+  const insertSnippet = (text: string, cursorOffset = text.length) => {
+    if (!editorView) {
+      setSource((prev) => prev + text);
+      return;
+    }
+
+    const { from, to } = editorView.state.selection.main;
+    editorView.dispatch({
+      changes: { from, to, insert: text },
+      selection: { anchor: from + cursorOffset },
+    });
+    editorView.focus();
+  };
+
+  const snippetActions = [
+    {
+      label: "YouTube",
+      snippet: '<YouTube id="" />',
+      cursorOffset: '<YouTube id="'.length,
+    },
+    {
+      label: "Image",
+      snippet: '<Image src="/images/" alt="" />',
+      cursorOffset: '<Image src="'.length,
+    },
+    {
+      label: "Button",
+      snippet: "<Button>Button label</Button>",
+      cursorOffset: "<Button>".length,
+    },
+    {
+      label: "Code",
+      snippet: "`code`",
+      cursorOffset: 1,
+    },
+  ];
 
   return (
     <div className="flex w-full flex-col gap-8">
@@ -137,6 +211,22 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
               </div>
             </div>
           </div>
+          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            <span>Insert</span>
+            {snippetActions.map((action) => (
+              <Button
+                key={action.label}
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={() =>
+                  insertSnippet(action.snippet, action.cursorOffset)
+                }
+              >
+                {action.label}
+              </Button>
+            ))}
+          </div>
           <div className="h-full overflow-hidden rounded-xl border border-border/50 bg-background">
             <CodeMirror
               value={source}
@@ -145,6 +235,7 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
               theme="light"
               extensions={[markdown(), ...(vimEnabled ? [vim()] : [])]}
               onChange={(value) => setSource(value)}
+              onCreateEditor={(view) => setEditorView(view)}
               basicSetup={{
                 lineNumbers: true,
                 highlightActiveLineGutter: true,
@@ -158,13 +249,17 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
             Preview
           </div>
           <div className="h-full overflow-auto rounded-xl border border-border/50 bg-background p-6">
-            {error ? (
+            {compileError || runtimeError ? (
               <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800">
-                {error}
+                {compileError ?? runtimeError}
               </div>
             ) : Component ? (
               <article className="prose prose-lg mx-auto w-full max-w-4xl">
-                <Component />
+                <MdxRuntimeErrorBoundary
+                  onError={(message) => setRuntimeError(message)}
+                >
+                  <Component />
+                </MdxRuntimeErrorBoundary>
               </article>
             ) : (
               <p className="text-sm text-muted-foreground">Loading…</p>
