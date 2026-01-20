@@ -6,7 +6,7 @@ import { Fragment } from "react";
 import * as runtime from "react/jsx-runtime";
 import CodeMirror from "@uiw/react-codemirror";
 import { markdown } from "@codemirror/lang-markdown";
-import type { EditorView } from "@codemirror/view";
+import { EditorView } from "@codemirror/view";
 import { defaultHighlightStyle, syntaxHighlighting } from "@codemirror/language";
 import { vim } from "@replit/codemirror-vim";
 import { evaluate } from "@mdx-js/mdx";
@@ -237,6 +237,7 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
               extensions={[
                 markdown(),
                 syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+                EditorView.lineWrapping,
                 ...(vimEnabled ? [vim()] : []),
               ]}
               onChange={(value) => setSource(value)}

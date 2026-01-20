@@ -43,12 +43,66 @@ export async function getPosts({
       "public/cache/published-posts.json"
     );
 
-    // console.log("Cache file path:", cacheFilePath);
+    let posts: Post[] = [];
+    const useCache =
+      process.env.NODE_ENV !== "production" && fs.existsSync(cacheFilePath);
 
-    const jsonData = fs.readFileSync(cacheFilePath, "utf8");
-    let posts: Post[] = JSON.parse(jsonData).filter(
-      (blog: Post) => !blog.slug.startsWith(".")
-    );
+    if (useCache) {
+      const jsonData = fs.readFileSync(cacheFilePath, "utf8");
+      posts = JSON.parse(jsonData).filter(
+        (blog: Post) => !blog.slug.startsWith(".")
+      );
+    } else {
+      const postsDirectory = path.join(process.cwd(), "content/posts");
+      const fileNames = fs
+        .readdirSync(postsDirectory)
+        .filter(
+          (fileName) => !fileName.startsWith(".") && fileName.endsWith(".mdx")
+        );
+
+      const currentDate = new Date();
+      posts = fileNames
+        .map((fileName) => {
+          const fullPath = path.join(postsDirectory, fileName);
+          const fileContents = fs.readFileSync(fullPath, "utf8");
+          const metadataMatch = fileContents.match(
+            /export const metadata = ({[\s\S]*?});/
+          );
+          if (!metadataMatch) {
+            return null;
+          }
+          // biome-ignore lint/security/noGlobalEval: Metadata comes from trusted MDX files.
+          const metadata = eval(`(${metadataMatch[1]})`);
+          const slug = fileName.replace(".mdx", "");
+          const publishDate = metadata.publishDate
+            ? new Date(metadata.publishDate)
+            : null;
+
+          if (metadata.draft) {
+            return null;
+          }
+
+          if (publishDate && publishDate > currentDate) {
+            return null;
+          }
+
+          return {
+            slug,
+            type: metadata.type ?? "",
+            title: metadata.title ?? "",
+            author: metadata.author ?? "",
+            publishDate: metadata.publishDate ?? "",
+            description: metadata.description ?? "",
+            categories: metadata.categories ?? [],
+            tags: metadata.tags ?? [],
+            modifiedDate: metadata.modifiedDate,
+            image: metadata.image ?? null,
+            draft: metadata.draft ?? false,
+            relatedPosts: metadata.relatedPosts ?? [],
+          } as Post;
+        })
+        .filter(Boolean) as Post[];
+    }
 
     // console.log("Posts:", posts);
 

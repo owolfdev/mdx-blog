@@ -8,7 +8,6 @@ interface GetPostParams {
 
 export async function getPost({ slug }: GetPostParams) {
   try {
-    // Filter out .DS_Store and other non-MDX files
     if (slug === ".DS_Store") {
       throw new Error("Invalid file: .DS_Store");
     }
@@ -16,7 +15,6 @@ export async function getPost({ slug }: GetPostParams) {
     const filePath = path.join("content/posts", `${slug}.mdx`);
     const fileContent = fs.readFileSync(filePath, "utf-8");
 
-    // Extract metadata and content
     const metadataMatch = fileContent.match(
       /export const metadata = {([\s\S]+?)};\n\n/
     );

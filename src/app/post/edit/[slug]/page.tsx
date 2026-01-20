@@ -13,13 +13,15 @@ async function EditBlog({ params }: { params: Promise<{ slug: string }> }) {
   const post = postData as Post; // Type assertion to Post
 
   return (
-    <div className="flex flex-col gap-8 pb-6 w-full max-w-3xl sm:max-w-3xl">
-      <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
-        <h1 className="text-6xl font-black">Edit Post</h1>
-        <p className="w-full text-2xl">
-          Post title: <span className="font-bold">{post.metadata.title}</span>
-        </p>
-        <EditPostForm postData={post} />
+    <div className="min-h-screen bg-gradient-to-br from-[#f5f1e8] via-[#eef5ff] to-[#fff8e6] px-6 py-10">
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="flex w-full flex-col gap-8">
+          <h1 className="text-6xl font-black">Edit Post</h1>
+          <p className="w-full text-2xl">
+            Post title: <span className="font-bold">{post.metadata.title}</span>
+          </p>
+          <EditPostForm postData={post} />
+        </div>
       </div>
     </div>
   );

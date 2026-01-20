@@ -1,460 +1,200 @@
 "use client";
 
-import React from "react";
-import { parseISO, format } from "date-fns";
+import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Button, buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { MultiSelect } from "@/components/rs-multi-select";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { cachePostsAction } from "@/app/actions/cache-actions";
-import { deletePostAction } from "@/app/actions/delete-post-action";
-import { editPostAction } from "@/app/actions/edit-post-action";
-import { DatePicker } from "@/components/date-picker";
+import { MdxPostEditor } from "@/components/mdx/mdx-post-editor";
+import { useToast } from "@/hooks/use-toast";
+import { updatePost } from "@/app/actions/posts/update-post";
 import type { Post } from "@/types/post-types";
-import categoriesData from "@/settings/categories.json";
-import authorsData from "@/settings/authors.json";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
+  extractMetadataBlock,
+  formatMetadataBlock,
+  slugify,
+  stripMetadataBlock,
+  upsertMetadataBlock,
+} from "@/lib/posts/mdx-storage";
 
-// Define the schema for the form using Zod
-const formSchema = z.object({
-  slug: z.string().min(1, {
-    message: "Slug is required.",
-  }),
-  date: z.date(),
-  type: z.string().optional(),
-  title: z
-    .string()
-    .min(3, {
-      message: "Title must be at least 3 characters.",
-    })
-    .refine((value) => !/"/.test(value), {
-      message: "Title cannot contain double quotes.",
-    }),
-  description: z
-    .string()
-    .min(15, {
-      message: "Description must be at least 15 characters.",
-    })
-    .refine((value) => !/"/.test(value), {
-      message: "Description cannot contain double quotes.",
-    }),
-  content: z.string().min(2, {
-    message: "Content must be at least 2 characters.",
-  }),
-  categories: z.array(z.string()).nonempty(),
-  tags: z.string().optional(),
-  image: z.string().nullable().optional(),
-  relatedPosts: z.string().optional(),
-  draft: z.boolean().optional(),
-  author: z.string().min(1, {
-    message: "Author is required.",
-  }),
-  link: z.string().nullable().optional(),
-});
+const parseString = (block: string, key: string) => {
+  const match = new RegExp(
+    `${key}\\s*:\\s*(?:"([^"]*)"|'([^']*)')`,
+    "m"
+  ).exec(block);
+  return match?.[1] ?? match?.[2];
+};
 
-export function EditPostForm({ postData }: { postData: Post }) {
-  const router = useRouter();
+const parseBoolean = (block: string, key: string) => {
+  const match = new RegExp(`${key}\\s*:\\s*(true|false)`, "m").exec(block);
+  return match ? match[1] === "true" : undefined;
+};
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      slug: postData.slug || "",
-      date: postData.metadata?.publishDate
-        ? parseISO(postData.metadata.publishDate)
-        : new Date(),
-      type: postData.metadata?.type || "",
-      title: postData.metadata?.title || "",
-      description: postData.metadata?.description || "",
-      content: postData.content?.trim() || "",
-      categories: Array.isArray(postData.metadata?.categories)
-        ? postData.metadata.categories
-        : [],
-      tags: postData.metadata?.tags ? postData.metadata.tags.join(", ") : "",
-      image: postData.metadata?.image || undefined, // Use undefined instead of null
-      relatedPosts: postData.metadata?.relatedPosts
-        ? postData.metadata.relatedPosts.join(", ")
-        : "",
-      draft: postData.metadata?.draft || false,
-      author: postData.metadata?.author || authorsData.authors[0],
-      link: postData.metadata?.link || "", // Default the link to empty string
-    },
-  });
-
-  // Handle form submission
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const formattedDate = values.date ? format(values.date, "yyyy-MM-dd") : "";
-
-    const submissionData = {
-      ...values,
-      draft: Boolean(values.draft), // Explicitly convert to boolean
-      tags: values.tags || "", // Ensure tags is always a string
-      image: values.image || undefined, // Convert null to undefined
-      type: values.type,
-      author: values.author,
-      id: postData.metadata?.id || "",
-      originalFilename: postData.filename,
-      filename: `${values.slug}.mdx`,
-      date: formattedDate,
-      relatedPosts: values.relatedPosts,
-    };
-
-    try {
-      const result = await editPostAction(submissionData, false);
-
-      if (result.ok) {
-        window.location.href = `/blog/${result.newSlug}`;
-      } else {
-        if (result.status === 409) {
-          form.setError("slug", {
-            type: "manual",
-            message: result.error,
-          });
-
-          alert(result.error);
-        } else {
-          throw new Error("Failed to save post");
-        }
-      }
-    } catch (error) {
-      console.error("Error:", error);
+const parseArray = (block: string, key: string) => {
+  const match = new RegExp(`${key}\\s*:\\s*\\[([\\s\\S]*?)\\]`, "m").exec(
+    block
+  );
+  if (!match) {
+    return undefined;
+  }
+  const values: string[] = [];
+  const regex = /"([^"]*)"|'([^']*)'/g;
+  let token: RegExpExecArray | null;
+  while ((token = regex.exec(match[1])) !== null) {
+    const value = token[1] ?? token[2];
+    if (value?.trim()) {
+      values.push(value.trim());
     }
   }
+  return values;
+};
 
-  // Handle post deletion
-  const handleDeletePost = async () => {
+const parseMetadataFromContent = (
+  content: string,
+  base: Post["metadata"]
+) => {
+  const match = content.match(
+    /export\\s+const\\s+metadata\\s*=\\s*{([\\s\\S]*?)}\\s*;/m
+  );
+
+  if (!match) {
+    return base;
+  }
+
+  const block = match[1];
+  const id = parseString(block, "id");
+  const type = parseString(block, "type");
+  const title = parseString(block, "title");
+  const author = parseString(block, "author");
+  const publishDate = parseString(block, "publishDate");
+  const description = parseString(block, "description");
+  const categories = parseArray(block, "categories");
+  const tags = parseArray(block, "tags");
+  const modifiedDate = parseString(block, "modifiedDate");
+  const imageMatch = new RegExp("image\\s*:\\s*(null|\"[^\"]*\")", "m").exec(
+    block
+  );
+  const image =
+    imageMatch?.[1] === "null"
+      ? null
+      : imageMatch?.[1]?.replace(/"/g, "");
+  const draft = parseBoolean(block, "draft");
+  const relatedPosts = parseArray(block, "relatedPosts");
+
+  return {
+    ...base,
+    id: id && id.trim() ? id : base.id,
+    type: type && type.trim() ? type : base.type,
+    title: title && title.trim() ? title : base.title,
+    author: author && author.trim() ? author : base.author,
+    publishDate:
+      publishDate && publishDate.trim() ? publishDate : base.publishDate,
+    description: description ?? base.description,
+    categories: categories ?? base.categories,
+    tags: tags ?? base.tags,
+    modifiedDate:
+      modifiedDate && modifiedDate.trim() ? modifiedDate : base.modifiedDate,
+    image: image === undefined ? base.image : image,
+    draft: draft ?? base.draft,
+    relatedPosts: relatedPosts ?? base.relatedPosts,
+  };
+};
+
+export function EditPostForm({ postData }: { postData: Post }) {
+  const [content, setContent] = useState(
+    upsertMetadataBlock(postData.content?.trim() ?? "", postData.metadata)
+  );
+  const [isSaving, setIsSaving] = useState(false);
+  const [showMetadata, setShowMetadata] = useState(true);
+  const [slugInput, setSlugInput] = useState(postData.slug);
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const metadata = useMemo(
+    () => parseMetadataFromContent(content, postData.metadata),
+    [content, postData.metadata]
+  );
+
+  const handleEditorChange = (next: string) => {
+    if (showMetadata) {
+      setContent(next);
+      return;
+    }
+    const block =
+      extractMetadataBlock(content) ?? formatMetadataBlock(metadata);
+    const body = next.replace(/^\n+/, "");
+    setContent(`${block}\n\n${body}`);
+  };
+
+  const visibleContent = useMemo(
+    () => (showMetadata ? content : stripMetadataBlock(content)),
+    [content, showMetadata]
+  );
+
+  const handleSave = async () => {
+    setIsSaving(true);
     try {
-      const result = await deletePostAction(postData);
-
-      if (!result.ok) {
-        throw new Error("Failed to delete post");
+      const result = await updatePost({
+        slug: postData.slug,
+        nextSlug: slugInput,
+        metadata: {
+          ...metadata,
+          modifiedDate: new Date().toISOString(),
+        },
+        content,
+      });
+      toast({
+        title: "Post updated",
+        description: `Saved ${result.slug} to the database.`,
+      });
+      if (result.slug !== postData.slug) {
+        router.push(`/post/edit/${result.slug}`);
+      } else {
+        router.refresh();
       }
-
-      await cachePostsAction();
-      router.push("/blog");
-      router.refresh();
     } catch (error) {
       console.error("Error:", error);
+      toast({
+        title: "Save failed",
+        description:
+          error instanceof Error ? error.message : "Unable to save post.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSaving(false);
     }
   };
 
   return (
-    <>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          {/* Slug Field */}
-          <FormField
-            control={form.control}
-            name="slug"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Slug</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter slug" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Author Field */}
-          <FormField
-            control={form.control}
-            name="author"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Author</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select author" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {authorsData.authors.map((author) => (
-                      <SelectItem key={author} value={author}>
-                        {author}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Post Type Field */}
-          <FormField
-            control={form.control}
-            name="type"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Post Type</FormLabel>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <FormControl>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select post type" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="blog">Blog</SelectItem>
-                    <SelectItem value="project">Project</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Date Field */}
-          <FormField
-            control={form.control}
-            name="date"
-            render={({ field }) => (
-              <FormItem className="flex flex-col gap-1">
-                <FormLabel>Date</FormLabel>
-                <DatePicker value={field.value} onChange={field.onChange} />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Title Field */}
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Post Title</FormLabel>
-                <FormControl>
-                  <Input placeholder="Title" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Description Field */}
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Textarea placeholder="Description" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Content Field */}
-          <FormField
-            control={form.control}
-            name="content"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Content</FormLabel>
-                <FormControl>
-                  <Textarea
-                    id="content"
-                    className="h-[300px]"
-                    placeholder="Content"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Categories Field */}
-          <FormField
-            control={form.control}
-            name="categories"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Categories</FormLabel>
-                <FormControl>
-                  <MultiSelect
-                    categories={categoriesData.categories}
-                    selectedCategories={field.value}
-                    setSelectedCategories={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Tags Field */}
-          <FormField
-            control={form.control}
-            name="tags"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Tags</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter tags (comma separated)"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Image URL Field */}
-          <FormField
-            control={form.control}
-            name="image"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Image URL</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter image URL or local image path"
-                    {...field}
-                    value={field.value || ""}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* External Link Field */}
-          <FormField
-            control={form.control}
-            name="link"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Link</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter external Url or local link"
-                    {...field}
-                    value={field.value || ""}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Related Posts Field */}
-          <FormField
-            control={form.control}
-            name="relatedPosts"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Related Posts</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter related post slugs (comma separated)"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Draft Checkbox Field */}
-          <FormField
-            control={form.control}
-            name="draft"
-            render={({ field }) => (
-              <FormItem className="flex items-center">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormLabel className="pl-2 pb-1">
-                  Save as Draft{" "}
-                  <span className="text-muted-foreground">
-                    (draft will not be published)
-                  </span>
-                </FormLabel>
-              </FormItem>
-            )}
-          />
-
-          {/* Save and Cancel Buttons */}
-          <div className="flex items-center gap-3 pt-4">
-            <Button type="submit">Save Edits</Button>
-            <Link
-              className={buttonVariants({ variant: "outline", size: "lg" })}
-              href={`/blog/${postData.slug}`}
-            >
-              Cancel
-            </Link>
-          </div>
-        </form>
-      </Form>
-      <Dialog>
-        <DialogTrigger asChild>
-          <div>
-            <Button variant="destructive" type="button">
-              Delete Post
-            </Button>
-          </div>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Delete Post</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to delete the current post?
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <div className="w-full flex gap-4">
-              <Button variant="destructive" onClick={handleDeletePost}>
-                OK Delete Post
-              </Button>
-              <DialogClose className="bg-gray-300 text-black px-4 py-2 rounded">
-                <span className="text-sm">No Cancel</span>
-              </DialogClose>
-            </div>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        <label
+          htmlFor="post-slug"
+          className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground"
+        >
+          Slug
+        </label>
+        <Input
+          id="post-slug"
+          value={slugInput}
+          onChange={(event) => setSlugInput(slugify(event.target.value))}
+        />
+      </div>
+      <MdxPostEditor
+        value={visibleContent}
+        onChange={handleEditorChange}
+        showMetadataToggle
+        showMetadata={showMetadata}
+        onToggleMetadata={setShowMetadata}
+        metadataStorageKey="mdx-editor-show-metadata"
+      />
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground">
+          Using metadata from the MDX content when present.
+        </p>
+        <Button type="button" onClick={handleSave} disabled={isSaving}>
+          {isSaving ? "Saving..." : "Save"}
+        </Button>
+      </div>
+    </div>
   );
 }

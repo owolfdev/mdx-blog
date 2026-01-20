@@ -4,18 +4,20 @@ import { buttonVariants } from "@/components/ui/button";
 
 export default function CreatePost() {
   return (
-    <div className="w-full max-w-3xl">
-      <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
-        <h1 className="text-6xl font-black">Create a Post</h1>
-        <CreatePostForm />
-      </div>
-      <div className="pt-6">
-        <Link
-          className={buttonVariants({ variant: "outline", size: "lg" })}
-          href="/blog"
-        >
-          Cancel
-        </Link>
+    <div className="min-h-screen bg-gradient-to-br from-[#f5f1e8] via-[#eef5ff] to-[#fff8e6] px-6 py-10">
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="flex w-full flex-col gap-8">
+          <h1 className="text-6xl font-black">Create a Post</h1>
+          <CreatePostForm />
+        </div>
+        <div className="pt-6">
+          <Link
+            className={buttonVariants({ variant: "outline", size: "lg" })}
+            href="/blog"
+          >
+            Cancel
+          </Link>
+        </div>
       </div>
     </div>
   );
