@@ -2,7 +2,6 @@ import React from "react";
 import AuthComponent from "./auth-component";
 import NavComponent from "./nav-component";
 import { AdminButtons } from "./admin-component";
-import { isDevMode } from "@/lib/utils/is-dev-mode";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 
 function Header() {
@@ -13,7 +12,7 @@ function Header() {
         <div className="flex items-center gap-4">
           <AdminButtons />
           <ThemeSwitcher />
-          {isDevMode() && <AuthComponent />}
+          <AuthComponent />
         </div>
       </div>
     </header>

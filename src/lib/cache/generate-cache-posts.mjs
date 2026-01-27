@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import { config } from "../config/config.js"; // Ensure this file is compatible with ES modules
 import { parseISO, startOfDay } from "date-fns";
 
+const GITHUB_API_BASE = "https://api.github.com";
+
 // Load environment variables from .env.local file
 dotenv.config({ path: ".env.local" });
 
@@ -32,6 +34,48 @@ function extractMetadata(fileContents) {
   return null;
 }
 
+async function githubRequest(url, token) {
+  const headers = {
+    Accept: "application/vnd.github+json",
+    "Content-Type": "application/json",
+  };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const response = await fetch(url, { headers });
+  if (response.status === 404) {
+    return { status: 404, data: null };
+  }
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data?.message ?? "GitHub request failed.");
+  }
+  return { status: response.status, data };
+}
+
+async function githubListDirectory({ repo, branch, dirPath, token }) {
+  const url = `${GITHUB_API_BASE}/repos/${repo}/contents/${dirPath}?ref=${branch}`;
+  const result = await githubRequest(url, token);
+  if (result.status === 404) {
+    return [];
+  }
+  return Array.isArray(result.data) ? result.data : [];
+}
+
+async function githubGetFileContent({ repo, branch, filePath, token }) {
+  const url = `${GITHUB_API_BASE}/repos/${repo}/contents/${filePath}?ref=${branch}`;
+  const result = await githubRequest(url, token);
+  if (result.status === 404) {
+    return null;
+  }
+  const encoded = result.data?.content;
+  if (!encoded) {
+    return null;
+  }
+  return Buffer.from(encoded, "base64").toString("utf8");
+}
+
 async function fetchLikesCount(postId) {
   const tableName = config.likesTable;
   const { count, error } = await supabase
@@ -47,21 +91,69 @@ async function fetchLikesCount(postId) {
   return count || 0;
 }
 
-export async function generatePostsCache() {
+export async function generatePostsCache(options = {}) {
   console.log("Generating posts cache...");
+  const source = options.source ?? "fs";
   const postsDirectory = path.join(process.cwd(), "content/posts");
-  const fileNames = fs
-    .readdirSync(postsDirectory)
-    .filter(
-      (fileName) => !fileName.startsWith(".") && fileName.endsWith(".mdx")
+
+  let fileNames = [];
+  let fileContentsMap = new Map();
+
+  if (source === "github") {
+    const repo = options.repo ?? process.env.GITHUB_REPO ?? "owolfdev/mdx-blog";
+    const branch = options.branch ?? process.env.GITHUB_BRANCH ?? "main";
+    const token = options.token ?? process.env.GITHUB_TOKEN ?? "";
+
+    const entries = await githubListDirectory({
+      repo,
+      branch,
+      dirPath: "content/posts",
+      token,
+    });
+
+    fileNames = entries
+      .filter(
+        (entry) =>
+          entry.type === "file" &&
+          entry.name.endsWith(".mdx") &&
+          !entry.name.startsWith(".")
+      )
+      .map((entry) => entry.name);
+
+    await Promise.all(
+      fileNames.map(async (fileName) => {
+        const content = await githubGetFileContent({
+          repo,
+          branch,
+          filePath: `content/posts/${fileName}`,
+          token,
+        });
+        if (content) {
+          fileContentsMap.set(fileName, content);
+        }
+      })
     );
+  } else {
+    fileNames = fs
+      .readdirSync(postsDirectory)
+      .filter(
+        (fileName) => !fileName.startsWith(".") && fileName.endsWith(".mdx")
+      );
+  }
 
   const currentDate = startOfDay(new Date());
 
   const allPosts = await Promise.all(
     fileNames.map(async (fileName) => {
-      const fullPath = path.join(postsDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const fileContents =
+        source === "github"
+          ? fileContentsMap.get(fileName)
+          : fs.readFileSync(path.join(postsDirectory, fileName), "utf8");
+
+      if (!fileContents) {
+        console.warn(`Failed to load file contents for: ${fileName}`);
+        return null;
+      }
 
       const metadata = extractMetadata(fileContents);
 

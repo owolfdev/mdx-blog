@@ -11,7 +11,9 @@ import {
   githubUpsertFile,
   ensureMetadataBlock,
   slugify,
+  shouldUseGithubSource,
 } from "@/lib/posts/mdx-storage";
+import { requireAdminUser } from "@/lib/utils/require-admin";
 
 type CreatePostInput = {
   metadata: MdxPostMetadata;
@@ -24,11 +26,12 @@ export async function createPost({
   content,
   slug,
 }: CreatePostInput): Promise<{ slug: string }> {
+  await requireAdminUser();
   const normalizedContent = ensureMetadataBlock(content, metadata);
   const slugBase = slugify(slug || metadata.title || "untitled-post");
-  const isProduction = process.env.NODE_ENV === "production";
+  const useGithubSource = shouldUseGithubSource();
 
-  if (!isProduction) {
+  if (!useGithubSource) {
     const projectRoot = process.cwd();
     const postsDir = path.join(projectRoot, "content/posts");
 
@@ -70,6 +73,15 @@ export async function createPost({
     token,
     `Add post ${finalSlug}`
   );
+
+  if (process.env.NODE_ENV !== "production") {
+    await generatePostsCache({
+      source: "github",
+      repo,
+      branch,
+      token,
+    });
+  }
 
   return { slug: finalSlug };
 }

@@ -2,12 +2,14 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { requireAdminUser } from "@/lib/utils/require-admin";
 
 export async function createNewPageAction(data: {
   title: string;
   description: string;
   content: string;
 }) {
+  await requireAdminUser();
   return new Promise<string>((resolve, reject) => {
     const projectRoot = process.cwd();
 

@@ -68,6 +68,10 @@ export const getGithubRepo = () =>
 
 export const getGithubBranch = () => process.env.GITHUB_BRANCH ?? "main";
 
+export const shouldUseGithubSource = () =>
+  process.env.USE_GITHUB_SOURCE === "true" ||
+  process.env.NODE_ENV === "production";
+
 export const slugify = (value: string) =>
   value
     .toLowerCase()
@@ -80,12 +84,19 @@ export const githubRequest = async (
   token: string,
   options: RequestInit = {}
 ) => {
+  const headers: Record<string, string> = {
+    Accept: "application/vnd.github+json",
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
   const response = await fetch(url, {
     ...options,
     headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: "application/vnd.github+json",
-      "Content-Type": "application/json",
+      ...headers,
       ...(options.headers ?? {}),
     },
   });
@@ -114,6 +125,48 @@ export const githubGetFileSha = async (
     return null;
   }
   return result.data?.sha ?? null;
+};
+
+type GithubContentEntry = {
+  name: string;
+  path: string;
+  type: "file" | "dir";
+  sha: string;
+};
+
+export const githubListDirectory = async (
+  repo: string,
+  branch: string,
+  dirPath: string,
+  token: string
+): Promise<GithubContentEntry[]> => {
+  const url = `https://api.github.com/repos/${repo}/contents/${dirPath}?ref=${branch}`;
+  const result = await githubRequest(url, token, { method: "GET" });
+  if (result.status === 404) {
+    return [];
+  }
+  if (!Array.isArray(result.data)) {
+    return [];
+  }
+  return result.data as GithubContentEntry[];
+};
+
+export const githubGetFileContent = async (
+  repo: string,
+  branch: string,
+  filePath: string,
+  token: string
+) => {
+  const url = `https://api.github.com/repos/${repo}/contents/${filePath}?ref=${branch}`;
+  const result = await githubRequest(url, token, { method: "GET" });
+  if (result.status === 404) {
+    return null;
+  }
+  const encoded = result.data?.content;
+  if (!encoded) {
+    return null;
+  }
+  return Buffer.from(encoded, "base64").toString("utf8");
 };
 
 export const githubUpsertFile = async (

@@ -1,6 +1,13 @@
 "use server"; // Indicate this is a server action
 import fs from "node:fs";
 import path from "node:path";
+import {
+  getGithubBranch,
+  getGithubRepo,
+  githubGetFileContent,
+  githubListDirectory,
+  shouldUseGithubSource,
+} from "@/lib/posts/mdx-storage";
 
 interface GetPostsParams {
   type?: string;
@@ -44,14 +51,87 @@ export async function getPosts({
     );
 
     let posts: Post[] = [];
+    const useGithubSource = shouldUseGithubSource();
     const useCache =
-      process.env.NODE_ENV !== "production" && fs.existsSync(cacheFilePath);
+      !useGithubSource &&
+      process.env.NODE_ENV !== "production" &&
+      fs.existsSync(cacheFilePath);
 
     if (useCache) {
       const jsonData = fs.readFileSync(cacheFilePath, "utf8");
       posts = JSON.parse(jsonData).filter(
         (blog: Post) => !blog.slug.startsWith(".")
       );
+    } else if (useGithubSource) {
+      const repo = getGithubRepo();
+      const branch = getGithubBranch();
+      const token = process.env.GITHUB_TOKEN ?? "";
+      const entries = await githubListDirectory(
+        repo,
+        branch,
+        "content/posts",
+        token
+      );
+      const fileNames = entries
+        .filter(
+          (entry) =>
+            entry.type === "file" &&
+            entry.name.endsWith(".mdx") &&
+            !entry.name.startsWith(".")
+        )
+        .map((entry) => entry.name);
+
+      const currentDate = new Date();
+      const loadedPosts = await Promise.all(
+        fileNames.map(async (fileName) => {
+          const fileContent = await githubGetFileContent(
+            repo,
+            branch,
+            `content/posts/${fileName}`,
+            token
+          );
+          if (!fileContent) {
+            return null;
+          }
+          const metadataMatch = fileContent.match(
+            /export const metadata = ({[\s\S]*?});/
+          );
+          if (!metadataMatch) {
+            return null;
+          }
+          // biome-ignore lint/security/noGlobalEval: Metadata comes from trusted MDX files.
+          const metadata = eval(`(${metadataMatch[1]})`);
+          const slug = fileName.replace(".mdx", "");
+          const publishDate = metadata.publishDate
+            ? new Date(metadata.publishDate)
+            : null;
+
+          if (metadata.draft) {
+            return null;
+          }
+
+          if (publishDate && publishDate > currentDate) {
+            return null;
+          }
+
+          return {
+            slug,
+            type: metadata.type ?? "",
+            title: metadata.title ?? "",
+            author: metadata.author ?? "",
+            publishDate: metadata.publishDate ?? "",
+            description: metadata.description ?? "",
+            categories: metadata.categories ?? [],
+            tags: metadata.tags ?? [],
+            modifiedDate: metadata.modifiedDate,
+            image: metadata.image ?? null,
+            draft: metadata.draft ?? false,
+            relatedPosts: metadata.relatedPosts ?? [],
+          } as Post;
+        })
+      );
+
+      posts = loadedPosts.filter(Boolean) as Post[];
     } else {
       const postsDirectory = path.join(process.cwd(), "content/posts");
       const fileNames = fs

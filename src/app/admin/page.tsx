@@ -5,6 +5,7 @@ import OpenCategoriesInCursor from "./open-categories-in-cursor";
 import OpenAuthorsInCursor from "./open-authors-in-cursor";
 import { DataTableComments } from "./data-table-comments";
 import { getUnapprovedComments } from "./actions"; // <-- NEW
+import RepoBehindAlert from "@/components/dev/repo-behind-alert";
 
 export default async function Administration() {
   const comments = await getUnapprovedComments(); // <-- FETCH SERVER-SIDE
@@ -20,6 +21,7 @@ export default async function Administration() {
 
   return (
     <div className="w-full px-6">
+      <RepoBehindAlert />
       <div className="text-xl font-bold">Manage Settings</div>
       <div className="flex flex-col gap-4 pt-2">
         <OpenCategoriesInCursor />

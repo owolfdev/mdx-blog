@@ -1,6 +1,12 @@
 "use server"; // Indicate this is a server action
 import fs from "node:fs";
 import path from "node:path";
+import {
+  getGithubBranch,
+  getGithubRepo,
+  githubGetFileContent,
+  shouldUseGithubSource,
+} from "@/lib/posts/mdx-storage";
 
 interface GetPostParams {
   slug: string;
@@ -12,8 +18,27 @@ export async function getPost({ slug }: GetPostParams) {
       throw new Error("Invalid file: .DS_Store");
     }
 
-    const filePath = path.join("content/posts", `${slug}.mdx`);
-    const fileContent = fs.readFileSync(filePath, "utf-8");
+    const useGithubSource = shouldUseGithubSource();
+
+    let fileContent = "";
+    if (useGithubSource) {
+      const repo = getGithubRepo();
+      const branch = getGithubBranch();
+      const token = process.env.GITHUB_TOKEN ?? "";
+      const content = await githubGetFileContent(
+        repo,
+        branch,
+        `content/posts/${slug}.mdx`,
+        token
+      );
+      if (!content) {
+        return { notFound: true };
+      }
+      fileContent = content;
+    } else {
+      const filePath = path.join("content/posts", `${slug}.mdx`);
+      fileContent = fs.readFileSync(filePath, "utf-8");
+    }
 
     const metadataMatch = fileContent.match(
       /export const metadata = {([\s\S]+?)};\n\n/

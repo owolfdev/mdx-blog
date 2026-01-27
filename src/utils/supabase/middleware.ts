@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
+import { isAuthorizedAdminEmail } from "@/lib/utils/admin-auth";
 
 export const updateSession = async (request: NextRequest) => {
   // This `try/catch` block is only here for the interactive tutorial.
@@ -44,15 +45,25 @@ export const updateSession = async (request: NextRequest) => {
     //   return NextResponse.redirect(new URL("/sign-in", request.url));
     // }
 
-    if (request.nextUrl.pathname === "/admin" && user.error) {
+    const userEmail = user.data.user?.email ?? "";
+    const isAdmin = isAuthorizedAdminEmail(userEmail);
+
+    if (request.nextUrl.pathname === "/admin" && (!userEmail || !isAdmin)) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
 
-    if (request.nextUrl.pathname === "/post/create" && user.error) {
+    if (request.nextUrl.pathname === "/post/create" && (!userEmail || !isAdmin)) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
 
-    if (request.nextUrl.pathname === "/post/edit/" && user.error) {
+    if (
+      request.nextUrl.pathname.startsWith("/post/edit") &&
+      (!userEmail || !isAdmin)
+    ) {
+      return NextResponse.redirect(new URL("/sign-in", request.url));
+    }
+
+    if (request.nextUrl.pathname === "/page/create" && (!userEmail || !isAdmin)) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
 

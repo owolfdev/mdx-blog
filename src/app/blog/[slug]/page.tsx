@@ -4,12 +4,18 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import path from "node:path";
 import fs from "node:fs";
+import { evaluate } from "@mdx-js/mdx";
+import remarkGfm from "remark-gfm";
+import * as runtime from "react/jsx-runtime";
 
 import RelatedPostsList from "@/components/posts/related-posts";
 import LikeButton from "@/components/like/like-button";
 import EditPostButton from "@/components/posts/edit-post-button";
 import OpenInCursor from "@/components/posts/open-in-cursor-button";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
+import { getPost } from "@/app/actions/posts/get-post";
+import { useMDXComponents } from "@/mdx-components";
+import { shouldUseGithubSource } from "@/lib/posts/mdx-storage";
 
 import CommentSection from "@/components/comments/comment-section";
 
@@ -17,8 +23,9 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export const dynamic = "force-static";
-export const dynamicParams = false;
+const useGithubSource = shouldUseGithubSource();
+export const dynamic = useGithubSource ? "force-dynamic" : "force-static";
+export const dynamicParams = useGithubSource ? true : false;
 
 async function loadMdxFile(slug: string) {
   try {
@@ -35,6 +42,9 @@ async function loadMdxFile(slug: string) {
 }
 
 export async function generateStaticParams() {
+  if (useGithubSource) {
+    return [];
+  }
   const postsDir = path.join(process.cwd(), "content", "posts");
   const files = fs.readdirSync(postsDir);
 
@@ -51,37 +61,49 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const { slug } = await params;
-  const mdxModule = await loadMdxFile(slug);
-  if (!mdxModule) {
-    return {
-      title: "Post Not Found",
-      description: "",
-    };
+  let metadata: Record<string, string | string[] | null> | null = null;
+
+  if (useGithubSource) {
+    const postData = await getPost({ slug });
+    if ("notFound" in postData && postData.notFound) {
+      return {
+        title: "Post Not Found",
+        description: "",
+      };
+    }
+    metadata = postData.metadata;
+  } else {
+    const mdxModule = await loadMdxFile(slug);
+    if (!mdxModule) {
+      return {
+        title: "Post Not Found",
+        description: "",
+      };
+    }
+    metadata = mdxModule.metadata;
   }
 
   const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
     : "http://localhost:34512";
 
-  const { metadata } = mdxModule;
-
   const openGraphData = {
-    title: metadata.title,
-    description: metadata.description,
+    title: metadata?.title as string,
+    description: metadata?.description as string,
     url: `${defaultUrl}/blog/${slug}`,
-    images: metadata.image,
+    images: metadata?.image as string,
     siteName: "MDXBlog",
     locale: "en_US",
     type: "website",
   };
 
   return {
-    title: metadata.title,
-    description: metadata.description,
+    title: metadata?.title as string,
+    description: metadata?.description as string,
     authors: {
-      name: metadata.author,
+      name: metadata?.author as string,
     },
-    keywords: metadata.tags,
+    keywords: metadata?.tags as string[],
     openGraph: openGraphData,
   };
 }
@@ -92,17 +114,39 @@ export default async function Blog({ params }: Props) {
   }
 
   const { slug } = await params;
-  const mdxModule = await loadMdxFile(slug);
+  let metadata: Record<string, string | string[] | null> | null = null;
+  let Content: React.ComponentType<{ components?: Record<string, unknown> }> | null =
+    null;
 
-  if (!mdxModule) {
-    notFound();
+  if (useGithubSource) {
+    const postData = await getPost({ slug });
+    if ("notFound" in postData && postData.notFound) {
+      notFound();
+    }
+    metadata = postData.metadata;
+    const { default: MDXContent } = await evaluate(postData.content ?? "", {
+      ...runtime,
+      Fragment: React.Fragment,
+      remarkPlugins: [remarkGfm],
+    });
+    Content = MDXContent as React.ComponentType<{
+      components?: Record<string, unknown>;
+    }>;
+  } else {
+    const mdxModule = await loadMdxFile(slug);
+    if (!mdxModule) {
+      notFound();
+    }
+    metadata = mdxModule.metadata;
+    Content = mdxModule.default;
   }
 
-  const { default: Content, metadata } = mdxModule;
-  const publishDate = new Date(metadata?.publishDate);
-  const modifiedDate = new Date(metadata?.modifiedDate);
+  const publishDate = new Date(metadata?.publishDate as string);
+  const modifiedDate = new Date(metadata?.modifiedDate as string);
   const displayDate =
-    modifiedDate > publishDate ? metadata?.modifiedDate : metadata?.publishDate;
+    modifiedDate > publishDate
+      ? (metadata?.modifiedDate as string)
+      : (metadata?.publishDate as string);
   const originallyPublishedDateFormatted = publishDate.toLocaleDateString(
     "en-US",
     {
@@ -127,7 +171,7 @@ export default async function Blog({ params }: Props) {
               id="post-title"
               className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl"
             >
-              {metadata?.title}
+              {metadata?.title as string}
             </h1>
             <div className="flex flex-wrap items-center justify-center gap-2 text-sm font-semibold text-muted-foreground">
               <time
@@ -138,7 +182,7 @@ export default async function Blog({ params }: Props) {
                 {displayDate.split("T")[0]}
               </time>
               <span>·</span>
-              <span>By {metadata?.author}</span>
+              <span>By {metadata?.author as string}</span>
               {metadata?.categories?.length ? <span>·</span> : null}
               <span role="list">
                 {metadata?.categories?.map(
@@ -157,7 +201,7 @@ export default async function Blog({ params }: Props) {
             </div>
             {metadata?.description ? (
               <p className="text-base font-regular text-foreground/80 sm:text-lg">
-                {metadata.description}
+                {metadata.description as string}
               </p>
             ) : null}
           </header>
@@ -179,7 +223,11 @@ export default async function Blog({ params }: Props) {
           aria-labelledby="post-title"
         >
           <section aria-label="Post content">
-            <Content />
+            {Content ? (
+              <Content components={useMDXComponents({})} />
+            ) : (
+              <p>Content not found.</p>
+            )}
           </section>
         </article>
       </section>
@@ -187,13 +235,15 @@ export default async function Blog({ params }: Props) {
       <section className="border-t border-border bg-muted/10">
         <div className="site-container py-12">
           <aside aria-label="Related posts">
-            <RelatedPostsList relatedSlugs={metadata?.relatedPosts} />
+            <RelatedPostsList
+              relatedSlugs={(metadata?.relatedPosts as string[]) ?? []}
+            />
           </aside>
         </div>
       </section>
 
       <section className="site-container pb-10" aria-label="Post reactions">
-        <LikeButton postId={metadata?.id} />
+        <LikeButton postId={metadata?.id as string} />
       </section>
 
       <section className="border-t border-border bg-muted/10">
