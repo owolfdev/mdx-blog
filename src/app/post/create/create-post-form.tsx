@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { MdxPostEditor } from "@/components/mdx/mdx-post-editor";
 import { useToast } from "@/hooks/use-toast";
 import { createPost } from "@/app/actions/posts/create-post";
+import type { MdxPostMetadata } from "@/types/mdx-post";
 import {
   extractMetadataBlock,
   formatMetadataBlock,
@@ -35,7 +36,7 @@ const starterContent = `export const metadata = {
 Start writing your MDX content here.
 `;
 
-const defaultMetadata = () => {
+const defaultMetadata = (): MdxPostMetadata => {
   const today = new Date();
   const publishDate = today.toISOString().split("T")[0];
   return {
@@ -144,8 +145,8 @@ export function CreatePostForm() {
   const { toast } = useToast();
   const router = useRouter();
 
-  const baseMetadata = useMemo(() => defaultMetadata(), []);
-  const metadata = useMemo(
+  const baseMetadata = useMemo<MdxPostMetadata>(() => defaultMetadata(), []);
+  const metadata = useMemo<MdxPostMetadata>(
     () => parseMetadataFromContent(content, baseMetadata),
     [content, baseMetadata]
   );

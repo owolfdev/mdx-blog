@@ -8,6 +8,7 @@ import { MdxPostEditor } from "@/components/mdx/mdx-post-editor";
 import { useToast } from "@/hooks/use-toast";
 import { updatePost } from "@/app/actions/posts/update-post";
 import type { Post } from "@/types/post-types";
+import type { MdxPostMetadata } from "@/types/mdx-post";
 import {
   extractMetadataBlock,
   formatMetadataBlock,
@@ -50,8 +51,8 @@ const parseArray = (block: string, key: string) => {
 
 const parseMetadataFromContent = (
   content: string,
-  base: Post["metadata"]
-) => {
+  base: MdxPostMetadata
+): MdxPostMetadata => {
   const match = content.match(
     /export\\s+const\\s+metadata\\s*=\\s*{([\\s\\S]*?)}\\s*;/m
   );
@@ -83,7 +84,7 @@ const parseMetadataFromContent = (
   return {
     ...base,
     id: id && id.trim() ? id : base.id,
-    type: type && type.trim() ? type : base.type,
+    type: type === "project" ? "project" : "blog",
     title: title && title.trim() ? title : base.title,
     author: author && author.trim() ? author : base.author,
     publishDate:
@@ -101,7 +102,10 @@ const parseMetadataFromContent = (
 
 export function EditPostForm({ postData }: { postData: Post }) {
   const [content, setContent] = useState(
-    upsertMetadataBlock(postData.content?.trim() ?? "", postData.metadata)
+    upsertMetadataBlock(
+      postData.content?.trim() ?? "",
+      postData.metadata as MdxPostMetadata
+    )
   );
   const [isSaving, setIsSaving] = useState(false);
   const [showMetadata, setShowMetadata] = useState(true);
@@ -109,9 +113,10 @@ export function EditPostForm({ postData }: { postData: Post }) {
   const router = useRouter();
   const { toast } = useToast();
 
+  const baseMetadata = postData.metadata as MdxPostMetadata;
   const metadata = useMemo(
-    () => parseMetadataFromContent(content, postData.metadata),
-    [content, postData.metadata]
+    () => parseMetadataFromContent(content, baseMetadata),
+    [content, baseMetadata]
   );
 
   const handleEditorChange = (next: string) => {
