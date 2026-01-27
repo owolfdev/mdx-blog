@@ -107,7 +107,23 @@ export const githubRequest = async (
 
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(data?.message ?? "GitHub request failed.");
+    const baseMessage = data?.message ?? "GitHub request failed.";
+    const needsScopeHint =
+      response.status === 401 ||
+      response.status === 403 ||
+      /personal access token/i.test(baseMessage);
+    const scopeHint = needsScopeHint
+      ? "Ensure the token has repo access and Contents read/write, and GITHUB_REPO targets a repo the token can access."
+      : null;
+    const details = [
+      baseMessage,
+      `Status: ${response.status}`,
+      `URL: ${url}`,
+      scopeHint,
+    ]
+      .filter(Boolean)
+      .join(" ");
+    throw new Error(details);
   }
 
   return { status: response.status, data };
