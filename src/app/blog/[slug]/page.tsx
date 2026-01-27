@@ -196,7 +196,7 @@ export default async function Blog({ params }: Props) {
                       title="Post category"
                     >
                       {category}
-                      {index < metadata?.categories.length - 1 && ", "}
+                      {index < categories.length - 1 && ", "}
                     </span>
                   )
                 )}
