@@ -24,8 +24,8 @@ type Props = {
 };
 
 const useGithubSource = shouldUseGithubSource();
-export const dynamic = useGithubSource ? "force-dynamic" : "force-static";
-export const dynamicParams = useGithubSource ? true : false;
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
 async function loadMdxFile(slug: string) {
   try {
@@ -141,6 +141,9 @@ export default async function Blog({ params }: Props) {
     Content = mdxModule.default;
   }
 
+  const categories = Array.isArray(metadata?.categories)
+    ? (metadata?.categories as string[])
+    : [];
   const publishDate = new Date(metadata?.publishDate as string);
   const modifiedDate = new Date(metadata?.modifiedDate as string);
   const displayDate =
@@ -183,9 +186,9 @@ export default async function Blog({ params }: Props) {
               </time>
               <span>·</span>
               <span>By {metadata?.author as string}</span>
-              {metadata?.categories?.length ? <span>·</span> : null}
+              {categories.length ? <span>·</span> : null}
               <span role="list">
-                {metadata?.categories?.map(
+                {categories.map(
                   (category: string, index: number) => (
                     <span
                       key={index + category}
