@@ -47,6 +47,24 @@
     "likes": 10
   },
   {
+    "slug": "aaa",
+    "id": "",
+    "type": "blog",
+    "title": "Untitled post",
+    "author": "",
+    "publishDate": "2026-01-27",
+    "description": "",
+    "categories": [
+      "Web Development"
+    ],
+    "tags": [],
+    "modifiedDate": "2026-01-28",
+    "image": null,
+    "draft": true,
+    "relatedPosts": [],
+    "likes": 0
+  },
+  {
     "slug": "adding-mdx-support-to-your-next.js-project",
     "id": "7dece0e7-f10f-4b67-b34b-9ab510aa6a11",
     "type": "blog",
@@ -205,7 +223,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 3
   },
   {
     "slug": "building-a-modern-blog-with-mdx-and-nextjs-16",
@@ -1073,6 +1091,33 @@
     "categories": [],
     "tags": [],
     "modifiedDate": "2026-01-20T12:42:48.691Z",
+    "image": null,
+    "draft": true,
+    "relatedPosts": [],
+    "likes": 0
+  },
+  {
+    "slug": "the-fascinating-world-of-cats",
+    "id": "d27349b2-0376-42af-aa10-32a4e5dabff4",
+    "type": "blog",
+    "title": "The Fascinating World of Cats",
+    "author": "",
+    "publishDate": "2026-01-28",
+    "description": "Explore the intriguing behaviors, breeds, and care tips for our feline friends. Discover why cats are such beloved companions.",
+    "categories": [
+      "Pets",
+      "Animals",
+      "Lifestyle"
+    ],
+    "tags": [
+      "cats",
+      "cat care",
+      "feline behavior",
+      "breeds",
+      "pet tips",
+      "animal lovers"
+    ],
+    "modifiedDate": "2023-10-05T12:00:00Z",
     "image": null,
     "draft": false,
     "relatedPosts": [],

@@ -5,9 +5,13 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { MdxPostEditor } from "@/components/mdx/mdx-post-editor";
 import { useToast } from "@/hooks/use-toast";
 import { createPost } from "@/app/actions/posts/create-post";
+import { generatePostDraft } from "@/app/actions/posts/generate-post-draft";
 import type { MdxPostMetadata } from "@/types/mdx-post";
 import {
   extractMetadataBlock,
@@ -16,25 +20,9 @@ import {
   stripMetadataBlock,
 } from "@/lib/posts/mdx-storage";
 
-const starterContent = `export const metadata = {
-  id: "",
-  type: "blog",
-  title: "Untitled post",
-  author: "",
-  publishDate: "",
-  description: "",
-  categories: [],
-  tags: [],
-  modifiedDate: "",
-  image: null,
-  draft: false,
-  relatedPosts: [],
-};
+const starterBody = `# New MDX Post
 
-# New MDX Post
-
-Start writing your MDX content here.
-`;
+Start writing your MDX content here.`;
 
 const defaultMetadata = (): MdxPostMetadata => {
   const today = new Date();
@@ -42,8 +30,8 @@ const defaultMetadata = (): MdxPostMetadata => {
   return {
     id: uuidv4(),
     type: "blog" as const,
-    title: "Untitled post",
-    author: "Unknown",
+    title: "",
+    author: "",
     publishDate,
     description: "",
     categories: [] as string[],
@@ -138,14 +126,21 @@ const parseMetadataFromContent = (
 };
 
 export function CreatePostForm() {
-  const [content, setContent] = useState(starterContent);
+  const baseMetadata = useMemo<MdxPostMetadata>(() => defaultMetadata(), []);
+  const [content, setContent] = useState(() => {
+    const block = formatMetadataBlock(baseMetadata);
+    return `${block}\n\n${starterBody}`;
+  });
   const [isSaving, setIsSaving] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [showMetadata, setShowMetadata] = useState(true);
   const [slugInput, setSlugInput] = useState("");
+  const [descriptionInput, setDescriptionInput] = useState("");
+  const [createTitleAndSlug, setCreateTitleAndSlug] = useState(true);
+  const [createContent, setCreateContent] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
-  const baseMetadata = useMemo<MdxPostMetadata>(() => defaultMetadata(), []);
   const metadata = useMemo<MdxPostMetadata>(
     () => parseMetadataFromContent(content, baseMetadata),
     [content, baseMetadata]
@@ -192,8 +187,156 @@ export function CreatePostForm() {
     }
   };
 
+  const handleGenerate = async () => {
+    if (!descriptionInput.trim()) {
+      toast({
+        title: "Description needed",
+        description: "Add a short description before generating a draft.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!createTitleAndSlug && !createContent) {
+      toast({
+        title: "Nothing to generate",
+        description: "Select at least one generation option.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsGenerating(true);
+    try {
+      const draft = await generatePostDraft({
+        description: descriptionInput,
+        createTitleAndSlug,
+        createContent,
+      });
+
+      const nextMetadata: MdxPostMetadata = {
+        ...baseMetadata,
+        title:
+          createTitleAndSlug && draft.title?.trim()
+            ? draft.title.trim()
+            : baseMetadata.title,
+        description:
+          createTitleAndSlug && draft.description?.trim()
+            ? draft.description.trim()
+            : createTitleAndSlug
+              ? descriptionInput.trim()
+              : baseMetadata.description,
+        categories:
+          createTitleAndSlug && Array.isArray(draft.categories)
+            ? draft.categories.filter((item) => item.trim())
+            : baseMetadata.categories,
+        tags:
+          createTitleAndSlug && Array.isArray(draft.tags)
+            ? draft.tags.filter((item) => item.trim())
+            : baseMetadata.tags,
+        modifiedDate:
+          createTitleAndSlug && draft.modifiedDate?.trim()
+            ? draft.modifiedDate.trim()
+            : baseMetadata.modifiedDate,
+      };
+
+      const metadataBlock = formatMetadataBlock(nextMetadata);
+      const existingBody = stripMetadataBlock(content).trim();
+      const nextBody =
+        createContent && draft.content?.trim()
+          ? draft.content.trim()
+          : existingBody;
+      const nextContent = nextBody
+        ? `${metadataBlock}\n\n${nextBody}\n`
+        : `${metadataBlock}\n\n`;
+
+      setContent(nextContent);
+      if (createTitleAndSlug) {
+        const nextSlug = slugify(
+          draft.slug || draft.title || descriptionInput || ""
+        );
+        if (nextSlug) {
+          setSlugInput(nextSlug);
+        }
+      }
+      setShowMetadata(true);
+    } catch (error) {
+      console.error("Error:", error);
+      toast({
+        title: "Generation failed",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Unable to generate a draft from the description.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6">
+      <div className="rounded-2xl border border-border/60 bg-white/70 p-6 shadow-sm backdrop-blur">
+        <div className="flex flex-col gap-4">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              Describe the post
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Share a short description so the LLM can generate a starter draft.
+            </p>
+          </div>
+          <Textarea
+            value={descriptionInput}
+            onChange={(event) => setDescriptionInput(event.target.value)}
+            placeholder="Example: A practical guide to designing accessible dashboards for SaaS apps."
+            rows={5}
+          />
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="create-title-slug"
+                checked={createTitleAndSlug}
+                onCheckedChange={(checked) =>
+                  setCreateTitleAndSlug(checked === true)
+                }
+              />
+              <Label htmlFor="create-title-slug">
+                Create title and slug (on by default)
+              </Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="create-content"
+                checked={createContent}
+                onCheckedChange={(checked) =>
+                  setCreateContent(checked === true)
+                }
+              />
+              <Label htmlFor="create-content">
+                Create content (off by default)
+              </Label>
+            </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <p className="text-xs text-muted-foreground">
+              Generation uses your OpenAI key and may take a few seconds.
+            </p>
+            <Button
+              type="button"
+              onClick={handleGenerate}
+              disabled={
+                isGenerating ||
+                !descriptionInput.trim() ||
+                (!createTitleAndSlug && !createContent)
+              }
+            >
+              {isGenerating ? "Generating..." : "Generate draft"}
+            </Button>
+          </div>
+        </div>
+      </div>
       <div className="flex flex-col gap-2">
         <label
           htmlFor="post-slug"
