@@ -62,8 +62,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const { slug } = await params;
   let metadata: Record<string, string | string[] | null> | null = null;
+  const mdxModule = await loadMdxFile(slug);
 
-  if (useGithubSource) {
+  if (mdxModule) {
+    metadata = mdxModule.metadata;
+  } else if (useGithubSource) {
     const postData = await getPost({ slug });
     if ("notFound" in postData && postData.notFound) {
       return {
@@ -73,14 +76,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
     metadata = postData.metadata;
   } else {
-    const mdxModule = await loadMdxFile(slug);
-    if (!mdxModule) {
-      return {
-        title: "Post Not Found",
-        description: "",
-      };
-    }
-    metadata = mdxModule.metadata;
+    return {
+      title: "Post Not Found",
+      description: "",
+    };
   }
 
   const defaultUrl = process.env.VERCEL_URL
@@ -117,8 +116,12 @@ export default async function Blog({ params }: Props) {
   let metadata: Record<string, string | string[] | null> | null = null;
   let Content: React.ComponentType<{ components?: Record<string, unknown> }> | null =
     null;
+  const mdxModule = await loadMdxFile(slug);
 
-  if (useGithubSource) {
+  if (mdxModule) {
+    metadata = mdxModule.metadata;
+    Content = mdxModule.default;
+  } else if (useGithubSource) {
     const postData = await getPost({ slug });
     if ("notFound" in postData && postData.notFound) {
       notFound();
@@ -133,12 +136,7 @@ export default async function Blog({ params }: Props) {
       components?: Record<string, unknown>;
     }>;
   } else {
-    const mdxModule = await loadMdxFile(slug);
-    if (!mdxModule) {
-      notFound();
-    }
-    metadata = mdxModule.metadata;
-    Content = mdxModule.default;
+    notFound();
   }
 
   const categories = Array.isArray(metadata?.categories)
