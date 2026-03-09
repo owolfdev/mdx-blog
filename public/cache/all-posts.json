@@ -18,7 +18,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 0
   },
   {
     "slug": "a-minimal-mdx-blog-with-nextjs-15-and-react-19",
@@ -44,7 +44,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 10
+    "likes": 0
   },
   {
     "slug": "aaa",
@@ -86,7 +86,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 7
+    "likes": 0
   },
   {
     "slug": "advanced-mdx-dynamic-content-and-apis",
@@ -107,7 +107,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 0
   },
   {
     "slug": "automating-next.js-sitemap-generation-with-github-actions",
@@ -130,7 +130,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "basic-markdown-guide",
@@ -154,7 +154,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "building-a-contact-form-in-nextjs-15",
@@ -175,7 +175,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 5
+    "likes": 0
   },
   {
     "slug": "building-a-lightweight-modern-comment-system-for-mdxblog",
@@ -199,7 +199,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 17
+    "likes": 0
   },
   {
     "slug": "building-a-live-mdx-playground-with-codemirror-and-nextjs",
@@ -223,7 +223,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "building-a-modern-blog-with-mdx-and-nextjs-16",
@@ -268,7 +268,7 @@
     "relatedPosts": [
       "static-mdx-cms"
     ],
-    "likes": 2
+    "likes": 0
   },
   {
     "slug": "configuring-mdx-in-next.js",
@@ -293,7 +293,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 0
   },
   {
     "slug": "create-a-static-mdx-blog-with-next",
@@ -316,7 +316,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 4
+    "likes": 0
   },
   {
     "slug": "creating-anchor-links-to-page-sections-in-mdx",
@@ -341,7 +341,7 @@
     "relatedPosts": [
       "custom-link-component-for-external-navigation"
     ],
-    "likes": 7
+    "likes": 0
   },
   {
     "slug": "creating-custom-components-for-mdx",
@@ -363,7 +363,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 22
+    "likes": 0
   },
   {
     "slug": "custom-link-component-for-external-navigation",
@@ -387,7 +387,7 @@
     "relatedPosts": [
       "creating-anchor-links-to-page-sections-in-mdx"
     ],
-    "likes": 4
+    "likes": 0
   },
   {
     "slug": "frictionless-content-creation-with-mdxblog",
@@ -410,7 +410,7 @@
       "updates-to-mdx-blog-enhanced-and-streamlined",
       "mdx-like-button-nextjs-vercel-postgresql"
     ],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "future-of-mdx-trends-and-upcoming-features",
@@ -433,7 +433,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 0
   },
   {
     "slug": "how-i-built-a-markdown-to-pdf-converter-with-nodejs-puppeteer-and-nextjs",
@@ -459,7 +459,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 7
+    "likes": 0
   },
   {
     "slug": "how-nextjs-processes-mdx",
@@ -484,7 +484,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 4
+    "likes": 0
   },
   {
     "slug": "how-to-install-mdx-blog-and-deploy-on-vercel",
@@ -511,7 +511,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "how-to-use-images-in-an-mdx-or-markdown-file",
@@ -535,7 +535,7 @@
       "import-components-to-mdx",
       "using-and-styling-custom-components-in-mdx-content"
     ],
-    "likes": 14
+    "likes": 0
   },
   {
     "slug": "how-to-use-mdx-blog",
@@ -559,7 +559,7 @@
     "relatedPosts": [
       "how-to-install-mdx-blog-and-deploy-on-vercel"
     ],
-    "likes": 6
+    "likes": 0
   },
   {
     "slug": "import-components-to-mdx",
@@ -581,7 +581,7 @@
     "relatedPosts": [
       "creating-custom-components-for-mdx"
     ],
-    "likes": 7
+    "likes": 0
   },
   {
     "slug": "integrating-dynamic-components-in-mdx-files-in-nextjs-14",
@@ -606,7 +606,7 @@
       "using-and-styling-custom-components-in-mdx-content",
       "import-components-to-mdx"
     ],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "integrating-mdx-with-static-site-generators",
@@ -655,7 +655,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "leveraging-mdx-for-documentation-websites",
@@ -675,7 +675,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 0
   },
   {
     "slug": "markdown-powered-blog-template-using-mdx-and-the-app-router",
@@ -697,7 +697,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "mdx-and-content-management-with-headless-cms",
@@ -718,7 +718,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 0
   },
   {
     "slug": "mdx-best-practices-and-common-pitfalls",
@@ -740,7 +740,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 0
   },
   {
     "slug": "mdx-blog-next-15",
@@ -765,7 +765,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 7
+    "likes": 0
   },
   {
     "slug": "mdx-like-button-nextjs-vercel-postgresql",
@@ -792,7 +792,7 @@
       "import-components-to-mdx",
       ""
     ],
-    "likes": 48
+    "likes": 0
   },
   {
     "slug": "mdx-performance-optimization",
@@ -836,7 +836,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 12
+    "likes": 0
   },
   {
     "slug": "migrating-from-markdown-to-mdx-a-step-by-step-guide",
@@ -879,7 +879,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 5
+    "likes": 0
   },
   {
     "slug": "nextjs-switch-api-to-server-actions",
@@ -903,7 +903,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "optimized-customimage-component-for-nextjs",
@@ -924,7 +924,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 5
+    "likes": 0
   },
   {
     "slug": "optimizing-mdx-for-seo",
@@ -948,7 +948,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "rendering-mdx-content-in-nextjs-14",
@@ -970,7 +970,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "simple-markdown-rendering-react",
@@ -1011,7 +1011,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 4
+    "likes": 0
   },
   {
     "slug": "static-mdx-cms",
@@ -1036,7 +1036,7 @@
     "relatedPosts": [
       "caching-mdx-metadata-for-fast-post-management"
     ],
-    "likes": 10
+    "likes": 0
   },
   {
     "slug": "styling-mdx-content",
@@ -1078,7 +1078,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 8
+    "likes": 0
   },
   {
     "slug": "test-post",
@@ -1119,7 +1119,7 @@
     ],
     "modifiedDate": "2023-10-05T12:00:00Z",
     "image": null,
-    "draft": false,
+    "draft": true,
     "relatedPosts": [],
     "likes": 0
   },
@@ -1143,7 +1143,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 1
+    "likes": 0
   },
   {
     "slug": "the-next.js-portfolio-blog-starter-kit",
@@ -1167,7 +1167,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 0
   },
   {
     "slug": "understanding-ssg-in-mdxblog",
@@ -1192,7 +1192,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "updates-to-mdx-blog-enhanced-and-streamlined",
@@ -1220,7 +1220,7 @@
       "metadata-object-components-in-next-js-mdx-blogs",
       "next-mdx-remote-limitations"
     ],
-    "likes": 3
+    "likes": 0
   },
   {
     "slug": "using-and-styling-custom-components-in-mdx-content",
@@ -1244,7 +1244,7 @@
     "relatedPosts": [
       ""
     ],
-    "likes": 14
+    "likes": 0
   },
   {
     "slug": "using-mdx-for-e-learning-content-and-tutorials",
@@ -1286,7 +1286,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 2
+    "likes": 0
   },
   {
     "slug": "versatile-accordion-component-with-shadcn-and-mdx-support",
@@ -1308,6 +1308,6 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 0
   }
 ]

@@ -35,6 +35,100 @@ interface Post {
   formattedDate?: string; // For client-side display formatting
 }
 
+const postsDirectory = path.join(process.cwd(), "content/posts");
+
+const parsePostFile = (fileName: string, fileContent: string, currentDate: Date) => {
+  const metadataMatch = fileContent.match(/export const metadata = ({[\s\S]*?});/);
+  if (!metadataMatch) {
+    return null;
+  }
+
+  // biome-ignore lint/security/noGlobalEval: Metadata comes from trusted MDX files.
+  const metadata = eval(`(${metadataMatch[1]})`);
+  const slug = fileName.replace(".mdx", "");
+  const publishDate = metadata.publishDate
+    ? new Date(metadata.publishDate)
+    : null;
+
+  if (metadata.draft) {
+    return null;
+  }
+
+  if (publishDate && publishDate > currentDate) {
+    return null;
+  }
+
+  return {
+    slug,
+    type: metadata.type ?? "",
+    title: metadata.title ?? "",
+    author: metadata.author ?? "",
+    publishDate: metadata.publishDate ?? "",
+    description: metadata.description ?? "",
+    categories: metadata.categories ?? [],
+    tags: metadata.tags ?? [],
+    modifiedDate: metadata.modifiedDate,
+    image: metadata.image ?? null,
+    draft: metadata.draft ?? false,
+    relatedPosts: metadata.relatedPosts ?? [],
+  } as Post;
+};
+
+const getLocalPosts = () => {
+  const currentDate = new Date();
+  const fileNames = fs
+    .readdirSync(postsDirectory)
+    .filter((fileName) => !fileName.startsWith(".") && fileName.endsWith(".mdx"));
+
+  return fileNames
+    .map((fileName) => {
+      const fullPath = path.join(postsDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+      return parsePostFile(fileName, fileContents, currentDate);
+    })
+    .filter(Boolean) as Post[];
+};
+
+const getCachedPosts = (cacheFilePath: string) =>
+  (JSON.parse(fs.readFileSync(cacheFilePath, "utf8")) as Post[]).filter(
+    (blog: Post) => !blog.slug.startsWith(".")
+  );
+
+const getGithubPosts = async () => {
+  const repo = getGithubRepo();
+  const branch = getGithubBranch();
+  const token = process.env.GITHUB_TOKEN ?? "";
+  const entries = await githubListDirectory(repo, branch, "content/posts", token);
+  const fileNames = entries
+    .filter(
+      (entry) =>
+        entry.type === "file" &&
+        entry.name.endsWith(".mdx") &&
+        !entry.name.startsWith(".")
+    )
+    .map((entry) => entry.name);
+
+  const currentDate = new Date();
+  const loadedPosts = await Promise.all(
+    fileNames.map(async (fileName) => {
+      const fileContent = await githubGetFileContent(
+        repo,
+        branch,
+        `content/posts/${fileName}`,
+        token
+      );
+
+      if (!fileContent) {
+        return null;
+      }
+
+      return parsePostFile(fileName, fileContent, currentDate);
+    })
+  );
+
+  return loadedPosts.filter(Boolean) as Post[];
+};
+
 export async function getPosts({
   type = "",
   limit,
@@ -52,136 +146,32 @@ export async function getPosts({
 
     let posts: Post[] = [];
     const useGithubSource = shouldUseGithubSource();
+    const hasLocalPosts = fs.existsSync(postsDirectory);
+    const hasCache = fs.existsSync(cacheFilePath);
     const useCache =
-      !useGithubSource &&
-      process.env.NODE_ENV !== "production" &&
-      fs.existsSync(cacheFilePath);
+      !useGithubSource && process.env.NODE_ENV !== "production" && hasCache;
 
     if (useCache) {
-      const jsonData = fs.readFileSync(cacheFilePath, "utf8");
-      posts = JSON.parse(jsonData).filter(
-        (blog: Post) => !blog.slug.startsWith(".")
-      );
+      posts = getCachedPosts(cacheFilePath);
     } else if (useGithubSource) {
-      const repo = getGithubRepo();
-      const branch = getGithubBranch();
-      const token = process.env.GITHUB_TOKEN ?? "";
-      const entries = await githubListDirectory(
-        repo,
-        branch,
-        "content/posts",
-        token
-      );
-      const fileNames = entries
-        .filter(
-          (entry) =>
-            entry.type === "file" &&
-            entry.name.endsWith(".mdx") &&
-            !entry.name.startsWith(".")
-        )
-        .map((entry) => entry.name);
-
-      const currentDate = new Date();
-      const loadedPosts = await Promise.all(
-        fileNames.map(async (fileName) => {
-          const fileContent = await githubGetFileContent(
-            repo,
-            branch,
-            `content/posts/${fileName}`,
-            token
-          );
-          if (!fileContent) {
-            return null;
-          }
-          const metadataMatch = fileContent.match(
-            /export const metadata = ({[\s\S]*?});/
-          );
-          if (!metadataMatch) {
-            return null;
-          }
-          // biome-ignore lint/security/noGlobalEval: Metadata comes from trusted MDX files.
-          const metadata = eval(`(${metadataMatch[1]})`);
-          const slug = fileName.replace(".mdx", "");
-          const publishDate = metadata.publishDate
-            ? new Date(metadata.publishDate)
-            : null;
-
-          if (metadata.draft) {
-            return null;
-          }
-
-          if (publishDate && publishDate > currentDate) {
-            return null;
-          }
-
-          return {
-            slug,
-            type: metadata.type ?? "",
-            title: metadata.title ?? "",
-            author: metadata.author ?? "",
-            publishDate: metadata.publishDate ?? "",
-            description: metadata.description ?? "",
-            categories: metadata.categories ?? [],
-            tags: metadata.tags ?? [],
-            modifiedDate: metadata.modifiedDate,
-            image: metadata.image ?? null,
-            draft: metadata.draft ?? false,
-            relatedPosts: metadata.relatedPosts ?? [],
-          } as Post;
-        })
-      );
-
-      posts = loadedPosts.filter(Boolean) as Post[];
-    } else {
-      const postsDirectory = path.join(process.cwd(), "content/posts");
-      const fileNames = fs
-        .readdirSync(postsDirectory)
-        .filter(
-          (fileName) => !fileName.startsWith(".") && fileName.endsWith(".mdx")
+      try {
+        posts = await getGithubPosts();
+      } catch (error) {
+        console.error(
+          "GitHub post read failed. Falling back to local content.",
+          error
         );
 
-      const currentDate = new Date();
-      posts = fileNames
-        .map((fileName) => {
-          const fullPath = path.join(postsDirectory, fileName);
-          const fileContents = fs.readFileSync(fullPath, "utf8");
-          const metadataMatch = fileContents.match(
-            /export const metadata = ({[\s\S]*?});/
-          );
-          if (!metadataMatch) {
-            return null;
-          }
-          // biome-ignore lint/security/noGlobalEval: Metadata comes from trusted MDX files.
-          const metadata = eval(`(${metadataMatch[1]})`);
-          const slug = fileName.replace(".mdx", "");
-          const publishDate = metadata.publishDate
-            ? new Date(metadata.publishDate)
-            : null;
-
-          if (metadata.draft) {
-            return null;
-          }
-
-          if (publishDate && publishDate > currentDate) {
-            return null;
-          }
-
-          return {
-            slug,
-            type: metadata.type ?? "",
-            title: metadata.title ?? "",
-            author: metadata.author ?? "",
-            publishDate: metadata.publishDate ?? "",
-            description: metadata.description ?? "",
-            categories: metadata.categories ?? [],
-            tags: metadata.tags ?? [],
-            modifiedDate: metadata.modifiedDate,
-            image: metadata.image ?? null,
-            draft: metadata.draft ?? false,
-            relatedPosts: metadata.relatedPosts ?? [],
-          } as Post;
-        })
-        .filter(Boolean) as Post[];
+        if (hasLocalPosts) {
+          posts = getLocalPosts();
+        } else if (hasCache) {
+          posts = getCachedPosts(cacheFilePath);
+        } else {
+          throw error;
+        }
+      }
+    } else {
+      posts = getLocalPosts();
     }
 
     // console.log("Posts:", posts);
@@ -303,6 +293,6 @@ export async function getPosts({
     return { posts, totalPosts };
   } catch (error) {
     console.error("Error fetching posts:", error);
-    throw new Error("Failed to fetch posts");
+    throw error instanceof Error ? error : new Error("Failed to fetch posts");
   }
 }

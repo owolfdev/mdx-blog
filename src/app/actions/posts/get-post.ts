@@ -12,32 +12,53 @@ interface GetPostParams {
   slug: string;
 }
 
+const readLocalPostContent = (slug: string) => {
+  const filePath = path.join(process.cwd(), "content/posts", `${slug}.mdx`);
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+
+  return fs.readFileSync(filePath, "utf-8");
+};
+
 export async function getPost({ slug }: GetPostParams) {
   try {
     if (slug === ".DS_Store") {
-      throw new Error("Invalid file: .DS_Store");
+      return { notFound: true as const };
     }
 
     const useGithubSource = shouldUseGithubSource();
 
-    let fileContent = "";
+    let fileContent: string | null = null;
     if (useGithubSource) {
       const repo = getGithubRepo();
       const branch = getGithubBranch();
       const token = process.env.GITHUB_TOKEN ?? "";
-      const content = await githubGetFileContent(
-        repo,
-        branch,
-        `content/posts/${slug}.mdx`,
-        token
-      );
-      if (!content) {
-        return { notFound: true };
+
+      try {
+        fileContent = await githubGetFileContent(
+          repo,
+          branch,
+          `content/posts/${slug}.mdx`,
+          token
+        );
+      } catch (error) {
+        console.error(
+          `GitHub read failed for post "${slug}". Falling back to local content.`,
+          error
+        );
+        fileContent = readLocalPostContent(slug);
       }
-      fileContent = content;
+
+      if (!fileContent) {
+        fileContent = readLocalPostContent(slug);
+      }
     } else {
-      const filePath = path.join("content/posts", `${slug}.mdx`);
-      fileContent = fs.readFileSync(filePath, "utf-8");
+      fileContent = readLocalPostContent(slug);
+    }
+
+    if (!fileContent) {
+      return { notFound: true as const };
     }
 
     const metadataMatch = fileContent.match(
@@ -57,6 +78,6 @@ export async function getPost({ slug }: GetPostParams) {
     };
   } catch (error) {
     console.error("Error fetching post:", error);
-    return { notFound: true };
+    throw error instanceof Error ? error : new Error("Failed to fetch post");
   }
 }

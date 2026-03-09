@@ -84,39 +84,62 @@ export const githubRequest = async (
   token: string,
   options: RequestInit = {}
 ) => {
-  const headers: Record<string, string> = {
-    Accept: "application/vnd.github+json",
-    "Content-Type": "application/json",
+  const method = (options.method ?? "GET").toUpperCase();
+
+  const executeRequest = async (authToken: string) => {
+    const headers: Record<string, string> = {
+      Accept: "application/vnd.github+json",
+      "Content-Type": "application/json",
+    };
+
+    if (authToken) {
+      headers.Authorization = `Bearer ${authToken}`;
+    }
+
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        ...headers,
+        ...(options.headers ?? {}),
+      },
+    });
+
+    if (response.status === 404) {
+      return { response, data: null };
+    }
+
+    const data = await response.json();
+    return { response, data };
   };
 
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
+  let { response, data } = await executeRequest(token);
+  const baseMessage = data?.message ?? "GitHub request failed.";
+  const shouldRetryUnauthenticated =
+    method === "GET" &&
+    Boolean(token) &&
+    (response.status === 401 ||
+      response.status === 403 ||
+      /bad credentials|personal access token/i.test(baseMessage));
 
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      ...headers,
-      ...(options.headers ?? {}),
-    },
-  });
+  if (shouldRetryUnauthenticated) {
+    ({ response, data } = await executeRequest(""));
+  }
 
   if (response.status === 404) {
     return { status: 404 as const, data: null };
   }
 
-  const data = await response.json();
   if (!response.ok) {
-    const baseMessage = data?.message ?? "GitHub request failed.";
+    const retryMessage = data?.message ?? "GitHub request failed.";
     const needsScopeHint =
       response.status === 401 ||
       response.status === 403 ||
-      /personal access token/i.test(baseMessage);
+      /personal access token/i.test(retryMessage);
     const scopeHint = needsScopeHint
       ? "Ensure the token has repo access and Contents read/write, and GITHUB_REPO targets a repo the token can access."
       : null;
     const details = [
-      baseMessage,
+      retryMessage,
       `Status: ${response.status}`,
       `URL: ${url}`,
       scopeHint,
