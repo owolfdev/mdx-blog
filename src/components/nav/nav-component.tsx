@@ -15,6 +15,7 @@ import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
 const navItems = [
   { href: "/blog", label: "Blog" },
+  { href: "/code", label: "Code" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -30,7 +31,7 @@ function NavComponent() {
     <div className="flex items-center gap-6">
       <Sheet>
         <SheetTrigger asChild>
-          <div className="sm:hidden border border-border bg-background p-2">
+          <div className="panel-surface sm:hidden p-2">
             <HamburgerMenuIcon className="h-[22px] w-[22px]" />
           </div>
         </SheetTrigger>
@@ -55,18 +56,20 @@ function NavComponent() {
       </Sheet>
 
       <div className="flex items-center">
-        <h1 className="text-2xl font-black uppercase tracking-tight sm:text-3xl">
+        <h1 className="text-xl font-black uppercase tracking-[-0.08em] sm:text-2xl">
           <Link href="/">
-            <span className="text-primary">MDX</span>Blog
+            <span className="text-[hsl(var(--primary))]">MDX</span>Blog
           </Link>
         </h1>
-        <nav className="ml-6 hidden items-center gap-6 text-sm font-semibold uppercase tracking-[0.2em] sm:flex">
+        <nav className="ml-6 hidden items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.24em] sm:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`transition-colors hover:text-primary ${
-                isActive(item.href) ? "text-foreground" : "text-muted-foreground"
+              className={`border-b pb-1 transition-colors hover:text-primary ${
+                isActive(item.href)
+                  ? "border-primary text-foreground"
+                  : "border-transparent text-muted-foreground"
               }`}
             >
               {item.label}

@@ -14,7 +14,7 @@ export function SmtpMessage() {
           <Link
             href="https://supabase.com/docs/guides/auth/auth-smtp"
             target="_blank"
-            className="text-primary/50 hover:text-primary flex items-center text-sm gap-1"
+            className="flex items-center gap-1 text-sm text-foreground/60 hover:text-foreground dark:text-primary/70 dark:hover:text-primary"
           >
             Learn more <ArrowUpRight size={14} />
           </Link>

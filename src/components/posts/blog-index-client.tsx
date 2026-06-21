@@ -62,8 +62,8 @@ export default function BlogIndexClient({
   posts,
   basePath = "/blog",
   defaultCategory = "",
-  title = "The MDXBlog",
-  subtitle = "Tutorials, product notes, and MDX publishing stories.",
+  title = "MDXBlog Journal",
+  subtitle = "Tutorials, product notes, and working ideas around MDX-first publishing.",
   showSearch = true,
   showSort = true,
   showDate = true,
@@ -170,10 +170,10 @@ export default function BlogIndexClient({
       <section className="border-b border-border bg-muted/20">
         <div className="site-container flex flex-col gap-6 py-12 md:py-16">
           <header className="mx-auto flex max-w-3xl flex-col gap-4 text-center">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
               MDXBlog
             </span>
-            <h1 className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
+            <h1 className="text-4xl font-black tracking-[-0.06em] sm:text-5xl md:text-6xl">
               {title}
             </h1>
             <p className="text-base font-medium text-foreground/80 sm:text-lg">
@@ -186,7 +186,7 @@ export default function BlogIndexClient({
               <button
                 type="button"
                 onClick={() => setControlsOpen((open) => !open)}
-                className="rounded-full border border-border px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground transition hover:text-foreground"
+                className="border border-border bg-background px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground transition hover:text-foreground"
                 aria-expanded={controlsOpen}
                 aria-controls="blog-controls"
               >

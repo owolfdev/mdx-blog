@@ -2,35 +2,29 @@
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/nav/header";
 import Footer from "@/components/nav/footer";
-// import Link from "next/link";
 import "./globals.css";
-import { Inter } from "next/font/google";
-import { Libre_Baskerville } from "next/font/google";
-import { Geist } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import CookieConsentComponent from "@/components/cookie-consent";
-import Script from "next/script"; // <-- Import next/script
+import Script from "next/script";
 import type { Metadata } from "next";
 
-const inter = Inter({ subsets: ["latin"] });
-const libreBaskerville = Libre_Baskerville({
+const geistSans = Geist({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-libre-baskerville",
+  variable: "--font-geist-sans",
 });
 
-const geist = Geist({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-geist",
+  variable: "--font-geist-mono",
 });
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 
-const siteTitle =
-  "MDXBlog: A simple, static-site blogging platform for Next.js";
+const siteTitle = "MDXBlog | MDX-Focused Content Generation Platform";
 const siteDescription =
-  "A blogging platform that is easy to use, developer friendly, and a pleasure to work with, built with Next.js and MDX.";
+  "An MDX-first platform for generating, editing, and publishing technical content with Next.js, Git-backed files, and component-driven workflows.";
 
 // See the following docs for an explanation of Metadata and how Next.js processes it.
 // https://nextjs.org/docs/app/building-your-application/optimizing/metadata
@@ -62,7 +56,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.className} ${libreBaskerville.variable} ${geist.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -80,11 +74,11 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="min-h-screen bg-background text-foreground">
+      <body className="min-h-screen bg-background text-foreground font-mono antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
         >
           <Header />

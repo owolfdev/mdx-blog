@@ -42,7 +42,7 @@ function CookieConsentComponent() {
             you consent to our use of cookies.{" "}
             <Link
               href="/privacy"
-              className="font-semibold text-primary hover:text-primary/80 transition-colors underline underline-offset-4 decoration-primary/30 hover:decoration-primary/60"
+              className="font-semibold text-foreground/70 hover:text-foreground transition-colors underline underline-offset-4 decoration-foreground/20 hover:decoration-foreground/40 dark:text-primary dark:hover:text-primary/80 dark:decoration-primary/30 dark:hover:decoration-primary/60"
             >
               Learn more
             </Link>

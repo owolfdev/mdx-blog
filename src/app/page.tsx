@@ -1,11 +1,7 @@
 import type React from "react";
 import type { Metadata } from "next";
-import EditPageButton from "@/components/page/edit-page-button";
-import OpenInCursor from "@/components/page/open-page-in-cursor-button";
-import { isDevMode } from "@/lib/utils/is-dev-mode";
 import { HomeHero } from "@/components/home/hero";
 import { HomeUseCases } from "@/components/home/use-cases";
-import { HomeForAgencies } from "@/components/home/for-agencies";
 import PopularPosts from "@/components/posts/popular-posts";
 interface MdxModule {
   default: React.ComponentType;
@@ -33,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
   if (!mdxModule) {
     return {
       title: "MDXBlog",
-      description: "MDXBlog",
+      description: "MDX-focused content generation platform.",
     };
   }
   const { metadata } = mdxModule;
@@ -52,14 +48,11 @@ export default async function HomePage() {
     return <p>Page not found</p>; // Handle the case where the MDX file is not found
   }
 
-  const { default: Content, metadata } = mdxModule;
-
   return (
     <div className="flex w-full flex-col">
       <HomeHero />
       <HomeUseCases />
-      {/* <HomeForAgencies /> */}
-      <section className="site-container py-16 md:py-24">
+      <section className="site-container py-16 md:py-20">
         <PopularPosts />
       </section>
       {/* <section className="site-container py-16 md:py-24">

@@ -176,7 +176,7 @@ export default async function Blog({ params }: Props) {
             </h1>
             <div className="flex flex-wrap items-center justify-center gap-2 text-sm font-semibold text-muted-foreground">
               <time
-                className="text-primary"
+                className="text-foreground/70 dark:text-primary"
                 title={`Date last modified. Originally published on ${originallyPublishedDateFormatted}`}
                 dateTime={displayDate}
               >

@@ -6,10 +6,10 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 
 function Header() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur">
+    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/90 backdrop-blur">
       <div className="site-container flex h-16 items-center justify-between">
         <NavComponent />
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <AdminButtons />
           <ThemeSwitcher />
           <AuthComponent />

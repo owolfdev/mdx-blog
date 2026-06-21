@@ -1,97 +1,97 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, Newspaper, Code2, Layers3 } from "lucide-react";
+import {
+  Blocks,
+  FolderGit2,
+  Sparkles,
+  Workflow,
+} from "lucide-react";
 import { MdxPlayground } from "@/components/mdx/mdx-playground";
 
-const useCases = [
+const platformCards = [
   {
-    icon: BookOpen,
-    title: "Technical Publications",
+    icon: Sparkles,
+    title: "Content generation",
     description:
-      "This works well when long-form content needs to live next to code.",
+      "Start with drafts, metadata, and reusable structures designed for technical writing.",
   },
   {
-    icon: Newspaper,
-    title: "Release Notes",
+    icon: Blocks,
+    title: "Component-aware authoring",
     description:
-      "This keeps updates in Git history instead of a separate CMS.",
+      "Mix Markdown with React components so examples, embeds, and custom UI stay part of the document.",
   },
   {
-    icon: Code2,
-    title: "Product Documentation",
+    icon: FolderGit2,
+    title: "Git-backed publishing",
     description:
-      "This makes it easier to keep docs in the same repo as the product.",
+      "Keep posts and pages in the repo for versioning, review, portability, and long-term control.",
   },
   {
-    icon: Layers3,
-    title: "Content Collections",
+    icon: Workflow,
+    title: "Production-ready workflow",
     description:
-      "This keeps multi-section sites tidy and predictable as they grow.",
+      "Preview, organize, and ship your content from a system built for Next.js rather than a generic CMS.",
   },
 ];
 
 export function HomeUseCases() {
   return (
-    <section className="border-y border-border bg-muted/30">
-      <div className="site-container py-16 md:py-24">
-        <section className="mb-16">
-          <MdxPlayground variant="embedded" />
-        </section>
-
-        <hr className="mb-12 border-border/60" />
-
-        <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
-          <h2 className="text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
-            What is MDXBlog?
-          </h2>
-          <div className="space-y-4 text-base font-medium text-foreground/70 sm:text-lg">
-            <p>
-              This is where we experiment with static MDX sites, Markdown,
-              Next.js, JavaScript, and React, and we blog about what we learn.
+    <section className="border-b border-border bg-muted/30">
+      <div className="site-container py-16 md:py-20">
+        <div className="grid gap-8 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-start">
+          <div className="panel-surface p-6 md:p-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+              What it is
             </p>
-            <p>
-              We also offer templates, so you can start from a solid base and
-              adapt it to your own projects.
-            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-[-0.06em] sm:text-4xl">
+              A tighter way to run an MDX publishing workflow.
+            </h2>
+            <div className="mt-5 space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
+              <p>
+                This site works best when positioned as an MDX-focused content
+                generation platform, not just a generic blog template. The
+                strongest value is the combination of authoring, preview,
+                component usage, and file-based publishing.
+              </p>
+              <p>
+                That makes it a good fit for documentation sites, technical
+                blogs, product notes, learning resources, and content teams that
+                want more control than a traditional CMS gives them.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {platformCards.map((card, index) => {
+              const Icon = card.icon;
+              return (
+                <motion.div
+                  key={card.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.35, delay: index * 0.06 }}
+                  className="panel-surface p-5"
+                >
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center bg-primary text-primary-foreground">
+                    <Icon className="h-4 w-4" />
+                  </div>
+                  <h3 className="text-sm font-black uppercase tracking-[0.18em]">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {card.description}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 
-        <div className="mx-auto mt-10 flex max-w-2xl flex-col items-center gap-4 text-center">
-          <h3 className="text-2xl font-black tracking-tight sm:text-3xl">
-            Where MDX Fits
-          </h3>
-          <p className="text-base font-medium text-foreground/70 sm:text-lg">
-            Use cases where a MDX powered, file-based, static workflow makes
-            sense.
-          </p>
-        </div>
-
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {useCases.map((useCase, index) => {
-            const Icon = useCase.icon;
-            return (
-              <motion.div
-                key={useCase.title}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="relative overflow-hidden border border-border bg-background p-8"
-              >
-                <div className="absolute -right-12 -top-12 h-28 w-28 rounded-full bg-accent/10" />
-                <div className="relative space-y-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-md border border-border bg-primary/15 dark:bg-primary/20">
-                    <Icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-bold">{useCase.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {useCase.description}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
+        <div className="mt-10">
+          <MdxPlayground variant="embedded" />
         </div>
       </div>
     </section>

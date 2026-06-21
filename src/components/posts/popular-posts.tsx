@@ -30,12 +30,16 @@ export default async function PopularPostsPage() {
 
   return (
     <section className="not-prose py-6">
-      <div className="mb-8 flex flex-col gap-2 text-center">
-        <h2 className="text-3xl font-black tracking-tight sm:text-5xl">
-          Posts
+      <div className="mb-8 flex flex-col gap-3">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+          Recent writing
+        </p>
+        <h2 className="text-3xl font-black tracking-[-0.06em] sm:text-5xl">
+          MDX, content systems, and technical publishing notes.
         </h2>
-        <p className="flex w-full text-foreground/70  sm:text-base justify-center">
-          Technical articles and tutorials.
+        <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+          Articles, walkthroughs, and implementation details from the platform
+          itself.
         </p>
       </div>
 
@@ -43,23 +47,22 @@ export default async function PopularPostsPage() {
         {result.data?.map((post) => (
           <li
             key={post.id}
-            className="group relative overflow-hidden border border-border bg-card p-6 transition-shadow hover:shadow-lg"
+            className="panel-surface group relative overflow-hidden p-6 transition-transform hover:-translate-y-0.5"
           >
-            <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-accent/10" />
             <Link
               href={`/blog/${post.slug}`}
               className="relative block space-y-3"
             >
               <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 <span>{formatDate(post.publishDate)}</span>
-                <span className="rounded-full border border-border px-3 py-1 text-[0.65rem]">
+                <span className="border border-border bg-muted px-3 py-1 text-[0.65rem]">
                   {post.likes} Likes
                 </span>
               </div>
-              <h3 className="text-2xl font-black leading-tight tracking-normal">
+              <h3 className="text-2xl font-black leading-tight tracking-[-0.05em]">
                 {post.title}
               </h3>
-              <p className="text-sm text-foreground/80 dark:text-muted-foreground">
+              <p className="text-sm leading-relaxed text-foreground/80 dark:text-muted-foreground">
                 {post.description}
               </p>
             </Link>

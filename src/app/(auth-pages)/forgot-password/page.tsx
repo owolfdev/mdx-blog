@@ -20,7 +20,10 @@ export default async function ForgotPassword({ searchParams }: PageProps) {
         <h1 className="text-6xl font-black">Reset Password</h1>
         <p className="text-sm text-secondary-foreground">
           Already have an account?{" "}
-          <Link className="text-primary underline" href="/sign-in">
+          <Link
+            className="underline text-foreground/70 hover:text-foreground dark:text-primary"
+            href="/sign-in"
+          >
             Sign in
           </Link>
         </p>

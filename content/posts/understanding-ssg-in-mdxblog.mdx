@@ -129,7 +129,10 @@ export default async function Blog({ params }: Props) {
         <article className="prose prose-lg md:prose-lg lg:prose-lg mx-auto min-w-full">
           <div className="pb-6">
             <p className="font-semibold text-lg">
-              <span className="text-primary pr-1" title="Date last modified">
+              <span
+                className="pr-1 text-foreground/70 dark:text-primary"
+                title="Date last modified"
+              >
                 {displayDate.split("T")[0]}
               </span>{" "}
               {metadata?.categories?.map((category: string, index: number) => (

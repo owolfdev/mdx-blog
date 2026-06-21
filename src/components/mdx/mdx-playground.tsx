@@ -15,6 +15,7 @@ import { useMDXComponents } from "@/mdx-components";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
 
 class MdxRuntimeErrorBoundary extends React.Component<
   { onError: (message: string) => void; children: React.ReactNode },
@@ -76,15 +77,19 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
   const [isCompiling, setIsCompiling] = useState(false);
   const [vimEnabled, setVimEnabled] = useState(false);
   const [editorView, setEditorView] = useState<EditorView | null>(null);
+  const [mounted, setMounted] = useState(false);
   const vimSwitchId = useId();
   const mdxComponents = useMemo(() => useMDXComponents({}), []);
   const isFull = variant === "full";
+  const { resolvedTheme } = useTheme();
+  const editorTheme = mounted && resolvedTheme === "dark" ? "dark" : "light";
 
   useEffect(() => {
     if (typeof window === "undefined") {
       return;
     }
 
+    setMounted(true);
     const saved = window.localStorage.getItem("mdx-playground-vim");
     setVimEnabled(saved === "true");
   }, []);
@@ -181,7 +186,7 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
           Live Tool
         </p>
-        <h2 className="text-2xl font-black tracking-tight sm:text-3xl">
+        <h2 className="text-2xl font-black tracking-[-0.05em] sm:text-3xl">
           Live MDX Playground
         </h2>
         <p className="text-base text-foreground/80">
@@ -190,14 +195,14 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
         </p>
         <Link
           href="/blog/building-a-live-mdx-playground-with-codemirror-and-nextjs"
-          className="text-sm font-semibold text-primary underline-offset-4 hover:underline"
+          className="text-sm font-semibold text-foreground/70 underline-offset-4 hover:underline hover:text-foreground dark:text-primary"
         >
           Read the full walkthrough
         </Link>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <section className="flex min-h-[50vh] flex-col gap-3 rounded-2xl border border-border/60 bg-white/80 p-4 shadow-sm backdrop-blur">
+        <section className="panel-surface flex min-h-[50vh] flex-col gap-3 p-4">
           <div className="flex items-center justify-between text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             <span>Editor</span>
             <div className="flex items-center gap-3">
@@ -228,12 +233,12 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
               </Button>
             ))}
           </div>
-          <div className="h-full overflow-hidden rounded-xl border border-border/50 bg-background">
+          <div className="h-full overflow-hidden border border-border/50 bg-background dark:bg-[#0f1115]">
             <CodeMirror
               value={source}
               height="100%"
               minHeight={isFull ? "60vh" : "50vh"}
-              theme="light"
+              theme={editorTheme}
               extensions={[
                 markdown(),
                 syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
@@ -250,11 +255,11 @@ export function MdxPlayground({ variant = "full" }: MdxPlaygroundProps) {
           </div>
         </section>
 
-        <section className="flex min-h-[50vh] flex-col gap-3 rounded-2xl border border-border/60 bg-white/80 p-4 shadow-sm backdrop-blur">
+        <section className="panel-surface flex min-h-[50vh] flex-col gap-3 p-4">
           <div className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             Preview
           </div>
-          <div className="h-full overflow-auto rounded-xl border border-border/50 bg-background p-6">
+          <div className="h-full overflow-auto border border-border/50 bg-background p-6">
             {compileError || runtimeError ? (
               <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800">
                 {compileError ?? runtimeError}
