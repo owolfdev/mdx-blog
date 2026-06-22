@@ -7,6 +7,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import CookieConsentComponent from "@/components/cookie-consent";
 import Script from "next/script";
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -88,6 +89,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
